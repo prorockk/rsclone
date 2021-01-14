@@ -2,3 +2,13 @@ body {
     margin: 0;
     padding: 0;
 }
+
+@font-face {
+    font-family: 'DRKrapka';
+    src: url('./Dmitry\ Rastvortsev\ -\ DR\ Krapka\ Square\ ExtraBold.otf');
+}
+
+#activeKey {
+    font-family: 'DRKrapka';
+    font-size: 0px;
+}

@@ -30,7 +30,7 @@ function createGameElement(url, positionX, positionY) {
 //const player = createGameElement('../images/9KvNB.png', (app.view.width / 2), (app.view.height / 2))
 
 /**********************************************/
-app.loader.add('isaac', '../images/isaac_moving_table.png'); //загрузка спрайта
+app.loader.add('isaac', './images/isaac_moving_table.png'); //загрузка спрайта
 app.loader.load(doneLoading); //спрайт загрузился
 
 function doneLoading() {
@@ -144,7 +144,7 @@ function playerShooting(e) {
     bulletDirection = cursorPositionY > player.y ? 'down' : 'up';
   }
 
-  const bullet = createGameElement('../images/tear.png', (player.x), (player.y));
+  const bullet = createGameElement('d./images/tear.png', (player.x), (player.y));
   bullet.speed = bulletSpeed;
   bullet.direction = bulletDirection;
 
