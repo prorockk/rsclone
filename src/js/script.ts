@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
-//import createGameElement from "./CreateSprite/createGameElement";
 import createPlayer from "./Player/createPlayer";
-//import addPlayerActions from "./Player/addPlayerActions"
+import Fly from "./Mobs/fly"
+import checkBounds from "./checkBounds/checkBounds";
 import addPlayerActions from "./Player/addPlayerActions";
 
 const app = new PIXI.Application({
@@ -12,8 +12,17 @@ const app = new PIXI.Application({
 });
 
 const PlayerMethod = new createPlayer();
+const fly = new Fly();
+
+app.loader.add("isaac", "../assets/isaac_moving_table.json"); //загрузка спрайта
+app.loader.load(()=>{
+    PlayerMethod.doneLoading();
+    fly.doneLoading();
+});
 
 const player = PlayerMethod.init.call(PlayerMethod);
+
+ //спрайт загрузился
 
 addPlayerActions();
 

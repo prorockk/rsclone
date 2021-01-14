@@ -1,14 +1,11 @@
 import * as PIXI from "pixi.js";
 import { app, PlayerMethod } from "../script";
-import createPlayer from "./createPlayer";
-import createGameElement from "../CreateSprite/createGameElement";
-import any = jasmine.any;
-//import tearPng from '../../../assets/tear.png';
+import createGameElement from "../CreateSprite/createGameElement";;
 
 const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
 
-    PlayerMethod.playerShooting = function (e: { x: any; y: any }) {
+    PlayerMethod.playerShooting = function (e:{ x: any; y: any }) {
         //добавляем функции для скилов героя
         let bulletDirection;
         const cursorPositionX = e.x;
