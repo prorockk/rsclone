@@ -1,3 +1,4 @@
+//import checkTexture from './checkTexture';
 function checkBoundsConstructor(gameMember: any) {
     const player = gameMember;
 
@@ -5,12 +6,12 @@ function checkBoundsConstructor(gameMember: any) {
         const playerBounds = player.getBounds();
         //добавить параметры для внутренних препятсвий
         return playerDirection === "right"
-            ? playerBounds.x + player.width >= 512
+            ? playerBounds.x + player.width >= 465
             : playerDirection === "down"
-            ? playerBounds.y <= 0
+            ? playerBounds.y <= 60
             : playerDirection === "left"
-            ? playerBounds.x <= 0
-            : playerBounds.y + player.height >= 512;
+            ? playerBounds.x <= 50
+            : playerBounds.y + player.height >= 430;
     };
 }
 export default checkBoundsConstructor;

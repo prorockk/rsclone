@@ -47,25 +47,25 @@ class createPlayer {
             this.player.textures = this.playerSheets[`walk${direction}`];
             this.player.play();
         };
-        if (this.activeKeys["39"] && !checkBounds("right")) {
+        if (this.activeKeys["68"] && !checkBounds("right")) {
             if (!this.player.playing) {
                 playerPlay("Right");
             }
             this.player.x += this.playerSpeed;
         }
-        if (this.activeKeys["38"] && !checkBounds("down")) {
+        if (this.activeKeys["87"] && !checkBounds("down")) {
             if (!this.player.playing) {
                 playerPlay("Down");
             }
             this.player.y -= this.playerSpeed;
         }
-        if (this.activeKeys["37"] && !checkBounds("left")) {
+        if (this.activeKeys["65"] && !checkBounds("left")) {
             if (!this.player.playing) {
                 playerPlay("Left");
             }
             this.player.x -= this.playerSpeed;
         }
-        if (this.activeKeys["40"] && !checkBounds("top")) {
+        if (this.activeKeys["83"] && !checkBounds("top")) {
             if (!this.player.playing) {
                 playerPlay("Up");
             }
