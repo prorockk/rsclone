@@ -24,14 +24,18 @@ module.exports = (env: { mode: "development" | "production" }) => {
             rules: [
                 {
                     test: /\.css$/i,
+                    use: [MiniCssExtractPlugin.loader, "css-loader"],
+                },
+                {
+                    test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                     use: [
                         {
-                            loader: MiniCssExtractPlugin.loader,
+                            loader: "file-loader",
                             options: {
-                                hmr: developmentMode,
+                                name: "[name].[ext]",
+                                outputPath: "fonts/",
                             },
                         },
-                        "css-loader",
                     ],
                 },
                 {

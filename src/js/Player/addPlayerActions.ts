@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
-import { app, PlayerMethod } from "../script";
+import { app } from "../script";
+import { globalEl, PlayerMethod } from "../Rooms/startGame";
 import createPlayer from "./createPlayer";
 import createGameElement from "../CreateSprite/createGameElement";
 import checkTexture from "../checkBounds/checkTexture";

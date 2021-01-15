@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
-import { app, globalEl } from "../script";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { app } from "../script";
+import { globalEl } from "../Rooms/startGame";
 import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import checkBounds from "../checkBounds/checkBounds";
 import { AnimateMobType } from "../types/Types";
