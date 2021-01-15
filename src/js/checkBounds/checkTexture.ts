@@ -1,30 +1,62 @@
-export default function hitTexture(obj1: any, obj2: any) {
+// ЭТО ПУСТЬ БУДЕТ ТОЛЬКО ДЛЯ ПУЛЬ
+
+import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+
+export default function checkTexture(bullets: any) {
     let hit = false;
-    obj1.centerX = obj1.position.x;
-    obj1.centerY = obj1.position.y;
-    obj2.centerX = obj2.position.x;
-    obj2.centerY = obj2.position.y;
+    bullets.centerX = bullets.position.x;
+    bullets.centerY = bullets.position.y;
+    bullets.halfWidth = bullets.width / 2;
+    bullets.halfHeight = bullets.height / 2;
 
-    obj1.halfWidth = obj1.width / 2;
-    obj1.halfHeight = obj1.height / 2;
-    obj2.halfWidth = obj2.width / 2;
-    obj2.halfHeight = obj2.height / 2;
+    for (let groupEl in objectOfGameObjects) {
+        for (let i = 0; i < objectOfGameObjects[groupEl].length; i += 1) {
+            objectOfGameObjects[groupEl][i].centerX = objectOfGameObjects[groupEl][i].position.x;
+            objectOfGameObjects[groupEl][i].centerY = objectOfGameObjects[groupEl][i].position.y;
+            objectOfGameObjects[groupEl][i].halfWidth = objectOfGameObjects[groupEl][i].width / 2;
+            objectOfGameObjects[groupEl][i].halfHeight = objectOfGameObjects[groupEl][i].height / 2;
 
-    let vx = obj1.centerX - obj2.centerX;
-    let vy = obj1.centerY - obj2.centerY;
+            let vx = bullets.centerX - objectOfGameObjects[groupEl][i].centerX;
+            let vy = bullets.centerY - objectOfGameObjects[groupEl][i].centerY;
 
-    let combineHalfWidths = obj1.halfWidth + obj2.halfWidth;
-    let combineHalfHeights = obj1.halfHeight + obj2.halfHeight;
+            let combineHalfWidths = bullets.halfWidth + objectOfGameObjects[groupEl][i].halfWidth;
+            let combineHalfHeights = bullets.halfHeight + objectOfGameObjects[groupEl][i].halfHeight;
 
-    if (Math.abs(vx) < combineHalfWidths) {
-        if (Math.abs(vy) < combineHalfHeights) {
-            hit = true;
-            console.log(true);
-        } else {
-            hit = false;
+            if (Math.abs(vx) < combineHalfWidths) {
+                if (Math.abs(vy) < combineHalfHeights) {
+                    hit = true;
+                    console.log(true);
+                    return hit;
+                } else {
+                    hit = false;
+                }
+            } else {
+                hit = false;
+            }
         }
-    } else {
-        hit = false;
     }
     return hit;
+
+    // gameObjects.centerX = gameObjects.position.x;
+    // gameObjects.centerY = gameObjects.position.y;
+    // gameObjects.halfWidth = gameObjects.width / 2;
+    // gameObjects.halfHeight = gameObjects.height / 2;
+
+    // let vx = bullets.centerX - gameObjects.centerX;
+    // let vy = bullets.centerY - gameObjects.centerY;
+
+    // let combineHalfWidths = bullets.halfWidth + gameObjects.halfWidth;
+    // let combineHalfHeights = bullets.halfHeight + gameObjects.halfHeight;
+
+    // if (Math.abs(vx) < combineHalfWidths) {
+    //     if (Math.abs(vy) < combineHalfHeights) {
+    //         hit = true;
+    //         console.log(true);
+    //     } else {
+    //         hit = false;
+    //     }
+    // } else {
+    //     hit = false;
+    // }
+    // return hit;
 }

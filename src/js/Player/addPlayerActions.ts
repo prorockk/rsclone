@@ -8,7 +8,7 @@ import checkTexture from "../checkBounds/checkTexture";
 
 //document.addEventListener("ke", PlayerMethod.playerShooting.bind(PlayerMethod));
 
-const addPlayerActions = (box: any) => {
+const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
 
     PlayerMethod.playerShooting = function (e: { x: any; y: any } | string) {
@@ -59,7 +59,7 @@ const addPlayerActions = (box: any) => {
                 this.bullets[i].position.y > 432 ||
                 this.bullets[i].position.x < 55 ||
                 this.bullets[i].position.x > 465 ||
-                checkTexture(this.bullets[i], box) //                             NEW
+                checkTexture(this.bullets[i]) //                             NEW
             ) {
                 this.bullets[i].dead = true;
                 app.stage.removeChild(this.bullets[i]);

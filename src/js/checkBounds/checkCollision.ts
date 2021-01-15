@@ -1,0 +1,47 @@
+import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+
+export default function checkCollision(player: any, side: string) {
+    const playerBounds = player.getBounds();
+
+    for (let groupEl in objectOfGameObjects) {
+        for (let i = 0; i < objectOfGameObjects[groupEl].length; i += 1) {
+            const boundsOfGameObject = objectOfGameObjects[groupEl][i].getBounds();
+            if (side === "right") {
+                if (
+                    playerBounds.x + playerBounds.width > boundsOfGameObject.x &&
+                    playerBounds.x < boundsOfGameObject.x &&
+                    playerBounds.y + playerBounds.height > boundsOfGameObject.y + 3 &&
+                    playerBounds.y + 3 < boundsOfGameObject.y + boundsOfGameObject.height
+                )
+                    return true;
+            }
+            if (side === "left") {
+                if (
+                    playerBounds.x < boundsOfGameObject.x + boundsOfGameObject.width &&
+                    playerBounds.x + playerBounds.width > boundsOfGameObject.x + boundsOfGameObject.width &&
+                    playerBounds.y + playerBounds.height > boundsOfGameObject.y + 3 &&
+                    playerBounds.y + 3 < boundsOfGameObject.y + boundsOfGameObject.height
+                )
+                    return true;
+            }
+            if (side === "top") {
+                if (
+                    boundsOfGameObject.x + boundsOfGameObject.width - 3 > playerBounds.x &&
+                    boundsOfGameObject.x + 3 < playerBounds.x + playerBounds.width &&
+                    playerBounds.y < boundsOfGameObject.y + boundsOfGameObject.height &&
+                    playerBounds.y > boundsOfGameObject.y
+                )
+                    return true;
+            }
+            if (side === "down") {
+                if (
+                    boundsOfGameObject.x + boundsOfGameObject.width - 3 > playerBounds.x &&
+                    boundsOfGameObject.x + 3 < playerBounds.x + playerBounds.width &&
+                    playerBounds.y + playerBounds.width + 5 > boundsOfGameObject.y &&
+                    playerBounds.y + playerBounds.width < boundsOfGameObject.y + boundsOfGameObject.height
+                )
+                    return true;
+            }
+        }
+    }
+}
