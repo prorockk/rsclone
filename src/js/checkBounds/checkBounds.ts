@@ -8,10 +8,10 @@ function checkBoundsConstructor(gameMember: any) {
         return playerDirection === "right"
             ? playerBounds.x + player.width >= 465
             : playerDirection === "down"
-            ? playerBounds.y <= 60
+            ? playerBounds.y + player.height >= 430
             : playerDirection === "left"
             ? playerBounds.x <= 50
-            : playerBounds.y + player.height >= 430;
+            : playerBounds.y <= 60;
     };
 }
 export default checkBoundsConstructor;

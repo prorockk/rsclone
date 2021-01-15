@@ -21,9 +21,9 @@ class createAnimateElement {
         const playerSheets: any = {};
         const { textures } = app.loader.resources["isaac"];
         playerSheets["walkDown"] = [
-            PIXI.Texture.from("isaac_moving_table-9.png"),
-            PIXI.Texture.from("isaac_moving_table-11.png"),
-            PIXI.Texture.from("isaac_moving_table-10.png"),
+            PIXI.Texture.from("isaac_moving_table-0.png"),
+            PIXI.Texture.from("isaac_moving_table-2.png"),
+            PIXI.Texture.from("isaac_moving_table-1.png"),
             // new PIXI.Texture(sSheets, new PIXI.Rectangle(11*w, 0, w, h)),
             // new PIXI.Texture(sSheets, new PIXI.Rectangle(10*w, 0, w, h)),
         ];
@@ -44,9 +44,10 @@ class createAnimateElement {
             // new PIXI.Texture(sSheets, new PIXI.Rectangle(7*w, 0, w, h)),
         ];
         playerSheets["walkUp"] = [
-            PIXI.Texture.from("isaac_moving_table-0.png"),
-            PIXI.Texture.from("isaac_moving_table-2.png"),
-            PIXI.Texture.from("isaac_moving_table-1.png"),
+            PIXI.Texture.from("isaac_moving_table-9.png"),
+            PIXI.Texture.from("isaac_moving_table-11.png"),
+            PIXI.Texture.from("isaac_moving_table-10.png"),
+
             // new PIXI.Texture(sSheets, new PIXI.Rectangle(0*w, 0, w, h)),
             // new PIXI.Texture(sSheets, new PIXI.Rectangle(2*w, 0, w, h)),
             // new PIXI.Texture(sSheets, new PIXI.Rectangle(1*w, 0, w, h)),
