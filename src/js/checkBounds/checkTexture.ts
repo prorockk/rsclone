@@ -18,8 +18,8 @@ export default function hitTexture(obj1: any, obj2: any) {
 
     if (Math.abs(vx) < combineHalfWidths) {
         if (Math.abs(vy) < combineHalfHeights) {
+            if (obj2.hp) obj2.hp--;
             hit = true;
-            console.log(true);
         } else {
             hit = false;
         }

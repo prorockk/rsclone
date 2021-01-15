@@ -1,14 +1,11 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: "DRKrapka";
+    font-size: 0px;
 }
 
 @font-face {
     font-family: "DRKrapka";
-    src: url("./assets/fonts/Dmitry\ Rastvortsev\ -\ DR\ Krapka\ Square\ ExtraBold.otf");
-}
-
-#activeKey {
-    font-family: "DRKrapka";
-    font-size: 0px;
+    src: url("../assets/fonts/font.ttf");
 }

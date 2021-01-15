@@ -1,7 +1,8 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import createAnimateSheets from "../CreateSprite/createAnimateSheets";
-import checkBoundsConstructor from "../checkBounds/checkBounds";
+import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
+import CheckBounds from "../checkBounds/checkBounds";
+import { AnimateMobType } from "../types/Types";
 
 class createPlayer {
     [x: string]: any;
@@ -12,9 +13,6 @@ class createPlayer {
         this.player = {};
     }
     init = () => {
-        app.loader.add("isaac", "./assets/isaac_moving_table.json"); //загрузка спрайта
-        app.loader.load(this.doneLoading); //спрайт загрузился
-
         window.addEventListener("keydown", (key) => {
             this.activeKeys[key.keyCode] = true;
         });
@@ -27,45 +25,53 @@ class createPlayer {
     };
     doneLoading = () => {
         //createSheets...........
-        console.log(app.loader.resources["isaac"].textures);
-
-        this.playerSheets = new createAnimateSheets(app.loader.resources["isaac"]).createPlayerSheets();
-        //createPlayer...........
-        this.player = new PIXI.AnimatedSprite(this.playerSheets.walkUp);
-        this.player.anchor.set(0.5);
-        this.player.animationSpeed = 0.2;
-        this.player.loop = false;
-        this.player.x = app.view.width / 2;
-        this.player.y = app.view.height / 2;
-        app.stage.addChild(this.player);
-
-        this.player.play();
+        const animate: AnimateMobType = {
+            texture: {
+                walkDown: ["isaac_moving_table-9.png", "isaac_moving_table-11.png", "isaac_moving_table-10.png"],
+                walkUp: ["isaac_moving_table-2.png", "isaac_moving_table-0.png", "isaac_moving_table-1.png"],
+                walkLeft: ["isaac_moving_table-3.png", "isaac_moving_table-5.png", "isaac_moving_table-4.png"],
+                walkRight: ["isaac_moving_table-6.png", "isaac_moving_table-8.png", "isaac_moving_table-7.png"],
+            },
+            propertiesAr: [
+                {
+                    sheetSpriteStr: "walkUp",
+                    anchor: { set: 0.5 },
+                    animationSpeed: 0.2,
+                    loop: false,
+                    x: app.view.width / 2,
+                    y: app.view.height / 2,
+                },
+            ],
+        };
+        const [sheets, playerObj] = createAnimateElement(animate);
+        this.playerSheets = sheets;
+        this.player = playerObj;
     };
     movePlayer() {
-        const checkBounds = checkBoundsConstructor(this.player);
+        const checkBounds = new CheckBounds(this.player);
         const playerPlay = (direction: string) => {
             this.player.textures = this.playerSheets[`walk${direction}`];
             this.player.play();
         };
-        if (this.activeKeys["68"] && !checkBounds("right")) {
+        if (this.activeKeys["68"] && !checkBounds.init("right")) {
             if (!this.player.playing) {
                 playerPlay("Right");
             }
             this.player.x += this.playerSpeed;
         }
-        if (this.activeKeys["87"] && !checkBounds("down")) {
+        if (this.activeKeys["87"] && !checkBounds.init("down")) {
             if (!this.player.playing) {
                 playerPlay("Down");
             }
             this.player.y -= this.playerSpeed;
         }
-        if (this.activeKeys["65"] && !checkBounds("left")) {
+        if (this.activeKeys["65"] && !checkBounds.init("left")) {
             if (!this.player.playing) {
                 playerPlay("Left");
             }
             this.player.x -= this.playerSpeed;
         }
-        if (this.activeKeys["83"] && !checkBounds("top")) {
+        if (this.activeKeys["83"] && !checkBounds.init("top")) {
             if (!this.player.playing) {
                 playerPlay("Up");
             }
