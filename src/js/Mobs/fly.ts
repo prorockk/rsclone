@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 import { app, globalEl } from "../script";
+import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import checkBounds from "../checkBounds/checkBounds";
 import { AnimateMobType } from "../types/Types";
@@ -53,7 +54,7 @@ class Fly {
         this.fly.forEach((fly: { hp: number }) => {
             fly.hp = 3;
         });
-        globalEl.fly = fly;
+        objectOfGameObjects.fly = fly;
         app.ticker.add(() => {
             this.moveFly();
         });

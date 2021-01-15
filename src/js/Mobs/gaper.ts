@@ -51,6 +51,7 @@ class gaper {
                     y: app.view.height / 1.1,
                 },
             ],
+            setBool: false,
         };
         const [sheets, ...gaper] = createAnimateElement(animate);
         this.gaperSheets = sheets;

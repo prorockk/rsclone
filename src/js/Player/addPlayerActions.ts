@@ -1,12 +1,12 @@
 import * as PIXI from "pixi.js";
-import { app, PlayerMethod, globalEl } from "../script";
+import { app, PlayerMethod } from "../script";
 import createPlayer from "./createPlayer";
 import createGameElement from "../CreateSprite/createGameElement";
 import checkTexture from "../checkBounds/checkTexture";
 import { AnimateMobType } from "../types/Types";
 import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 
-const addPlayerActions = (box: any) => {
+const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
 
     const animate: AnimateMobType = {
@@ -90,8 +90,7 @@ const addPlayerActions = (box: any) => {
                 this.bullets[i].position.y > 432 ||
                 this.bullets[i].position.x < 55 ||
                 this.bullets[i].position.x > 465 ||
-                checkTexture(this.bullets[i], box) ||
-                checkTexture(this.bullets[i], globalEl.fly[0])
+                checkTexture(this.bullets[i]) //                             NEW
             ) {
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = sheets.death;

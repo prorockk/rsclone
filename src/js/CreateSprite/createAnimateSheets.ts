@@ -1,5 +1,4 @@
 import * as PIXI from "pixi.js";
-import { stringify } from "querystring";
 import { app } from "../script";
 import { AnimateMobType } from "../types/Types";
 

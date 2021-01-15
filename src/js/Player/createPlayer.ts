@@ -1,10 +1,11 @@
 import * as PIXI from "pixi.js";
-import { app, globalEl } from "../script";
+import { app } from "../script";
 import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import CheckBounds from "../checkBounds/checkBounds";
 import { AnimateMobType } from "../types/Types";
-import checkTexture from "../checkBounds/checkTexture";
 import addPlayerActions from "./addPlayerActions";
+import checkTexture from "../checkBounds/checkTexture";
+import checkCollision from "../checkBounds/checkCollision";
 
 class createPlayer {
     [x: string]: any;
@@ -15,14 +16,6 @@ class createPlayer {
         this.player = {};
     }
     init = () => {
-        // window.addEventListener("keydown", (key) => {
-        //     this.activeKeys[key.keyCode] = true;
-        // });
-
-        // window.addEventListener("keyup", (key) => {
-        //     this.activeKeys[key.keyCode] = false;
-        // });
-
         return this.player;
     };
     doneLoading = () => {
@@ -50,7 +43,7 @@ class createPlayer {
         this.playerSheets = sheets;
         this.player = playerObj;
         // this.player.tint = 16777215
-        addPlayerActions(globalEl.box);
+        addPlayerActions();
         app.ticker.add((e) => {
             this.movePlayer();
             this.updateBullets();
@@ -62,27 +55,27 @@ class createPlayer {
             this.player.textures = this.playerSheets[`walk${direction}`];
             this.player.play();
         };
-        if (this.activeKeys["68"] && !checkBounds.init("right") && !checkTexture(this.player, globalEl.box)) {
+        if (this.activeKeys["68"] && !checkBounds.init("right") && !checkCollision(this.player, "right")) {
             if (!this.player.playing) {
                 playerPlay("Right");
             }
             this.player.x += this.playerSpeed;
         }
-        if (this.activeKeys["87"] && !checkBounds.init("down") && !checkTexture(this.player, globalEl.box)) {
+        if (this.activeKeys["87"] && !checkBounds.init("Up") && !checkCollision(this.player, "top")) {
             if (!this.player.playing) {
-                playerPlay("Down");
+                playerPlay("Up");
             }
             this.player.y -= this.playerSpeed;
         }
-        if (this.activeKeys["65"] && !checkBounds.init("left") && !checkTexture(this.player, globalEl.box)) {
+        if (this.activeKeys["65"] && !checkBounds.init("left") && !checkCollision(this.player, "left")) {
             if (!this.player.playing) {
                 playerPlay("Left");
             }
             this.player.x -= this.playerSpeed;
         }
-        if (this.activeKeys["83"] && !checkBounds.init("top")) {
+        if (this.activeKeys["83"] && !checkBounds.init("down") && !checkCollision(this.player, "down")) {
             if (!this.player.playing) {
-                playerPlay("Up");
+                playerPlay("Down");
             }
             this.player.y += this.playerSpeed;
         }
