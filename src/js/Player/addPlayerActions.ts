@@ -8,21 +8,24 @@ import checkTexture from "../checkBounds/checkTexture";
 
 //document.addEventListener("ke", PlayerMethod.playerShooting.bind(PlayerMethod));
 
-const addPlayerActions = () => {
+const addPlayerActions = (box: any) => {
     PlayerMethod.bullets = []; //новые скилы героя
 
-    const box: any = createGameElement(256, 128, "../../../assets/box.png", 30, 23); // не отображает почему-то !!!!!
-
-    PlayerMethod.playerShooting = function (e: { x: any; y: any }) {
+    PlayerMethod.playerShooting = function (e: { x: any; y: any } | string) {
         //добавляем функции для скилов героя
         let bulletDirection;
-        const cursorPositionX = e.x;
-        const cursorPositionY = e.y;
         const bulletSpeed = 8;
-        if (Math.abs(cursorPositionX - this.player.x) > Math.abs(cursorPositionY - this.player.y)) {
-            bulletDirection = cursorPositionX > this.player.x ? "right" : "left";
+
+        if (typeof e === "string") {
+            bulletDirection = e;
         } else {
-            bulletDirection = cursorPositionY > this.player.y ? "down" : "up";
+            const cursorPositionX = e.x;
+            const cursorPositionY = e.y;
+            if (Math.abs(cursorPositionX - this.player.x) > Math.abs(cursorPositionY - this.player.y)) {
+                bulletDirection = cursorPositionX > this.player.x ? "right" : "left";
+            } else {
+                bulletDirection = cursorPositionY > this.player.y ? "down" : "up";
+            }
         }
 
         const bullet: any = createGameElement(this.player.x, this.player.y, "../../../assets/tear.png", 13, 13);

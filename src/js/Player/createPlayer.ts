@@ -1,7 +1,8 @@
 import * as PIXI from "pixi.js";
-import { app } from "../script";
+import { app, box } from "../script";
 import createAnimateSheets from "../CreateSprite/createAnimateSheets";
 import checkBoundsConstructor from "../checkBounds/checkBounds";
+import checkTexture from "../checkBounds/checkTexture";
 
 class createPlayer {
     [x: string]: any;
@@ -15,13 +16,13 @@ class createPlayer {
         app.loader.add("isaac", "./assets/isaac_moving_table.json"); //загрузка спрайта
         app.loader.load(this.doneLoading); //спрайт загрузился
 
-        window.addEventListener("keydown", (key) => {
-            this.activeKeys[key.keyCode] = true;
-        });
+        // window.addEventListener("keydown", (key) => {
+        //     this.activeKeys[key.keyCode] = true;
+        // });
 
-        window.addEventListener("keyup", (key) => {
-            this.activeKeys[key.keyCode] = false;
-        });
+        // window.addEventListener("keyup", (key) => {
+        //     this.activeKeys[key.keyCode] = false;
+        // });
 
         return this.player;
     };
@@ -47,19 +48,19 @@ class createPlayer {
             this.player.textures = this.playerSheets[`walk${direction}`];
             this.player.play();
         };
-        if (this.activeKeys["68"] && !checkBounds("right")) {
+        if (this.activeKeys["68"] && !checkBounds("right") && !checkTexture(this.player, box)) {
             if (!this.player.playing) {
                 playerPlay("Right");
             }
             this.player.x += this.playerSpeed;
         }
-        if (this.activeKeys["87"] && !checkBounds("down")) {
+        if (this.activeKeys["87"] && !checkBounds("down") && !checkTexture(this.player, box)) {
             if (!this.player.playing) {
                 playerPlay("Down");
             }
             this.player.y -= this.playerSpeed;
         }
-        if (this.activeKeys["65"] && !checkBounds("left")) {
+        if (this.activeKeys["65"] && !checkBounds("left") && !checkTexture(this.player, box)) {
             if (!this.player.playing) {
                 playerPlay("Left");
             }
