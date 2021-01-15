@@ -1,6 +1,6 @@
 export type AnimateMobType = {
-    texture:any,
-    propertiesAr:any
+    texture: any;
+    propertiesAr: any;
     //  [{
     //         sheetSpriteStr:string ,
     //         anchor: object,
@@ -9,4 +9,5 @@ export type AnimateMobType = {
     //         x:number,
     //         y:number
     //     }]
-}
+    setBool: any;
+};

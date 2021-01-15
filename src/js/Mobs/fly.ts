@@ -45,6 +45,7 @@ class Fly {
                     y: app.view.height / 1.1,
                 },
             ],
+            setBool: false,
         };
         const [sheets, ...fly] = createAnimateElement(animate);
         this.flySheets = sheets;
@@ -66,6 +67,7 @@ class Fly {
         const playerY = globalEl.player.y;
         this.fly.forEach((flyOne: any) => {
             if (flyOne.hp === 0 && this.boolDeath) {
+                //удаление мух с запуском поледней анимации
                 flyOne.textures = this.flySheets.death;
                 flyOne.loop = false;
                 this.fly.splice(this.fly.indexOf(flyOne), 1);

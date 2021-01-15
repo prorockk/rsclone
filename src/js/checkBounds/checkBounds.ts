@@ -10,12 +10,6 @@ class CheckBounds {
         const playerBounds = this.player.getBounds();
         //добавить параметры для внутренних препятсвий
         return playerDirection === "right"
-            ? playerBounds.x + this.player.width >= 512
-            : playerDirection === "down"
-            ? playerBounds.y <= 0
-            : playerDirection === "left"
-            ? playerBounds.x <= 0
-            : playerBounds.y + this.player.height >= 512
             ? playerBounds.x + this.player.width >= 465
             : playerDirection === "down"
             ? playerBounds.y <= 60

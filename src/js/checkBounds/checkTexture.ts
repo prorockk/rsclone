@@ -5,10 +5,10 @@ export default function hitTexture(obj1: any, obj2: any) {
     obj2.centerX = obj2.position.x;
     obj2.centerY = obj2.position.y;
 
-    obj1.halfWidth = obj1.width / 2;
-    obj1.halfHeight = obj1.height / 2;
-    obj2.halfWidth = obj2.width / 2;
-    obj2.halfHeight = obj2.height / 2;
+    obj1.halfWidth = obj1.width / 4;
+    obj1.halfHeight = obj1.height / 4;
+    obj2.halfWidth = obj2.width / 4;
+    obj2.halfHeight = obj2.height / 4;
 
     let vx = obj1.centerX - obj2.centerX;
     let vy = obj1.centerY - obj2.centerY;
