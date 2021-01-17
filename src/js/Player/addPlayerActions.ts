@@ -1,12 +1,13 @@
 import * as PIXI from "pixi.js";
-import { app, PlayerMethod, globalEl } from "../script";
+import { app } from "../script";
+import { PlayerMethod } from "../Rooms/startGame";
 import createPlayer from "./createPlayer";
 import createGameElement from "../CreateSprite/createGameElement";
 import checkTexture from "../checkBounds/checkTexture";
 import { AnimateMobType } from "../types/Types";
 import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 
-const addPlayerActions = (box: any) => {
+const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
 
     const animate: AnimateMobType = {
@@ -36,19 +37,28 @@ const addPlayerActions = (box: any) => {
         setBool: true,
     };
     const sheets = createAnimateElement(animate);
-    let switcher = true;
+
+    let switcherTears = true;
+    let tearsAr: number[] = [];
+
     PlayerMethod.playerShooting = function (e: { x: any; y: any } | string) {
+        if (tearsAr.length > 0) return; //блокирование частых выстрелов
+        tearsAr.push(0);
+        setTimeout(() => (tearsAr = []), 230);
+
         //добавляем функции для скилов героя
         let bulletDirection;
         const bulletSpeed = 8;
-        let tearPosition = 3;
-        if (switcher) {
+        let tearPosition = 3; //выстрелы из разных глаз
+        if (switcherTears) {
             tearPosition *= -1;
         }
-        switcher = !switcher;
+        switcherTears = !switcherTears;
         if (typeof e === "string") {
+            //направление с клавиатуры
             bulletDirection = e;
         } else {
+            // направление с мышки
             const cursorPositionX = e.x;
             const cursorPositionY = e.y;
             if (Math.abs(cursorPositionX - this.player.x) > Math.abs(cursorPositionY - this.player.y)) {
@@ -57,16 +67,23 @@ const addPlayerActions = (box: any) => {
                 bulletDirection = cursorPositionY > this.player.y ? "down" : "up";
             }
         }
+        const startPointBullet = bulletDirection === "up" ? 20 : 7.5;
         animate.propertiesAr[0].x = this.player.x + tearPosition;
-        animate.propertiesAr[0].y = this.player.y + tearPosition;
+        animate.propertiesAr[0].y = this.player.y - startPointBullet;
+        this.head.textures = this.playerSheets[`${bulletDirection}See`]; //изменение напрвления головы
+        this.head.play();
+        this.head.onComplete = () => {
+            this.head.textures = this.playerSheets.standSee;
+            this.head.play();
+        };
         const [bullet]: any = addAnimateElement(sheets, animate.propertiesAr);
-        bullet.hitArea = new PIXI.Polygon([0, 0, 0, 13, 13, 13, 13, 0]);
-        bullet["speed"] = bulletSpeed;
-        bullet["direction"] = bulletDirection;
+
+        bullet.speed = bulletSpeed;
+        bullet.direction = bulletDirection;
         this.bullets.push(bullet);
     };
 
-    PlayerMethod.updateBullets = function () {
+    PlayerMethod.updateBullets = function (e: number) {
         for (let i = 0; i < this.bullets.length; i++) {
             //определение направления выстрела
             switch (this.bullets[i].direction) {
@@ -90,8 +107,7 @@ const addPlayerActions = (box: any) => {
                 this.bullets[i].position.y > 432 ||
                 this.bullets[i].position.x < 55 ||
                 this.bullets[i].position.x > 465 ||
-                checkTexture(this.bullets[i], box) ||
-                checkTexture(this.bullets[i], globalEl.fly[0])
+                checkTexture(0, this.bullets[i]) //                             NEW
             ) {
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = sheets.death;

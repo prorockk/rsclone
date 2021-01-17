@@ -1,8 +1,9 @@
 import * as PIXI from "pixi.js";
-import { app, globalEl } from "../script";
+import { app } from "../script";
 import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
-import checkBounds from "../checkBounds/checkBounds";
+import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { AnimateMobType } from "../types/Types";
+import { player } from "../Rooms/startGame";
 
 class gaper {
     private gaper: any;
@@ -51,6 +52,7 @@ class gaper {
                     y: app.view.height / 1.1,
                 },
             ],
+            setBool: false,
         };
         const [sheets, ...gaper] = createAnimateElement(animate);
         this.gaperSheets = sheets;
@@ -58,7 +60,7 @@ class gaper {
         this.gaper.forEach((gaper: { hp: number }) => {
             gaper.hp = 3;
         });
-        globalEl.gaper = gaper;
+        objectOfGameObjects.gaper = gaper;
         app.ticker.add(() => {
             this.movegaper();
         });
@@ -68,8 +70,8 @@ class gaper {
 
         // }
 
-        const playerX = globalEl.player.x;
-        const playerY = globalEl.player.y;
+        const playerX = player.x;
+        const playerY = player.y;
         this.gaper.forEach((gaperOne: any) => {
             if (gaperOne.hp === 0 && this.boolDeath) {
                 gaperOne.textures = this.gaperSheets.death;

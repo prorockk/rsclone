@@ -1,5 +1,7 @@
 import * as PIXI from "pixi.js";
-import { app, globalEl } from "../script";
+import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { app } from "../script";
+import { player } from "../Rooms/startGame";
 import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import checkBounds from "../checkBounds/checkBounds";
 import { AnimateMobType } from "../types/Types";
@@ -14,16 +16,16 @@ class Fly {
         this.fly = {};
     }
     doneLoading() {
-        const animate: AnimateMobType = {
+        const animate: any = {
             texture: {
-                fly: ["fly1-1.png", "fly1-2.png"],
+                fly: ["fly2-1.png", "fly1-2.png"],
                 death: ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"],
             },
             propertiesAr: [
                 {
                     sheetSpriteStr: "fly",
                     anchor: { set: 0.5 },
-                    animationSpeed: 0.4,
+                    animationSpeed: 0.3,
                     loop: true,
                     x: app.view.width / 4,
                     y: app.view.height / 4,
@@ -31,7 +33,7 @@ class Fly {
                 {
                     sheetSpriteStr: "fly",
                     anchor: { set: 0.5 },
-                    animationSpeed: 0.4,
+                    animationSpeed: 0.3,
                     loop: true,
                     x: app.view.width / 1.5,
                     y: app.view.height / 1.5,
@@ -39,32 +41,31 @@ class Fly {
                 {
                     sheetSpriteStr: "fly",
                     anchor: { set: 0.5 },
-                    animationSpeed: 0.4,
+                    animationSpeed: 0.3,
                     loop: true,
                     x: app.view.width / 1.1,
                     y: app.view.height / 1.1,
                 },
             ],
             setBool: false,
+            angryMob: true,
         };
         const [sheets, ...fly] = createAnimateElement(animate);
         this.flySheets = sheets;
         this.fly = fly;
-        this.fly.forEach((fly: { hp: number }) => {
-            fly.hp = 3;
+        this.fly.forEach((fly: any) => {
+            fly.hp = 5;
+            fly.angryMob = true;
+            fly.damage = 2;
         });
-        globalEl.fly = fly;
+        objectOfGameObjects.fly = fly;
         app.ticker.add(() => {
             this.moveFly();
         });
     }
     moveFly() {
-        // if (this.flyOne.hp === 0) {
-
-        // }
-
-        const playerX = globalEl.player.x;
-        const playerY = globalEl.player.y;
+        const playerX = player.x;
+        const playerY = player.y;
         this.fly.forEach((flyOne: any) => {
             if (flyOne.hp === 0 && this.boolDeath) {
                 //удаление мух с запуском поледней анимации
