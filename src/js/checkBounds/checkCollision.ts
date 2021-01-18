@@ -1,7 +1,5 @@
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 
-let isDamage = true;
-
 export default function checkCollision(player: any, playerHead: any, side: string) {
     let playerBounds = player.getBounds();
 
@@ -9,12 +7,7 @@ export default function checkCollision(player: any, playerHead: any, side: strin
         for (let i = 0; i < objectOfGameObjects[groupEl].length; i += 1) {
             const gameObject = objectOfGameObjects[groupEl][i];
             const boundsOfGameObject = gameObject.getBounds();
-            let itsAngryMob = false;
             let result = false;
-            // if (gameObject.hasOwnProperty('angryMob')){//проверяем, если это моб
-            //     playerBounds = playerHead.getBounds();
-            //     itsAngryMob = gameObject.angryMob//если это моб, при косании с которым идет дамаг
-            // }
             if (side === "right") {
                 if (
                     playerBounds.x + playerBounds.width > boundsOfGameObject.x &&

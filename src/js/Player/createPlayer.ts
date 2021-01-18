@@ -60,18 +60,17 @@ class createPlayer {
         };
         const [sheets, legs, head] = createAnimateElement(animate);
         this.playerSheets = sheets;
-        head.anchor.set(0.5, 1.05);
+        head.anchor.set(0.5, 0.93);
         head.hp = 16;
         this.player = legs;
         this.head = head;
         this.checkBounds = new CheckBounds(this.player);
-        console.log(this.player.tint);
 
         addPlayerActions();
         app.ticker.add((e: number) => {
             this.movePlayer();
             this.updateBullets(e);
-            checkTexture(e, this.head);
+            checkTexture(e, this.head, 0);
         });
     };
     movePlayer() {

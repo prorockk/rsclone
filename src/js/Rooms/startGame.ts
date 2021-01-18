@@ -7,17 +7,21 @@ import checkBounds from "../checkBounds/checkBounds";
 import addPlayerActions from "../Player/addPlayerActions";
 import { app } from "../script";
 import controller from "../Keyboard/keyboard";
+import Gaper from "../Mobs/gaper";
+
 const PlayerMethod = new createPlayer();
 let player: any = {};
 
 function startGame() {
     const FlyClass = new Fly();
+    const GaperClass = new Gaper();
     app.loader.add("isaac", "../assets/isaac_moving_table.json"); //загрузка спрайта
     app.loader.load(() => {
-        PlayerMethod.doneLoading();
+        PlayerMethod.doneLoading(); //РЕАЛИЗОВАТЬ ЗАГРУЗКУ СПРАЙТОВ В ОТДЕЛЬНОМ ПРОМИСЕ
         player = PlayerMethod.init.call(PlayerMethod);
         FlyClass.doneLoading();
-        controller(PlayerMethod /*player, box*/);
+        GaperClass.doneLoading();
+        controller(PlayerMethod);
     });
 
     const BackGroundImage = PIXI.Sprite.from("../assets/floor.png");

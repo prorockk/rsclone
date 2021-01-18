@@ -19,6 +19,7 @@ class Fly {
         const animate: any = {
             texture: {
                 fly: ["fly2-1.png", "fly1-2.png"],
+                simpleFly: ["fly1-1.png", "fly1-2.png"],
                 death: ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"],
             },
             propertiesAr: [
@@ -48,15 +49,15 @@ class Fly {
                 },
             ],
             setBool: false,
-            angryMob: true,
         };
         const [sheets, ...fly] = createAnimateElement(animate);
         this.flySheets = sheets;
         this.fly = fly;
-        this.fly.forEach((fly: any) => {
-            fly.hp = 5;
-            fly.angryMob = true;
-            fly.damage = 2;
+        this.fly.forEach((flyOne: any) => {
+            flyOne.hp = 3;
+            flyOne.angryMob = true;
+            flyOne.froze = false;
+            flyOne.damage = 2;
         });
         objectOfGameObjects.fly = fly;
         app.ticker.add(() => {
@@ -66,7 +67,7 @@ class Fly {
     moveFly() {
         const playerX = player.x;
         const playerY = player.y;
-        this.fly.forEach((flyOne: any) => {
+        this.fly.forEach((flyOne: any, currentFly: number) => {
             if (flyOne.hp === 0 && this.boolDeath) {
                 //удаление мух с запуском поледней анимации
                 flyOne.textures = this.flySheets.death;
@@ -79,23 +80,38 @@ class Fly {
                     app.stage.removeChild(flyOne);
                     this.boolDeath = true;
                 };
-            }
-            const randomSymbol = Math.ceil(Math.random() - 0.5) - 0.2;
-            const flyX = flyOne.x;
-            const flyY = flyOne.y;
-            if (playerX > flyX && randomSymbol > 0) {
-                flyOne.x += 0.9;
-                flyOne.y += 0.6 * randomSymbol;
-            } else if (randomSymbol < 0) {
-                flyOne.x -= 0.9;
-                flyOne.y += 0.6 * randomSymbol;
-            }
-            if (playerY > flyY && randomSymbol < 0) {
-                flyOne.y += 0.9;
-                flyOne.x += 0.6 * randomSymbol;
-            } else if (randomSymbol > 0) {
-                flyOne.y -= 0.9;
-                flyOne.x += 0.6 * randomSymbol;
+            } else if (flyOne.froze) {
+                //анимация нанесения урона
+                if (typeof flyOne.froze === "boolean") {
+                    const intTint = setInterval(() => {
+                        // при добавляем мигание один раз
+                        flyOne.tint = 16777215;
+                    }, 10);
+                    setTimeout(() => {
+                        clearInterval(intTint);
+                        flyOne.froze = false;
+                    }, 400);
+                }
+                flyOne.froze = currentFly + 1;
+                flyOne.tint = 16716853;
+            } else {
+                const randomSymbol = Math.ceil(Math.random() - 0.5) - 0.2;
+                const flyX = flyOne.x;
+                const flyY = flyOne.y;
+                if (playerX > flyX && randomSymbol > 0) {
+                    flyOne.x += 0.9;
+                    flyOne.y += 0.6 * randomSymbol;
+                } else if (randomSymbol < 0) {
+                    flyOne.x -= 0.9;
+                    flyOne.y += 0.6 * randomSymbol;
+                }
+                if (playerY > flyY && randomSymbol < 0) {
+                    flyOne.y += 0.9;
+                    flyOne.x += 0.6 * randomSymbol;
+                } else if (randomSymbol > 0) {
+                    flyOne.y -= 0.9;
+                    flyOne.x += 0.6 * randomSymbol;
+                }
             }
         });
     }

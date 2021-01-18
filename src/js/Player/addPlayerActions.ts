@@ -1,42 +1,14 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { PlayerMethod } from "../Rooms/startGame";
-import createPlayer from "./createPlayer";
-import createGameElement from "../CreateSprite/createGameElement";
 import checkTexture from "../checkBounds/checkTexture";
-import { AnimateMobType } from "../types/Types";
 import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
+import tearsSheets from "../CreateSprite/tearsSheets";
 
 const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
 
-    const animate: AnimateMobType = {
-        texture: {
-            shot: ["tear_pop-0.png"],
-            death: [
-                "tear_pop-1.png",
-                "tear_pop-2.png",
-                "tear_pop-3.png",
-                "tear_pop-4.png",
-                "tear_pop-5.png",
-                "tear_pop-6.png",
-                "tear_pop-7.png",
-                "tear_pop-8.png",
-            ],
-        },
-        propertiesAr: [
-            {
-                sheetSpriteStr: "shot",
-                anchor: { set: 0.5 },
-                animationSpeed: 0.6,
-                loop: false,
-                width: 13,
-                height: 13,
-            },
-        ],
-        setBool: true,
-    };
-    const sheets = createAnimateElement(animate);
+    const [sheets, animate] = tearsSheets();
 
     let switcherTears = true;
     let tearsAr: number[] = [];
@@ -79,6 +51,7 @@ const addPlayerActions = () => {
         const [bullet]: any = addAnimateElement(sheets, animate.propertiesAr);
 
         bullet.speed = bulletSpeed;
+        bullet.forMobs = true;
         bullet.direction = bulletDirection;
         this.bullets.push(bullet);
     };
@@ -107,7 +80,7 @@ const addPlayerActions = () => {
                 this.bullets[i].position.y > 432 ||
                 this.bullets[i].position.x < 55 ||
                 this.bullets[i].position.x > 465 ||
-                checkTexture(0, this.bullets[i]) //                             NEW
+                checkTexture(0, this.bullets[i], 0) //                             NEW
             ) {
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = sheets.death;
