@@ -4,14 +4,13 @@ import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import CheckBounds from "../checkBounds/checkBounds";
 import { AnimateMobType } from "../types/Types";
 import addPlayerActions from "./addPlayerActions";
-import checkTexture from "../checkBounds/checkTexture";
 import checkCollision from "../checkBounds/checkCollision";
 
 class createPlayer {
     [x: string]: any;
     constructor() {
         this.playerSheets = {};
-        this.playerSpeed = 3;
+        this.playerSpeed = 6; //3
         this.activeKeys = {};
         this.player = {};
     }

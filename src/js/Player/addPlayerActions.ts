@@ -1,14 +1,12 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { globalEl, PlayerMethod } from "../Rooms/startGame";
-import createPlayer from "./createPlayer";
-import createGameElement from "../CreateSprite/createGameElement";
 import checkTexture from "../checkBounds/checkTexture";
 import { AnimateMobType } from "../types/Types";
 import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 
 const addPlayerActions = () => {
-    PlayerMethod.bullets = []; //новые скилы героя
+    PlayerMethod.bullets = [];
 
     const animate: AnimateMobType = {
         texture: {
@@ -87,10 +85,10 @@ const addPlayerActions = () => {
 
             //удаление пуль
             if (
-                this.bullets[i].position.y < 65 ||
-                this.bullets[i].position.y > 432 ||
-                this.bullets[i].position.x < 55 ||
-                this.bullets[i].position.x > 465 ||
+                this.bullets[i].position.y < 150 ||
+                this.bullets[i].position.y > 550 ||
+                this.bullets[i].position.x < 50 ||
+                this.bullets[i].position.x > 750 ||
                 checkTexture(this.bullets[i]) //                             NEW
             ) {
                 const deleteBullet = this.bullets[i];

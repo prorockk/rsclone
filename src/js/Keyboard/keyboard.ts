@@ -1,8 +1,4 @@
-export default function (PlayerMethod: any /* player : any, box : any*/) {
-    //console.log(PlayerMethod);
-
-    // console.log(checkTexture(player.player, box));
-
+export default function (PlayerMethod: any) {
     document.addEventListener("pointerdown", PlayerMethod.playerShooting.bind(PlayerMethod));
 
     document.addEventListener("keydown", (key) => {

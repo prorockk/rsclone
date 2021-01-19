@@ -10,7 +10,7 @@ function createAnimateElement(animateObj: AnimateMobType) {
             return PIXI.Texture.from(element);
         });
     }
-    if (animateObj.setBool) return Sheets; //если нам нужны только sheets, для слёз
+    if (animateObj.setBool) return Sheets;
     const mobAr = addAnimateElement(Sheets, propertiesAr);
     return [Sheets, ...mobAr];
 }

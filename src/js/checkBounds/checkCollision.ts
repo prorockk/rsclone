@@ -1,11 +1,17 @@
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { currentRoom } from "../Rooms/startGame";
 
 export default function checkCollision(player: any, side: string) {
     const playerBounds = player.getBounds();
 
-    for (let groupEl in objectOfGameObjects) {
-        for (let i = 0; i < objectOfGameObjects[groupEl].length; i += 1) {
-            const boundsOfGameObject = objectOfGameObjects[groupEl][i].getBounds();
+    const roomArray = objectOfGameObjects[currentRoom];
+
+    for (let groupEl in roomArray) {
+        if (groupEl === "../assets/door.png") {
+            continue;
+        }
+        for (let i = 0; i < roomArray[groupEl].length; i += 1) {
+            const boundsOfGameObject = roomArray[groupEl][i].getBounds();
             if (side === "right") {
                 if (
                     playerBounds.x + playerBounds.width > boundsOfGameObject.x &&
