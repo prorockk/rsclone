@@ -35,8 +35,11 @@ const cell: any = createMap();
 function startGame() {
     const FlyClass = new Fly();
     const GaperClass = new Gaper();
+
     app.loader.add("isaac", "../assets/isaac_moving_table.json");
+
     app.loader.load(() => {
+        createElementsInAllRooms(rooms);
         PlayerMethod.doneLoading(); //РЕАЛИЗОВАТЬ ЗАГРУЗКУ СПРАЙТОВ В ОТДЕЛЬНОМ ПРОМИСЕ
         player = PlayerMethod.init.call(PlayerMethod);
         FlyClass.doneLoading();
@@ -56,8 +59,6 @@ function startGame() {
 
     app.stage.addChild(BackGroundImage);
     app.stage.addChild(rooms["inFirstRoom"]); // O N E
-
-    createElementsInAllRooms(rooms);
 }
 
 function moveTo(room: string) {

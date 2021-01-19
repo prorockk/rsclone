@@ -77,9 +77,9 @@ class Gaper {
         this.sheetsBullets = sheetsBullets;
         this.animateBullets = animateBullets;
         objectOfGameObjects.gaper = gaper;
-        // app.ticker.add(() => {
-        //     this.moveGaper();
-        // });
+        app.ticker.add(() => {
+            this.moveGaper();
+        });
     }
     moveGaper() {
         this.gaper.forEach((gaperOne: any, currentGap: number) => {

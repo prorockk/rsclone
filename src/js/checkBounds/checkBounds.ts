@@ -20,7 +20,7 @@ class CheckBounds {
             objectOfGameObjects[currentRoom]["toUpperRoom"]();
         }
 
-        if (playerBounds.y > 505) {
+        if (playerBounds.y > 515) {
             this.player.y = 190;
             this.head.y = 190;
             objectOfGameObjects[currentRoom]["toBottomRoom"]();

@@ -38,7 +38,6 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
 
             if (Math.abs(vx) < combineHalfWidths) {
                 if (Math.abs(vy) < combineHalfHeights) {
-                    console.log(groupEl);
                     const impulse = [(bullets.centerX - colObj.x) / 72, (bullets.centerY - colObj.y) / 72];
                     if (delay > 0 && itsAngryMob) {
                         //столкновение мобов с игроком

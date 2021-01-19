@@ -1,0 +1,144 @@
+[
+    {
+        "createGameElement": [
+            {
+                "coords": [145, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [390, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [25, 235],
+                "url": "invisibleBlock.png",
+                "size": [60, 300],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [500, 235],
+                "url": "invisibleBlock.png",
+                "size": [40, 300],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [3, 365],
+                "url": "invisibleBlock.png",
+                "size": [1.5, 40],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [2.5, 2.5],
+                "url": "box.png",
+                "size": [30, 23],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [3, 2.5],
+                "url": "box.png",
+                "size": [30, 23],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [2.5, 3],
+                "url": "9KvNB.png",
+                "size": [30, 23],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [3, 6.5],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inFirstRoom"
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [145, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [390, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [3, 6.5],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [35, 130],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [35, 305],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [35, 208],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [500, 130],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [500, 305],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [500, 208],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inSecondRoom",
+                "rotation": "3.14/2"
+            },
+            {
+                "coords": [390, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [145, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [3, -245],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inSecondRoom",
+                "rotation": "0.5"
+            },
+            {
+                "coords": [3, 3],
+                "url": "9KvNB.png",
+                "size": [30, 40],
+                "room": "inSecondRoom"
+            }
+        ]
+    }
+]

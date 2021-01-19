@@ -7,7 +7,7 @@ export default function checkCollision(player: any, playerHead: any, side: strin
     const roomArray = objectOfGameObjects[currentRoom];
 
     for (let groupEl in roomArray) {
-        if (groupEl === "../assets/door.png") {
+        if (groupEl === "door.png") {
             continue;
         }
         for (let i = 0; i < roomArray[groupEl].length; i += 1) {
