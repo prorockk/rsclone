@@ -7,17 +7,20 @@ let isDamage = true;
 
 export default function checkTexture(delay: number, bullets: any, shooter: any | undefined) {
     let hit = false;
-    bullets.centerX = bullets.position.x;
-    bullets.centerY = bullets.position.y;
+
+    const bulletsBounds = bullets.getBounds();
+
+    bullets.centerX = bulletsBounds.x;
+    bullets.centerY = bulletsBounds.y;
     let denominator = delay > 0 ? 2 : 4;
-    bullets.halfWidth = bullets.width / denominator;
-    bullets.halfHeight = bullets.height / denominator;
+    bullets.halfWidth = bulletsBounds.width / denominator;
+    bullets.halfHeight = bulletsBounds.height / denominator;
 
     const roomArray = objectOfGameObjects[currentRoom];
 
     for (let groupEl in roomArray) {
         for (let i = 0; i < roomArray[groupEl].length; i += 1) {
-            const colObj = roomArray[groupEl][i];
+            const colObj = roomArray[groupEl][i].getBounds();
             if (shooter && shooter === colObj) {
                 return hit;
             }
@@ -25,8 +28,8 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
 
             if (colObj.hasOwnProperty("angryMob")) itsAngryMob = colObj.angryMob; //если это моб, при косании с которым идет дамаг
 
-            colObj.centerX = colObj.position.x;
-            colObj.centerY = colObj.position.y;
+            colObj.centerX = colObj.x;
+            colObj.centerY = colObj.y;
             colObj.halfWidth = colObj.width / 2;
             colObj.halfHeight = colObj.height / 2;
 

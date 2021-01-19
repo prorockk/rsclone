@@ -13,15 +13,7 @@ export default function createElementsInAllRooms(rooms: any) {
     //right
     createGameElement(500, 235, "../assets/invisibleBlock.png", 40, 300, rooms["inFirstRoom"], "inFirstRoom");
     //bot
-    createGameElement(
-        app.view.width / 3,
-        365,
-        "../assets/invisibleBlock.png",
-        app.view.width / 1.5,
-        40,
-        rooms["inFirstRoom"],
-        "inFirstRoom"
-    );
+    createGameElement(300, 365, "../assets/floor.png", 480, 40, rooms["inFirstRoom"], "inFirstRoom");
 
     createGameElement(
         app.view.width / 2.5,
