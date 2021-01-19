@@ -39,23 +39,24 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
                     const impulse = [(bullets.centerX - colObj.x) / 72, (bullets.centerY - colObj.y) / 72];
                     if (delay > 0 && itsAngryMob) {
                         //столкновение мобов с игроком
-                        //значит колизия по игроку и мобам
                         const playerHead = bullets;
 
                         if (isDamage) {
                             //урон по герою
+
                             isDamage = false;
                             const int = setInterval(() => {
                                 player.x += impulse[0]; //откдывание героя от противника
                                 player.y += impulse[1];
                                 playerHead.x += impulse[0];
                                 playerHead.y += impulse[1];
-                            }, 10);
+                            }, 8);
+                            setTimeout(() => {
+                                clearInterval(int);
+                            }, 250); //уронная пауза
                             setTimeout(() => {
                                 isDamage = true;
-
-                                clearInterval(int);
-                            }, 400); //уронная пауза
+                            }, 800); //уронная пауза
 
                             playerHead.hp -= objectOfGameObjects[groupEl][i].damage;
                         }
