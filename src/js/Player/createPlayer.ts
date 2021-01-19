@@ -4,15 +4,14 @@ import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import CheckBounds from "../checkBounds/checkBounds";
 import { AnimateMobType } from "../types/Types";
 import addPlayerActions from "./addPlayerActions";
-import checkTexture from "../checkBounds/checkTexture";
 import checkCollision from "../checkBounds/checkCollision";
-import { threadId } from "worker_threads";
+import checkTexture from "../checkBounds/checkTexture";
 
 class createPlayer {
     [x: string]: any;
     constructor() {
         this.playerSheets = {};
-        this.playerSpeed = 3;
+        this.playerSpeed = 3; //3
         this.activeKeys = {};
         this.player = {};
         this.legs = {};
@@ -65,7 +64,7 @@ class createPlayer {
         head.hp = 16;
         this.player = legs;
         this.head = head;
-        this.checkBounds = new CheckBounds(this.player);
+        this.checkBounds = new CheckBounds(this.player, this.head);
 
         addPlayerActions();
         app.ticker.add((e: number) => {

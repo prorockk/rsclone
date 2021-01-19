@@ -1,6 +1,6 @@
-// ЭТО ПУСТЬ БУДЕТ не ТОЛЬКО ДЛЯ ПУЛЬ, но и для домага по герою
-
+// ЭТО ПУСТЬ БУДЕТ ТОЛЬКО ДЛЯ ПУЛЬ
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { currentRoom } from "../Rooms/startGame";
 import { player } from "../Rooms/startGame";
 
 let isDamage = true;
@@ -13,9 +13,11 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
     bullets.halfWidth = bullets.width / denominator;
     bullets.halfHeight = bullets.height / denominator;
 
-    for (let groupEl in objectOfGameObjects) {
-        for (let i = 0; i < objectOfGameObjects[groupEl].length; i += 1) {
-            const colObj = objectOfGameObjects[groupEl][i];
+    const roomArray = objectOfGameObjects[currentRoom];
+
+    for (let groupEl in roomArray) {
+        for (let i = 0; i < roomArray[groupEl].length; i += 1) {
+            const colObj = roomArray[groupEl][i];
             if (shooter && shooter === colObj) {
                 return hit;
             }
@@ -36,6 +38,7 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
 
             if (Math.abs(vx) < combineHalfWidths) {
                 if (Math.abs(vy) < combineHalfHeights) {
+                    console.log(groupEl);
                     const impulse = [(bullets.centerX - colObj.x) / 72, (bullets.centerY - colObj.y) / 72];
                     if (delay > 0 && itsAngryMob) {
                         //столкновение мобов с игроком
@@ -58,7 +61,7 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
                                 isDamage = true;
                             }, 800); //уронная пауза
 
-                            playerHead.hp -= objectOfGameObjects[groupEl][i].damage;
+                            playerHead.hp -= colObj.damage;
                         }
                     } else if (colObj.hasOwnProperty("hp") && bullets.hasOwnProperty("forMobs") && delay === 0) {
                         //попадание слез по мобам

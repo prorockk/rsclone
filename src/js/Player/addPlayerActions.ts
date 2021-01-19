@@ -76,10 +76,10 @@ const addPlayerActions = () => {
 
             //удаление пуль
             if (
-                this.bullets[i].position.y < 65 ||
-                this.bullets[i].position.y > 432 ||
-                this.bullets[i].position.x < 55 ||
-                this.bullets[i].position.x > 465 ||
+                this.bullets[i].position.y < 150 ||
+                this.bullets[i].position.y > 550 ||
+                this.bullets[i].position.x < 50 ||
+                this.bullets[i].position.x > 750 ||
                 checkTexture(0, this.bullets[i], 0) //                             NEW
             ) {
                 const deleteBullet = this.bullets[i];

@@ -1,21 +1,41 @@
 import * as PIXI from "pixi.js";
-import createGameElement from "../CreateSprite/createGameElement";
 import createPlayer from "../Player/createPlayer";
-//import addPlayerActions from "./Player/addPlayerActions"
 import Fly from "../Mobs/fly";
-import checkBounds from "../checkBounds/checkBounds";
-import addPlayerActions from "../Player/addPlayerActions";
 import { app } from "../script";
 import controller from "../Keyboard/keyboard";
+import createElementsInAllRooms from "./createRooms";
+import createMap from "./createTopPanel";
+
+import createGameElement from "../CreateSprite/createGameElement";
+import checkBounds from "../checkBounds/checkBounds";
+import addPlayerActions from "../Player/addPlayerActions";
 import Gaper from "../Mobs/gaper";
 
 const PlayerMethod = new createPlayer();
 let player: any = {};
 
+const rooms: any = {
+    inFirstRoom: new PIXI.Container(),
+    inSecondRoom: new PIXI.Container(),
+    inThirdRoom: new PIXI.Container(),
+    inFourthRoom: new PIXI.Container(),
+    inFifthRoom: new PIXI.Container(),
+    inSixthRoom: new PIXI.Container(),
+    inSeventhRoom: new PIXI.Container(),
+};
+
+let currentRoom = "inFirstRoom";
+for (let room in rooms) {
+    rooms[room].scale.set(1.5);
+}
+
+const topPanel = new PIXI.Graphics();
+const cell: any = createMap();
+
 function startGame() {
     const FlyClass = new Fly();
     const GaperClass = new Gaper();
-    app.loader.add("isaac", "../assets/isaac_moving_table.json"); //загрузка спрайта
+    app.loader.add("isaac", "../assets/isaac_moving_table.json");
     app.loader.load(() => {
         PlayerMethod.doneLoading(); //РЕАЛИЗОВАТЬ ЗАГРУЗКУ СПРАЙТОВ В ОТДЕЛЬНОМ ПРОМИСЕ
         player = PlayerMethod.init.call(PlayerMethod);
@@ -24,15 +44,36 @@ function startGame() {
         controller(PlayerMethod);
     });
 
+    app.stage.addChild(topPanel);
+
     const BackGroundImage = PIXI.Sprite.from("../assets/floor.png");
     BackGroundImage.width = 800;
-    BackGroundImage.height = 600;
+    BackGroundImage.height = 500;
+    BackGroundImage.x = 0;
+    BackGroundImage.y = 100;
     BackGroundImage.anchor.set(0, 0);
+    BackGroundImage.scale.set(1.5);
+
     app.stage.addChild(BackGroundImage);
+    app.stage.addChild(rooms["inFirstRoom"]); // O N E
 
-    createGameElement(app.view.width / 4, app.view.height / 4, "../assets/box.png", 30, 23);
-    createGameElement(app.view.width / 4, app.view.height / 2, "../assets/9KvNB.png", 30, 23);
-
-    const box = createGameElement(app.view.width / 2, app.view.height / 4, "../assets/box.png", 30, 23);
+    createElementsInAllRooms(rooms);
 }
-export { startGame, PlayerMethod, player };
+
+function moveTo(room: string) {
+    app.stage.removeChild(
+        rooms["inFirstRoom"],
+        rooms["inSecondRoom"],
+        rooms["inThirdRoom"],
+        rooms["inFourthRoom"],
+        rooms["inFifthRoom"],
+        rooms["inSixthRoom"],
+        rooms["inSeventhRoom"]
+    );
+    app.stage.addChild(rooms[room]);
+    currentRoom = room;
+    cell.tint = 0x7b28a4;
+    //cell.endFill();
+}
+
+export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player };
