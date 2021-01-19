@@ -1,54 +1,65 @@
 import * as PIXI from "pixi.js";
-import { app, globalEl } from "../script";
-import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
-import checkBounds from "../checkBounds/checkBounds";
+import { app } from "../script";
+import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
+import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { AnimateMobType } from "../types/Types";
+import { player } from "../Rooms/startGame";
+import tearsSheets from "../CreateSprite/tearsSheets";
+import checkTexture from "../checkBounds/checkTexture";
 
-class gaper {
+class Gaper {
     private gaper: any;
     private gaperSheets: any;
     boolDeath: boolean;
+    moveCurrent: number;
+    sheetsBullets: any;
+    bullets: any[];
+    animateBullets: any;
     constructor() {
         this.gaperSheets = {};
         this.boolDeath = true;
         this.gaper = {};
+        this.moveCurrent = 0;
+        this.sheetsBullets = {};
+        this.bullets = [];
+        this.animateBullets = {};
     }
     doneLoading() {
         const animate: AnimateMobType = {
             texture: {
-                sleep: ["gaper-sleep-tell.png", "gaper-sleep-norm.png"],
-                death: [
-                    "gaper-death1.png",
-                    "gaper-death2.png",
-                    "gaper-death3.png",
-                    "gaper-death4.png",
-                    "gaper-death5.png",
-                ],
+                angry: ["gaper-angry-tell.png", "gaper-angry.png"],
+                // death: [
+                //     "gaper-death1.png",
+                //     "gaper-death2.png",
+                //     "gaper-death3.png",
+                //     "gaper-death4.png",
+                //     "gaper-death5.png",
+                // ],
             },
             propertiesAr: [
                 {
-                    sheetSpriteStr: "sleep",
+                    sheetSpriteStr: "angry",
                     anchor: { set: 0.5 },
-                    animationSpeed: 0.1,
-                    loop: true,
-                    x: app.view.width / 4,
-                    y: app.view.height / 4,
-                },
-                {
-                    sheetSpriteStr: "gaper",
-                    anchor: { set: 0.5 },
-                    animationSpeed: 0.4,
-                    loop: true,
-                    x: app.view.width / 1.5,
+                    animationSpeed: 0.05,
+                    loop: false,
+                    x: app.view.width / 3.2,
                     y: app.view.height / 1.5,
                 },
                 {
-                    sheetSpriteStr: "gaper",
+                    sheetSpriteStr: "angry",
                     anchor: { set: 0.5 },
-                    animationSpeed: 0.4,
-                    loop: true,
-                    x: app.view.width / 1.1,
-                    y: app.view.height / 1.1,
+                    animationSpeed: 0.05,
+                    loop: false,
+                    x: app.view.width / 2,
+                    y: app.view.height / 1.6,
+                },
+                {
+                    sheetSpriteStr: "angry",
+                    anchor: { set: 0.5 },
+                    animationSpeed: 0.05,
+                    loop: false,
+                    x: app.view.width / 2.5,
+                    y: app.view.height / 2.5,
                 },
             ],
             setBool: false,
@@ -56,22 +67,22 @@ class gaper {
         const [sheets, ...gaper] = createAnimateElement(animate);
         this.gaperSheets = sheets;
         this.gaper = gaper;
-        this.gaper.forEach((gaper: { hp: number }) => {
-            gaper.hp = 3;
+        this.gaper.forEach((gaperOne: any) => {
+            gaperOne.hp = 150;
+            gaperOne.angryMob = true;
+            gaperOne.froze = false;
+            gaperOne.damage = 2;
         });
-        globalEl.gaper = gaper;
+        const [sheetsBullets, animateBullets] = tearsSheets();
+        this.sheetsBullets = sheetsBullets;
+        this.animateBullets = animateBullets;
+        objectOfGameObjects.gaper = gaper;
         app.ticker.add(() => {
-            this.movegaper();
+            this.moveGaper();
         });
     }
-    movegaper() {
-        // if (this.gaperOne.hp === 0) {
-
-        // }
-
-        const playerX = globalEl.player.x;
-        const playerY = globalEl.player.y;
-        this.gaper.forEach((gaperOne: any) => {
+    moveGaper() {
+        this.gaper.forEach((gaperOne: any, currentGap: number) => {
             if (gaperOne.hp === 0 && this.boolDeath) {
                 gaperOne.textures = this.gaperSheets.death;
                 gaperOne.loop = false;
@@ -83,26 +94,90 @@ class gaper {
                     app.stage.removeChild(gaperOne);
                     this.boolDeath = true;
                 };
-            }
-            const randomSymbol = Math.ceil(Math.random() - 0.5) - 0.2;
-            const gaperX = gaperOne.x;
-            const gaperY = gaperOne.y;
-            if (playerX > gaperX && randomSymbol > 0) {
-                gaperOne.x += 0.9;
-                gaperOne.y += 0.6 * randomSymbol;
-            } else if (randomSymbol < 0) {
-                gaperOne.x -= 0.9;
-                gaperOne.y += 0.6 * randomSymbol;
-            }
-            if (playerY > gaperY && randomSymbol < 0) {
-                gaperOne.y += 0.9;
-                gaperOne.x += 0.6 * randomSymbol;
-            } else if (randomSymbol > 0) {
-                gaperOne.y -= 0.9;
-                gaperOne.x += 0.6 * randomSymbol;
+            } else if (gaperOne.froze) {
+                //анимация нанесения урона
+                if (typeof gaperOne.froze === "boolean") {
+                    const intTint = setInterval(() => {
+                        // при добавляем мигание один раз
+                        gaperOne.tint = 16777215;
+                    }, 10);
+                    setTimeout(() => {
+                        clearInterval(intTint);
+                        gaperOne.froze = false;
+                    }, 400);
+                }
+                gaperOne.froze = currentGap + 1;
+                gaperOne.tint = 16716853;
+            } else {
+                if (this.moveCurrent % 10 === 5) {
+                    //перемещение
+                    gaperOne.x += 3;
+                } else if (this.moveCurrent % 10 === 0) {
+                    gaperOne.x -= 3;
+                }
+                if (this.moveCurrent % 80 === 0) {
+                    //направление пуль и создание
+
+                    let bulletDirection;
+                    const bulletSpeed = 2;
+                    const cursorPositionX = player.x;
+                    const cursorPositionY = player.y;
+                    if (Math.abs(cursorPositionX - gaperOne.x) > Math.abs(cursorPositionY - gaperOne.y)) {
+                        bulletDirection = cursorPositionX > gaperOne.x ? "right" : "left";
+                    } else {
+                        bulletDirection = cursorPositionY > gaperOne.y ? "down" : "up";
+                    }
+                    this.animateBullets.propertiesAr[0].x = gaperOne.x;
+                    this.animateBullets.propertiesAr[0].y = gaperOne.y;
+
+                    const [bullet]: any = addAnimateElement(this.sheetsBullets, this.animateBullets.propertiesAr);
+                    bullet.speed = bulletSpeed;
+                    bullet.direction = bulletDirection;
+                    bullet.tint = 9109504;
+                    this.bullets.push(bullet);
+                    gaperOne.textures = this.gaperSheets.angry;
+                    gaperOne.play();
+                }
+                for (let i = 0; i < this.bullets.length; i++) {
+                    //определение направления выстрела
+                    switch (this.bullets[i].direction) {
+                        case "up":
+                            this.bullets[i].position.y -= this.bullets[i].speed;
+                            break;
+                        case "down":
+                            this.bullets[i].position.y += this.bullets[i].speed;
+                            break;
+                        case "left":
+                            this.bullets[i].position.x -= this.bullets[i].speed;
+                            break;
+                        case "right":
+                            this.bullets[i].position.x += this.bullets[i].speed;
+                            break;
+                    }
+
+                    //удаление пуль
+                    if (
+                        // this.bullets[i].position.y < 65 ||
+                        // this.bullets[i].position.y > 432 ||
+                        // this.bullets[i].position.x < 55 ||
+                        // this.bullets[i].position.x > 465 ||
+                        checkTexture(0, this.bullets[i], gaperOne)
+                    ) {
+                        const deleteBullet = this.bullets[i];
+                        deleteBullet.textures = this.sheetsBullets.death;
+                        deleteBullet.play();
+                        this.bullets.splice(i, 1);
+                        deleteBullet.onComplete = () => {
+                            deleteBullet.dead = true;
+                            app.stage.removeChild(deleteBullet);
+                        };
+                    }
+                }
             }
         });
+
+        this.moveCurrent++;
     }
 }
 
-export default gaper;
+export default Gaper;

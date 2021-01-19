@@ -1,7 +1,7 @@
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { currentRoom } from "../Rooms/startGame";
 
-export default function checkCollision(player: any, side: string) {
+export default function checkCollision(player: any, playerHead: any, side: string) {
     const playerBounds = player.getBounds();
 
     const roomArray = objectOfGameObjects[currentRoom];

@@ -6,8 +6,13 @@ import controller from "../Keyboard/keyboard";
 import createElementsInAllRooms from "./createRooms";
 import createMap from "./createTopPanel";
 
+import createGameElement from "../CreateSprite/createGameElement";
+import checkBounds from "../checkBounds/checkBounds";
+import addPlayerActions from "../Player/addPlayerActions";
+import Gaper from "../Mobs/gaper";
+
 const PlayerMethod = new createPlayer();
-const globalEl: any = {};
+let player: any = {};
 
 const rooms: any = {
     inFirstRoom: new PIXI.Container(),
@@ -29,11 +34,13 @@ const cell: any = createMap();
 
 function startGame() {
     const FlyClass = new Fly();
+    const GaperClass = new Gaper();
     app.loader.add("isaac", "../assets/isaac_moving_table.json");
     app.loader.load(() => {
-        PlayerMethod.doneLoading();
-        globalEl.player = PlayerMethod.init.call(PlayerMethod);
+        PlayerMethod.doneLoading(); //РЕАЛИЗОВАТЬ ЗАГРУЗКУ СПРАЙТОВ В ОТДЕЛЬНОМ ПРОМИСЕ
+        player = PlayerMethod.init.call(PlayerMethod);
         FlyClass.doneLoading();
+        GaperClass.doneLoading();
         controller(PlayerMethod);
     });
 
@@ -69,4 +76,4 @@ function moveTo(room: string) {
     //cell.endFill();
 }
 
-export { startGame, PlayerMethod, globalEl, moveTo, currentRoom, topPanel };
+export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player };
