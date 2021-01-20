@@ -1,6 +1,12 @@
 import { topPanel } from "./startGame";
 import * as PIXI from "pixi.js";
 
+// const mapRoomsCell = {
+//     'activeRoom' = "inFirstRoom";
+//     'visitedRooms' = [];
+//     'availableRooms' = ["inSecondRoom"];
+// }
+
 export default function createMap() {
     topPanel.beginFill(0x66ccff);
     topPanel.drawRect(0, 0, 800, 100);

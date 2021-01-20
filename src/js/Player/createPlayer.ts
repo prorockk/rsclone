@@ -41,7 +41,7 @@ class createPlayer {
                 {
                     sheetSpriteStr: "upWalk",
                     animationSpeed: 0.2,
-                    anchor: { set: 0.5 },
+                    anchor: 0.5,
                     loop: false,
                     x: app.view.width / 2,
                     y: app.view.height / 2,
@@ -49,7 +49,7 @@ class createPlayer {
                 {
                     sheetSpriteStr: "standSee",
                     animationSpeed: 0.11,
-                    anchor: { set: 0.5 },
+                    anchor: 0.5,
                     loop: false,
                     x: app.view.width / 2,
                     y: app.view.height / 2,

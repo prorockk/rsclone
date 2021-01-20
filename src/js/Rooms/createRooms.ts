@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import createStaticElement from "../CreateSprite/createGameElement";
+import createElement from "../CreateSprite/createGameElement";
 import { app } from "../script";
 
 export default async function createElementsInAllRooms(rooms: any) {
@@ -8,11 +8,16 @@ export default async function createElementsInAllRooms(rooms: any) {
     const roomsArr = await res.json();
     //1
 
-    const createStatic = new createStaticElement(rooms);
+    const createStatic = new createElement(rooms);
+
     roomsArr.forEach((room: { [x: string]: any[] }) => {
         for (let func in room) {
             room[func].forEach((element) => {
-                createStatic.createGameElement(element);
+                if (func === "createGameElement") {
+                    createStatic.createGameElement(element);
+                } else if (func === "createAnimateElement") {
+                    createStatic.createAnimateElement(element);
+                }
             });
         }
     });

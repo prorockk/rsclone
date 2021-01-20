@@ -55,6 +55,44 @@
                 "size": [52, 52],
                 "room": "inFirstRoom"
             }
+        ],
+        "createAnimateElement": [
+            {
+                "name": "fly",
+                "room": "inFirstRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly2-1.png", "fly1-2.png"],
+                    "simpleFly": ["fly1-1.png", "fly1-2.png"],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.3,
+                        "loop": true,
+                        "x": 400,
+                        "y": 320
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.3,
+                        "loop": true,
+                        "x": 160,
+                        "y": 150
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.3,
+                        "loop": true,
+                        "x": 150,
+                        "y": 150
+                    }
+                ]
+            }
         ]
     },
     {
