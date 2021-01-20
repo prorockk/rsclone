@@ -116,7 +116,7 @@
                 "room": "inSecondRoom"
             },
             {
-                "coords": [35, 130],
+                "coords": [35, 155],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inSecondRoom"
@@ -129,13 +129,13 @@
                 "rotation": "4.71"
             },
             {
-                "coords": [35, 305],
+                "coords": [35, 320],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inSecondRoom"
             },
             {
-                "coords": [500, 130],
+                "coords": [500, 155],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inSecondRoom"
@@ -148,7 +148,7 @@
                 "rotation": "1.57"
             },
             {
-                "coords": [500, 305],
+                "coords": [500, 320],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inSecondRoom"
@@ -189,13 +189,7 @@
                 "room": "inThirdRoom"
             },
             {
-                "coords": [35, 130],
-                "url": "invisibleBlock.png",
-                "size": [42, 135],
-                "room": "inThirdRoom"
-            },
-            {
-                "coords": [35, 305],
+                "coords": [35, 155],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inThirdRoom"
@@ -206,6 +200,12 @@
                 "size": [52, 52],
                 "room": "inThirdRoom",
                 "rotation": "4.71"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inThirdRoom"
             },
             {
                 "coords": [500, 230],
@@ -242,7 +242,7 @@
                 "room": "inFourthRoom"
             },
             {
-                "coords": [500, 130],
+                "coords": [500, 155],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inFourthRoom"
@@ -255,7 +255,7 @@
                 "rotation": "1.57"
             },
             {
-                "coords": [500, 305],
+                "coords": [500, 320],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inFourthRoom"
@@ -289,7 +289,7 @@
                 "room": "inFifthRoom"
             },
             {
-                "coords": [500, 130],
+                "coords": [500, 155],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inFifthRoom"
@@ -302,7 +302,7 @@
                 "rotation": "1.57"
             },
             {
-                "coords": [500, 305],
+                "coords": [500, 320],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inFifthRoom"
@@ -342,13 +342,7 @@
                 "room": "inSixthRoom"
             },
             {
-                "coords": [35, 130],
-                "url": "invisibleBlock.png",
-                "size": [42, 135],
-                "room": "inSixthRoom"
-            },
-            {
-                "coords": [35, 305],
+                "coords": [35, 155],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
                 "room": "inSixthRoom"
@@ -359,6 +353,12 @@
                 "size": [52, 52],
                 "room": "inSixthRoom",
                 "rotation": "4.71"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSixthRoom"
             },
             {
                 "coords": [500, 235],
