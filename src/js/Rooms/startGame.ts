@@ -11,6 +11,10 @@ import checkBounds from "../checkBounds/checkBounds";
 import addPlayerActions from "../Player/addPlayerActions";
 import Gaper from "../Mobs/gaper";
 
+import createArrowContainer from "./topPanelArrows";
+
+import createItemsContainer from "./spaceItem";
+
 const PlayerMethod = new createPlayer();
 let player: any = {};
 
@@ -60,7 +64,8 @@ function startGame() {
     app.stage.addChild(BackGroundImage);
     app.stage.addChild(rooms["inFirstRoom"]); // O N E
     createMap();
-    //createElementsInAllRooms(rooms); // Не было
+    createArrowContainer();
+    createItemsContainer();
 }
 
 function moveTo(room: string) {

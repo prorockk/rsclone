@@ -15,6 +15,13 @@ function createMap() {
     mapContainer.drawRect(0, 0, 800, 100);
     mapContainer.endFill();
 
+    // const mapRectangle = new PIXI.Graphics();
+    // mapRectangle.beginFill(0xffffff);
+    // mapRectangle.lineStyle(5, 0x1a1a1a, 1);
+    // mapRectangle.drawRect(30, 15, 250, 70);
+    // mapRectangle.endFill();
+    // mapContainer.addChild(mapRectangle)
+
     const arrayOfRoomsName = [
         "inFirstRoom",
         "inSecondRoom",
@@ -50,6 +57,7 @@ function createMap() {
         mapCell.endFill();
 
         cellOfRoom[arrayOfRoomsName[mapCellCounter]] = mapCell;
+        //mapRectangle.addChild(mapCell); mapContainer
         mapContainer.addChild(mapCell);
     }
 
