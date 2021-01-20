@@ -59,8 +59,10 @@ class createPlayer {
         };
         const [sheets, legs, head] = createAnimateElement(animate);
         this.playerSheets = sheets;
-        head.anchor.set(0.5, 0.83);
+        head.anchor.set(0.5, 0.8);
         legs.anchor.set(0.5, 0.5);
+        head.scale.set(1.5);
+        legs.scale.set(1.5);
         head.hp = 16;
         this.player = legs;
         this.head = head;
@@ -70,7 +72,7 @@ class createPlayer {
         app.ticker.add((e: number) => {
             this.movePlayer();
             this.updateBullets(e);
-            checkTexture(e, this.head, 0);
+            checkTexture(e, this.head, false);
         });
     };
     movePlayer() {
@@ -91,7 +93,7 @@ class createPlayer {
                 }, 10);
                 setTimeout(() => {
                     clearInterval(intTint);
-                    this.head.anchor.set(0.5, 0.83);
+                    this.head.anchor.set(0.5, 0.8);
                     this.head.textures = this.playerSheets.standSee;
                     this.head.play();
                     this.froze = false;

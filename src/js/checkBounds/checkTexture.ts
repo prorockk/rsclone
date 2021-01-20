@@ -9,9 +9,10 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
     let hit = false;
 
     const bulletsBounds = bullets.getBounds();
-
-    bullets.centerX = bulletsBounds.x;
-    bullets.centerY = bulletsBounds.y;
+    const correctForHeadCollisionWidth = typeof shooter === "boolean" ? bulletsBounds.width / 4.7 : 0;
+    const correctForHeadCollisionHeight = typeof shooter === "boolean" ? bulletsBounds.height / 2 : 0;
+    bullets.centerX = bulletsBounds.x + correctForHeadCollisionWidth;
+    bullets.centerY = bulletsBounds.y + correctForHeadCollisionHeight;
     let denominator = delay > 0 ? 2 : 4;
     bullets.halfWidth = bulletsBounds.width / denominator;
     bullets.halfHeight = bulletsBounds.height / denominator;
@@ -26,7 +27,6 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
                 return hit;
             }
             let itsAngryMob = false;
-
             if (colObj.hasOwnProperty("angryMob")) itsAngryMob = colObj.angryMob; //если это моб, при косании с которым идет дамаг
 
             colObj.centerX = colObjBounds.x;
@@ -44,6 +44,7 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
                 if (Math.abs(vy) < combineHalfHeights) {
                     const impulse = [(bullets.centerX - colObj.centerX) / 72, (bullets.centerY - colObj.centerY) / 72];
                     if (delay > 0 && itsAngryMob) {
+                        //вызыввется в app.ticker (delay, head, false)
                         //столкновение мобов с игроком
                         const playerHead = bullets;
 
@@ -67,6 +68,7 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
                             playerHead.hp -= colObj.damage;
                         }
                     } else if (colObj.hasOwnProperty("hp") && bullets.hasOwnProperty("forMobs") && delay === 0) {
+                        //вызывается в AddPlayerActions
                         //попадание слез по мобам
                         if (shooter && shooter === colObj) {
                             return hit;

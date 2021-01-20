@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { app } from "../script";
-import { currentRoom, player } from "../Rooms/startGame";
+import { currentRoom, player, rooms } from "../Rooms/startGame";
 import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import { AnimateMobType } from "../types/Types";
 
@@ -16,12 +16,11 @@ class Fly {
     }
     doneLoading() {
         if (!objectOfGameObjects[currentRoom].hasOwnProperty("fly")) return;
-        console.log("flyFC");
 
         this.fly = objectOfGameObjects[currentRoom].fly;
-        console.log(objectOfGameObjects[currentRoom]);
 
-        this.flySheets = this.fly.sheets;
+        this.flySheets = this.fly[0].sheets;
+
         this.fly.forEach((flyOne: any) => {
             flyOne.hp = 3;
             flyOne.angryMob = true;
@@ -46,12 +45,13 @@ class Fly {
                 this.boolDeath = false;
                 flyOne.onComplete = () => {
                     flyOne.dead = true;
-                    app.stage.removeChild(flyOne);
+                    rooms[currentRoom].removeChild(flyOne);
                     this.boolDeath = true;
                 };
             } else if (flyOne.froze) {
                 //анимация нанесения урона
                 if (typeof flyOne.froze === "boolean") {
+                    //блокируем многоразовый вход в условие при замороске
                     const intTint = setInterval(() => {
                         // при добавляем мигание один раз
                         flyOne.tint = 16777215;
@@ -61,12 +61,12 @@ class Fly {
                         flyOne.froze = false;
                     }, 400);
                 }
-                flyOne.froze = currentFly + 1;
+                flyOne.froze = 0; //блокируем многоразовый вход в условие при замороске, заменой типа данных на числовой
                 flyOne.tint = 16716853;
             } else {
                 const randomSymbol = Math.ceil(Math.random() - 0.5) - 0.2;
-                const flyX = flyOne.x;
-                const flyY = flyOne.y;
+                const flyX = flyOne.getBounds().x;
+                const flyY = flyOne.getBounds().y;
                 if (playerX > flyX && randomSymbol > 0) {
                     flyOne.x += 0.9;
                     flyOne.y += 0.6 * randomSymbol;
