@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { PlayerMethod } from "../Rooms/startGame";
+import { PlayerMethod, rooms } from "../Rooms/startGame";
 import checkTexture from "../checkBounds/checkTexture";
 import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import tearsSheets from "../CreateSprite/tearsSheets";
@@ -40,9 +40,11 @@ const addPlayerActions = () => {
                 bulletDirection = cursorPositionY > this.player.y ? "down" : "up";
             }
         }
-        const startPointBullet = bulletDirection === "up" ? 20 : 7.5;
-        animate.propertiesAr[0].x = this.player.x + tearPosition;
-        animate.propertiesAr[0].y = this.player.y - startPointBullet;
+
+        const startPointBullet = bulletDirection === "up" ? 20 : 7.5; //коректировка выстрелов вверх
+        animate.propertiesAr[0].x = this.player.getBounds().x + tearPosition;
+        animate.propertiesAr[0].y = this.player.getBounds().y - startPointBullet;
+
         this.head.textures = this.playerSheets[`${bulletDirection}See`]; //изменение напрвления головы
         this.head.play();
         this.head.onComplete = () => {
@@ -52,6 +54,7 @@ const addPlayerActions = () => {
         const [bullet]: any = addAnimateElement(sheets, animate.propertiesAr);
 
         bullet.speed = bulletSpeed;
+        bullet.scale.set(1.2);
         bullet.forMobs = true;
         bullet.direction = bulletDirection;
         this.bullets.push(bullet);

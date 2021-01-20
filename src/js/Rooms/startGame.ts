@@ -76,4 +76,4 @@ function moveTo(room: string) {
     //cell.endFill();
 }
 
-export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player };
+export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms };

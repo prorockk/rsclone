@@ -70,7 +70,7 @@
                     {
                         "sheetSpriteStr": "fly",
                         "anchor": 0.5,
-                        "animationSpeed": 0.3,
+                        "animationSpeed": 0.4,
                         "loop": true,
                         "x": 400,
                         "y": 320
@@ -78,7 +78,7 @@
                     {
                         "sheetSpriteStr": "fly",
                         "anchor": 0.5,
-                        "animationSpeed": 0.3,
+                        "animationSpeed": 0.4,
                         "loop": true,
                         "x": 160,
                         "y": 150
@@ -86,7 +86,7 @@
                     {
                         "sheetSpriteStr": "fly",
                         "anchor": 0.5,
-                        "animationSpeed": 0.3,
+                        "animationSpeed": 0.4,
                         "loop": true,
                         "x": 150,
                         "y": 150

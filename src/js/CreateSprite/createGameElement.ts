@@ -77,8 +77,6 @@ class createElement {
         if (objectOfGameObjects[room].hasOwnProperty(url)) {
             objectOfGameObjects[room][url].push(gameElement);
         } else {
-            console.log(url);
-
             objectOfGameObjects[room][url] = [gameElement];
         }
     };

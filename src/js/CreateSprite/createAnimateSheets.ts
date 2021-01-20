@@ -1,6 +1,8 @@
 import * as PIXI from "pixi.js";
+import { currentRoom } from "../Rooms/startGame";
 import { app } from "../script";
 import { AnimateMobType } from "../types/Types";
+import createElement from "./createGameElement";
 
 const createAnimateElement = (animateObj: AnimateMobType) => {
     const Sheets: any = {};
@@ -20,6 +22,7 @@ const addAnimateElement = (Sheets: { [x: string]: PIXI.Texture[] }, propertiesAr
         mob.anchor.set(property.anchor);
         mob.x = property.x;
         mob.y = property.y;
+
         for (const key in property) {
             if (mob.hasOwnProperty(key)) {
                 mob[key] = property[key];

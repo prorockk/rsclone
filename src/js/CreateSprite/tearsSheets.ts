@@ -19,11 +19,13 @@ const tearsSheets = () => {
         propertiesAr: [
             {
                 sheetSpriteStr: "shot",
-                anchor: { set: 0.5 },
+                anchor: 0.5,
                 animationSpeed: 0.6,
                 loop: false,
                 width: 13,
                 height: 13,
+                x: 0,
+                y: 0,
             },
         ],
         setBool: true,
