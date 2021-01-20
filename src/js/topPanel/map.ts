@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { topPanel } from "./startGame";
+import { topPanel } from "../Rooms/startGame";
 
 const cellOfRoom: any = {};
 

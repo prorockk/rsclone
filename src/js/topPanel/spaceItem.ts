@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { topPanel } from "./startGame";
+import { topPanel } from "../Rooms/startGame";
 export default function createItemsContainer() {
     const itemsContainer = PIXI.Sprite.from("../../assets/itemsContainer.png");
     itemsContainer.width = 80;

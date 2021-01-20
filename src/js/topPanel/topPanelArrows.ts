@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { topPanel } from "./startGame";
+import { topPanel } from "../Rooms/startGame";
 export default function createArrowContainer() {
     const arrowContainer = PIXI.Sprite.from("../../assets/Arrows.png");
     arrowContainer.width = 80;
