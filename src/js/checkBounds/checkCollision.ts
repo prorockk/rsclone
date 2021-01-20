@@ -7,7 +7,7 @@ export default function checkCollision(player: any, playerHead: any, side: strin
     const roomArray = objectOfGameObjects[currentRoom];
 
     for (let groupEl in roomArray) {
-        if (groupEl === "../assets/door.png") {
+        if (groupEl === "door.png") {
             continue;
         }
         for (let i = 0; i < roomArray[groupEl].length; i += 1) {
@@ -43,8 +43,8 @@ export default function checkCollision(player: any, playerHead: any, side: strin
                 if (
                     boundsOfGameObject.x + boundsOfGameObject.width - 3 > playerBounds.x &&
                     boundsOfGameObject.x + 3 < playerBounds.x + playerBounds.width &&
-                    playerBounds.y + playerBounds.width + 5 > boundsOfGameObject.y &&
-                    playerBounds.y + playerBounds.width < boundsOfGameObject.y + boundsOfGameObject.height
+                    playerBounds.y + playerBounds.height > boundsOfGameObject.y &&
+                    playerBounds.y + playerBounds.height < boundsOfGameObject.y + boundsOfGameObject.height
                 )
                     return true;
             }

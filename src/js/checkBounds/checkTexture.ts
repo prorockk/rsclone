@@ -20,7 +20,8 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
 
     for (let groupEl in roomArray) {
         for (let i = 0; i < roomArray[groupEl].length; i += 1) {
-            const colObj = roomArray[groupEl][i].getBounds();
+            const colObj = roomArray[groupEl][i];
+            const colObjBounds = colObj.getBounds();
             if (shooter && shooter === colObj) {
                 return hit;
             }
@@ -28,10 +29,10 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
 
             if (colObj.hasOwnProperty("angryMob")) itsAngryMob = colObj.angryMob; //если это моб, при косании с которым идет дамаг
 
-            colObj.centerX = colObj.x;
-            colObj.centerY = colObj.y;
-            colObj.halfWidth = colObj.width / 2;
-            colObj.halfHeight = colObj.height / 2;
+            colObj.centerX = colObjBounds.x;
+            colObj.centerY = colObjBounds.y;
+            colObj.halfWidth = colObjBounds.width / 2;
+            colObj.halfHeight = colObjBounds.height / 2;
 
             let vx = bullets.centerX - colObj.centerX;
             let vy = bullets.centerY - colObj.centerY;
@@ -41,27 +42,27 @@ export default function checkTexture(delay: number, bullets: any, shooter: any |
 
             if (Math.abs(vx) < combineHalfWidths) {
                 if (Math.abs(vy) < combineHalfHeights) {
-                    console.log(groupEl);
-                    const impulse = [(bullets.centerX - colObj.x) / 72, (bullets.centerY - colObj.y) / 72];
+                    const impulse = [(bullets.centerX - colObj.centerX) / 72, (bullets.centerY - colObj.centerY) / 72];
                     if (delay > 0 && itsAngryMob) {
                         //столкновение мобов с игроком
-                        //значит колизия по игроку и мобам
                         const playerHead = bullets;
 
                         if (isDamage) {
                             //урон по герою
+
                             isDamage = false;
                             const int = setInterval(() => {
                                 player.x += impulse[0]; //откдывание героя от противника
                                 player.y += impulse[1];
                                 playerHead.x += impulse[0];
                                 playerHead.y += impulse[1];
-                            }, 10);
+                            }, 8);
+                            setTimeout(() => {
+                                clearInterval(int);
+                            }, 250); //уронная пауза
                             setTimeout(() => {
                                 isDamage = true;
-
-                                clearInterval(int);
-                            }, 400); //уронная пауза
+                            }, 800); //уронная пауза
 
                             playerHead.hp -= colObj.damage;
                         }

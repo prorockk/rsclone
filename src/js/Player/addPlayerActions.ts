@@ -4,6 +4,7 @@ import { PlayerMethod } from "../Rooms/startGame";
 import checkTexture from "../checkBounds/checkTexture";
 import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import tearsSheets from "../CreateSprite/tearsSheets";
+import { loadPartialConfig } from "@babel/core";
 
 const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя

@@ -2,10 +2,12 @@ import * as PIXI from "pixi.js";
 import { topPanel } from "./startGame";
 
 const cellOfRoom: any = {};
+
 const cellHight = 12;
 const cellWidth = 30;
 const availableCellColor = 0x5c5c5c;
-const currentCellColor = 0xf4f4f4;
+const currentCellColor = 0xffffff;
+
 function createMap() {
     const mapContainer = new PIXI.Graphics();
     mapContainer.beginFill(0x424242);
@@ -32,7 +34,7 @@ function createMap() {
         //mapCell.lineStyle(5,0x1a1a1a,1);                                                  ??????????????
 
         mapCellCounter === 0
-            ? mapCell.drawRect(110, 65, 30, 12).lineStyle(5, 0xff0000, 1)
+            ? mapCell.drawRect(110, 65, cellWidth, cellHight)
             : mapCellCounter === 1
             ? mapCell.drawRect(110, 50, cellWidth, cellHight)
             : mapCellCounter === 2
@@ -46,11 +48,13 @@ function createMap() {
             : mapCell.drawRect(110, 20, cellWidth, cellHight);
 
         mapCell.endFill();
+
         cellOfRoom[arrayOfRoomsName[mapCellCounter]] = mapCell;
         mapContainer.addChild(mapCell);
     }
 
     cellOfRoom["inFirstRoom"].tint = currentCellColor;
+    cellOfRoom["inSecondRoom"].tint = availableCellColor;
     topPanel.addChild(mapContainer);
 }
 

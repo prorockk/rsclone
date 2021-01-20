@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { AnimateMobType } from "../types/Types";
 
-function createAnimateElement(animateObj: AnimateMobType) {
+const createAnimateElement = (animateObj: AnimateMobType) => {
     const Sheets: any = {};
     const { texture, propertiesAr } = animateObj;
     for (const key in texture) {
@@ -13,12 +13,11 @@ function createAnimateElement(animateObj: AnimateMobType) {
     if (animateObj.setBool) return Sheets;
     const mobAr = addAnimateElement(Sheets, propertiesAr);
     return [Sheets, ...mobAr];
-}
-
-function addAnimateElement(Sheets: { [x: string]: PIXI.Texture[] }, propertiesAr: any[]) {
+};
+const addAnimateElement = (Sheets: { [x: string]: PIXI.Texture[] }, propertiesAr: any[]) => {
     return propertiesAr.map((property: any) => {
         const mob: any = new PIXI.AnimatedSprite(Sheets[property.sheetSpriteStr]);
-        mob.anchor.set(property.anchor.set);
+        mob.anchor.set(property.anchor);
         mob.x = property.x;
         mob.y = property.y;
         for (const key in property) {
@@ -30,5 +29,6 @@ function addAnimateElement(Sheets: { [x: string]: PIXI.Texture[] }, propertiesAr
         mob.play();
         return mob;
     });
-}
+};
+
 export { createAnimateElement, addAnimateElement };

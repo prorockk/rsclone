@@ -41,7 +41,7 @@ class createPlayer {
                 {
                     sheetSpriteStr: "upWalk",
                     animationSpeed: 0.2,
-                    anchor: { set: 0.5 },
+                    anchor: 0.5,
                     loop: false,
                     x: app.view.width / 2,
                     y: app.view.height / 2,
@@ -49,7 +49,7 @@ class createPlayer {
                 {
                     sheetSpriteStr: "standSee",
                     animationSpeed: 0.11,
-                    anchor: { set: 0.5 },
+                    anchor: 0.5,
                     loop: false,
                     x: app.view.width / 2,
                     y: app.view.height / 2,
@@ -59,7 +59,8 @@ class createPlayer {
         };
         const [sheets, legs, head] = createAnimateElement(animate);
         this.playerSheets = sheets;
-        head.anchor.set(0.5, 0.93);
+        head.anchor.set(0.5, 0.83);
+        legs.anchor.set(0.5, 0.5);
         head.hp = 16;
         this.player = legs;
         this.head = head;
@@ -76,13 +77,13 @@ class createPlayer {
         if (this.head.hp < this.hp || this.froze) {
             //анимация нанесения урона
             this.froze = true;
-            if (this.head.hp + 1 < this.hp) {
-                //если большой дамаг то меняем текстурку
-                this.head.textures = this.playerSheets.hit;
-                this.head.anchor.set(0.5);
-                this.head.play();
-            }
             if (this.head.hp < this.hp) {
+                if (this.head.hp + 1 < this.hp) {
+                    //если большой дамаг то меняем текстурку
+                    this.head.textures = this.playerSheets.hit;
+                    this.head.anchor.set(0.5);
+                    this.head.play();
+                }
                 // при малом и большом домаге добавляем мигание один раз
                 const intTint = setInterval(() => {
                     this.player.tint = 16777215;
@@ -90,11 +91,11 @@ class createPlayer {
                 }, 10);
                 setTimeout(() => {
                     clearInterval(intTint);
-                    this.head.anchor.set(0.5, 1.05);
+                    this.head.anchor.set(0.5, 0.83);
                     this.head.textures = this.playerSheets.standSee;
                     this.head.play();
                     this.froze = false;
-                }, 200);
+                }, 250);
             }
             this.player.tint = 16716853;
             this.head.tint = 16716853;

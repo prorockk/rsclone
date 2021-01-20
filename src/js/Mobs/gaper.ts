@@ -117,22 +117,10 @@ class Gaper {
                 }
                 if (this.moveCurrent % 80 === 0) {
                     //направление пуль и создание
-
-                    let bulletDirection;
-                    const bulletSpeed = 2;
-                    const cursorPositionX = player.x;
-                    const cursorPositionY = player.y;
-                    if (Math.abs(cursorPositionX - gaperOne.x) > Math.abs(cursorPositionY - gaperOne.y)) {
-                        bulletDirection = cursorPositionX > gaperOne.x ? "right" : "left";
-                    } else {
-                        bulletDirection = cursorPositionY > gaperOne.y ? "down" : "up";
-                    }
                     this.animateBullets.propertiesAr[0].x = gaperOne.x;
                     this.animateBullets.propertiesAr[0].y = gaperOne.y;
-
                     const [bullet]: any = addAnimateElement(this.sheetsBullets, this.animateBullets.propertiesAr);
-                    bullet.speed = bulletSpeed;
-                    bullet.direction = bulletDirection;
+                    bullet.direction = [player.x, player.y]; //ЗАПОМИНАЕМ ПОЛОЖЕНИЕ ГЕРОЯ во время выстрела моба
                     bullet.tint = 9109504;
                     this.bullets.push(bullet);
                     gaperOne.textures = this.gaperSheets.angry;
@@ -140,27 +128,21 @@ class Gaper {
                 }
                 for (let i = 0; i < this.bullets.length; i++) {
                     //определение направления выстрела
-                    switch (this.bullets[i].direction) {
-                        case "up":
-                            this.bullets[i].position.y -= this.bullets[i].speed;
-                            break;
-                        case "down":
-                            this.bullets[i].position.y += this.bullets[i].speed;
-                            break;
-                        case "left":
-                            this.bullets[i].position.x -= this.bullets[i].speed;
-                            break;
-                        case "right":
-                            this.bullets[i].position.x += this.bullets[i].speed;
-                            break;
-                    }
+                    const bullet = this.bullets[i];
+                    const bulletSpeed = 2;
+                    bullet.direction[0] > bullet.x
+                        ? (bullet.position.x += bulletSpeed)
+                        : (bullet.position.x -= bulletSpeed);
+                    bullet.direction[1] > bullet.y
+                        ? (bullet.position.y += bulletSpeed)
+                        : (bullet.position.y -= bulletSpeed);
 
                     //удаление пуль
                     if (
-                        // this.bullets[i].position.y < 65 ||
-                        // this.bullets[i].position.y > 432 ||
-                        // this.bullets[i].position.x < 55 ||
-                        // this.bullets[i].position.x > 465 ||
+                        this.bullets[i].position.y < 65 ||
+                        this.bullets[i].position.y > 432 ||
+                        this.bullets[i].position.x < 55 ||
+                        this.bullets[i].position.x > 465 ||
                         checkTexture(0, this.bullets[i], gaperOne)
                     ) {
                         const deleteBullet = this.bullets[i];
