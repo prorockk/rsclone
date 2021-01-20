@@ -4,7 +4,7 @@ import Fly from "../Mobs/fly";
 import { app } from "../script";
 import controller from "../Keyboard/keyboard";
 import createElementsInAllRooms from "./createRooms";
-import createMap from "./createTopPanel";
+import { createMap, updateMap } from "./map";
 
 import createGameElement from "../CreateSprite/createGameElement";
 import checkBounds from "../checkBounds/checkBounds";
@@ -25,12 +25,13 @@ const rooms: any = {
 };
 
 let currentRoom = "inFirstRoom";
+
 for (let room in rooms) {
     rooms[room].scale.set(1.5);
 }
 
 const topPanel = new PIXI.Graphics();
-const cell: any = createMap();
+//const mapCells: any = createMap();
 
 function startGame() {
     const FlyClass = new Fly();
@@ -56,7 +57,7 @@ function startGame() {
 
     app.stage.addChild(BackGroundImage);
     app.stage.addChild(rooms["inFirstRoom"]); // O N E
-
+    createMap();
     createElementsInAllRooms(rooms);
 }
 
@@ -71,8 +72,9 @@ function moveTo(room: string) {
         rooms["inSeventhRoom"]
     );
     app.stage.addChild(rooms[room]);
+    updateMap(currentRoom, room);
     currentRoom = room;
-    cell.tint = 0x7b28a4;
+    //mapCells.tint = 0x7b28a4;
     //cell.endFill();
 }
 
