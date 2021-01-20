@@ -4,16 +4,14 @@ import Fly from "../Mobs/fly";
 import { app } from "../script";
 import controller from "../Keyboard/keyboard";
 import createElementsInAllRooms from "./createRooms";
-import { createMap, updateMap } from "../topPanel/map";
+import { updateMap } from "../topPanel/map";
 
 import createGameElement from "../CreateSprite/createGameElement";
 import checkBounds from "../checkBounds/checkBounds";
 import addPlayerActions from "../Player/addPlayerActions";
 import Gaper from "../Mobs/gaper";
 
-import createArrowContainer from "../topPanel/topPanelArrows";
-
-import createItemsContainer from "../topPanel/spaceItem";
+import createTopPanel from "../topPanel/createTopPanel";
 
 const PlayerMethod = new createPlayer();
 let player: any = {};
@@ -63,9 +61,8 @@ function startGame() {
 
     app.stage.addChild(BackGroundImage);
     app.stage.addChild(rooms["inFirstRoom"]); // O N E
-    createMap();
-    createArrowContainer();
-    createItemsContainer();
+
+    createTopPanel();
 }
 
 function moveTo(room: string) {

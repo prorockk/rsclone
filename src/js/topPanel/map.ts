@@ -9,18 +9,18 @@ const availableCellColor = 0x5c5c5c;
 const currentCellColor = 0xffffff;
 
 function createMap() {
-    const mapContainer = new PIXI.Graphics();
-    mapContainer.beginFill(0x424242);
-    mapContainer.lineStyle(15, 0x1a1a1a, 1);
-    mapContainer.drawRect(0, 0, 800, 100);
-    mapContainer.endFill();
+    const panelContainer = new PIXI.Graphics();
+    panelContainer.beginFill(0x272525);
+    panelContainer.lineStyle(15, 0x1a1a1a, 1);
+    panelContainer.drawRect(0, 0, 800, 100);
+    panelContainer.endFill();
 
     // const mapRectangle = new PIXI.Graphics();
     // mapRectangle.beginFill(0xffffff);
     // mapRectangle.lineStyle(5, 0x1a1a1a, 1);
     // mapRectangle.drawRect(30, 15, 250, 70);
     // mapRectangle.endFill();
-    // mapContainer.addChild(mapRectangle)
+    // panelContainer.addChild(mapRectangle)
 
     const arrayOfRoomsName = [
         "inFirstRoom",
@@ -36,7 +36,7 @@ function createMap() {
 
     for (let mapCellCounter = 0; mapCellCounter < mapCellNumber; mapCellCounter++) {
         const mapCell = new PIXI.Graphics();
-        mapCell.beginFill(0xffffff).tint = 0x424242;
+        mapCell.beginFill(0xffffff).tint = 0x272525;
 
         //mapCell.lineStyle(5,0x1a1a1a,1);                                                  ??????????????
 
@@ -57,13 +57,13 @@ function createMap() {
         mapCell.endFill();
 
         cellOfRoom[arrayOfRoomsName[mapCellCounter]] = mapCell;
-        //mapRectangle.addChild(mapCell); mapContainer
-        mapContainer.addChild(mapCell);
+        //mapRectangle.addChild(mapCell); panelContainer
+        panelContainer.addChild(mapCell);
     }
 
     cellOfRoom["inFirstRoom"].tint = currentCellColor;
     cellOfRoom["inSecondRoom"].tint = availableCellColor;
-    topPanel.addChild(mapContainer);
+    topPanel.addChild(panelContainer);
 }
 
 function updateMap(previousRoom: string, nextRoom: string) {
