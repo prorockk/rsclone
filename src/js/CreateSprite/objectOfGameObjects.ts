@@ -5,27 +5,39 @@ const objectOfGameObjects: any = {
         toUpperRoom: () => moveTo("inSecondRoom"),
     },
     inSecondRoom: {
-        toUpperRoom: () => moveTo("inSixthRoom"),
-        toLeftRoom: () => moveTo("inFourthRoom"),
+        toUpperRoom: () => moveTo("inSeventhRoom"),
+        toLeftRoom: () => moveTo("inFifthRoom"),
         toRightRoom: () => moveTo("inThirdRoom"),
         toBottomRoom: () => moveTo("inFirstRoom"),
     },
     inThirdRoom: {
         toLeftRoom: () => moveTo("inSecondRoom"),
+        toRightRoom: () => moveTo("inFourthRoom"),
     },
     inFourthRoom: {
-        toRightRoom: () => moveTo("inSecondRoom"),
+        toLeftRoom: () => moveTo("inThirdRoom"),
     },
     inFifthRoom: {
-        toRightRoom: () => moveTo("inSixthRoom"),
+        toRightRoom: () => moveTo("inSecondRoom"),
+        toLeftRoom: () => moveTo("inSixthRoom"),
     },
     inSixthRoom: {
-        toUpperRoom: () => moveTo("inSeventhRoom"),
-        toLeftRoom: () => moveTo("inFifthRoom"),
-        toBottomRoom: () => moveTo("inSecondRoom"),
+        toRightRoom: () => moveTo("inFifthRoom"),
     },
     inSeventhRoom: {
-        toBottomRoom: () => moveTo("inSixthRoom"),
+        toBottomRoom: () => moveTo("inSecondRoom"),
+        toUpperRoom: () => moveTo("inEighthRoom"),
+    },
+    inEighthRoom: {
+        toLeftRoom: () => moveTo("inNinthRoom"),
+        toBottomRoom: () => moveTo("inSeventhRoom"),
+    },
+    inNinthRoom: {
+        toLeftRoom: () => moveTo("inTenthRoom"),
+        toRightRoom: () => moveTo("inEighthRoom"),
+    },
+    inTenthRoom: {
+        toRightRoom: () => moveTo("inNinthRoom"),
     },
 };
 export { objectOfGameObjects };

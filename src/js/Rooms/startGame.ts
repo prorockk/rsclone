@@ -24,6 +24,9 @@ const rooms: any = {
     inFifthRoom: new PIXI.Container(),
     inSixthRoom: new PIXI.Container(),
     inSeventhRoom: new PIXI.Container(),
+    inEighthRoom: new PIXI.Container(),
+    inNinthRoom: new PIXI.Container(),
+    inTenthRoom: new PIXI.Container(),
 };
 
 let currentRoom = "inFirstRoom";
@@ -73,7 +76,10 @@ function moveTo(room: string) {
         rooms["inFourthRoom"],
         rooms["inFifthRoom"],
         rooms["inSixthRoom"],
-        rooms["inSeventhRoom"]
+        rooms["inSeventhRoom"],
+        rooms["inEighthRoom"],
+        rooms["inNinthRoom"],
+        rooms["inTenthRoom"]
     );
     app.stage.addChild(rooms[room]);
     updateMap(currentRoom, room);
@@ -83,3 +89,30 @@ function moveTo(room: string) {
 }
 
 export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms };
+/*
+
+            {
+                "coords": [100, 195],
+                "url": "box.png",
+                "size": [75, 110],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [210, 195],
+                "url": "box.png",
+                "size": [75, 110],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [320, 195],
+                "url": "box.png",
+                "size": [75, 110],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [430, 195],
+                "url": "box.png",
+                "size": [75, 110],
+                "room": "inFirstRoom"
+            },
+*/

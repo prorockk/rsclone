@@ -8,7 +8,7 @@
                 "room": "inFirstRoom"
             },
             {
-                "coords": [270, 95],
+                "coords": [270, 90],
                 "url": "door.png",
                 "size": [52, 52],
                 "room": "inFirstRoom"
@@ -46,12 +46,6 @@
             {
                 "coords": [3, 2.5],
                 "url": "box.png",
-                "size": [30, 23],
-                "room": "inFirstRoom"
-            },
-            {
-                "coords": [2.5, 3],
-                "url": "9KvNB.png",
                 "size": [30, 23],
                 "room": "inFirstRoom"
             }
@@ -104,7 +98,7 @@
                 "room": "inSecondRoom"
             },
             {
-                "coords": [270, 95],
+                "coords": [270, 90],
                 "url": "door.png",
                 "size": [52, 52],
                 "room": "inSecondRoom"
@@ -122,7 +116,7 @@
                 "room": "inSecondRoom"
             },
             {
-                "coords": [33, 230],
+                "coords": [25, 230],
                 "url": "door.png",
                 "size": [52, 52],
                 "room": "inSecondRoom",
@@ -141,7 +135,7 @@
                 "room": "inSecondRoom"
             },
             {
-                "coords": [503, 230],
+                "coords": [509, 230],
                 "url": "door.png",
                 "size": [52, 52],
                 "room": "inSecondRoom",
@@ -160,7 +154,7 @@
                 "room": "inSecondRoom"
             },
             {
-                "coords": [270, 370],
+                "coords": [270, 375],
                 "url": "door.png",
                 "size": [52, 52],
                 "room": "inSecondRoom",
@@ -170,12 +164,6 @@
                 "coords": [145, 365],
                 "url": "invisibleBlock.png",
                 "size": [215, 35],
-                "room": "inSecondRoom"
-            },
-            {
-                "coords": [3, 3],
-                "url": "9KvNB.png",
-                "size": [30, 40],
                 "room": "inSecondRoom"
             }
         ]
@@ -195,7 +183,7 @@
                 "room": "inThirdRoom"
             },
             {
-                "coords": [33, 230],
+                "coords": [25, 230],
                 "url": "door.png",
                 "size": [52, 52],
                 "room": "inThirdRoom",
@@ -208,68 +196,69 @@
                 "room": "inThirdRoom"
             },
             {
-                "coords": [500, 230],
-                "url": "invisibleBlock.png",
-                "size": [42, 300],
-                "room": "inThirdRoom"
-            },
-            {
-                "coords": [250, 365],
-                "url": "invisibleBlock.png",
-                "size": [470, 35],
-                "room": "inThirdRoom"
-            },
-            {
-                "coords": [3, 3],
-                "url": "9KvNB.png",
-                "size": [30, 40],
-                "room": "inThirdRoom"
-            }
-        ]
-    },
-    {
-        "createGameElement": [
-            {
-                "coords": [250, 95],
-                "url": "invisibleBlock.png",
-                "size": [470, 35],
-                "room": "inFourthRoom"
-            },
-            {
-                "coords": [25, 235],
-                "url": "invisibleBlock.png",
-                "size": [60, 300],
-                "room": "inFourthRoom"
-            },
-            {
                 "coords": [500, 155],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
-                "room": "inFourthRoom"
+                "room": "inThirdRoom"
             },
             {
-                "coords": [503, 230],
+                "coords": [509, 230],
                 "url": "door.png",
                 "size": [52, 52],
-                "room": "inFourthRoom",
+                "room": "inThirdRoom",
                 "rotation": "1.57"
             },
             {
                 "coords": [500, 320],
                 "url": "invisibleBlock.png",
                 "size": [42, 135],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inThirdRoom"
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [35, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [25, 230],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inFourthRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [509, 230],
+                "url": "invisibleBlock.png",
+                "size": [42, 300],
                 "room": "inFourthRoom"
             },
             {
                 "coords": [250, 365],
                 "url": "invisibleBlock.png",
                 "size": [470, 35],
-                "room": "inFourthRoom"
-            },
-            {
-                "coords": [3, 3],
-                "url": "9KvNB.png",
-                "size": [30, 40],
                 "room": "inFourthRoom"
             }
         ]
@@ -283,9 +272,22 @@
                 "room": "inFifthRoom"
             },
             {
-                "coords": [25, 235],
+                "coords": [35, 155],
                 "url": "invisibleBlock.png",
-                "size": [60, 300],
+                "size": [42, 135],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [25, 230],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inFifthRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
                 "room": "inFifthRoom"
             },
             {
@@ -295,7 +297,7 @@
                 "room": "inFifthRoom"
             },
             {
-                "coords": [503, 230],
+                "coords": [509, 230],
                 "url": "door.png",
                 "size": [52, 52],
                 "room": "inFifthRoom",
@@ -312,91 +314,6 @@
                 "url": "invisibleBlock.png",
                 "size": [470, 35],
                 "room": "inFifthRoom"
-            },
-            {
-                "coords": [3, 3],
-                "url": "9KvNB.png",
-                "size": [30, 40],
-                "room": "inFifthRoom"
-            }
-        ]
-    },
-    {
-        "createGameElement": [
-            {
-                "coords": [145, 95],
-                "url": "invisibleBlock.png",
-                "size": [215, 35],
-                "room": "inSixthRoom"
-            },
-            {
-                "coords": [390, 95],
-                "url": "invisibleBlock.png",
-                "size": [215, 35],
-                "room": "inSixthRoom"
-            },
-            {
-                "coords": [270, 95],
-                "url": "door.png",
-                "size": [52, 52],
-                "room": "inSixthRoom"
-            },
-            {
-                "coords": [35, 155],
-                "url": "invisibleBlock.png",
-                "size": [42, 135],
-                "room": "inSixthRoom"
-            },
-            {
-                "coords": [33, 230],
-                "url": "door.png",
-                "size": [52, 52],
-                "room": "inSixthRoom",
-                "rotation": "4.71"
-            },
-            {
-                "coords": [35, 320],
-                "url": "invisibleBlock.png",
-                "size": [42, 135],
-                "room": "inSixthRoom"
-            },
-            {
-                "coords": [500, 235],
-                "url": "invisibleBlock.png",
-                "size": [40, 300],
-                "room": "inSixthRoom"
-            },
-            {
-                "coords": [500, 208],
-                "url": "door.png",
-                "size": [52, 52],
-                "room": "inSixthRoom",
-                "rotation": "3.14/2"
-            },
-            {
-                "coords": [390, 365],
-                "url": "invisibleBlock.png",
-                "size": [215, 35],
-                "room": "inSixthRoom"
-            },
-            {
-                "coords": [145, 365],
-                "url": "invisibleBlock.png",
-                "size": [215, 35],
-                "room": "inSixthRoom"
-            },
-            {
-                "coords": [270, 370],
-                "url": "door.png",
-                "size": [52, 52],
-                "room": "inSixthRoom",
-                "rotation": "3.14"
-            },
-            {
-                "coords": [3, 3],
-                "url": "9KvNB.png",
-                "size": [30, 40],
-                "room": "inSixthRoom"
             }
         ]
     },
@@ -406,6 +323,59 @@
                 "coords": [250, 95],
                 "url": "invisibleBlock.png",
                 "size": [470, 35],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [25, 235],
+                "url": "invisibleBlock.png",
+                "size": [60, 300],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [500, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [509, 230],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inSixthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [500, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inSixthRoom"
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [145, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSeventhRoom"
+            },
+            {
+                "coords": [270, 90],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inSeventhRoom"
+            },
+            {
+                "coords": [390, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
                 "room": "inSeventhRoom"
             },
             {
@@ -427,7 +397,7 @@
                 "room": "inSeventhRoom"
             },
             {
-                "coords": [270, 370],
+                "coords": [270, 375],
                 "url": "door.png",
                 "size": [52, 52],
                 "room": "inSeventhRoom",
@@ -438,12 +408,155 @@
                 "url": "invisibleBlock.png",
                 "size": [215, 35],
                 "room": "inSeventhRoom"
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inEighthRoom"
             },
             {
-                "coords": [3, 3],
-                "url": "9KvNB.png",
-                "size": [30, 40],
-                "room": "inSeventhRoom"
+                "coords": [35, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [25, 230],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inEighthRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [500, 235],
+                "url": "invisibleBlock.png",
+                "size": [40, 300],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [390, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [270, 375],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inEighthRoom",
+                "rotation": "3.14"
+            },
+            {
+                "coords": [145, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inEighthRoom"
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [35, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [25, 230],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inNinthRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [500, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [509, 230],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inNinthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [500, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inNinthRoom"
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [25, 235],
+                "url": "invisibleBlock.png",
+                "size": [60, 300],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [500, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [509, 230],
+                "url": "door.png",
+                "size": [52, 52],
+                "room": "inTenthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [500, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inTenthRoom"
             }
         ]
     }
