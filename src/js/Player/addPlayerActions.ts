@@ -22,9 +22,9 @@ const addPlayerActions = () => {
         //добавляем функции для скилов героя
         let bulletDirection;
         const bulletSpeed = 8;
-        let tearPosition = 3; //выстрелы из разных глаз
+        let tearPosition = 20; //выстрелы из разных глаз
         if (switcherTears) {
-            tearPosition *= -1;
+            tearPosition = 10;
         }
         switcherTears = !switcherTears;
         if (typeof e === "string") {
@@ -41,7 +41,7 @@ const addPlayerActions = () => {
             }
         }
 
-        const startPointBullet = bulletDirection === "up" ? 20 : 7.5; //коректировка выстрелов вверх
+        const startPointBullet = bulletDirection === "up" ? 25 : 7.5; //коректировка выстрелов вверх
         animate.propertiesAr[0].x = this.player.getBounds().x + tearPosition;
         animate.propertiesAr[0].y = this.player.getBounds().y - startPointBullet;
 
@@ -79,13 +79,7 @@ const addPlayerActions = () => {
             }
 
             //удаление пуль
-            if (
-                this.bullets[i].position.y < 150 ||
-                this.bullets[i].position.y > 550 ||
-                this.bullets[i].position.x < 50 ||
-                this.bullets[i].position.x > 750 ||
-                checkTexture(0, this.bullets[i], 0) //                             NEW
-            ) {
+            if (checkTexture(0, this.bullets[i])) {
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = sheets.death;
                 deleteBullet.play();

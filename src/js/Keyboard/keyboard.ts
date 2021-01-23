@@ -3,7 +3,10 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
 
     document.addEventListener("mouseup", (e) => mouseShooting(e, false));
     document.addEventListener("mousemove", (e) => mouseShooting(e, undefined));
-    document.addEventListener("click", PlayerMethod.playerShooting.bind(PlayerMethod));
+    document.addEventListener("click", (e) => {
+        PlayerMethod.playerShooting.call(PlayerMethod);
+        console.log(e);
+    });
 
     document.addEventListener("keydown", (key) => {
         checkKeyCode(key.keyCode);
@@ -40,7 +43,7 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
         } else if (mouseDown) {
             clearInterval(intMouse);
             PlayerMethod.playerShooting.call(PlayerMethod, delay);
-            intMouse = setInterval(PlayerMethod.playerShooting.bind(PlayerMethod, delay), 150);
+            intMouse = setInterval(PlayerMethod.playerShooting.bind(PlayerMethod, delay), 130);
             return;
         }
         mouseDown

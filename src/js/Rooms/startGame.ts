@@ -10,9 +10,11 @@ import createGameElement from "../CreateSprite/createGameElement";
 import checkBounds from "../checkBounds/checkBounds";
 import addPlayerActions from "../Player/addPlayerActions";
 import Gaper from "../Mobs/gaper";
+import Milligan from "../Mobs/Milligan";
 
 const PlayerMethod = new createPlayer();
 let player: any = {};
+let playerHead: any = {};
 
 const rooms: any = {
     inFirstRoom: new PIXI.Container(),
@@ -27,22 +29,27 @@ const rooms: any = {
 let currentRoom = "inFirstRoom";
 for (let room in rooms) {
     rooms[room].scale.set(1.5);
+    rooms[room].sortableChildren = true;
 }
 
 const topPanel = new PIXI.Graphics();
 const cell: any = createMap();
+const FlyClass = new Fly();
+const GaperClass = new Gaper();
+const MilliganClass = new Milligan();
 
 function startGame() {
-    const FlyClass = new Fly();
-    const GaperClass = new Gaper();
     app.loader.add("isaac", "../assets/isaac_moving_table.json");
 
     app.loader.load(() => {
         createElementsInAllRooms(rooms);
         PlayerMethod.doneLoading(); //РЕАЛИЗОВАТЬ ЗАГРУЗКУ СПРАЙТОВ В ОТДЕЛЬНОМ ПРОМИСЕ
-        player = PlayerMethod.init.call(PlayerMethod);
-        setTimeout(FlyClass.doneLoading.bind(FlyClass), 500);
-        //GaperClass.doneLoading();
+        [player, playerHead] = PlayerMethod.init.call(PlayerMethod);
+        setTimeout(() => {
+            FlyClass.doneLoading.call(FlyClass);
+            GaperClass.doneLoading.call(GaperClass);
+            MilliganClass.doneLoading.call(MilliganClass);
+        }, 500);
         controller(PlayerMethod);
     });
 
@@ -76,4 +83,4 @@ function moveTo(room: string) {
     //cell.endFill();
 }
 
-export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms };
+export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms, playerHead, FlyClass };

@@ -1,7 +1,7 @@
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { currentRoom } from "../Rooms/startGame";
 
-export default function checkCollision(player: any, playerHead: any, side: string) {
+export default function checkCollision(player: any, side: string) {
     const playerBounds = player.getBounds();
 
     const roomArray = objectOfGameObjects[currentRoom];
@@ -11,6 +11,7 @@ export default function checkCollision(player: any, playerHead: any, side: strin
             continue;
         }
         for (let i = 0; i < roomArray[groupEl].length; i += 1) {
+            if (roomArray[groupEl][i].hasOwnProperty("angryMob") && roomArray[groupEl][i].angryMob) return false;
             const boundsOfGameObject = roomArray[groupEl][i].getBounds();
             if (side === "right") {
                 if (

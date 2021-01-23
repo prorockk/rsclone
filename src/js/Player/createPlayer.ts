@@ -20,7 +20,7 @@ class createPlayer {
         this.froze = false;
     }
     init = () => {
-        return this.player;
+        return [this.player, this.head];
     };
     doneLoading = () => {
         //createSheets...........
@@ -59,20 +59,21 @@ class createPlayer {
         };
         const [sheets, legs, head] = createAnimateElement(animate);
         this.playerSheets = sheets;
-        head.anchor.set(0.5, 0.8);
-        legs.anchor.set(0.5, 0.5);
+        head.anchor.set(0.5, 0.95);
         head.scale.set(1.5);
         legs.scale.set(1.5);
         head.hp = 16;
         this.player = legs;
         this.head = head;
+        this.player.zIndex = 2;
+        this.head.zIndex = 2;
         this.checkBounds = new CheckBounds(this.player, this.head);
 
         addPlayerActions();
         app.ticker.add((e: number) => {
             this.movePlayer();
             this.updateBullets(e);
-            checkTexture(e, this.head, false);
+            checkTexture(e, this.head, 0);
         });
     };
     movePlayer() {
@@ -88,19 +89,19 @@ class createPlayer {
                 }
                 // при малом и большом домаге добавляем мигание один раз
                 const intTint = setInterval(() => {
-                    this.player.tint = 16777215;
-                    this.head.tint = 16777215;
+                    this.player.tint = 16716853;
+                    this.head.tint = 16716853;
                 }, 10);
                 setTimeout(() => {
                     clearInterval(intTint);
-                    this.head.anchor.set(0.5, 0.8);
+                    this.head.anchor.set(0.5, 0.95);
                     this.head.textures = this.playerSheets.standSee;
                     this.head.play();
                     this.froze = false;
+                    this.player.tint = 16777215;
+                    this.head.tint = 16777215;
                 }, 250);
             }
-            this.player.tint = 16716853;
-            this.head.tint = 16716853;
             this.hp = this.head.hp;
             return;
         }
@@ -110,40 +111,28 @@ class createPlayer {
             this.player.textures = this.playerSheets[`${direction}Walk`];
             this.player.play();
         };
-        if (
-            this.activeKeys["68"] &&
-            !this.checkBounds.init("right") &&
-            !checkCollision(this.player, this.head, "right")
-        ) {
+        if (this.activeKeys["68"] && !this.checkBounds.init("right") && !checkCollision(this.player, "right")) {
             if (!this.player.playing) {
                 playerPlay("right");
             }
             this.player.x += this.playerSpeed;
             this.head.x += this.playerSpeed;
         }
-        if (this.activeKeys["87"] && !this.checkBounds.init("Up") && !checkCollision(this.player, this.head, "top")) {
+        if (this.activeKeys["87"] && !this.checkBounds.init("Up") && !checkCollision(this.player, "top")) {
             if (!this.player.playing) {
                 playerPlay("up");
             }
             this.player.y -= this.playerSpeed;
             this.head.y -= this.playerSpeed;
         }
-        if (
-            this.activeKeys["65"] &&
-            !this.checkBounds.init("left") &&
-            !checkCollision(this.player, this.head, "left")
-        ) {
+        if (this.activeKeys["65"] && !this.checkBounds.init("left") && !checkCollision(this.player, "left")) {
             if (!this.player.playing) {
                 playerPlay("left");
             }
             this.player.x -= this.playerSpeed;
             this.head.x -= this.playerSpeed;
         }
-        if (
-            this.activeKeys["83"] &&
-            !this.checkBounds.init("down") &&
-            !checkCollision(this.player, this.head, "down")
-        ) {
+        if (this.activeKeys["83"] && !this.checkBounds.init("down") && !checkCollision(this.player, "down")) {
             if (!this.player.playing) {
                 playerPlay("down");
             }

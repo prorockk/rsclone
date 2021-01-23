@@ -8,7 +8,6 @@ const app = new PIXI.Application({
     backgroundColor: 0xaaaaaa,
     antialias: true,
 });
-
 // const defaultIcon = "url('examples/assets/bunny.png'),auto";
 // const hoverIcon = "url('examples/assets/bunny_saturated.png'),auto";
 

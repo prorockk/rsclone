@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { app } from "../script";
 import { currentRoom, player, rooms } from "../Rooms/startGame";
-import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
+import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import { AnimateMobType } from "../types/Types";
 
 class Fly {
@@ -18,6 +18,7 @@ class Fly {
         if (!objectOfGameObjects[currentRoom].hasOwnProperty("fly")) return;
 
         this.fly = objectOfGameObjects[currentRoom].fly;
+        const simplyFly = objectOfGameObjects[currentRoom].simplyFly;
 
         this.flySheets = this.fly[0].sheets;
 
@@ -25,17 +26,46 @@ class Fly {
             flyOne.hp = 3;
             flyOne.angryMob = true;
             flyOne.froze = false;
-            flyOne.damage = 2;
+            flyOne.damage = 1;
             flyOne.play();
         });
+        simplyFly.forEach((flyOne: any) => {
+            flyOne.hp = 1;
+            flyOne.angryMob = false;
+            flyOne.froze = false;
+            flyOne.damage = 0;
+            flyOne.play();
+        });
+        this.fly = this.fly.concat(simplyFly);
         app.ticker.add(() => {
             this.moveFly();
         });
     }
+    create() {
+        const randCurrentFly = Math.ceil(Math.random() * 4);
+        const properties = {
+            sheetSpriteStr: "fly",
+            anchor: 0.5,
+            animationSpeed: 0.4,
+            loop: true,
+            x: 0, //(Math.random() - 0.5) * 5,
+            y: 0, //(Math.random() - 0.5) * 5
+        };
+        const flyAr: any[] = addAnimateElement(this.flySheets, new Array(randCurrentFly).fill(properties), "fly");
+        flyAr.forEach((flyOne: any) => {
+            flyOne.hp = 3;
+            flyOne.angryMob = true;
+            flyOne.froze = false;
+            flyOne.damage = 2;
+            flyOne.play();
+        });
+        this.fly = this.fly.concat(flyAr);
+        return flyAr;
+    }
     moveFly() {
         const playerX = player.getBounds().x;
         const playerY = player.getBounds().y;
-        this.fly.forEach((flyOne: any, currentFly: number) => {
+        this.fly.forEach((flyOne: any) => {
             if (flyOne.hp === 0 && this.boolDeath) {
                 //удаление мух с запуском поледней анимации
                 flyOne.textures = this.flySheets.death;
@@ -50,20 +80,25 @@ class Fly {
                 };
             } else if (flyOne.froze) {
                 //анимация нанесения урона
-                if (typeof flyOne.froze === "boolean") {
-                    //блокируем многоразовый вход в условие при замороске
+                if (Array.isArray(flyOne.froze)) {
+                    flyOne.hp--;
+                    const impulse = flyOne.froze.slice();
                     const intTint = setInterval(() => {
-                        // при добавляем мигание один раз
-                        flyOne.tint = 16777215;
-                    }, 10);
+                        // перемещение и  мигание один раз
+                        flyOne.x -= impulse[0];
+                        flyOne.y -= impulse[1];
+                        flyOne.tint = 16716853;
+                    }, 60);
                     setTimeout(() => {
                         clearInterval(intTint);
+                        flyOne.tint = 16777215;
                         flyOne.froze = false;
-                    }, 400);
+                    }, 300);
                 }
-                flyOne.froze = 0; //блокируем многоразовый вход в условие при замороске, заменой типа данных на числовой
+
+                flyOne.froze = true;
                 flyOne.tint = 16716853;
-            } else {
+            } else if (flyOne.angryMob) {
                 const randomSymbol = Math.ceil(Math.random() - 0.5) - 0.2;
                 const flyX = flyOne.getBounds().x;
                 const flyY = flyOne.getBounds().y;

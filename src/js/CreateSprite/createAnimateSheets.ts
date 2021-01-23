@@ -1,7 +1,8 @@
 import * as PIXI from "pixi.js";
-import { currentRoom } from "../Rooms/startGame";
+import { currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
 import { AnimateMobType } from "../types/Types";
+import createGameElement from "./createGameElement";
 import createElement from "./createGameElement";
 
 const createAnimateElement = (animateObj: AnimateMobType) => {
@@ -16,7 +17,7 @@ const createAnimateElement = (animateObj: AnimateMobType) => {
     const mobAr = addAnimateElement(Sheets, propertiesAr);
     return [Sheets, ...mobAr];
 };
-const addAnimateElement = (Sheets: { [x: string]: PIXI.Texture[] }, propertiesAr: any[]) => {
+const addAnimateElement = (Sheets: { [x: string]: PIXI.Texture[] }, propertiesAr: any[], url?: any) => {
     return propertiesAr.map((property: any) => {
         const mob: any = new PIXI.AnimatedSprite(Sheets[property.sheetSpriteStr]);
         mob.anchor.set(property.anchor);
@@ -28,7 +29,11 @@ const addAnimateElement = (Sheets: { [x: string]: PIXI.Texture[] }, propertiesAr
                 mob[key] = property[key];
             }
         }
-        app.stage.addChild(mob);
+        if (!url) {
+            app.stage.addChild(mob);
+        } else {
+            new createGameElement(rooms).sendToObject(mob, currentRoom, url);
+        }
         mob.play();
         return mob;
     });
