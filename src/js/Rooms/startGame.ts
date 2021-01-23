@@ -92,27 +92,9 @@ export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms }
 /*
 
             {
-                "coords": [100, 195],
-                "url": "box.png",
-                "size": [75, 110],
-                "room": "inFirstRoom"
-            },
-            {
-                "coords": [210, 195],
-                "url": "box.png",
-                "size": [75, 110],
-                "room": "inFirstRoom"
-            },
-            {
-                "coords": [320, 195],
-                "url": "box.png",
-                "size": [75, 110],
-                "room": "inFirstRoom"
-            },
-            {
-                "coords": [430, 195],
-                "url": "box.png",
-                "size": [75, 110],
+                "coords": [266, 170],
+                "url": "instruction.png",
+                "size": [400, 90],
                 "room": "inFirstRoom"
             },
 */
