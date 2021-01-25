@@ -60,7 +60,7 @@ class Milligan {
                 this.boolDeath = false;
                 headMill.textures = this.milliganSheets.createFly;
                 headMill.loop = false;
-                headMill.animationSpeed = 0.2;
+                headMill.animationSpeed = 0.15;
                 headMill.play();
                 const flyAr = FlyClass.create();
                 const bounds = legsMill.getBounds();
@@ -104,8 +104,10 @@ class Milligan {
                         headMill.tint = 16777215;
                         legsMill.tint = 16777215;
                         headMill.froze = false;
+                        legsMill.froze = false;
                     }, 300);
                 }
+                legsMill.froze = true;
                 headMill.froze = true;
             } else {
                 //перемещение только ноги

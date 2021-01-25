@@ -81,10 +81,12 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
                     if (bullets.hasOwnProperty("forPlayer")) impulse = impulse.map((cord: number) => cord * -1);
 
                     const int = setInterval(() => {
-                        player.x += impulse[0]; //откдывание героя от противника
-                        player.y += impulse[1];
-                        playerHead.x += impulse[0];
-                        playerHead.y += impulse[1];
+                        if (!checkTexture(1, playerHead, false)) {
+                            player.x += impulse[0]; //откдывание героя от противника
+                            player.y += impulse[1];
+                            playerHead.x += impulse[0];
+                            playerHead.y += impulse[1];
+                        }
                     }, 20);
 
                     setTimeout(() => {
@@ -107,10 +109,10 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
                 }
                 return true;
             } else {
-                return false;
+                hit = false;
             }
         } else {
-            return false;
+            hit = false;
         }
     }
 

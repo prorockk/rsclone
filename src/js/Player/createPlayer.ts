@@ -6,6 +6,7 @@ import { AnimateMobType } from "../types/Types";
 import addPlayerActions from "./addPlayerActions";
 import checkCollision from "../checkBounds/checkCollision";
 import checkTexture from "../checkBounds/checkTexture";
+import { changeLife } from "../topPanel/createLife";
 
 class createPlayer {
     [x: string]: any;
@@ -81,7 +82,7 @@ class createPlayer {
             //анимация нанесения урона
             this.froze = true;
             if (this.head.hp < this.hp) {
-                //                                                              функция урон срердце
+                changeLife(-1); //               функция урон сердце
                 if (this.head.hp + 1 < this.hp) {
                     //если большой дамаг то меняем текстурку
                     this.head.textures = this.playerSheets.hit;

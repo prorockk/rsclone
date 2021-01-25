@@ -4,12 +4,13 @@ import { app } from "../script";
 import { currentRoom, player, rooms } from "../Rooms/startGame";
 import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import { AnimateMobType } from "../types/Types";
+import Mobs from "./Mobs";
 
 class Fly {
     private fly: any;
     private flySheets: any;
     boolDeath: boolean;
-    constructor() {
+    constructor(name?: string) {
         this.flySheets = {};
         this.boolDeath = true;
         this.fly = {};
@@ -99,17 +100,17 @@ class Fly {
                 const randomSymbol = Math.ceil(Math.random() - 0.5) - 0.2;
                 const flyX = flyOne.getBounds().x;
                 const flyY = flyOne.getBounds().y;
-                if (playerX > flyX && randomSymbol > 0) {
+                if (playerX > flyX) {
                     flyOne.x += 0.9;
                     flyOne.y += 0.6 * randomSymbol;
-                } else if (randomSymbol < 0) {
+                } else {
                     flyOne.x -= 0.9;
                     flyOne.y += 0.6 * randomSymbol;
                 }
-                if (playerY > flyY && randomSymbol < 0) {
+                if (playerY > flyY) {
                     flyOne.y += 0.9;
                     flyOne.x += 0.6 * randomSymbol;
-                } else if (randomSymbol > 0) {
+                } else {
                     flyOne.y -= 0.9;
                     flyOne.x += 0.6 * randomSymbol;
                 }

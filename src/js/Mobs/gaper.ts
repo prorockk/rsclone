@@ -76,7 +76,6 @@ class Gaper {
                         gaperOne.froze = false;
                     }, 300);
                 }
-
                 gaperOne.froze = true;
                 gaperOne.tint = 16716853;
             }

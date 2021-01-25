@@ -88,6 +88,7 @@ function moveTo(room: string) {
         rooms["inTenthRoom"]
     );
     app.stage.addChild(rooms[room]);
+    app.stage.setChildIndex(rooms[room], 2);
     updateMap(currentRoom, room);
     currentRoom = room;
     //mapCells.tint = 0x7b28a4;
@@ -96,7 +97,6 @@ function moveTo(room: string) {
 
 export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms, playerHead, FlyClass };
 /*
-
             {
                 "coords": [266, 170],
                 "url": "instruction.png",

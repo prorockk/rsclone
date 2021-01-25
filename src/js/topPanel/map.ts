@@ -1,6 +1,3 @@
-import * as PIXI from "pixi.js";
-import { topPanel } from "../Rooms/startGame";
-
 const cellOfRoom: any = {};
 
 const cellHight = 12;
@@ -9,19 +6,12 @@ const availableCellColor = 0x383838;
 const visitedCellColor = 0x757575;
 const currentCellColor = 0xfbfbfb;
 
-function createMap() {
+function createMap(PIXI: any, topPanel: any) {
     const panelContainer = new PIXI.Graphics();
     panelContainer.beginFill(0x1b1818);
     panelContainer.lineStyle(15, 0x000000, 1);
     panelContainer.drawRect(0, 0, 800, 105);
     panelContainer.endFill();
-
-    // const mapRectangle = new PIXI.Graphics();
-    // mapRectangle.beginFill(0xffffff);
-    // mapRectangle.lineStyle(5, 0x1a1a1a, 1);
-    // mapRectangle.drawRect(30, 15, 250, 70);
-    // mapRectangle.endFill();
-    // panelContainer.addChild(mapRectangle)
 
     const arrayOfRoomsName = [
         "inFirstRoom",
@@ -40,9 +30,10 @@ function createMap() {
 
     for (let mapCellCounter = 0; mapCellCounter < mapCellNumber; mapCellCounter++) {
         const mapCell = new PIXI.Graphics();
-        mapCell.beginFill(0xffffff).tint = 0x1b1818;
+        mapCell.beginFill(0xffffff).tint = availableCellColor;
 
-        //mapCell.lineStyle(5,0x1a1a1a,1);                                                  ??????????????
+        mapCell.lineStyle(5, 0x1a1a1a, 1);
+        mapCell.alpha = 0;
 
         mapCellCounter === 0
             ? mapCell.drawRect(110, 65, cellWidth, cellHight) //1
@@ -73,30 +64,32 @@ function createMap() {
 
     cellOfRoom["inFirstRoom"].tint = currentCellColor;
     cellOfRoom["inSecondRoom"].tint = availableCellColor;
+    cellOfRoom["inFirstRoom"].alpha = 1;
+    cellOfRoom["inSecondRoom"].alpha = 1;
     topPanel.addChild(panelContainer);
 }
 
 function updateMap(previousRoom: string, nextRoom: string) {
     cellOfRoom[previousRoom].tint = visitedCellColor;
-    if (nextRoom === "inSecondRoom" && cellOfRoom[nextRoom].tint !== visitedCellColor) {
-        cellOfRoom["inThirdRoom"].tint = availableCellColor;
-        cellOfRoom["inFifthRoom"].tint = availableCellColor;
-        cellOfRoom["inSeventhRoom"].tint = availableCellColor;
+    if (nextRoom === "inSecondRoom") {
+        cellOfRoom["inThirdRoom"].alpha = 1;
+        cellOfRoom["inFifthRoom"].alpha = 1;
+        cellOfRoom["inSeventhRoom"].alpha = 1;
     }
-    if (nextRoom === "inThirdRoom" && cellOfRoom[nextRoom].tint !== visitedCellColor) {
-        cellOfRoom["inFourthRoom"].tint = availableCellColor;
+    if (nextRoom === "inThirdRoom") {
+        cellOfRoom["inFourthRoom"].alpha = 1;
     }
-    if (nextRoom === "inFifthRoom" && cellOfRoom[nextRoom].tint !== visitedCellColor) {
-        cellOfRoom["inSixthRoom"].tint = availableCellColor;
+    if (nextRoom === "inFifthRoom") {
+        cellOfRoom["inSixthRoom"].alpha = 1;
     }
-    if (nextRoom === "inSeventhRoom" && cellOfRoom[nextRoom].tint !== visitedCellColor) {
-        cellOfRoom["inEighthRoom"].tint = availableCellColor;
+    if (nextRoom === "inSeventhRoom") {
+        cellOfRoom["inEighthRoom"].alpha = 1;
     }
-    if (nextRoom === "inEighthRoom" && cellOfRoom[nextRoom].tint !== visitedCellColor) {
-        cellOfRoom["inNinthRoom"].tint = availableCellColor;
+    if (nextRoom === "inEighthRoom") {
+        cellOfRoom["inNinthRoom"].alpha = 1;
     }
-    if (nextRoom === "inNinthRoom" && cellOfRoom[nextRoom].tint !== visitedCellColor) {
-        cellOfRoom["inTenthRoom"].tint = availableCellColor;
+    if (nextRoom === "inNinthRoom") {
+        cellOfRoom["inTenthRoom"].alpha = 1;
     }
     cellOfRoom[nextRoom].tint = currentCellColor;
 }
