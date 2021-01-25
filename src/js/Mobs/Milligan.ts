@@ -56,7 +56,7 @@ class Milligan {
                 legsMill = mill[currentMil - 1]; // это ноги
                 headMill = milliganOne;
             } else return;
-            if ((!milliganOne.hp || (milliganOne.hp < 3 && Math.random() < 0.4)) && this.boolDeath) {
+            if ((!milliganOne.hp || (milliganOne.hp < 3 && Math.random() < 0.2)) && this.boolDeath) {
                 this.boolDeath = false;
                 headMill.textures = this.milliganSheets.createFly;
                 headMill.loop = false;
@@ -65,8 +65,8 @@ class Milligan {
                 const flyAr = FlyClass.create();
                 const bounds = legsMill.getBounds();
                 flyAr.forEach((flyOne: any) => {
-                    flyOne.x += bounds.x;
-                    flyOne.y += bounds.y;
+                    flyOne.x += legsMill.x;
+                    flyOne.y += legsMill.y;
                 });
                 headMill.onComplete = () => {
                     headMill.textures = this.milliganSheets.death;

@@ -11,7 +11,9 @@ export default function checkCollision(player: any, side: string) {
             continue;
         }
         for (let i = 0; i < roomArray[groupEl].length; i += 1) {
-            if (roomArray[groupEl][i].hasOwnProperty("angryMob") && roomArray[groupEl][i].angryMob) return false;
+            if (roomArray[groupEl][i].hasOwnProperty("angryMob") && roomArray[groupEl][i].angryMob) {
+                continue;
+            }
             const boundsOfGameObject = roomArray[groupEl][i].getBounds();
             if (side === "right") {
                 if (

@@ -74,20 +74,9 @@
                         "loop": true,
                         "x": 400,
                         "y": 320
-                    }
-                ]
-            },
-            {
-                "name": "simplyFly",
-                "room": "inFirstRoom",
-                "setBool": false,
-                "texture": {
-                    "fly": ["fly1-1.png", "fly1-2.png"],
-                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
-                },
-                "propertiesAr": [
+                    },
                     {
-                        "sheetSpriteStr": "fly",
+                        "sheetSpriteStr": "simpleFly",
                         "anchor": 0.5,
                         "animationSpeed": 0.4,
                         "loop": true,

@@ -18,25 +18,23 @@ class Fly {
         if (!objectOfGameObjects[currentRoom].hasOwnProperty("fly")) return;
 
         this.fly = objectOfGameObjects[currentRoom].fly;
-        const simplyFly = objectOfGameObjects[currentRoom].simplyFly;
+        //const simplyFly = objectOfGameObjects[currentRoom].simplyFly;
 
         this.flySheets = this.fly[0].sheets;
 
-        this.fly.forEach((flyOne: any) => {
-            flyOne.hp = 3;
-            flyOne.angryMob = true;
+        this.fly.forEach((flyOne: any, current: number) => {
+            if (current % 2 === 0) {
+                flyOne.hp = 2;
+                flyOne.angryMob = true;
+                flyOne.damage = 1;
+            } else {
+                flyOne.hp = 1;
+                flyOne.angryMob = false;
+                flyOne.damage = 0;
+            }
             flyOne.froze = false;
-            flyOne.damage = 1;
             flyOne.play();
         });
-        simplyFly.forEach((flyOne: any) => {
-            flyOne.hp = 1;
-            flyOne.angryMob = false;
-            flyOne.froze = false;
-            flyOne.damage = 0;
-            flyOne.play();
-        });
-        this.fly = this.fly.concat(simplyFly);
         app.ticker.add(() => {
             this.moveFly();
         });
@@ -59,7 +57,6 @@ class Fly {
             flyOne.damage = 2;
             flyOne.play();
         });
-        this.fly = this.fly.concat(flyAr);
         return flyAr;
     }
     moveFly() {
