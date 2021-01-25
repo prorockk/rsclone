@@ -1,9 +1,6 @@
-import * as PIXI from "pixi.js";
-import { topPanel } from "../Rooms/startGame";
-
 const resources: any = {};
 
-function createResourcesContainer() {
+function createResourcesContainer(PIXI: any, topPanel: any) {
     const resourcesKeys = ["coins", "bombs", "keys"];
 
     const resourceContainer = PIXI.Sprite.from("../../assets/resources.png");
