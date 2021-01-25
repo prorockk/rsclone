@@ -1,36 +1,21 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
-import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
-import { AnimateMobType } from "../types/Types";
-import { currentRoom, FlyClass, player, playerHead, rooms } from "../Rooms/startGame";
-import tearsSheets from "../CreateSprite/tearsSheets";
-import checkTexture from "../checkBounds/checkTexture";
-import fly from "./fly";
+import { countMobs, currentRoom, rooms } from "../Rooms/startGame";
+import Mobs from "./Mobs";
+import { FlyClass } from "./loadMobs";
 
-class Milligan {
+class Milligan extends Mobs {
     private milligan: any;
     private milliganSheets: any;
     boolDeath: boolean;
     moveCurrent: number;
-    sheetsBullets: any;
-    bullets: any[];
-    animateBullets: any;
     constructor() {
-        this.milliganSheets = {};
+        super("milligan");
         this.boolDeath = true;
-        this.milligan = [];
         this.moveCurrent = 0;
-        this.sheetsBullets = {};
-        this.bullets = [];
-        this.animateBullets = {};
     }
-    doneLoading() {
-        this.milligan = objectOfGameObjects[currentRoom].milligan;
-
-        this.milliganSheets = this.milligan[0].sheets;
-
-        this.milligan.forEach((milliganOne: any, numMilligan: number) => {
+    loadUp() {
+        this.mob.forEach((milliganOne: any, numMilligan: number) => {
             milliganOne.head = true;
             if (numMilligan % 2 === 0) {
                 //ноги
@@ -48,7 +33,7 @@ class Milligan {
         });
     }
     moveMilligan() {
-        this.milligan.forEach((milliganOne: any, currentMil: number, mill: any[]) => {
+        this.mob.forEach((milliganOne: any, currentMil: number, mill: any[]) => {
             let legsMill: any;
             let headMill: any;
             if (currentMil % 2 !== 0) {
@@ -58,35 +43,37 @@ class Milligan {
             } else return;
             if ((!milliganOne.hp || (milliganOne.hp < 3 && Math.random() < 0.2)) && this.boolDeath) {
                 this.boolDeath = false;
-                headMill.textures = this.milliganSheets.createFly;
+                headMill.textures = this.sheets.createFly;
                 headMill.loop = false;
                 headMill.animationSpeed = 0.15;
                 headMill.play();
-                const flyAr = FlyClass.create();
-                const bounds = legsMill.getBounds();
-                flyAr.forEach((flyOne: any) => {
-                    flyOne.x += legsMill.x;
-                    flyOne.y += legsMill.y;
-                });
+
                 headMill.onComplete = () => {
-                    headMill.textures = this.milliganSheets.death;
+                    const flyAr = FlyClass.create();
+                    flyAr.forEach((flyOne: any) => {
+                        flyOne.x += legsMill.x;
+                        flyOne.y += legsMill.y;
+                    });
+                    headMill.textures = this.sheets.death;
                     headMill.scale.set(1.6);
                     headMill.animationSpeed = 0.6;
-                    this.milligan.splice(this.milligan.indexOf(headMill), 1);
-                    this.milligan.splice(this.milligan.indexOf(legsMill), 1);
+                    this.mob.splice(this.mob.indexOf(headMill), 1);
+                    this.mob.splice(this.mob.indexOf(legsMill), 1);
                     rooms[currentRoom].removeChild(legsMill);
                     headMill.play();
-
                     headMill.onComplete = () => {
                         headMill.dead = true;
                         rooms[currentRoom].removeChild(headMill);
                         this.boolDeath = true;
+                        countMobs -= 2;
                     };
                 };
                 return; //что бы избежать ошибки
             } else if (headMill.froze || legsMill.froze) {
                 //анимация нанесения урона
-                if (legsMill.froze) headMill.froze = legsMill.froze;
+                legsMill.froze ? (headMill.froze = legsMill.froze) : (legsMill.froze = headMill.froze);
+                this.frozeMob(legsMill);
+                this.frozeMob(headMill);
                 if (Array.isArray(headMill.froze)) {
                     const impulse = headMill.froze.slice();
                     headMill.hp--;
@@ -117,7 +104,7 @@ class Milligan {
                 if (this.moveCurrent % numWalk < 100) {
                     //право
                     if (this.moveCurrent % numWalk === 0) {
-                        legsMill.textures = this.milliganSheets.rightWalk;
+                        legsMill.textures = this.sheets.rightWalk;
                         legsMill.play();
                     }
                     legsMill.x += speedMil;
@@ -125,7 +112,7 @@ class Milligan {
                 } else if (this.moveCurrent % numWalk < 200) {
                     //вверх
                     if (this.moveCurrent % numWalk === 100) {
-                        legsMill.textures = this.milliganSheets.upWalk;
+                        legsMill.textures = this.sheets.upWalk;
                         legsMill.play();
                     }
                     legsMill.y -= speedMil;
@@ -133,7 +120,7 @@ class Milligan {
                 } else if (this.moveCurrent % numWalk < 300) {
                     //влево
                     if (this.moveCurrent % numWalk === 200) {
-                        legsMill.textures = this.milliganSheets.leftWalk;
+                        legsMill.textures = this.sheets.leftWalk;
                         legsMill.play();
                     }
                     legsMill.x -= speedMil;
@@ -141,7 +128,7 @@ class Milligan {
                 } else if (this.moveCurrent % numWalk < 400) {
                     //вниз
                     if (this.moveCurrent % numWalk === 300) {
-                        legsMill.textures = this.milliganSheets.downWalk;
+                        legsMill.textures = this.sheets.downWalk;
                         legsMill.play();
                     }
                     legsMill.y += speedMil;

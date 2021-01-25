@@ -11,19 +11,6 @@ class createElement {
         const { coords, url, size, room } = paramObj;
         let [positionX, positionY] = coords;
         let [width, height] = size;
-        positionX =
-            positionX < 10
-                ? app.view.width / positionX
-                : positionX ** 2 === 60025
-                ? app.view.width + positionX
-                : positionX;
-        positionY =
-            positionY < 10
-                ? app.view.height / positionY
-                : positionY ** 2 === 60025
-                ? app.view.height + positionY
-                : positionY;
-        width = width === 0 ? app.view.width : width < 2 ? app.view.width / width : width;
         //сделать тут проверку url на массив, для разрушающихся камней
         const texture: any = PIXI.Texture.from(url);
         const gameElement: any = PIXI.Sprite.from(texture);
@@ -35,6 +22,7 @@ class createElement {
         gameElement.y = positionY;
         gameElement.width = width;
         gameElement.height = height;
+        //свойство какашки
 
         this.sendToObject(gameElement, room, url);
 

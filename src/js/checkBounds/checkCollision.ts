@@ -1,5 +1,5 @@
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
-import { currentRoom } from "../Rooms/startGame";
+import { countMobs, currentRoom } from "../Rooms/startGame";
 
 export default function checkCollision(player: any, side: string) {
     let checker: boolean = false;
@@ -14,7 +14,7 @@ export default function checkCollision(player: any, side: string) {
     }
 
     for (let groupEl in roomArray) {
-        if (groupEl === "door.png" && checker) {
+        if (groupEl === "door.png" && countMobs === 0) {
             continue;
         }
         for (let i = 0; i < roomArray[groupEl].length; i += 1) {
@@ -46,8 +46,11 @@ export default function checkCollision(player: any, side: string) {
                     boundsOfGameObject.x + 3 < playerBounds.x + playerBounds.width &&
                     playerBounds.y < boundsOfGameObject.y + boundsOfGameObject.height &&
                     playerBounds.y > boundsOfGameObject.y
-                )
+                ) {
+                    console.log(countMobs);
+
                     return true;
+                }
             }
             if (side === "down") {
                 if (

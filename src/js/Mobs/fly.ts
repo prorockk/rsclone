@@ -1,29 +1,19 @@
 import * as PIXI from "pixi.js";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { app } from "../script";
-import { currentRoom, player, rooms } from "../Rooms/startGame";
+import { countMobs, currentRoom, player, rooms } from "../Rooms/startGame";
 import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import { AnimateMobType } from "../types/Types";
 import Mobs from "./Mobs";
 
-class Fly {
-    private fly: any;
-    private flySheets: any;
+class Fly extends Mobs {
     boolDeath: boolean;
-    constructor(name?: string) {
-        this.flySheets = {};
+    constructor() {
+        super("fly");
         this.boolDeath = true;
-        this.fly = {};
     }
-    doneLoading() {
-        if (!objectOfGameObjects[currentRoom].hasOwnProperty("fly")) return;
-
-        this.fly = objectOfGameObjects[currentRoom].fly;
-        //const simplyFly = objectOfGameObjects[currentRoom].simplyFly;
-
-        this.flySheets = this.fly[0].sheets;
-
-        this.fly.forEach((flyOne: any, current: number) => {
+    loadUp() {
+        this.mob.forEach((flyOne: any, current: number) => {
             if (current % 2 === 0) {
                 flyOne.hp = 2;
                 flyOne.angryMob = true;
@@ -41,16 +31,16 @@ class Fly {
         });
     }
     create() {
-        const randCurrentFly = Math.ceil(Math.random() * 4);
+        const randCurrentFly = Math.ceil(Math.random() * 3.5);
         const properties = {
             sheetSpriteStr: "fly",
             anchor: 0.5,
             animationSpeed: 0.4,
             loop: true,
-            x: 0, //(Math.random() - 0.5) * 5,
-            y: 0, //(Math.random() - 0.5) * 5
+            x: (Math.random() - 0.5) * 10,
+            y: (Math.random() - 0.4) * 10,
         };
-        const flyAr: any[] = addAnimateElement(this.flySheets, new Array(randCurrentFly).fill(properties), "fly");
+        const flyAr: any[] = addAnimateElement(this.sheets, new Array(randCurrentFly).fill(properties), "fly");
         flyAr.forEach((flyOne: any) => {
             flyOne.hp = 3;
             flyOne.angryMob = true;
@@ -58,44 +48,19 @@ class Fly {
             flyOne.damage = 2;
             flyOne.play();
         });
+        countMobs += flyAr.length;
         return flyAr;
     }
     moveFly() {
         const playerX = player.getBounds().x;
         const playerY = player.getBounds().y;
-        this.fly.forEach((flyOne: any) => {
+        this.mob.forEach((flyOne: any) => {
             if (flyOne.hp === 0 && this.boolDeath) {
                 //удаление мух с запуском поледней анимации
-                flyOne.textures = this.flySheets.death;
-                flyOne.loop = false;
-                this.fly.splice(this.fly.indexOf(flyOne), 1);
-                flyOne.play();
-                this.boolDeath = false;
-                flyOne.onComplete = () => {
-                    flyOne.dead = true;
-                    rooms[currentRoom].removeChild(flyOne);
-                    this.boolDeath = true;
-                };
+                this.deleteMob(flyOne);
             } else if (flyOne.froze) {
                 //анимация нанесения урона
-                if (Array.isArray(flyOne.froze)) {
-                    flyOne.hp--;
-                    const impulse = flyOne.froze.slice();
-                    const intTint = setInterval(() => {
-                        // перемещение и  мигание один раз
-                        flyOne.x -= impulse[0];
-                        flyOne.y -= impulse[1];
-                        flyOne.tint = 16716853;
-                    }, 60);
-                    setTimeout(() => {
-                        clearInterval(intTint);
-                        flyOne.tint = 16777215;
-                        flyOne.froze = false;
-                    }, 300);
-                }
-
-                flyOne.froze = true;
-                flyOne.tint = 16716853;
+                this.frozeMob(flyOne);
             } else if (flyOne.angryMob) {
                 const randomSymbol = Math.ceil(Math.random() - 0.5) - 0.2;
                 const flyX = flyOne.getBounds().x;

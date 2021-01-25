@@ -1,3 +1,5 @@
+import { app } from "../script";
+
 export default function (PlayerMethod: any /* player : any, box : any*/) {
     document.addEventListener("mousedown", (e) => mouseShooting(e, true));
 
@@ -14,9 +16,12 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
     document.addEventListener("keyup", (key) => {
         PlayerMethod.activeKeys[key.keyCode] = false;
     });
-
+    let t = true;
     function checkKeyCode(keyCode: number) {
         switch (keyCode) {
+            case 27:
+                t ? app.ticker.stop() : app.ticker.start();
+                t = !t;
             case 40:
                 PlayerMethod.playerShooting.call(PlayerMethod, "down");
                 break;

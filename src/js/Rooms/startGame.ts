@@ -1,22 +1,16 @@
 import * as PIXI from "pixi.js";
 import createPlayer from "../Player/createPlayer";
-import Fly from "../Mobs/fly";
 import { app } from "../script";
 import controller from "../Keyboard/keyboard";
 import createElementsInAllRooms from "./createRooms";
-import { createMap, updateMap } from "../topPanel/map";
-
-import createGameElement from "../CreateSprite/createGameElement";
-import checkBounds from "../checkBounds/checkBounds";
-import addPlayerActions from "../Player/addPlayerActions";
-import Gaper from "../Mobs/gaper";
-import Milligan from "../Mobs/Milligan";
-
+import { updateMap } from "../topPanel/map";
+import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
 
 const PlayerMethod = new createPlayer();
 let player: any = {};
 let playerHead: any = {};
+let countMobs: number = 0;
 
 const rooms: any = {
     inFirstRoom: new PIXI.Container(),
@@ -39,26 +33,22 @@ for (let room in rooms) {
 }
 
 const topPanel = new PIXI.Graphics();
-const FlyClass = new Fly();
-const GaperClass = new Gaper();
-const MilliganClass = new Milligan();
 
 function startGame() {
-    app.loader.add("isaac", "../assets/isaac_moving_table.json");
-
-    app.loader.load(() => {
+    const loader = app.loader;
+    loader.add("isaac", "../assets/isaac_moving_table.json");
+    loader.load(() => {
         createElementsInAllRooms(rooms);
+        setTimeout(() => {
+            loadMobs();
+        }, 100);
+    });
+    loader.onComplete.add(() => {
         PlayerMethod.doneLoading(); //РЕАЛИЗОВАТЬ ЗАГРУЗКУ СПРАЙТОВ В ОТДЕЛЬНОМ ПРОМИСЕ
         [player, playerHead] = PlayerMethod.init.call(PlayerMethod);
-        setTimeout(() => {
-            FlyClass.doneLoading.call(FlyClass);
-            GaperClass.doneLoading.call(GaperClass);
-            MilliganClass.doneLoading.call(MilliganClass);
-        }, 500);
         controller(PlayerMethod);
+        app.stage.addChild(topPanel);
     });
-
-    app.stage.addChild(topPanel);
 
     const BackGroundImage = PIXI.Sprite.from("../assets/floor.png");
     BackGroundImage.width = 800;
@@ -91,11 +81,13 @@ function moveTo(room: string) {
     app.stage.setChildIndex(rooms[room], 2);
     updateMap(currentRoom, room);
     currentRoom = room;
+    countMobs = 0;
+    loadMobs();
     //mapCells.tint = 0x7b28a4;
     //cell.endFill();
 }
 
-export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms, playerHead, FlyClass };
+export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms, playerHead, countMobs };
 /*
             {
                 "coords": [266, 170],

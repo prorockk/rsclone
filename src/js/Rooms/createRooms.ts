@@ -10,7 +10,7 @@ export default async function createElementsInAllRooms(rooms: any) {
 
     const createStatic = new createElement(rooms);
 
-    roomsArr.forEach((room: { [x: string]: any[] }) => {
+    await roomsArr.forEach((room: { [x: string]: any[] }) => {
         for (let func in room) {
             room[func].forEach((element) => {
                 if (func === "createGameElement") {
@@ -21,6 +21,7 @@ export default async function createElementsInAllRooms(rooms: any) {
             });
         }
     });
+    return;
 }
 
 //top ../assets/invisibleBlock.png

@@ -90,10 +90,22 @@ class createPlayer {
                     this.head.play();
                 }
                 // при малом и большом домаге добавляем мигание один раз
+                this.player.alpha = 0;
+                this.head.alpha = 0;
+                const visual = true;
                 const intTint = setInterval(() => {
+                    const changeAlpha = (current: number) => {
+                        this.player.alpha = current;
+                        this.head.alpha = current;
+                    };
+                    if (visual) {
+                        changeAlpha(1);
+                    } else {
+                        changeAlpha(0);
+                    }
                     this.player.tint = 16716853;
                     this.head.tint = 16716853;
-                }, 10);
+                }, 100);
                 setTimeout(() => {
                     clearInterval(intTint);
                     this.head.anchor.set(0.5, 0.95);
@@ -102,6 +114,8 @@ class createPlayer {
                     this.froze = false;
                     this.player.tint = 16777215;
                     this.head.tint = 16777215;
+                    this.player.alpha = 1;
+                    this.head.alpha = 1;
                 }, 250);
             }
             this.hp = this.head.hp;

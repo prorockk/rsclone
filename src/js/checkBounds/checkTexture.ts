@@ -47,14 +47,14 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
             // коллизия игрока с выстрелами мобов
             correctForHeadCollisionWidth = 5;
             correctForHeadCollisionHeight = 10;
-            denominator = 3;
+            denominator = 2.2;
         }
         const colObjBounds = colObj.getBounds();
 
         let itsAngryMob = false;
 
         const objCenterX = colObjBounds.x + correctForHeadCollisionWidth;
-        const objCenterY = colObjBounds.y + +correctForHeadCollisionHeight;
+        const objCenterY = colObjBounds.y + correctForHeadCollisionHeight;
         const objHalfWidth = colObjBounds.width / denominator;
         const objHalfHeight = colObjBounds.height / denominator;
 
@@ -88,7 +88,6 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
                             playerHead.y += impulse[1];
                         }
                     }, 20);
-
                     setTimeout(() => {
                         //уронная пауза
                         clearInterval(int);
