@@ -50,82 +50,7 @@
                 "room": "inFirstRoom"
             }
         ],
-        "createAnimateElement": [
-            {
-                "name": "potter",
-                "room": "inFirstRoom",
-                "setBool": false,
-                "texture": {
-                    "fly": ["fly-1.png", "fly-2.png"],
-                    "shoot": [
-                        "shoot-1.png",
-                        "shoot-2.png",
-                        "shoot-3.png",
-                        "shoot-4.png",
-                        "shoot-5.png",
-                        "shoot-6.png",
-                        "shoot-7.png",
-                        "shoot-8.png",
-                        "shoot-9.png",
-                        "shoot-10.png",
-                        "shoot-11.png",
-                        "shoot-12.png",
-                        "shoot-13.png",
-                        "shoot-14.png"
-                    ],
-                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
-                },
-                "propertiesAr": [
-                    {
-                        "sheetSpriteStr": "fly",
-                        "anchor": 0.5,
-                        "animationSpeed": 0.4,
-                        "loop": true,
-                        "x": 400,
-                        "y": 180
-                    },
-                    {
-                        "sheetSpriteStr": "fly",
-                        "anchor": 0.5,
-                        "animationSpeed": 0.4,
-                        "loop": true,
-                        "x": 350,
-                        "y": 180
-                    }
-                ]
-            },
-            {
-                "name": "host",
-                "room": "inFirstRoom",
-                "setBool": false,
-                "texture": {
-                    "block": ["host-2.png", "host-3.png", "host-1.png"],
-                    "shoot": ["host-2.png"],
-                    "death": [
-                        "deaths1.png",
-                        "deaths2.png",
-                        "deaths3.png",
-                        "deaths4.png",
-                        "deaths5.png",
-                        "deaths6.png",
-                        "deaths7.png",
-                        "deaths8.png",
-                        "deaths9.png",
-                        "deaths10.png"
-                    ]
-                },
-                "propertiesAr": [
-                    {
-                        "sheetSpriteStr": "block",
-                        "anchor": 0.5,
-                        "animationSpeed": 0.2,
-                        "loop": false,
-                        "x": 300,
-                        "y": 180
-                    }
-                ]
-            }
-        ]
+        "createAnimateElement": []
     },
     {
         "createGameElement": [
@@ -217,7 +142,7 @@
                 },
                 "propertiesAr": [
                     {
-                        "sheetSpriteStr": "fly",
+                        "sheetSpriteStr": "simpleFly",
                         "anchor": 0.5,
                         "animationSpeed": 0.4,
                         "loop": true,
@@ -225,7 +150,7 @@
                         "y": 320
                     },
                     {
-                        "sheetSpriteStr": "simpleFly",
+                        "sheetSpriteStr": "fly",
                         "anchor": 0.5,
                         "animationSpeed": 0.4,
                         "loop": true,
@@ -305,6 +230,162 @@
                         "loop": true,
                         "x": 400,
                         "y": 251
+                    }
+                ]
+            },
+            {
+                "name": "potter",
+                "room": "inSecondRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly-1.png", "fly-2.png"],
+                    "shoot": [
+                        "shoot-1.png",
+                        "shoot-2.png",
+                        "shoot-3.png",
+                        "shoot-4.png",
+                        "shoot-5.png",
+                        "shoot-6.png",
+                        "shoot-7.png",
+                        "shoot-8.png",
+                        "shoot-9.png",
+                        "shoot-10.png",
+                        "shoot-11.png",
+                        "shoot-12.png",
+                        "shoot-13.png",
+                        "shoot-14.png"
+                    ],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 400,
+                        "y": 180
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 350,
+                        "y": 180
+                    }
+                ]
+            },
+            {
+                "name": "host",
+                "room": "inSecondRoom",
+                "setBool": false,
+                "texture": {
+                    "block": ["host-2.png", "host-3.png", "host-1.png"],
+                    "shoot": ["host-2.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 300,
+                        "y": 180
+                    }
+                ]
+            },
+            {
+                "name": "clotty",
+                "room": "inSecondRoom",
+                "setBool": false,
+                "texture": {
+                    "stand": ["clotty-1.png"],
+                    "shoot": [
+                        "clotty-2.png",
+                        "clotty-11.png",
+                        "clotty-8.png",
+                        "clotty-9.png",
+                        "clotty-11.png",
+                        "clotty-1.png"
+                    ],
+                    "jump": [
+                        "clotty-2.png",
+                        "clotty-4.png",
+                        "clotty-5.png",
+                        "clotty-6.png",
+                        "clotty-7.png",
+                        "clotty-3.png",
+                        "clotty-11.png"
+                    ],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "stand",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 150,
+                        "y": 280
+                    }
+                ]
+            },
+            {
+                "name": "spotty",
+                "room": "inSecondRoom",
+                "setBool": false,
+                "texture": {
+                    "upWalk": ["spotty-up2.png", "spotty-up3.png"],
+                    "up": ["spotty-up1.png", "spotty-up4.png"],
+                    "downWalk": ["spotty-down1.png", "spotty-down3.png", "spotty-down2.png"],
+                    "down": ["spotty-down5.png", "spotty-down6.png"],
+                    "rightWalk": ["spotty-right1.png", "spotty-right2.png", "spotty-right3.png"],
+                    "right": ["spotty-right4.png", "spotty-right5.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "downWalk",
+                        "anchor": 1,
+                        "animationSpeed": 0.1,
+                        "loop": true,
+                        "x": 250,
+                        "y": 180
                     }
                 ]
             }

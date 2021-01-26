@@ -1,12 +1,10 @@
 import * as PIXI from "pixi.js";
 import createElement from "../CreateSprite/createGameElement";
-import { app } from "../script";
 
 export default async function createElementsInAllRooms(rooms: any) {
     // New JSON
     const res = await fetch("../src/js/Rooms/rooms.json");
     const roomsArr = await res.json();
-    //1
 
     const createStatic = new createElement(rooms);
 

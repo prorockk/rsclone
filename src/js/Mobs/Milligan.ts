@@ -23,8 +23,8 @@ class Milligan extends Mobs {
                 milliganOne.head = false;
             }
             milliganOne.angryMob = true;
-            milliganOne.hp = 6;
-            milliganOne.froze = false;
+            milliganOne.hp = 4;
+            milliganOne.freeze = false;
             milliganOne.damage = 2;
             milliganOne.play();
         });
@@ -41,7 +41,7 @@ class Milligan extends Mobs {
                 legsMill = mill[currentMil - 1]; // это ноги
                 headMill = milliganOne;
             } else return;
-            if ((!milliganOne.hp || (milliganOne.hp < 3 && Math.random() < 0.2)) && this.boolDeath) {
+            if ((!milliganOne.hp || (milliganOne.hp < 1 && Math.random() < 0.2)) && this.boolDeath) {
                 this.boolDeath = false;
                 headMill.textures = this.sheets.createFly;
                 headMill.loop = false;
@@ -51,8 +51,8 @@ class Milligan extends Mobs {
                 headMill.onComplete = () => {
                     const flyAr = FlyClass.create();
                     flyAr.forEach((flyOne: any) => {
-                        flyOne.x += legsMill.x;
-                        flyOne.y += legsMill.y;
+                        flyOne.x = legsMill.x + (Math.random() - 0.6) * 20;
+                        flyOne.y = legsMill.y + (Math.random() - 0.6) * 20;
                     });
                     headMill.textures = this.sheets.death;
                     headMill.scale.set(1.6);
@@ -65,17 +65,17 @@ class Milligan extends Mobs {
                         headMill.dead = true;
                         rooms[currentRoom].removeChild(headMill);
                         this.boolDeath = true;
-                        countMobs -= 2;
+                        countMobs.count -= 2;
                     };
                 };
                 return; //что бы избежать ошибки
-            } else if (headMill.froze || legsMill.froze) {
+            } else if (headMill.freeze || legsMill.freeze) {
                 //анимация нанесения урона
-                legsMill.froze ? (headMill.froze = legsMill.froze) : (legsMill.froze = headMill.froze);
-                this.frozeMob(legsMill);
-                this.frozeMob(headMill);
-                if (Array.isArray(headMill.froze)) {
-                    const impulse = headMill.froze.slice();
+                legsMill.freeze ? (headMill.freeze = legsMill.freeze) : (legsMill.freeze = headMill.freeze);
+                this.freezeMob(legsMill);
+                this.freezeMob(headMill);
+                if (Array.isArray(headMill.freeze)) {
+                    const impulse = headMill.freeze.slice();
                     headMill.hp--;
                     const intTint = setInterval(() => {
                         // перемещение и  мигание один раз
@@ -90,12 +90,12 @@ class Milligan extends Mobs {
                         clearInterval(intTint);
                         headMill.tint = 16777215;
                         legsMill.tint = 16777215;
-                        headMill.froze = false;
-                        legsMill.froze = false;
+                        headMill.freeze = false;
+                        legsMill.freeze = false;
                     }, 300);
                 }
-                legsMill.froze = true;
-                headMill.froze = true;
+                legsMill.freeze = true;
+                headMill.freeze = true;
             } else {
                 //перемещение только ноги
                 const speedMil = 0.25;

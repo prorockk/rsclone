@@ -2,15 +2,14 @@ import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { PlayerMethod, rooms } from "../Rooms/startGame";
 import checkTexture from "../checkBounds/checkTexture";
-import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import tearsSheets from "../CreateSprite/tearsSheets";
-import { loadPartialConfig } from "@babel/core";
+import createElement from "../CreateSprite/createGameElement";
 
 const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
 
-    const [sheets, animate] = tearsSheets();
-
+    const animate = tearsSheets();
+    const sheets = animate.sheets;
     let switcherTears = true;
     let tearsAr: number[] = [];
 
@@ -51,7 +50,7 @@ const addPlayerActions = () => {
             this.head.textures = this.playerSheets.standSee;
             this.head.play();
         };
-        const [bullet]: any = addAnimateElement(sheets, animate.propertiesAr);
+        const [bullet]: any = new createElement().addAnimateElement(animate);
 
         bullet.speed = bulletSpeed;
         bullet.scale.set(1.2);

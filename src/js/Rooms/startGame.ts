@@ -10,7 +10,7 @@ import createTopPanel from "../topPanel/createTopPanel";
 const PlayerMethod = new createPlayer();
 let player: any = {};
 let playerHead: any = {};
-let countMobs: number = 0;
+let countMobs: { count: number } = { count: 0 };
 
 const rooms: any = {
     inFirstRoom: new PIXI.Container(),
@@ -81,7 +81,7 @@ function moveTo(room: string) {
     app.stage.setChildIndex(rooms[room], 2);
     updateMap(currentRoom, room);
     currentRoom = room;
-    countMobs = 0;
+    countMobs.count = 0;
     loadMobs();
     //mapCells.tint = 0x7b28a4;
     //cell.endFill();

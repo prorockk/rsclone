@@ -4,7 +4,7 @@ import { objectOfGameObjects } from "./objectOfGameObjects";
 
 class createElement {
     rooms: any;
-    constructor(rooms: any) {
+    constructor(rooms?: any) {
         this.rooms = rooms;
     }
     createGameElement = (paramObj: any) => {
@@ -43,6 +43,7 @@ class createElement {
     };
     addAnimateElement = (animateObj: any) => {
         const { propertiesAr, sheets, room, name } = animateObj;
+
         const mobAr = propertiesAr.map((property: any) => {
             const mob: any = new PIXI.AnimatedSprite(sheets[property.sheetSpriteStr]);
             mob.anchor.set(property.anchor);
@@ -54,7 +55,9 @@ class createElement {
                     mob[key] = property[key];
                 }
             }
-            this.sendToObject(mob, room, name);
+            if (!this.rooms) {
+                app.stage.addChild(mob);
+            } else this.sendToObject(mob, room, name);
             return mob;
         });
         return mobAr;

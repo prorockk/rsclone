@@ -2,7 +2,6 @@
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { currentRoom } from "../Rooms/startGame";
 import { player, playerHead } from "../Rooms/startGame";
-import checkCollision from "./checkCollision";
 
 let isDamage = true;
 
@@ -104,7 +103,18 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
                 } else if (colObj.hasOwnProperty("hp") && bullets.hasOwnProperty("forMobs") && delay === 0) {
                     //вызывается в AddPlayerActions
                     //попадание слез по мобам
-                    colObj.froze = impulse.slice(); //прерываем стандартное перемещение моба и передаем направление движения
+                    colObj.freeze = impulse.slice(); //прерываем стандартное перемещение моба и передаем направление движения
+                } else if (delay > 0 && colObj.hasOwnProperty("angryMob") && !itsAngryMob) {
+                    const int = setInterval(() => {
+                        if (!checkTexture(0, colObj, false)) {
+                            colObj.x -= impulse[0] * 1.5; //откдывание предметов и мух
+                            colObj.y -= impulse[1] * 1.5;
+                        }
+                    }, 20);
+                    setTimeout(() => {
+                        //конец
+                        clearInterval(int);
+                    }, 250);
                 }
                 return true;
             } else {

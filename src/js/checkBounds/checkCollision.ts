@@ -14,7 +14,7 @@ export default function checkCollision(player: any, side: string) {
     }
 
     for (let groupEl in roomArray) {
-        if (groupEl === "door.png" && countMobs === 0) {
+        if (groupEl === "door.png" && countMobs.count === 0) {
             continue;
         }
         for (let i = 0; i < roomArray[groupEl].length; i += 1) {
@@ -47,8 +47,6 @@ export default function checkCollision(player: any, side: string) {
                     playerBounds.y < boundsOfGameObject.y + boundsOfGameObject.height &&
                     playerBounds.y > boundsOfGameObject.y
                 ) {
-                    console.log(countMobs);
-
                     return true;
                 }
             }
