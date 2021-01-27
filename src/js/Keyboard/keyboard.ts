@@ -8,13 +8,14 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
     document.addEventListener("click", (e) => PlayerMethod.playerShooting.bind(PlayerMethod));
 
     document.addEventListener("keydown", (key) => {
-        checkKeyCode(key.keyCode);
+        checkKeyCode(key);
     });
     document.addEventListener("keyup", (key) => {
-        PlayerMethod.activeKeys[key.keyCode] = false;
+        PlayerMethod.activeKeys[key.code] = false;
     });
     let t = true;
-    function checkKeyCode(keyCode: number) {
+    function checkKeyCode(key: KeyboardEvent) {
+        let keyCode = key.keyCode;
         switch (keyCode) {
             case 27:
                 t ? app.ticker.stop() : app.ticker.start();
@@ -32,7 +33,7 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
                 PlayerMethod.playerShooting.call(PlayerMethod, "left");
                 break;
             default:
-                PlayerMethod.activeKeys[keyCode] = true;
+                PlayerMethod.activeKeys[key.code] = true;
                 break;
         }
     }

@@ -6,6 +6,7 @@ import tearsSheets from "../CreateSprite/tearsSheets";
 import createElement from "../CreateSprite/createGameElement";
 import { changeLife } from "../topPanel/createLife";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { soundGame } from "../otherScripts/sound";
 
 const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
@@ -18,7 +19,7 @@ const addPlayerActions = () => {
     PlayerMethod.playerShooting = function (e: { x: any; y: any } | string) {
         if (tearsAr.length > 0) return; //блокирование частых выстрелов
         tearsAr.push(0);
-        setTimeout(() => (tearsAr = []), 230);
+        setTimeout(() => (tearsAr = []), 370);
 
         //добавляем функции для скилов героя
         let bulletDirection;
@@ -59,6 +60,7 @@ const addPlayerActions = () => {
         bullet.forMobs = true;
         bullet.direction = bulletDirection;
         this.bullets.push(bullet);
+        switcherTears ? soundGame("tear1", false) : soundGame("tear2", false);
     };
 
     PlayerMethod.updateBullets = function (e: number) {
@@ -85,6 +87,7 @@ const addPlayerActions = () => {
                 deleteBullet.textures = sheets.death;
                 deleteBullet.play();
                 this.bullets.splice(i, 1);
+                soundGame("tearPop", false);
                 deleteBullet.onComplete = () => {
                     deleteBullet.dead = true;
                     app.stage.removeChild(deleteBullet);
@@ -104,8 +107,10 @@ const addPlayerActions = () => {
                         return false;
                     case 1:
                         changeLife(1);
+                        return true;
                     default:
                         changeLife(2);
+                        return true;
                 }
                 this.hp = this.head.hp;
             case "belt.png":
@@ -122,7 +127,7 @@ const addPlayerActions = () => {
                     this.head.anchor.set(0.5, 0.95);
                     this.head.textures = this.playerSheets.standSee;
                     this.head.play();
-                    this.playerSpeed = 4.5;
+                    this.playerSpeed = 4;
                     this.player.speed = this.playerSpeed;
                     this.froze = false;
                 }, 500);

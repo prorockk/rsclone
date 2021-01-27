@@ -8,6 +8,7 @@ import checkTexture from "../checkBounds/checkTexture";
 import { changeLife } from "../topPanel/createLife";
 import createElement from "../CreateSprite/createGameElement";
 import deathPlayer from "../Rooms/deathPlayer";
+import { moveControls } from "../otherScripts/changeControls";
 
 class createPlayer {
     [x: string]: any;
@@ -117,9 +118,11 @@ class createPlayer {
                 }, 100);
                 setTimeout(() => {
                     clearInterval(intTint);
-                    this.head.anchor.set(0.5, 0.95);
-                    this.head.textures = this.playerSheets.standSee;
-                    this.head.play();
+                    if (this.head.hp > 0) {
+                        this.head.anchor.set(0.5, 0.95);
+                        this.head.textures = this.playerSheets.standSee;
+                        this.head.play();
+                    }
                     this.froze = false;
                     this.player.tint = 16777215;
                     this.head.tint = 16777215;
@@ -136,28 +139,28 @@ class createPlayer {
             this.player.textures = this.playerSheets[`${direction}Walk`];
             this.player.play();
         };
-        if (this.activeKeys["68"] && !checkCollision(this.player, "right")) {
+        if (this.activeKeys[moveControls.right] && !checkCollision(this.player, "right")) {
             if (!this.player.playing) {
                 playerPlay("right");
             }
             this.player.x += this.playerSpeed;
             this.head.x += this.playerSpeed;
         }
-        if (this.activeKeys["87"] && !checkCollision(this.player, "top")) {
+        if (this.activeKeys[moveControls.up] && !checkCollision(this.player, "top")) {
             if (!this.player.playing) {
                 playerPlay("up");
             }
             this.player.y -= this.playerSpeed;
             this.head.y -= this.playerSpeed;
         }
-        if (this.activeKeys["65"] && !checkCollision(this.player, "left")) {
+        if (this.activeKeys[moveControls.left] && !checkCollision(this.player, "left")) {
             if (!this.player.playing) {
                 playerPlay("left");
             }
             this.player.x -= this.playerSpeed;
             this.head.x -= this.playerSpeed;
         }
-        if (this.activeKeys["83"] && !checkCollision(this.player, "down")) {
+        if (this.activeKeys[moveControls.down] && !checkCollision(this.player, "down")) {
             if (!this.player.playing) {
                 playerPlay("down");
             }
