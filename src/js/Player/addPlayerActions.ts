@@ -1,55 +1,37 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { globalEl, PlayerMethod } from "../Rooms/startGame";
-import createPlayer from "./createPlayer";
-import createGameElement from "../CreateSprite/createGameElement";
+import { PlayerMethod, rooms } from "../Rooms/startGame";
 import checkTexture from "../checkBounds/checkTexture";
-import { AnimateMobType } from "../types/Types";
 import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
+import tearsSheets from "../CreateSprite/tearsSheets";
+import { loadPartialConfig } from "@babel/core";
 
 const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
 
-    const animate: AnimateMobType = {
-        texture: {
-            shot: ["tear_pop-0.png"],
-            death: [
-                "tear_pop-1.png",
-                "tear_pop-2.png",
-                "tear_pop-3.png",
-                "tear_pop-4.png",
-                "tear_pop-5.png",
-                "tear_pop-6.png",
-                "tear_pop-7.png",
-                "tear_pop-8.png",
-            ],
-        },
-        propertiesAr: [
-            {
-                sheetSpriteStr: "shot",
-                anchor: { set: 0.5 },
-                animationSpeed: 0.6,
-                loop: false,
-                width: 13,
-                height: 13,
-            },
-        ],
-        setBool: true,
-    };
-    const sheets = createAnimateElement(animate);
-    let switcher = true;
+    const [sheets, animate] = tearsSheets();
+
+    let switcherTears = true;
+    let tearsAr: number[] = [];
+
     PlayerMethod.playerShooting = function (e: { x: any; y: any } | string) {
+        if (tearsAr.length > 0) return; //блокирование частых выстрелов
+        tearsAr.push(0);
+        setTimeout(() => (tearsAr = []), 230);
+
         //добавляем функции для скилов героя
         let bulletDirection;
         const bulletSpeed = 8;
-        let tearPosition = 3;
-        if (switcher) {
-            tearPosition *= -1;
+        let tearPosition = 20; //выстрелы из разных глаз
+        if (switcherTears) {
+            tearPosition = 10;
         }
-        switcher = !switcher;
+        switcherTears = !switcherTears;
         if (typeof e === "string") {
+            //направление с клавиатуры
             bulletDirection = e;
         } else {
+            // направление с мышки
             const cursorPositionX = e.x;
             const cursorPositionY = e.y;
             if (Math.abs(cursorPositionX - this.player.x) > Math.abs(cursorPositionY - this.player.y)) {
@@ -58,16 +40,27 @@ const addPlayerActions = () => {
                 bulletDirection = cursorPositionY > this.player.y ? "down" : "up";
             }
         }
-        animate.propertiesAr[0].x = this.player.x + tearPosition;
-        animate.propertiesAr[0].y = this.player.y + tearPosition;
+
+        const startPointBullet = bulletDirection === "up" ? 25 : 7.5; //коректировка выстрелов вверх
+        animate.propertiesAr[0].x = this.player.getBounds().x + tearPosition;
+        animate.propertiesAr[0].y = this.player.getBounds().y - startPointBullet;
+
+        this.head.textures = this.playerSheets[`${bulletDirection}See`]; //изменение напрвления головы
+        this.head.play();
+        this.head.onComplete = () => {
+            this.head.textures = this.playerSheets.standSee;
+            this.head.play();
+        };
         const [bullet]: any = addAnimateElement(sheets, animate.propertiesAr);
-        bullet.hitArea = new PIXI.Polygon([0, 0, 0, 13, 13, 13, 13, 0]);
-        bullet["speed"] = bulletSpeed;
-        bullet["direction"] = bulletDirection;
+
+        bullet.speed = bulletSpeed;
+        bullet.scale.set(1.2);
+        bullet.forMobs = true;
+        bullet.direction = bulletDirection;
         this.bullets.push(bullet);
     };
 
-    PlayerMethod.updateBullets = function () {
+    PlayerMethod.updateBullets = function (e: number) {
         for (let i = 0; i < this.bullets.length; i++) {
             //определение направления выстрела
             switch (this.bullets[i].direction) {
@@ -86,13 +79,7 @@ const addPlayerActions = () => {
             }
 
             //удаление пуль
-            if (
-                this.bullets[i].position.y < 65 ||
-                this.bullets[i].position.y > 432 ||
-                this.bullets[i].position.x < 55 ||
-                this.bullets[i].position.x > 465 ||
-                checkTexture(this.bullets[i]) //                             NEW
-            ) {
+            if (checkTexture(0, this.bullets[i])) {
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = sheets.death;
                 deleteBullet.play();

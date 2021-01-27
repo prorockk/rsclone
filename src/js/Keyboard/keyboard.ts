@@ -1,9 +1,14 @@
+import { app } from "../script";
+
 export default function (PlayerMethod: any /* player : any, box : any*/) {
-    //console.log(PlayerMethod);
+    document.addEventListener("mousedown", (e) => mouseShooting(e, true));
 
-    // console.log(checkTexture(player.player, box));
-
-    document.addEventListener("pointerdown", PlayerMethod.playerShooting.bind(PlayerMethod));
+    document.addEventListener("mouseup", (e) => mouseShooting(e, false));
+    document.addEventListener("mousemove", (e) => mouseShooting(e, undefined));
+    document.addEventListener("click", (e) => {
+        PlayerMethod.playerShooting.call(PlayerMethod);
+        console.log(e);
+    });
 
     document.addEventListener("keydown", (key) => {
         checkKeyCode(key.keyCode);
@@ -11,9 +16,12 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
     document.addEventListener("keyup", (key) => {
         PlayerMethod.activeKeys[key.keyCode] = false;
     });
-
+    let t = true;
     function checkKeyCode(keyCode: number) {
         switch (keyCode) {
+            case 27:
+                t ? app.ticker.stop() : app.ticker.start();
+                t = !t;
             case 40:
                 PlayerMethod.playerShooting.call(PlayerMethod, "down");
                 break;
@@ -30,5 +38,21 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
                 PlayerMethod.activeKeys[keyCode] = true;
                 break;
         }
+    }
+    let intMouse: any;
+    let mouseDown: any;
+    let delayAr: number[];
+    function mouseShooting(delay: MouseEvent, bool: boolean | undefined) {
+        if (bool !== undefined) {
+            mouseDown = bool;
+        } else if (mouseDown) {
+            clearInterval(intMouse);
+            PlayerMethod.playerShooting.call(PlayerMethod, delay);
+            intMouse = setInterval(PlayerMethod.playerShooting.bind(PlayerMethod, delay), 130);
+            return;
+        }
+        mouseDown
+            ? (intMouse = setInterval(PlayerMethod.playerShooting.bind(PlayerMethod, delay), 220))
+            : clearInterval(intMouse);
     }
 }

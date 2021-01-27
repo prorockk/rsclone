@@ -1,8 +1,11 @@
 import * as PIXI from "pixi.js";
+import { currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
 import { AnimateMobType } from "../types/Types";
+import createGameElement from "./createGameElement";
+import createElement from "./createGameElement";
 
-function createAnimateElement(animateObj: AnimateMobType) {
+const createAnimateElement = (animateObj: AnimateMobType) => {
     const Sheets: any = {};
     const { texture, propertiesAr } = animateObj;
     for (const key in texture) {
@@ -10,25 +13,30 @@ function createAnimateElement(animateObj: AnimateMobType) {
             return PIXI.Texture.from(element);
         });
     }
-    if (animateObj.setBool) return Sheets; //если нам нужны только sheets, для слёз
+    if (animateObj.setBool) return Sheets;
     const mobAr = addAnimateElement(Sheets, propertiesAr);
     return [Sheets, ...mobAr];
-}
-
-function addAnimateElement(Sheets: { [x: string]: PIXI.Texture[] }, propertiesAr: any[]) {
+};
+const addAnimateElement = (Sheets: { [x: string]: PIXI.Texture[] }, propertiesAr: any[], url?: any) => {
     return propertiesAr.map((property: any) => {
         const mob: any = new PIXI.AnimatedSprite(Sheets[property.sheetSpriteStr]);
-        mob.anchor.set(property.anchor.set);
+        mob.anchor.set(property.anchor);
         mob.x = property.x;
         mob.y = property.y;
+
         for (const key in property) {
             if (mob.hasOwnProperty(key)) {
                 mob[key] = property[key];
             }
         }
-        app.stage.addChild(mob);
+        if (!url) {
+            app.stage.addChild(mob);
+        } else {
+            new createGameElement(rooms).sendToObject(mob, currentRoom, url);
+        }
         mob.play();
         return mob;
     });
-}
+};
+
 export { createAnimateElement, addAnimateElement };

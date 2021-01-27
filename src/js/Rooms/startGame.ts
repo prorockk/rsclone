@@ -1,35 +1,98 @@
 import * as PIXI from "pixi.js";
-import createGameElement from "../CreateSprite/createGameElement";
 import createPlayer from "../Player/createPlayer";
-//import addPlayerActions from "./Player/addPlayerActions"
-import Fly from "../Mobs/fly";
-import checkBounds from "../checkBounds/checkBounds";
-import addPlayerActions from "../Player/addPlayerActions";
 import { app } from "../script";
 import controller from "../Keyboard/keyboard";
+import createElementsInAllRooms from "./createRooms";
+import { updateMap } from "../topPanel/map";
+import loadMobs from "../Mobs/loadMobs";
+import createTopPanel from "../topPanel/createTopPanel";
+
 const PlayerMethod = new createPlayer();
-const globalEl: any = {};
+let player: any = {};
+let playerHead: any = {};
+let countMobs: number = 0;
+
+const rooms: any = {
+    inFirstRoom: new PIXI.Container(),
+    inSecondRoom: new PIXI.Container(),
+    inThirdRoom: new PIXI.Container(),
+    inFourthRoom: new PIXI.Container(),
+    inFifthRoom: new PIXI.Container(),
+    inSixthRoom: new PIXI.Container(),
+    inSeventhRoom: new PIXI.Container(),
+    inEighthRoom: new PIXI.Container(),
+    inNinthRoom: new PIXI.Container(),
+    inTenthRoom: new PIXI.Container(),
+};
+
+let currentRoom = "inFirstRoom";
+
+for (let room in rooms) {
+    rooms[room].scale.set(1.5);
+    rooms[room].sortableChildren = true;
+}
+
+const topPanel = new PIXI.Graphics();
 
 function startGame() {
-    const FlyClass = new Fly();
-    app.loader.add("isaac", "../assets/isaac_moving_table.json"); //загрузка спрайта
-    app.loader.load(() => {
-        PlayerMethod.doneLoading();
-        globalEl.player = PlayerMethod.init.call(PlayerMethod);
-        FlyClass.doneLoading();
-        controller(PlayerMethod /*player, box*/);
+    const loader = app.loader;
+    loader.add("isaac", "../assets/isaac_moving_table.json");
+    loader.load(() => {
+        createElementsInAllRooms(rooms);
+        setTimeout(() => {
+            loadMobs();
+        }, 100);
+    });
+    loader.onComplete.add(() => {
+        PlayerMethod.doneLoading(); //РЕАЛИЗОВАТЬ ЗАГРУЗКУ СПРАЙТОВ В ОТДЕЛЬНОМ ПРОМИСЕ
+        [player, playerHead] = PlayerMethod.init.call(PlayerMethod);
+        controller(PlayerMethod);
+        app.stage.addChild(topPanel);
     });
 
     const BackGroundImage = PIXI.Sprite.from("../assets/floor.png");
     BackGroundImage.width = 800;
-    BackGroundImage.height = 600;
+    BackGroundImage.height = 500;
+    BackGroundImage.x = 0;
+    BackGroundImage.y = 100;
     BackGroundImage.anchor.set(0, 0);
+    BackGroundImage.scale.set(1.5);
+
     app.stage.addChild(BackGroundImage);
+    app.stage.addChild(rooms["inFirstRoom"]); // O N E
 
-    createGameElement(app.view.width / 4, app.view.height / 4, "../assets/box.png", 30, 23);
-    createGameElement(app.view.width / 4, app.view.height / 2, "../assets/9KvNB.png", 30, 23);
-
-    const box = createGameElement(app.view.width / 2, app.view.height / 4, "../assets/box.png", 30, 23);
-    globalEl.box = box;
+    createTopPanel();
 }
-export { startGame, PlayerMethod, globalEl };
+
+function moveTo(room: string) {
+    app.stage.removeChild(
+        rooms["inFirstRoom"],
+        rooms["inSecondRoom"],
+        rooms["inThirdRoom"],
+        rooms["inFourthRoom"],
+        rooms["inFifthRoom"],
+        rooms["inSixthRoom"],
+        rooms["inSeventhRoom"],
+        rooms["inEighthRoom"],
+        rooms["inNinthRoom"],
+        rooms["inTenthRoom"]
+    );
+    app.stage.addChild(rooms[room]);
+    app.stage.setChildIndex(rooms[room], 2);
+    updateMap(currentRoom, room);
+    currentRoom = room;
+    countMobs = 0;
+    loadMobs();
+    //mapCells.tint = 0x7b28a4;
+    //cell.endFill();
+}
+
+export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms, playerHead, countMobs };
+/*
+            {
+                "coords": [266, 170],
+                "url": "instruction.png",
+                "size": [400, 90],
+                "room": "inFirstRoom"
+            },
+*/

@@ -1,11 +1,20 @@
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { countMobs, currentRoom } from "../Rooms/startGame";
 
 export default function checkCollision(player: any, side: string) {
     const playerBounds = player.getBounds();
 
-    for (let groupEl in objectOfGameObjects) {
-        for (let i = 0; i < objectOfGameObjects[groupEl].length; i += 1) {
-            const boundsOfGameObject = objectOfGameObjects[groupEl][i].getBounds();
+    const roomArray = objectOfGameObjects[currentRoom];
+
+    for (let groupEl in roomArray) {
+        if (groupEl === "door.png" && countMobs === 0) {
+            continue;
+        }
+        for (let i = 0; i < roomArray[groupEl].length; i += 1) {
+            if (roomArray[groupEl][i].hasOwnProperty("angryMob") && roomArray[groupEl][i].angryMob) {
+                continue;
+            }
+            const boundsOfGameObject = roomArray[groupEl][i].getBounds();
             if (side === "right") {
                 if (
                     playerBounds.x + playerBounds.width > boundsOfGameObject.x &&
@@ -30,15 +39,18 @@ export default function checkCollision(player: any, side: string) {
                     boundsOfGameObject.x + 3 < playerBounds.x + playerBounds.width &&
                     playerBounds.y < boundsOfGameObject.y + boundsOfGameObject.height &&
                     playerBounds.y > boundsOfGameObject.y
-                )
+                ) {
+                    console.log(countMobs);
+
                     return true;
+                }
             }
             if (side === "down") {
                 if (
                     boundsOfGameObject.x + boundsOfGameObject.width - 3 > playerBounds.x &&
                     boundsOfGameObject.x + 3 < playerBounds.x + playerBounds.width &&
-                    playerBounds.y + playerBounds.width + 5 > boundsOfGameObject.y &&
-                    playerBounds.y + playerBounds.width < boundsOfGameObject.y + boundsOfGameObject.height
+                    playerBounds.y + playerBounds.height > boundsOfGameObject.y &&
+                    playerBounds.y + playerBounds.height < boundsOfGameObject.y + boundsOfGameObject.height
                 )
                     return true;
             }

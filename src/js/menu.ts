@@ -13,7 +13,7 @@ export default function renderMenu() {
         fontFamily: "DRKrapka",
     });
 
-    const newGame = new PIXI.Text("NEW RUN", style);
+    const newGame = new PIXI.Text("00 01 02 03 05", style);
     newGame.x = 200;
     newGame.y = 120;
     newGame.rotation = -0.1;
