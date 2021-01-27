@@ -42,25 +42,25 @@
     {
         "createGameElement": [
             {
-                "coords": [420, 130],
+                "coords": [420, 275],
                 "url": "rock3.png",
                 "size": [35, 35],
                 "room": "inSecondRoom",
                 "rotation": "1.57"
             },
             {
-                "coords": [420, 160],
-                "url": "rock2.png",
+                "coords": [420, 305],
+                "url": "rock4.png",
                 "size": [35, 35],
                 "room": "inSecondRoom",
                 "rotation": "1.57"
             },
             {
-                "coords": [420, 190],
-                "url": "rock4.png",
+                "coords": [420, 335],
+                "url": "rock2.png",
                 "size": [35, 35],
                 "room": "inSecondRoom",
-                "rotation": "3.14"
+                "rotation": "1.57"
             },
             {
                 "coords": [120, 130],
@@ -81,7 +81,7 @@
                 "url": "rock4.png",
                 "size": [35, 35],
                 "room": "inSecondRoom",
-                "rotation": "3.14"
+                "rotation": "1.57"
             },
             {
                 "coords": [145, 95],
@@ -187,50 +187,6 @@
                         "y": 220
                     }
                 ]
-            },
-            {
-                "name": "milligan",
-                "room": "inSecondRoom",
-                "setBool": false,
-                "texture": {
-                    "angry": ["miligan1.png", "miligan2.png", "miligan3.png"],
-                    "createFly": ["miligan-death1.png", "miligan-death2.png", "miligan-death3.png"],
-                    "upSpeed": ["miligan-be1.png", "miligan-be2.png"],
-                    "downWalk": ["to1.png", "to2.png"],
-                    "upWalk": ["out1.png", "out2.png"],
-                    "leftWalk": ["left1.png", "left2.png", "left3.png"],
-                    "rightWalk": ["right1.png", "right2.png", "right3.png"],
-                    "death": [
-                        "deaths1.png",
-                        "deaths2.png",
-                        "deaths3.png",
-                        "deaths4.png",
-                        "deaths5.png",
-                        "deaths6.png",
-                        "deaths7.png",
-                        "deaths8.png",
-                        "deaths9.png",
-                        "deaths10.png"
-                    ]
-                },
-                "propertiesAr": [
-                    {
-                        "sheetSpriteStr": "downWalk",
-                        "anchor": 1,
-                        "animationSpeed": 0.1,
-                        "loop": true,
-                        "x": 400,
-                        "y": 251
-                    },
-                    {
-                        "sheetSpriteStr": "angry",
-                        "anchor": 0.5,
-                        "animationSpeed": 0.1,
-                        "loop": true,
-                        "x": 400,
-                        "y": 251
-                    }
-                ]
             }
         ]
     },
@@ -262,7 +218,7 @@
             },
             {
                 "coords": [270, 160],
-                "url": "rock1.png",
+                "url": "rock2.png",
                 "size": [35, 35],
                 "room": "inThirdRoom"
             },
@@ -448,16 +404,18 @@
                 "coords": [470, 190],
                 "url": "rock2.png",
                 "size": [35, 35],
-                "room": "inFourthRoom"
+                "room": "inFourthRoom",
+                "rotation": "4.71"
             },
             {
                 "coords": [440, 270],
                 "url": "rock2.png",
                 "size": [35, 35],
-                "room": "inFourthRoom"
+                "room": "inFourthRoom",
+                "rotation": "4.71"
             },
             {
-                "coords": [470, 270],
+                "coords": [466, 270],
                 "url": "rock3.png",
                 "size": [35, 35],
                 "room": "inFourthRoom"
@@ -559,6 +517,37 @@
                         "animationSpeed": 0.2,
                         "loop": false,
                         "x": 450,
+                        "y": 245
+                    }
+                ]
+            },
+            {
+                "name": "host",
+                "room": "inFourthRoom",
+                "setBool": false,
+                "texture": {
+                    "block": ["host-2.png", "host-3.png", "host-1.png"],
+                    "shoot": ["host-2.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 450,
                         "y": 330
                     }
                 ]
@@ -569,13 +558,13 @@
         "createGameElement": [
             {
                 "coords": [180, 165],
-                "url": "rock1.png",
+                "url": "rock2dw.png",
                 "size": [35, 35],
                 "room": "inFifthRoom"
             },
             {
                 "coords": [180, 305],
-                "url": "rock1.png",
+                "url": "rock2.png",
                 "size": [35, 35],
                 "room": "inFifthRoom"
             },
@@ -605,13 +594,13 @@
             },
             {
                 "coords": [380, 165],
-                "url": "rock1.png",
+                "url": "rock2.png",
                 "size": [35, 35],
                 "room": "inFifthRoom"
             },
             {
                 "coords": [380, 305],
-                "url": "rock1.png",
+                "url": "rock2.png",
                 "size": [35, 35],
                 "room": "inFifthRoom"
             },
@@ -691,6 +680,26 @@
             }
         ],
         "createAnimateElement": [
+            {
+                "name": "fly",
+                "room": "inFifthRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly2-1.png", "fly1-2.png"],
+                    "simpleFly": ["fly1-1.png", "fly1-2.png"],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "simpleFly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 270,
+                        "y": 220
+                    }
+                ]
+            },
             {
                 "name": "milligan",
                 "room": "inFifthRoom",
@@ -1268,6 +1277,34 @@
     {
         "createGameElement": [
             {
+                "coords": [70, 200],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inNinthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [70, 260],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inNinthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [470, 200],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inNinthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [470, 260],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inNinthRoom",
+                "rotation": "1.57"
+            },
+            {
                 "coords": [250, 95],
                 "url": "invisibleBlock.png",
                 "size": [470, 35],
@@ -1346,6 +1383,22 @@
                         "loop": false,
                         "x": 270,
                         "y": 220
+                    },
+                    {
+                        "sheetSpriteStr": "angry",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": false,
+                        "x": 240,
+                        "y": 190
+                    },
+                    {
+                        "sheetSpriteStr": "angry",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": false,
+                        "x": 240,
+                        "y": 250
                     }
                 ]
             },
@@ -1375,39 +1428,32 @@
                         "anchor": 0.5,
                         "animationSpeed": 0.2,
                         "loop": false,
-                        "x": 270,
-                        "y": 185
-                    }
-                ]
-            },
-            {
-                "name": "host",
-                "room": "inNinthRoom",
-                "setBool": false,
-                "texture": {
-                    "block": ["host-2.png", "host-3.png", "host-1.png"],
-                    "shoot": ["host-2.png"],
-                    "death": [
-                        "deaths1.png",
-                        "deaths2.png",
-                        "deaths3.png",
-                        "deaths4.png",
-                        "deaths5.png",
-                        "deaths6.png",
-                        "deaths7.png",
-                        "deaths8.png",
-                        "deaths9.png",
-                        "deaths10.png"
-                    ]
-                },
-                "propertiesAr": [
+                        "x": 70,
+                        "y": 150
+                    },
                     {
                         "sheetSpriteStr": "block",
                         "anchor": 0.5,
                         "animationSpeed": 0.2,
                         "loop": false,
-                        "x": 270,
-                        "y": 280
+                        "x": 70,
+                        "y": 340
+                    },
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 460,
+                        "y": 150
+                    },
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 460,
+                        "y": 340
                     }
                 ]
             }
@@ -1415,6 +1461,45 @@
     },
     {
         "createGameElement": [
+            {
+                "coords": [65, 130],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [65, 160],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inTenthRoom",
+                "rotation": "3.14"
+            },
+            {
+                "coords": [98, 130],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inTenthRoom",
+                "rotation": "3.14"
+            },
+            {
+                "coords": [467, 335],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inTenthRoom",
+                "rotation": "3.14"
+            },
+            {
+                "coords": [467, 304],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [437, 335],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inTenthRoom"
+            },
             {
                 "coords": [250, 95],
                 "url": "invisibleBlock.png",

@@ -6,6 +6,7 @@ import { addAnimateElement, createAnimateElement } from "../CreateSprite/createA
 import { AnimateMobType } from "../types/Types";
 import tearsSheets from "../CreateSprite/tearsSheets";
 import checkTexture from "../checkBounds/checkTexture";
+import openDoors from "../Rooms/openDoors";
 
 class Mobs {
     boolDeath: boolean;
@@ -63,6 +64,9 @@ class Mobs {
             rooms[currentRoom].removeChild(mobOne);
             this.boolDeath = true;
             countMobs--;
+            if (countMobs === 0) {
+                openDoors(objectOfGameObjects[currentRoom]);
+            }
         };
     }
     frozeMob(mobOne: { froze: string | boolean | any[]; hp: number; x: number; y: number; tint: number }) {
