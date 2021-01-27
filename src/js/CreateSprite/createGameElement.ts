@@ -11,7 +11,6 @@ class createElement {
         const { coords, url, size, room } = paramObj;
         let [positionX, positionY] = coords;
         let [width, height] = size;
-        //сделать тут проверку url на массив, для разрушающихся камней
         const texture: any = PIXI.Texture.from(url);
         const gameElement: any = PIXI.Sprite.from(texture);
         for (let key in paramObj) {
@@ -49,9 +48,10 @@ class createElement {
             mob.anchor.set(property.anchor);
             mob.x = property.x;
             mob.y = property.y;
+            mob.sheetSpriteStr = property.sheetSpriteStr;
             mob.sheets = sheets;
             for (const key in property) {
-                if (mob.hasOwnProperty(key)) {
+                if (mob.hasOwnProperty(key) || key === "rotation") {
                     mob[key] = property[key];
                 }
             }
@@ -64,7 +64,7 @@ class createElement {
     };
     sendToObject = (gameElement: any, room: string | number, url: string | number) => {
         this.rooms[room].addChild(gameElement);
-
+        if (gameElement.hasOwnProperty("picture")) return; //спрайты без коллизии
         if (objectOfGameObjects[room].hasOwnProperty(url)) {
             objectOfGameObjects[room][url].push(gameElement);
         } else {

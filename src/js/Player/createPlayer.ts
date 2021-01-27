@@ -7,17 +7,18 @@ import checkCollision from "../checkBounds/checkCollision";
 import checkTexture from "../checkBounds/checkTexture";
 import { changeLife } from "../topPanel/createLife";
 import createElement from "../CreateSprite/createGameElement";
+import deathPlayer from "../Rooms/deathPlayer";
 
 class createPlayer {
     [x: string]: any;
     constructor() {
         this.playerSheets = {};
-        this.playerSpeed = 3; //3
+        this.playerSpeed = 3;
         this.activeKeys = {};
         this.player = {};
         this.legs = {};
         this.head = {};
-        this.hp = 16;
+        this.hp = 6;
         this.froze = false;
     }
     init = () => {
@@ -38,6 +39,8 @@ class createPlayer {
                 leftSee: ["isaac-left1.png", "isaac-left2.png", "isaac-left2.png"],
                 standSee: ["isaac-to2.png"],
                 hit: ["isaac-hit.png"],
+                buff: ["buff.png"],
+                end: ["end.png"],
             },
             propertiesAr: [
                 {
@@ -64,11 +67,10 @@ class createPlayer {
         head.anchor.set(0.5, 0.95);
         head.scale.set(1.5);
         legs.scale.set(1.5);
-        head.hp = 16;
+        head.hp = 6;
         this.player = legs;
         this.head = head;
-        this.player.zIndex = 2;
-        this.head.zIndex = 2;
+        this.player.speed = this.playerSpeed;
         this.player.play();
         this.checkBounds = new CheckBounds(this.player, this.head);
 
@@ -83,10 +85,18 @@ class createPlayer {
         if (this.head.hp < this.hp || this.froze) {
             //анимация нанесения урона
             this.froze = true;
-            if (this.head.hp < this.hp) {
+            if (this.head.hp <= 0) {
+                changeLife(-2); //               функция урон сердце
+                this.head.textures = this.playerSheets.end;
+                this.head.anchor.set(0.5);
+                this.head.play();
+                deathPlayer();
+                this.head.hp = 1;
+            } else if (this.head.hp < this.hp) {
                 changeLife(-1); //               функция урон сердце
                 if (this.head.hp + 1 < this.hp) {
                     //если большой дамаг то меняем текстурку
+                    changeLife(-2); //               функция урон сердце
                     this.head.textures = this.playerSheets.hit;
                     this.head.anchor.set(0.5);
                     this.head.play();

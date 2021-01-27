@@ -50,7 +50,7 @@ class Fly extends Mobs {
             flyOne.hp = 3;
             flyOne.angryMob = true;
             flyOne.freeze = false;
-            flyOne.damage = 2;
+            flyOne.damage = 1;
             flyOne.play();
         });
         countMobs.count += flyAr.length;

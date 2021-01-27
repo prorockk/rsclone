@@ -5,6 +5,7 @@ import Potter from "./potter";
 import Host from "./host";
 import Clotty from "./clotty";
 import Spotty from "./spotty";
+import Door from "./door";
 
 let FlyClass: any;
 
@@ -16,6 +17,7 @@ const loadMobs = () => {
     const HostClass = new Host();
     const ClottyClass = new Clotty();
     const SpottyClass = new Spotty();
+    const DoorClass = new Door();
     FlyClass.doneLoading.call(FlyClass);
     GaperClass.doneLoading.call(GaperClass);
     MilliganClass.doneLoading.call(MilliganClass);
@@ -23,6 +25,7 @@ const loadMobs = () => {
     HostClass.doneLoading.call(HostClass);
     ClottyClass.doneLoading.call(ClottyClass);
     SpottyClass.doneLoading.call(SpottyClass);
+    DoorClass.doneLoading.call(DoorClass);
 };
 export { FlyClass };
 export default loadMobs;

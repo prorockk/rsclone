@@ -1,9 +1,11 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { PlayerMethod, rooms } from "../Rooms/startGame";
+import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
 import checkTexture from "../checkBounds/checkTexture";
 import tearsSheets from "../CreateSprite/tearsSheets";
 import createElement from "../CreateSprite/createGameElement";
+import { changeLife } from "../topPanel/createLife";
+import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 
 const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
@@ -89,6 +91,44 @@ const addPlayerActions = () => {
                 };
             }
         }
+    };
+
+    PlayerMethod.buffPlayer = function (item: any) {
+        let result = true;
+        const url = item.url;
+        switch (url) {
+            case "hp.png":
+                const hp = 6 - this.head.hp;
+                switch (hp) {
+                    case 0:
+                        return false;
+                    case 1:
+                        changeLife(1);
+                    default:
+                        changeLife(2);
+                }
+                this.hp = this.head.hp;
+            case "belt.png":
+                this.head.textures = this.playerSheets.buff;
+                this.head.anchor.set(0.5);
+                this.head.play();
+                item.getBounds().x = this.head.getBounds().x;
+                item.getBounds().y = this.head.getBounds().y;
+                item.anchor.set(0.5, 2.2);
+                result = false;
+                this.froze = true;
+                setTimeout(() => {
+                    rooms[currentRoom].removeChild(item);
+                    this.head.anchor.set(0.5, 0.95);
+                    this.head.textures = this.playerSheets.standSee;
+                    this.head.play();
+                    this.playerSpeed = 4.5;
+                    this.player.speed = this.playerSpeed;
+                    this.froze = false;
+                }, 500);
+        }
+        objectOfGameObjects[currentRoom][url] = [];
+        return result;
     };
 };
 

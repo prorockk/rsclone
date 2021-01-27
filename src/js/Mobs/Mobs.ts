@@ -32,7 +32,7 @@ class Mobs {
             return;
         }
         this.mob = objectOfGameObjects[currentRoom][this.name];
-        countMobs.count += this.mob.length;
+        countMobs.count += this.name === "door" ? 0 : this.mob.length;
         this.sheets = this.mob[0].sheets;
 
         const animateBullets = tearsSheets();
@@ -169,7 +169,8 @@ class Mobs {
             if (
                 checkTexture(1, this.bullets[i], true) || //для игрока
                 checkTexture(0, this.bullets[i], false) || //для объектов
-                !this.boolDeath
+                !this.boolDeath ||
+                playerHead.hp <= 0
             ) {
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = this.sheetsBullets.death;

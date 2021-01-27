@@ -5,10 +5,7 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
 
     document.addEventListener("mouseup", (e) => mouseShooting(e, false));
     document.addEventListener("mousemove", (e) => mouseShooting(e, undefined));
-    document.addEventListener("click", (e) => {
-        PlayerMethod.playerShooting.call(PlayerMethod);
-        console.log(e);
-    });
+    document.addEventListener("click", (e) => PlayerMethod.playerShooting.bind(PlayerMethod));
 
     document.addEventListener("keydown", (key) => {
         checkKeyCode(key.keyCode);
