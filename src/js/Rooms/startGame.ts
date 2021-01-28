@@ -10,7 +10,7 @@ import createTopPanel from "../topPanel/createTopPanel";
 const PlayerMethod = new createPlayer();
 let player: any = {};
 let playerHead: any = {};
-let countMobs: number = 0;
+let countMobs: { count: number } = { count: 0 };
 
 const rooms: any = {
     inFirstRoom: new PIXI.Container(),
@@ -34,6 +34,14 @@ for (let room in rooms) {
 
 const topPanel = new PIXI.Graphics();
 
+const BackGroundImage = PIXI.Sprite.from("../assets/floor.png");
+BackGroundImage.width = 800;
+BackGroundImage.height = 500;
+BackGroundImage.x = 0;
+BackGroundImage.y = 100;
+BackGroundImage.anchor.set(0, 0);
+BackGroundImage.scale.set(1.5);
+
 function startGame() {
     const loader = app.loader;
     loader.add("isaac", "../assets/isaac_moving_table.json");
@@ -50,14 +58,6 @@ function startGame() {
         app.stage.addChild(topPanel);
     });
 
-    const BackGroundImage = PIXI.Sprite.from("../assets/floor.png");
-    BackGroundImage.width = 800;
-    BackGroundImage.height = 500;
-    BackGroundImage.x = 0;
-    BackGroundImage.y = 100;
-    BackGroundImage.anchor.set(0, 0);
-    BackGroundImage.scale.set(1.5);
-
     app.stage.addChild(BackGroundImage);
     app.stage.addChild(rooms["inFirstRoom"]); // O N E
 
@@ -66,6 +66,7 @@ function startGame() {
 
 function moveTo(room: string) {
     app.stage.removeChild(
+        //ПОЧЕМУ НЕЛЬЗЯ УдаляТЬ app.stage.removeChild(rooms[currentRoom])?
         rooms["inFirstRoom"],
         rooms["inSecondRoom"],
         rooms["inThirdRoom"],
@@ -81,13 +82,24 @@ function moveTo(room: string) {
     app.stage.setChildIndex(rooms[room], 1);
     updateMap(currentRoom, room);
     currentRoom = room;
-    countMobs = 0;
+    countMobs.count = 0;
     loadMobs();
     //mapCells.tint = 0x7b28a4;
     //cell.endFill();
 }
 
-export { startGame, PlayerMethod, moveTo, currentRoom, topPanel, player, rooms, playerHead, countMobs };
+export {
+    startGame,
+    PlayerMethod,
+    moveTo,
+    currentRoom,
+    topPanel,
+    player,
+    rooms,
+    playerHead,
+    countMobs,
+    BackGroundImage,
+};
 /*
             {
                 "coords": [266, 170],

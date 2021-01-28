@@ -1,12 +1,6 @@
 import * as PIXI from "pixi.js";
-import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { app } from "../script";
-import { currentRoom, player, playerHead, rooms } from "../Rooms/startGame";
-import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
-import { AnimateMobType } from "../types/Types";
 import Mobs from "./Mobs";
-import tearsSheets from "../CreateSprite/tearsSheets";
-import checkTexture from "../checkBounds/checkTexture";
 
 class Potter extends Mobs {
     boolDeath: boolean;
@@ -27,7 +21,7 @@ class Potter extends Mobs {
             potterOne.hp = 2;
             potterOne.angryMob = true;
             potterOne.damage = 1;
-            potterOne.froze = false;
+            potterOne.freeze = false;
             potterOne.play();
         });
         app.ticker.add(() => {
@@ -39,9 +33,9 @@ class Potter extends Mobs {
             if (potterOne.hp === 0 && this.boolDeath) {
                 //удаление мух с запуском поледней анимации
                 this.deleteMob(potterOne);
-            } else if (potterOne.froze) {
+            } else if (potterOne.freeze) {
                 //анимация нанесения урона
-                this.frozeMob(potterOne);
+                this.freezeMob(potterOne);
             } else {
                 if (this.moveCurrent % 5 === 0) {
                     const randomNum = (Math.random() - 0.5) * 3;

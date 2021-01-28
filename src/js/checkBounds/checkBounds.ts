@@ -11,33 +11,53 @@ class CheckBounds {
     }
 
     init(playerDirection: string) {
+        const changeRoom = (func: () => void) => {
+            try {
+                func();
+            } catch (e) {
+                let visual = true;
+                const intTint = setInterval(() => {
+                    const changeAlpha = (current: number) => {
+                        this.player.alpha = current;
+                        this.head.alpha = current;
+                        visual = !visual;
+                    };
+                    visual ? changeAlpha(0) : changeAlpha(1);
+                }, 100);
+                setTimeout(() => {
+                    clearInterval(intTint);
+                    this.player.alpha = 1;
+                    this.head.alpha = 1;
+                }, 550);
+                this.player.x = this.head.x = 400;
+                this.player.y = this.head.y = 300;
+            }
+        };
         const playerBounds = this.player.getBounds();
 
         if (playerBounds.y < 150) {
-            this.player.y = 490;
-            this.head.y = 490;
-
-            objectOfGameObjects[currentRoom]["toUpperRoom"]();
+            this.player.y = this.head.y = 490;
+            changeRoom(objectOfGameObjects[currentRoom]["toUpperRoom"]);
+            return true;
         }
 
         if (playerBounds.y > 515) {
-            this.player.y = 190;
-            this.head.y = 190;
-            objectOfGameObjects[currentRoom]["toBottomRoom"]();
+            this.player.y = this.head.y = 190;
+            changeRoom(objectOfGameObjects[currentRoom]["toBottomRoom"]);
+            return true;
         }
 
         if (playerBounds.x > 720) {
-            this.player.x = 100;
-            this.head.x = 100;
-            objectOfGameObjects[currentRoom]["toRightRoom"]();
+            this.player.x = this.head.x = 100;
+            changeRoom(objectOfGameObjects[currentRoom]["toRightRoom"]);
+            return true;
         }
 
         if (playerBounds.x < 50) {
-            this.player.x = 700;
-            this.head.x = 700;
-            objectOfGameObjects[currentRoom]["toLeftRoom"]();
+            this.player.x = this.head.x = 700;
+            changeRoom(objectOfGameObjects[currentRoom]["toLeftRoom"]);
+            return true;
         }
-
         return false;
     }
 }

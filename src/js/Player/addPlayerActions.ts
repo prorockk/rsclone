@@ -1,23 +1,25 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { PlayerMethod, rooms } from "../Rooms/startGame";
+import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
 import checkTexture from "../checkBounds/checkTexture";
-import { addAnimateElement, createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import tearsSheets from "../CreateSprite/tearsSheets";
-import { loadPartialConfig } from "@babel/core";
+import createElement from "../CreateSprite/createGameElement";
+import { changeLife } from "../topPanel/createLife";
+import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { soundGame } from "../otherScripts/sound";
 
 const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
 
-    const [sheets, animate] = tearsSheets();
-
+    const animate = tearsSheets();
+    const sheets = animate.sheets;
     let switcherTears = true;
     let tearsAr: number[] = [];
 
     PlayerMethod.playerShooting = function (e: { x: any; y: any } | string) {
         if (tearsAr.length > 0) return; //блокирование частых выстрелов
         tearsAr.push(0);
-        setTimeout(() => (tearsAr = []), 230);
+        setTimeout(() => (tearsAr = []), 370);
 
         //добавляем функции для скилов героя
         let bulletDirection;
@@ -51,13 +53,14 @@ const addPlayerActions = () => {
             this.head.textures = this.playerSheets.standSee;
             this.head.play();
         };
-        const [bullet]: any = addAnimateElement(sheets, animate.propertiesAr);
+        const [bullet]: any = new createElement().addAnimateElement(animate);
 
         bullet.speed = bulletSpeed;
         bullet.scale.set(1.2);
         bullet.forMobs = true;
         bullet.direction = bulletDirection;
         this.bullets.push(bullet);
+        switcherTears ? soundGame("tear1", false) : soundGame("tear2", false);
     };
 
     PlayerMethod.updateBullets = function (e: number) {
@@ -84,12 +87,53 @@ const addPlayerActions = () => {
                 deleteBullet.textures = sheets.death;
                 deleteBullet.play();
                 this.bullets.splice(i, 1);
+                soundGame("tearPop", false);
                 deleteBullet.onComplete = () => {
                     deleteBullet.dead = true;
                     app.stage.removeChild(deleteBullet);
                 };
             }
         }
+    };
+
+    PlayerMethod.buffPlayer = function (item: any) {
+        let result = true;
+        const url = item.url;
+        switch (url) {
+            case "hp.png":
+                const hp = 6 - this.head.hp;
+                switch (hp) {
+                    case 0:
+                        return false;
+                    case 1:
+                        changeLife(1);
+                        return true;
+                    default:
+                        changeLife(2);
+                        return true;
+                }
+                this.hp = this.head.hp;
+            case "belt.png":
+                this.head.textures = this.playerSheets.buff;
+                this.head.anchor.set(0.5);
+                this.head.play();
+                item.getBounds().x = this.head.getBounds().x;
+                item.getBounds().y = this.head.getBounds().y;
+                item.anchor.set(0.5, 2.2);
+                result = false;
+                this.froze = true;
+                setTimeout(() => {
+                    rooms[currentRoom].removeChild(item);
+                    this.head.anchor.set(0.5, 0.95);
+                    this.head.textures = this.playerSheets.standSee;
+                    this.head.play();
+                    this.playerSpeed = 4;
+                    this.player.speed = this.playerSpeed;
+                    this.froze = false;
+                }, 500);
+        }
+        objectOfGameObjects[currentRoom][url] = [];
+        return result;
     };
 };
 

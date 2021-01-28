@@ -1,5 +1,4 @@
 import { app } from "../script";
-import tearsSheets from "../CreateSprite/tearsSheets";
 import Mobs from "./Mobs";
 
 class Gaper extends Mobs {
@@ -20,7 +19,7 @@ class Gaper extends Mobs {
         this.mob.forEach((gaperOne: any) => {
             gaperOne.hp = 4;
             gaperOne.angryMob = true;
-            gaperOne.froze = false;
+            gaperOne.freeze = false;
             gaperOne.damage = 1;
             gaperOne.play();
         });
@@ -34,16 +33,18 @@ class Gaper extends Mobs {
                 gaperOne.animationSpeed = 0.6;
                 gaperOne.scale.set(1.6);
                 this.deleteMob(gaperOne);
-            } else if (gaperOne.froze) {
+            } else if (gaperOne.freeze) {
                 //анимация нанесения урона
-                this.frozeMob(gaperOne);
+                this.freezeMob(gaperOne);
             }
 
             if (this.moveCurrent % 8 === 4) {
                 //перемещение
                 gaperOne.x += 3;
+                gaperOne.y -= 0.5;
             } else if (this.moveCurrent % 8 === 0) {
                 gaperOne.x -= 3;
+                gaperOne.y += 0.5;
             }
             if (this.moveCurrent % (100 + currentGap * 30) === 0) {
                 //направление пуль и создание

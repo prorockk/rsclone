@@ -1,8 +1,9 @@
 import { AnimateMobType } from "../types/Types";
-import { createAnimateElement } from "./createAnimateSheets";
+import createElement from "./createGameElement";
 
 const tearsSheets = () => {
-    const animate: AnimateMobType = {
+    const animate: any = {
+        name: "bullet",
         texture: {
             shot: ["tear_pop-0.png"],
             death: [
@@ -30,7 +31,8 @@ const tearsSheets = () => {
         ],
         setBool: true,
     };
-    const sheets = createAnimateElement(animate);
-    return [sheets, animate];
+    const sheets = new createElement().createAnimateElement(animate);
+    animate.sheets = sheets;
+    return animate;
 };
 export default tearsSheets;

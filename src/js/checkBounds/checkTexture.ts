@@ -1,8 +1,7 @@
 // ЭТО ПУСТЬ БУДЕТ ТОЛЬКО ДЛЯ ПУЛЬ
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
-import { currentRoom } from "../Rooms/startGame";
+import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
 import { player, playerHead } from "../Rooms/startGame";
-import checkCollision from "./checkCollision";
 
 let isDamage = true;
 
@@ -66,19 +65,23 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
 
         if (Math.abs(vx) < combineHalfWidths) {
             if (Math.abs(vy) < combineHalfHeights) {
-                if (colObj.hasOwnProperty("angryMob")) {
-                    itsAngryMob = colObj.angryMob; //если это моб, при косании с которым идет дамаг
-                }
+                const haveAngryMob = colObj.hasOwnProperty("angryMob");
+                const haveBullForPlayer = bullets.hasOwnProperty("forPlayer");
+                const haveBullForMobs = bullets.hasOwnProperty("forMobs");
+                const haveMobHp = colObj.hasOwnProperty("hp");
+                const haveUrl = colObj.hasOwnProperty("url");
+                if (haveAngryMob) itsAngryMob = colObj.angryMob; //если это моб, при косании с которым идет дамаг
+
                 let impulse = [(bullets.centerX - objCenterX) / 150, (bullets.centerY - objCenterY) / 150];
 
                 if (impulse.reduce((acc, num) => Math.abs(acc) + Math.abs(num)) > 0.5) {
                     impulse = impulse.map((num) => num / 2);
                 }
 
-                if ((delay > 0 && itsAngryMob) || (bullets.hasOwnProperty("forPlayer") && shooter)) {
+                if ((delay > 0 && itsAngryMob) || (haveBullForPlayer && shooter)) {
                     //вызывается в app.ticker (delay, head, false) и в move у мобов во время стрельбы
                     //столкновение мобов ИЛИ их слез с игроком
-                    if (bullets.hasOwnProperty("forPlayer")) impulse = impulse.map((cord: number) => cord * -1);
+                    if (haveBullForPlayer) impulse = impulse.map((cord: number) => cord * -1);
 
                     const int = setInterval(() => {
                         if (!checkTexture(1, playerHead, false)) {
@@ -101,10 +104,28 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
                         }, 800); //уронная пауза
                         playerHead.hp -= colObj.damage || bullets.damage;
                     }
-                } else if (colObj.hasOwnProperty("hp") && bullets.hasOwnProperty("forMobs") && delay === 0) {
+                } else if (haveMobHp && haveBullForMobs && delay === 0) {
                     //вызывается в AddPlayerActions
                     //попадание слез по мобам
-                    colObj.froze = impulse.slice(); //прерываем стандартное перемещение моба и передаем направление движения
+                    if (haveUrl) {
+                        //попадание по камням
+                        rooms[currentRoom].removeChild(colObj);
+                    }
+                    colObj.freeze = impulse.slice(); //прерываем стандартное перемещение моба и передаем направление движения
+                } else if (delay > 0 && haveAngryMob && !itsAngryMob) {
+                    if (haveUrl) {
+                        if (PlayerMethod.buffPlayer.call(PlayerMethod, colObj)) {
+                            rooms[currentRoom].removeChild(colObj);
+                            return true;
+                        }
+                    }
+                    const int = setInterval(() => {
+                        if (!checkTexture(0, colObj, false)) {
+                            colObj.x -= impulse[0] * 1.5; //откдывание предметов и мух
+                            colObj.y -= impulse[1] * 1.5;
+                        }
+                    }, 20);
+                    setTimeout(() => clearInterval(int), 250);
                 }
                 return true;
             } else {
@@ -117,5 +138,3 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
 
     return hit;
 }
-
-function damagePlayer() {}

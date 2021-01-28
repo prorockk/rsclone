@@ -1,23 +1,25 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { createAnimateElement } from "../CreateSprite/createAnimateSheets";
 import CheckBounds from "../checkBounds/checkBounds";
 import { AnimateMobType } from "../types/Types";
 import addPlayerActions from "./addPlayerActions";
 import checkCollision from "../checkBounds/checkCollision";
 import checkTexture from "../checkBounds/checkTexture";
 import { changeLife } from "../topPanel/createLife";
+import createElement from "../CreateSprite/createGameElement";
+import deathPlayer from "../Rooms/deathPlayer";
+import { moveControls } from "../otherScripts/changeControls";
 
 class createPlayer {
     [x: string]: any;
     constructor() {
         this.playerSheets = {};
-        this.playerSpeed = 3; //3
+        this.playerSpeed = 3;
         this.activeKeys = {};
         this.player = {};
         this.legs = {};
         this.head = {};
-        this.hp = 16;
+        this.hp = 6;
         this.froze = false;
     }
     init = () => {
@@ -25,7 +27,8 @@ class createPlayer {
     };
     doneLoading = () => {
         //createSheets...........
-        const animate: AnimateMobType = {
+        const animate: any = {
+            name: "player",
             texture: {
                 downWalk: ["to1.png", "to2.png", "stand.png"],
                 upWalk: ["out1.png", "out2.png", "stand.png"],
@@ -37,6 +40,8 @@ class createPlayer {
                 leftSee: ["isaac-left1.png", "isaac-left2.png", "isaac-left2.png"],
                 standSee: ["isaac-to2.png"],
                 hit: ["isaac-hit.png"],
+                buff: ["buff.png"],
+                end: ["end.png"],
             },
             propertiesAr: [
                 {
@@ -58,16 +63,16 @@ class createPlayer {
             ],
             setBool: false,
         };
-        const [sheets, legs, head] = createAnimateElement(animate);
+        const [sheets, legs, head] = new createElement().createAnimateElement(animate);
         this.playerSheets = sheets;
         head.anchor.set(0.5, 0.95);
         head.scale.set(1.5);
         legs.scale.set(1.5);
-        head.hp = 16;
+        head.hp = 6;
         this.player = legs;
         this.head = head;
-        this.player.zIndex = 2;
-        this.head.zIndex = 2;
+        this.player.speed = this.playerSpeed;
+        this.player.play();
         this.checkBounds = new CheckBounds(this.player, this.head);
 
         addPlayerActions();
@@ -81,10 +86,18 @@ class createPlayer {
         if (this.head.hp < this.hp || this.froze) {
             //анимация нанесения урона
             this.froze = true;
-            if (this.head.hp < this.hp) {
+            if (this.head.hp <= 0) {
+                changeLife(-2); //               функция урон сердце
+                this.head.textures = this.playerSheets.end;
+                this.head.anchor.set(0.5);
+                this.head.play();
+                deathPlayer();
+                this.head.hp = 1;
+            } else if (this.head.hp < this.hp) {
                 changeLife(-1); //               функция урон сердце
                 if (this.head.hp + 1 < this.hp) {
                     //если большой дамаг то меняем текстурку
+                    changeLife(-2); //               функция урон сердце
                     this.head.textures = this.playerSheets.hit;
                     this.head.anchor.set(0.5);
                     this.head.play();
@@ -92,25 +105,24 @@ class createPlayer {
                 // при малом и большом домаге добавляем мигание один раз
                 this.player.alpha = 0;
                 this.head.alpha = 0;
-                const visual = true;
+                let visual = true;
                 const intTint = setInterval(() => {
                     const changeAlpha = (current: number) => {
                         this.player.alpha = current;
                         this.head.alpha = current;
+                        visual = !visual;
                     };
-                    if (visual) {
-                        changeAlpha(1);
-                    } else {
-                        changeAlpha(0);
-                    }
+                    visual ? changeAlpha(1) : changeAlpha(0);
                     this.player.tint = 16716853;
                     this.head.tint = 16716853;
                 }, 100);
                 setTimeout(() => {
                     clearInterval(intTint);
-                    this.head.anchor.set(0.5, 0.95);
-                    this.head.textures = this.playerSheets.standSee;
-                    this.head.play();
+                    if (this.head.hp > 0) {
+                        this.head.anchor.set(0.5, 0.95);
+                        this.head.textures = this.playerSheets.standSee;
+                        this.head.play();
+                    }
                     this.froze = false;
                     this.player.tint = 16777215;
                     this.head.tint = 16777215;
@@ -127,33 +139,38 @@ class createPlayer {
             this.player.textures = this.playerSheets[`${direction}Walk`];
             this.player.play();
         };
-        if (this.activeKeys["68"] && !this.checkBounds.init("right") && !checkCollision(this.player, "right")) {
+        if (this.activeKeys[moveControls.right] && !checkCollision(this.player, "right")) {
             if (!this.player.playing) {
                 playerPlay("right");
             }
             this.player.x += this.playerSpeed;
             this.head.x += this.playerSpeed;
         }
-        if (this.activeKeys["87"] && !this.checkBounds.init("Up") && !checkCollision(this.player, "top")) {
+        if (this.activeKeys[moveControls.up] && !checkCollision(this.player, "top")) {
             if (!this.player.playing) {
                 playerPlay("up");
             }
             this.player.y -= this.playerSpeed;
             this.head.y -= this.playerSpeed;
         }
-        if (this.activeKeys["65"] && !this.checkBounds.init("left") && !checkCollision(this.player, "left")) {
+        if (this.activeKeys[moveControls.left] && !checkCollision(this.player, "left")) {
             if (!this.player.playing) {
                 playerPlay("left");
             }
             this.player.x -= this.playerSpeed;
             this.head.x -= this.playerSpeed;
         }
-        if (this.activeKeys["83"] && !this.checkBounds.init("down") && !checkCollision(this.player, "down")) {
+        if (this.activeKeys[moveControls.down] && !checkCollision(this.player, "down")) {
             if (!this.player.playing) {
                 playerPlay("down");
             }
             this.player.y += this.playerSpeed;
             this.head.y += this.playerSpeed;
+        }
+        if (this.checkBounds.init()) {
+            this.bullets.forEach((bullet: any) => {
+                app.stage.removeChild(bullet);
+            });
         }
     }
 }

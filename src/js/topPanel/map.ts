@@ -5,9 +5,10 @@ const cellWidth = 30;
 const availableCellColor = 0x383838;
 const visitedCellColor = 0x757575;
 const currentCellColor = 0xfbfbfb;
+let panelContainer: PIXI.Graphics;
 
 function createMap(PIXI: any, topPanel: any) {
-    const panelContainer = new PIXI.Graphics();
+    panelContainer = new PIXI.Graphics();
     panelContainer.beginFill(0x1b1818);
     panelContainer.lineStyle(15, 0x000000, 1);
     panelContainer.drawRect(0, 0, 800, 105);
@@ -93,4 +94,4 @@ function updateMap(previousRoom: string, nextRoom: string) {
     }
     cellOfRoom[nextRoom].tint = currentCellColor;
 }
-export { createMap, updateMap };
+export { createMap, updateMap, panelContainer };
