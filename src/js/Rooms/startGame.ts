@@ -59,33 +59,19 @@ function startGame() {
     });
 
     app.stage.addChild(BackGroundImage);
-    app.stage.addChild(rooms["inFirstRoom"]); // O N E
+    app.stage.addChild(rooms["inFirstRoom"]);
 
     createTopPanel();
 }
 
 function moveTo(room: string) {
-    app.stage.removeChild(
-        //ПОЧЕМУ НЕЛЬЗЯ УдаляТЬ app.stage.removeChild(rooms[currentRoom])?
-        rooms["inFirstRoom"],
-        rooms["inSecondRoom"],
-        rooms["inThirdRoom"],
-        rooms["inFourthRoom"],
-        rooms["inFifthRoom"],
-        rooms["inSixthRoom"],
-        rooms["inSeventhRoom"],
-        rooms["inEighthRoom"],
-        rooms["inNinthRoom"],
-        rooms["inTenthRoom"]
-    );
+    app.stage.removeChild(rooms[currentRoom]);
     app.stage.addChild(rooms[room]);
     app.stage.setChildIndex(rooms[room], 1);
     updateMap(currentRoom, room);
     currentRoom = room;
     countMobs.count = 0;
     loadMobs();
-    //mapCells.tint = 0x7b28a4;
-    //cell.endFill();
 }
 
 export {
@@ -100,11 +86,3 @@ export {
     countMobs,
     BackGroundImage,
 };
-/*
-            {
-                "coords": [266, 170],
-                "url": "instruction.png",
-                "size": [400, 90],
-                "room": "inFirstRoom"
-            },
-*/

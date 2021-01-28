@@ -1,7 +1,10 @@
+import * as PIXI from "pixi.js";
+
 const cellOfRoom: any = {};
 
 const cellHight = 12;
 const cellWidth = 30;
+const mapIconSize = 20;
 const availableCellColor = 0x383838;
 const visitedCellColor = 0x757575;
 const currentCellColor = 0xfbfbfb;
@@ -81,6 +84,14 @@ function updateMap(previousRoom: string, nextRoom: string) {
         cellOfRoom["inFourthRoom"].alpha = 1;
     }
     if (nextRoom === "inFifthRoom") {
+        if (cellOfRoom["inSixthRoom"].alpha !== 1) {
+            const crown = PIXI.Sprite.from("../../assets/crown.png");
+            crown.width = mapIconSize;
+            crown.height = mapIconSize;
+            crown.x = 45;
+            crown.y = 45;
+            cellOfRoom["inSixthRoom"].addChild(crown);
+        }
         cellOfRoom["inSixthRoom"].alpha = 1;
     }
     if (nextRoom === "inSeventhRoom") {
@@ -90,6 +101,14 @@ function updateMap(previousRoom: string, nextRoom: string) {
         cellOfRoom["inNinthRoom"].alpha = 1;
     }
     if (nextRoom === "inNinthRoom") {
+        if (cellOfRoom["inTenthRoom"].alpha !== 1) {
+            const crown = PIXI.Sprite.from("../../assets/skull.png");
+            crown.width = mapIconSize;
+            crown.height = mapIconSize;
+            crown.x = 45;
+            crown.y = 15;
+            cellOfRoom["inTenthRoom"].addChild(crown);
+        }
         cellOfRoom["inTenthRoom"].alpha = 1;
     }
     cellOfRoom[nextRoom].tint = currentCellColor;
