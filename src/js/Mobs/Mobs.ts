@@ -5,6 +5,7 @@ import { countMobs, currentRoom, playerHead, rooms } from "../Rooms/startGame";
 import tearsSheets from "../CreateSprite/tearsSheets";
 import checkTexture from "../checkBounds/checkTexture";
 import createElement from "../CreateSprite/createGameElement";
+import { soundGame } from "../otherScripts/sound";
 
 class Mobs {
     boolDeath: boolean;
@@ -54,6 +55,8 @@ class Mobs {
     deleteMob(mobOne: { textures: any; loop: boolean; play: () => void; onComplete: () => void; dead: boolean }) {
         mobOne.textures = this.sheets.death;
         mobOne.loop = false;
+        const randSound = (Math.ceil(Math.random() * 10) % 4) + 1;
+        soundGame(`mobDeath${randSound}`, true);
         this.mob.splice(this.mob.indexOf(mobOne), 1);
         mobOne.play();
         this.boolDeath = false;
@@ -111,6 +114,8 @@ class Mobs {
         bullet.damage = 1;
         bullet.tint = 9109504;
         this.bullets.push(bullet);
+        const randSound = (Math.ceil(Math.random() * 10) % 3) + 1;
+        soundGame(`mobShoot${randSound}`, true);
         return bullet;
     }
     shootToFourDirection(mobOne: { getBounds: () => any }) {
@@ -172,6 +177,7 @@ class Mobs {
                 !this.boolDeath ||
                 playerHead.hp <= 0
             ) {
+                soundGame("tearSplat", true);
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = this.sheetsBullets.death;
                 deleteBullet.play();

@@ -6,6 +6,7 @@ import tearsSheets from "../CreateSprite/tearsSheets";
 import createElement from "../CreateSprite/createGameElement";
 import { changeLife } from "../topPanel/createLife";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { soundGame } from "../otherScripts/sound";
 
 const addPlayerActions = () => {
     PlayerMethod.bullets = []; //новые скилы героя
@@ -16,9 +17,9 @@ const addPlayerActions = () => {
     let tearsAr: number[] = [];
 
     PlayerMethod.playerShooting = function (e: { x: any; y: any } | string) {
-        if (tearsAr.length > 0) return; //блокирование частых выстрелов
+        if (tearsAr.length > 0 || this.froze || this.head.death) return; //блокирование частых выстрелов
         tearsAr.push(0);
-        setTimeout(() => (tearsAr = []), 230);
+        setTimeout(() => (tearsAr = []), 370);
 
         //добавляем функции для скилов героя
         let bulletDirection;
@@ -59,6 +60,7 @@ const addPlayerActions = () => {
         bullet.forMobs = true;
         bullet.direction = bulletDirection;
         this.bullets.push(bullet);
+        switcherTears ? soundGame("tear1", false) : soundGame("tear2", false);
     };
 
     PlayerMethod.updateBullets = function (e: number) {
@@ -85,6 +87,7 @@ const addPlayerActions = () => {
                 deleteBullet.textures = sheets.death;
                 deleteBullet.play();
                 this.bullets.splice(i, 1);
+                soundGame("tearPop", false);
                 deleteBullet.onComplete = () => {
                     deleteBullet.dead = true;
                     app.stage.removeChild(deleteBullet);
@@ -99,33 +102,39 @@ const addPlayerActions = () => {
         switch (url) {
             case "hp.png":
                 const hp = 6 - this.head.hp;
-                switch (hp) {
-                    case 0:
-                        return false;
-                    case 1:
-                        changeLife(1);
-                    default:
+                if (hp === 0) {
+                    return false;
+                } else if (hp > 0) {
+                    soundGame("heal", true);
+                    if (hp === 1) {
+                        changeLife(hp % 2);
+                        this.head.hp += 1;
+                    } else {
                         changeLife(2);
+                        this.head.hp += 2;
+                    }
+                    this.hp = this.head.hp;
+                    return true;
                 }
-                this.hp = this.head.hp;
             case "belt.png":
                 this.head.textures = this.playerSheets.buff;
                 this.head.anchor.set(0.5);
-                this.head.play();
+                this.head.onComplete = null;
+                soundGame("takeCoin", true);
                 item.getBounds().x = this.head.getBounds().x;
                 item.getBounds().y = this.head.getBounds().y;
-                item.anchor.set(0.5, 2.2);
+                this.head.play();
                 result = false;
                 this.froze = true;
                 setTimeout(() => {
                     rooms[currentRoom].removeChild(item);
                     this.head.anchor.set(0.5, 0.95);
-                    this.head.textures = this.playerSheets.standSee;
-                    this.head.play();
-                    this.playerSpeed = 4.5;
+                    this.playerSpeed = 4;
                     this.player.speed = this.playerSpeed;
                     this.froze = false;
-                }, 500);
+                    this.head.textures = this.playerSheets.standSee;
+                    this.head.play();
+                }, 600);
         }
         objectOfGameObjects[currentRoom][url] = [];
         return result;

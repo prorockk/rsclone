@@ -20,7 +20,7 @@ class Gaper extends Mobs {
             gaperOne.hp = 4;
             gaperOne.angryMob = true;
             gaperOne.freeze = false;
-            gaperOne.damage = 1;
+            gaperOne.damage = 2;
             gaperOne.play();
         });
         app.ticker.add(() => {

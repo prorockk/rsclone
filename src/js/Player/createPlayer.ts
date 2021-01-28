@@ -8,6 +8,8 @@ import checkTexture from "../checkBounds/checkTexture";
 import { changeLife } from "../topPanel/createLife";
 import createElement from "../CreateSprite/createGameElement";
 import deathPlayer from "../Rooms/deathPlayer";
+import { moveControls } from "../otherScripts/changeControls";
+import { soundGame } from "../otherScripts/sound";
 
 class createPlayer {
     [x: string]: any;
@@ -70,6 +72,7 @@ class createPlayer {
         head.hp = 6;
         this.player = legs;
         this.head = head;
+        this.head.death = false;
         this.player.speed = this.playerSpeed;
         this.player.play();
         this.checkBounds = new CheckBounds(this.player, this.head);
@@ -85,21 +88,26 @@ class createPlayer {
         if (this.head.hp < this.hp || this.froze) {
             //анимация нанесения урона
             this.froze = true;
+            if (this.head.death) return;
             if (this.head.hp <= 0) {
                 changeLife(-2); //               функция урон сердце
+                this.head.death = true;
                 this.head.textures = this.playerSheets.end;
                 this.head.anchor.set(0.5);
+                this.head.onComplete = null;
                 this.head.play();
                 deathPlayer();
-                this.head.hp = 1;
             } else if (this.head.hp < this.hp) {
                 changeLife(-1); //               функция урон сердце
                 if (this.head.hp + 1 < this.hp) {
+                    soundGame("hurt3", true);
                     //если большой дамаг то меняем текстурку
-                    changeLife(-2); //               функция урон сердце
+                    changeLife(-1); //               функция урон сердце
                     this.head.textures = this.playerSheets.hit;
                     this.head.anchor.set(0.5);
                     this.head.play();
+                } else {
+                    this.head.hp % 2 === 0 ? soundGame("hurt2", true) : soundGame("hurt1", true);
                 }
                 // при малом и большом домаге добавляем мигание один раз
                 this.player.alpha = 0;
@@ -117,9 +125,11 @@ class createPlayer {
                 }, 100);
                 setTimeout(() => {
                     clearInterval(intTint);
-                    this.head.anchor.set(0.5, 0.95);
-                    this.head.textures = this.playerSheets.standSee;
-                    this.head.play();
+                    if (this.head.hp > 0) {
+                        this.head.anchor.set(0.5, 0.95);
+                        this.head.textures = this.playerSheets.standSee;
+                        this.head.play();
+                    }
                     this.froze = false;
                     this.player.tint = 16777215;
                     this.head.tint = 16777215;
@@ -130,34 +140,35 @@ class createPlayer {
             this.hp = this.head.hp;
             return;
         }
+
         this.player.x = this.head.x;
         this.player.y = this.head.y;
         const playerPlay = (direction: string) => {
             this.player.textures = this.playerSheets[`${direction}Walk`];
             this.player.play();
         };
-        if (this.activeKeys["68"] && !checkCollision(this.player, "right")) {
+        if (this.activeKeys[moveControls.right] && !checkCollision(this.player, "right")) {
             if (!this.player.playing) {
                 playerPlay("right");
             }
             this.player.x += this.playerSpeed;
             this.head.x += this.playerSpeed;
         }
-        if (this.activeKeys["87"] && !checkCollision(this.player, "top")) {
+        if (this.activeKeys[moveControls.up] && !checkCollision(this.player, "top")) {
             if (!this.player.playing) {
                 playerPlay("up");
             }
             this.player.y -= this.playerSpeed;
             this.head.y -= this.playerSpeed;
         }
-        if (this.activeKeys["65"] && !checkCollision(this.player, "left")) {
+        if (this.activeKeys[moveControls.left] && !checkCollision(this.player, "left")) {
             if (!this.player.playing) {
                 playerPlay("left");
             }
             this.player.x -= this.playerSpeed;
             this.head.x -= this.playerSpeed;
         }
-        if (this.activeKeys["83"] && !checkCollision(this.player, "down")) {
+        if (this.activeKeys[moveControls.down] && !checkCollision(this.player, "down")) {
             if (!this.player.playing) {
                 playerPlay("down");
             }

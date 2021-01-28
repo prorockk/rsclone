@@ -1,5 +1,6 @@
-// ЭТО ПУСТЬ БУДЕТ ТОЛЬКО ДЛЯ ПУЛЬ
+import * as PIXI from "pixi.js";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { soundGame } from "../otherScripts/sound";
 import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
 import { player, playerHead } from "../Rooms/startGame";
 
@@ -109,7 +110,12 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
                     //попадание слез по мобам
                     if (haveUrl) {
                         //попадание по камням
-                        rooms[currentRoom].removeChild(colObj);
+                        colObj.anchor.set(0.5);
+                        soundGame("pop", true);
+                        if (colObj.hp.length === 0) {
+                            rooms[currentRoom].removeChild(colObj);
+                            roomArray[colObj.url].splice(roomArray[colObj.url].indexOf(colObj), 1);
+                        } else colObj.texture = PIXI.Texture.from(colObj.hp.shift());
                     }
                     colObj.freeze = impulse.slice(); //прерываем стандартное перемещение моба и передаем направление движения
                 } else if (delay > 0 && haveAngryMob && !itsAngryMob) {

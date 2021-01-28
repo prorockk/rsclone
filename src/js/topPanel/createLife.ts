@@ -35,7 +35,6 @@ function createLifeContainer(PIXI: any, topPanel: any) {
 function changeLife(hitPoints: number) {
     switch (hitPoints) {
         case 2:
-            playerHead.hp += 2;
             for (let healHeart = 0; healHeart < 3; healHeart += 1) {
                 if (hearts[heartsNames[healHeart]]["half"].alpha === 0) {
                     hearts[heartsNames[healHeart]]["half"].alpha = 1;
@@ -51,7 +50,6 @@ function changeLife(hitPoints: number) {
             }
             break;
         case 1:
-            playerHead.hp += 1;
             for (let healHeart = 0; healHeart < 3; healHeart += 1) {
                 if (hearts[heartsNames[healHeart]]["half"].alpha === 0) {
                     hearts[heartsNames[healHeart]]["half"].alpha = 1;
