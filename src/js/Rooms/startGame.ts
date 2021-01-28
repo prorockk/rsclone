@@ -78,7 +78,7 @@ function moveTo(room: string) {
         rooms["inTenthRoom"]
     );
     app.stage.addChild(rooms[room]);
-    app.stage.setChildIndex(rooms[room], 2);
+    app.stage.setChildIndex(rooms[room], 1);
     updateMap(currentRoom, room);
     currentRoom = room;
     countMobs = 0;
