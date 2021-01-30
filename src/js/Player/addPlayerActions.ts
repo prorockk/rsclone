@@ -16,7 +16,7 @@ const addPlayerActions = () => {
     let switcherTears = true;
     let tearsAr: number[] = [];
 
-    PlayerMethod.playerShooting = function (e: { x: any; y: any } | string) {
+    PlayerMethod.playerShooting = function (e: MouseEvent | string) {
         if (tearsAr.length > 0 || this.froze || this.head.death) return; //блокирование частых выстрелов
         tearsAr.push(0);
         setTimeout(() => (tearsAr = []), 370);
@@ -34,8 +34,8 @@ const addPlayerActions = () => {
             bulletDirection = e;
         } else {
             // направление с мышки
-            const cursorPositionX = e.x;
-            const cursorPositionY = e.y;
+            const cursorPositionX = e.offsetX;
+            const cursorPositionY = e.offsetY;
             if (Math.abs(cursorPositionX - this.player.x) > Math.abs(cursorPositionY - this.player.y)) {
                 bulletDirection = cursorPositionX > this.player.x ? "right" : "left";
             } else {
@@ -64,6 +64,11 @@ const addPlayerActions = () => {
     };
 
     PlayerMethod.updateBullets = function (e: number) {
+        if (this.activeKeys["ArrowUp"]) this.playerShooting("up");
+        if (this.activeKeys["ArrowDown"]) this.playerShooting("down");
+        if (this.activeKeys["ArrowLeft"]) this.playerShooting("left");
+        if (this.activeKeys["ArrowRight"]) this.playerShooting("right");
+
         for (let i = 0; i < this.bullets.length; i++) {
             //определение направления выстрела
             switch (this.bullets[i].direction) {
@@ -82,7 +87,13 @@ const addPlayerActions = () => {
             }
 
             //удаление пуль
-            if (checkTexture(0, this.bullets[i])) {
+            if (
+                checkTexture(0, this.bullets[i]) ||
+                this.bullets[i].y < 135 ||
+                this.bullets[i].y > 530 ||
+                this.bullets[i].x > 735 ||
+                this.bullets[i].x < 35
+            ) {
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = sheets.death;
                 deleteBullet.play();
@@ -105,14 +116,13 @@ const addPlayerActions = () => {
                 if (hp === 0) {
                     return false;
                 } else if (hp > 0) {
-                    soundGame("heal", true);
+                    soundGame("heal", false);
                     if (hp === 1) {
-                        changeLife(hp % 2);
                         this.head.hp += 1;
                     } else {
-                        changeLife(2);
                         this.head.hp += 2;
                     }
+                    changeLife(2);
                     this.hp = this.head.hp;
                     return true;
                 }
@@ -120,7 +130,7 @@ const addPlayerActions = () => {
                 this.head.textures = this.playerSheets.buff;
                 this.head.anchor.set(0.5);
                 this.head.onComplete = null;
-                soundGame("takeCoin", true);
+                soundGame("takeCoin", false);
                 item.getBounds().x = this.head.getBounds().x;
                 item.getBounds().y = this.head.getBounds().y;
                 this.head.play();

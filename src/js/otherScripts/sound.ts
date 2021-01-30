@@ -42,9 +42,9 @@ const sound: any = {
     meatJump3: { url: "../assets/sounds/Meat_jumps2.mp3" }, // кусок мяса прыгает
     meatJump4: { url: "../assets/sounds/Meat_jumps3.mp3" }, // кусок мяса прыгает
     meatJump5: { url: "../assets/sounds/Meat_jumps4.mp3" }, // кусок мяса прыгает
-    miligan1: { url: "../assets/sounds/miligan1.mp3" }, // Милиган хнык
-    miligan2: { url: "../assets/sounds/miligan2.mp3" }, // Милиган хнык
-    miligan3: { url: "../assets/sounds/miligan3.mp3" }, // Милиган хнык
+    miligan1: { url: "../assets/sounds/miligan0.mp3" }, // Милиган хнык
+    miligan2: { url: "../assets/sounds/miligan1.mp3" }, // Милиган хнык
+    miligan3: { url: "../assets/sounds/miligan2.mp3" }, // Милиган хнык
     summon: { url: "../assets/sounds/summon.wav" }, // спавн мобов
     roar1: { url: "../assets/sounds/Roar_0.mp3" }, // башка кричит
     roar2: { url: "../assets/sounds/Roar_1.mp3" }, // башка кричит
@@ -56,7 +56,10 @@ for (let name in sound) {
 }
 
 function soundGame(soundName: String, isStop: Boolean) {
-    if (isStop) PIXISound.stop(`${soundName}`);
+    if (isStop) {
+        PIXISound.stop(`${soundName}`);
+        return;
+    }
     if (soundName.match(/start/)) PIXISound.stop("menuMusic");
     else if (soundName.match(/death|boss/)) PIXISound.stop("floorMusic");
     if (soundName.match(/Music/)) PIXISound.play(`${soundName}`, { volume: musicVolume });

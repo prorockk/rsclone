@@ -24,6 +24,7 @@ class Potter extends Mobs {
             potterOne.freeze = false;
             potterOne.play();
         });
+        this.sound("flyLoop2", false);
         app.ticker.add(() => {
             this.movePotter();
         });
@@ -32,6 +33,7 @@ class Potter extends Mobs {
         this.mob.forEach((potterOne: any, countPotter) => {
             if (potterOne.hp === 0 && this.boolDeath) {
                 //удаление мух с запуском поледней анимации
+                if (this.mob.length === 1) this.sound("flyLoop2", true);
                 this.deleteMob(potterOne);
             } else if (potterOne.freeze) {
                 //анимация нанесения урона

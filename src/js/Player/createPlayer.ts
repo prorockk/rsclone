@@ -100,14 +100,14 @@ class createPlayer {
             } else if (this.head.hp < this.hp) {
                 changeLife(-1); //               функция урон сердце
                 if (this.head.hp + 1 < this.hp) {
-                    soundGame("hurt3", true);
+                    soundGame("hurt3", false);
                     //если большой дамаг то меняем текстурку
                     changeLife(-1); //               функция урон сердце
                     this.head.textures = this.playerSheets.hit;
                     this.head.anchor.set(0.5);
                     this.head.play();
                 } else {
-                    this.head.hp % 2 === 0 ? soundGame("hurt2", true) : soundGame("hurt1", true);
+                    this.head.hp % 2 === 0 ? soundGame("hurt2", false) : soundGame("hurt1", false);
                 }
                 // при малом и большом домаге добавляем мигание один раз
                 this.player.alpha = 0;

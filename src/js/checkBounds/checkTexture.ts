@@ -40,6 +40,12 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
         }
     }
     function check(colObj: PIXI.Sprite | any) {
+        const haveUrl = colObj.hasOwnProperty("url");
+        const haveBullForPlayer = bullets.hasOwnProperty("forPlayer");
+        const haveBullForMobs = bullets.hasOwnProperty("forMobs");
+        if (haveUrl && colObj.url === "invisibleBlock.png" && (haveBullForMobs || haveBullForPlayer)) {
+            return false;
+        }
         let correctForHeadCollisionWidth = 0;
         let correctForHeadCollisionHeight = 0;
         let denominator = 2;
@@ -67,10 +73,7 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
         if (Math.abs(vx) < combineHalfWidths) {
             if (Math.abs(vy) < combineHalfHeights) {
                 const haveAngryMob = colObj.hasOwnProperty("angryMob");
-                const haveBullForPlayer = bullets.hasOwnProperty("forPlayer");
-                const haveBullForMobs = bullets.hasOwnProperty("forMobs");
                 const haveMobHp = colObj.hasOwnProperty("hp");
-                const haveUrl = colObj.hasOwnProperty("url");
                 if (haveAngryMob) itsAngryMob = colObj.angryMob; //если это моб, при косании с которым идет дамаг
 
                 let impulse = [(bullets.centerX - objCenterX) / 150, (bullets.centerY - objCenterY) / 150];
@@ -79,7 +82,10 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
                     impulse = impulse.map((num) => num / 2);
                 }
 
-                if ((delay > 0 && itsAngryMob) || (haveBullForPlayer && shooter)) {
+                if (
+                    ((delay > 0 && itsAngryMob) || (haveBullForPlayer && shooter)) &&
+                    !player.hasOwnProperty("godMode")
+                ) {
                     //вызывается в app.ticker (delay, head, false) и в move у мобов во время стрельбы
                     //столкновение мобов ИЛИ их слез с игроком
                     if (haveBullForPlayer) impulse = impulse.map((cord: number) => cord * -1);
@@ -111,7 +117,7 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
                     if (haveUrl) {
                         //попадание по камням
                         colObj.anchor.set(0.5);
-                        soundGame("pop", true);
+                        soundGame("pop", false);
                         if (colObj.hp.length === 0) {
                             rooms[currentRoom].removeChild(colObj);
                             roomArray[colObj.url].splice(roomArray[colObj.url].indexOf(colObj), 1);

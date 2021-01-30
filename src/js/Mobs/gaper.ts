@@ -48,6 +48,7 @@ class Gaper extends Mobs {
             }
             if (this.moveCurrent % (100 + currentGap * 30) === 0) {
                 //направление пуль и создание
+                this.sound(`roar${(currentGap % 3) + 1}`, false);
                 gaperOne.textures = this.sheets.angry;
                 gaperOne.play();
                 const bullet = this.shootIntoPlayer(gaperOne);

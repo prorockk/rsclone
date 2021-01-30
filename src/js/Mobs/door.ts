@@ -13,7 +13,10 @@ class Doors extends Mobs {
     loadUp() {
         if (countMobs.count > 0) {
             this.mob.forEach((door: any, count) => {
-                if (count === 0) soundGame("doorClose", false);
+                if (count === 0) {
+                    this.sound("doorClose", false);
+                    this.sound("floorMusic", false);
+                }
                 door.textures = this.sheets[`${door.sheetSpriteStr}Close`];
                 door.play();
             });
@@ -29,7 +32,10 @@ class Doors extends Mobs {
         if (countMobs.count <= 0 && this.boolDeath) {
             this.boolDeath = false;
             this.mob.forEach((door: any, count: number) => {
-                if (count === 0) soundGame("doorOpen", false);
+                if (count === 0) {
+                    this.sound("doorOpen", false);
+                    this.sound("floorMusic", true);
+                }
                 door.textures = this.sheets[`${door.sheetSpriteStr}Open`];
                 door.play();
             });

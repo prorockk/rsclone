@@ -16,6 +16,7 @@ class Mobs {
     bullets: any;
     sheetsBullets: { [x: string]: PIXI.Texture[] };
     shootEffect: any;
+    sound: (soundName: String, isStop: Boolean) => void;
     constructor(name: string) {
         this.name = name;
         this.sheets = {};
@@ -24,6 +25,7 @@ class Mobs {
         this.sheetsBullets = {};
         this.bullets = [];
         this.animateBullets = {};
+        this.sound = soundGame;
     }
     doneLoading() {
         if (
@@ -52,11 +54,11 @@ class Mobs {
         });
         return;
     }
+    generateRandNum = (num: number) => (Math.ceil(Math.random() * 10) % num) + 1;
     deleteMob(mobOne: { textures: any; loop: boolean; play: () => void; onComplete: () => void; dead: boolean }) {
         mobOne.textures = this.sheets.death;
         mobOne.loop = false;
-        const randSound = (Math.ceil(Math.random() * 10) % 4) + 1;
-        soundGame(`mobDeath${randSound}`, true);
+        this.sound(`mobDeath${this.generateRandNum(4)}`, false);
         this.mob.splice(this.mob.indexOf(mobOne), 1);
         mobOne.play();
         this.boolDeath = false;
@@ -95,7 +97,7 @@ class Mobs {
         const diffX = Math.abs(playerHeadBounds.x - mobsBounds.x);
         const diffY = Math.abs(playerHeadBounds.y - mobsBounds.y);
         if (diffX >= diffY) {
-            //задаем равномерную скорость по кривой
+            //задаем равномерную скорость по вектору
             bullet.bulletSpeedX = (diffX / diffY) * 2;
             bullet.bulletSpeedY = 2;
         } else {
@@ -114,8 +116,7 @@ class Mobs {
         bullet.damage = 1;
         bullet.tint = 9109504;
         this.bullets.push(bullet);
-        const randSound = (Math.ceil(Math.random() * 10) % 3) + 1;
-        soundGame(`mobShoot${randSound}`, true);
+        this.sound(`mobShoot${this.generateRandNum(3)}`, false);
         return bullet;
     }
     shootToFourDirection(mobOne: { getBounds: () => any }) {
@@ -172,12 +173,16 @@ class Mobs {
             bullet.position.x += bullet.bulletSpeedX;
             bullet.position.y += bullet.bulletSpeedY; //удаление пуль
             if (
-                checkTexture(1, this.bullets[i], true) || //для игрока
-                checkTexture(0, this.bullets[i], false) || //для объектов
+                checkTexture(1, bullet, true) || //для игрока
+                checkTexture(0, bullet, false) || //для объектов
                 !this.boolDeath ||
-                playerHead.hp <= 0
+                playerHead.hp <= 0 ||
+                bullet.y < 135 ||
+                bullet.y > 530 ||
+                bullet.x > 735 ||
+                bullet.x < 35
             ) {
-                soundGame("tearSplat", true);
+                this.sound("tearSplat", false);
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = this.sheetsBullets.death;
                 deleteBullet.play();

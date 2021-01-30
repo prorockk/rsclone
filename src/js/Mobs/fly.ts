@@ -1,9 +1,8 @@
-import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { countMobs, currentRoom, player, rooms } from "../Rooms/startGame";
-import { AnimateMobType } from "../types/Types";
 import Mobs from "./Mobs";
 import createElement from "../CreateSprite/createGameElement";
+import { soundGame } from "../otherScripts/sound";
 
 class Fly extends Mobs {
     boolDeath: boolean;
@@ -25,6 +24,7 @@ class Fly extends Mobs {
             flyOne.freeze = false;
             flyOne.play();
         });
+        this.sound(`flyLoop1`, false);
         app.ticker.add(() => {
             this.moveFly();
         });
@@ -45,6 +45,7 @@ class Fly extends Mobs {
             room: currentRoom,
             name: "fly",
         };
+        if (this.mob.length === 0) this.sound(`flyLoop1`, false);
         const flyAr: any[] = new createElement(rooms).addAnimateElement(animateObj);
         flyAr.forEach((flyOne: any) => {
             flyOne.hp = 3;
@@ -62,6 +63,7 @@ class Fly extends Mobs {
         this.mob.forEach((flyOne: any) => {
             if (flyOne.hp === 0 && this.boolDeath) {
                 //удаление мух с запуском поледней анимации
+                if (this.mob.length === 1) this.sound(`flyLoop1`, true);
                 this.deleteMob(flyOne);
             } else if (flyOne.freeze) {
                 //анимация нанесения урона

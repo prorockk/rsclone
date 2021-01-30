@@ -7,6 +7,8 @@ import { panelContainer } from "../topPanel/map";
 function deathPlayer() {
     soundGame("isaacDeath", false);
     soundGame("deathMusic", false);
+    soundGame(`flyLoop1`, true);
+    soundGame(`flyLoop2`, true);
     const ticker = app.ticker;
     const blurFilter1 = new PIXI.filters.BlurFilter();
     blurFilter1.blur = 0;
