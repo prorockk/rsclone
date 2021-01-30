@@ -9,7 +9,7 @@ for (let name in moveControls) {
     storage.set(`${name}`, `${moveControls[name]}`);
 }
 
-function changeControls(direction: string, value: string) {
+function changeControls(direction: string, value: string): void {
     moveControls[direction] = value;
     storage.set(`${direction}`, `${value}`);
 }

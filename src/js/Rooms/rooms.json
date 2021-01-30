@@ -177,9 +177,9 @@
                 "rotation": "1.57"
             },
             {
-                "coords": [80, 180],
+                "coords": [80, 184],
                 "url": "poops-4.png",
-                "size": [27, 27],
+                "size": [24, 23],
                 "room": "inSecondRoom",
                 "picture": true
             },
@@ -190,26 +190,13 @@
                 "room": "inSecondRoom",
                 "angryMob": false
             },
-            {
-                "coords": [80, 180],
-                "url": "poops-3.png",
-                "size": [29, 29],
-                "room": "inSecondRoom",
-                "hp": 1
-            },
-            {
-                "coords": [80, 181],
-                "url": "poops-2.png",
-                "size": [31, 31],
-                "room": "inSecondRoom",
-                "hp": 1
-            },
+
             {
                 "coords": [80, 183],
                 "url": "poops-1.png",
-                "size": [35, 35],
+                "size": [32, 32],
                 "room": "inSecondRoom",
-                "hp": 1
+                "hp": ["poops-2.png", "poops-3.png"]
             },
             {
                 "coords": [145, 95],
@@ -346,6 +333,41 @@
                 ]
             },
             {
+                "name": "potter",
+                "room": "inSecondRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly-1.png", "fly-2.png"],
+                    "shoot": [
+                        "shoot-1.png",
+                        "shoot-2.png",
+                        "shoot-3.png",
+                        "shoot-4.png",
+                        "shoot-5.png",
+                        "shoot-6.png",
+                        "shoot-7.png",
+                        "shoot-8.png",
+                        "shoot-9.png",
+                        "shoot-10.png",
+                        "shoot-11.png",
+                        "shoot-12.png",
+                        "shoot-13.png",
+                        "shoot-14.png"
+                    ],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 410,
+                        "y": 220
+                    }
+                ]
+            },
+            {
                 "name": "fly",
                 "room": "inSecondRoom",
                 "setBool": false,
@@ -362,14 +384,6 @@
                         "loop": true,
                         "x": 80,
                         "y": 210
-                    },
-                    {
-                        "sheetSpriteStr": "fly",
-                        "anchor": 0.5,
-                        "animationSpeed": 0.4,
-                        "loop": true,
-                        "x": 280,
-                        "y": 100
                     }
                 ]
             }
@@ -765,6 +779,53 @@
                 ]
             },
             {
+                "name": "clotty",
+                "room": "inFourthRoom",
+                "setBool": false,
+                "texture": {
+                    "stand": ["clotty-1.png"],
+                    "shoot": [
+                        "clotty-2.png",
+                        "clotty-11.png",
+                        "clotty-8.png",
+                        "clotty-9.png",
+                        "clotty-11.png",
+                        "clotty-1.png"
+                    ],
+                    "jump": [
+                        "clotty-2.png",
+                        "clotty-4.png",
+                        "clotty-5.png",
+                        "clotty-6.png",
+                        "clotty-7.png",
+                        "clotty-3.png",
+                        "clotty-11.png"
+                    ],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "stand",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 330,
+                        "y": 245
+                    }
+                ]
+            },
+            {
                 "name": "host",
                 "room": "inFourthRoom",
                 "setBool": false,
@@ -1004,6 +1065,41 @@
                         "x": 35,
                         "y": 230,
                         "rotation": "4.71"
+                    }
+                ]
+            },
+            {
+                "name": "potter",
+                "room": "inFifthRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly-1.png", "fly-2.png"],
+                    "shoot": [
+                        "shoot-1.png",
+                        "shoot-2.png",
+                        "shoot-3.png",
+                        "shoot-4.png",
+                        "shoot-5.png",
+                        "shoot-6.png",
+                        "shoot-7.png",
+                        "shoot-8.png",
+                        "shoot-9.png",
+                        "shoot-10.png",
+                        "shoot-11.png",
+                        "shoot-12.png",
+                        "shoot-13.png",
+                        "shoot-14.png"
+                    ],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 70,
+                        "y": 230
                     }
                 ]
             },
@@ -1265,58 +1361,30 @@
             {
                 "coords": [220, 200],
                 "url": "poops-4.png",
-                "size": [27, 27],
+                "size": [29, 29],
                 "room": "inSeventhRoom",
                 "picture": true
             },
             {
                 "coords": [220, 200],
-                "url": "poops-3.png",
-                "size": [29, 29],
-                "room": "inSeventhRoom",
-                "hp": 1
-            },
-            {
-                "coords": [220, 200],
-                "url": "poops-2.png",
-                "size": [31, 31],
-                "room": "inSeventhRoom",
-                "hp": 1
-            },
-            {
-                "coords": [220, 200],
                 "url": "poops-1.png",
-                "size": [35, 35],
+                "size": [32, 32],
                 "room": "inSeventhRoom",
-                "hp": 1
+                "hp": ["poops-2.png", "poops-3.png"]
             },
             {
                 "coords": [150, 280],
                 "url": "poops-4.png",
-                "size": [27, 27],
+                "size": [29, 29],
                 "room": "inSeventhRoom",
                 "picture": true
             },
             {
                 "coords": [150, 280],
-                "url": "poops-3.png",
-                "size": [29, 29],
-                "room": "inSeventhRoom",
-                "hp": 1
-            },
-            {
-                "coords": [150, 280],
-                "url": "poops-2.png",
-                "size": [31, 31],
-                "room": "inSeventhRoom",
-                "hp": 1
-            },
-            {
-                "coords": [150, 280],
                 "url": "poops-1.png",
-                "size": [35, 35],
+                "size": [32, 32],
                 "room": "inSeventhRoom",
-                "hp": 1
+                "hp": ["poops-2.png", "poops-3.png"]
             },
             {
                 "coords": [300, 300],
@@ -1327,24 +1395,10 @@
             },
             {
                 "coords": [300, 300],
-                "url": "poops-3.png",
-                "size": [29, 29],
-                "room": "inSeventhRoom",
-                "hp": 1
-            },
-            {
-                "coords": [300, 300],
-                "url": "poops-2.png",
-                "size": [31, 31],
-                "room": "inSeventhRoom",
-                "hp": 1
-            },
-            {
-                "coords": [300, 300],
                 "url": "poops-1.png",
-                "size": [35, 35],
+                "size": [32, 32],
                 "room": "inSeventhRoom",
-                "hp": 1
+                "hp": ["poops-2.png", "poops-3.png"]
             },
             {
                 "coords": [350, 170],
@@ -1355,24 +1409,10 @@
             },
             {
                 "coords": [350, 170],
-                "url": "poops-3.png",
-                "size": [29, 29],
-                "room": "inSeventhRoom",
-                "hp": 1
-            },
-            {
-                "coords": [350, 170],
-                "url": "poops-2.png",
-                "size": [31, 31],
-                "room": "inSeventhRoom",
-                "hp": 1
-            },
-            {
-                "coords": [350, 170],
                 "url": "poops-1.png",
-                "size": [35, 35],
+                "size": [32, 32],
                 "room": "inSeventhRoom",
-                "hp": 1
+                "hp": ["poops-2.png", "poops-3.png"]
             },
             {
                 "coords": [145, 95],
@@ -1692,6 +1732,37 @@
                         "x": 37,
                         "y": 230,
                         "rotation": "4.71"
+                    }
+                ]
+            },
+            {
+                "name": "host",
+                "room": "inEighthRoom",
+                "setBool": false,
+                "texture": {
+                    "block": ["host-2.png", "host-3.png", "host-1.png"],
+                    "shoot": ["host-2.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 450,
+                        "y": 340
                     }
                 ]
             },

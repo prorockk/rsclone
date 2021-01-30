@@ -1,6 +1,6 @@
 import { app } from "../script";
 
-export default function (PlayerMethod: any /* player : any, box : any*/) {
+export default function (PlayerMethod: any /* player : any, box : any*/): void {
     document.addEventListener("mousedown", (e) => mouseShooting(e, true));
 
     document.addEventListener("mouseup", (e) => mouseShooting(e, false));
@@ -13,9 +13,9 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
     document.addEventListener("keyup", (key) => {
         PlayerMethod.activeKeys[key.code] = false;
     });
-    let t = true;
-    function checkKeyCode(key: KeyboardEvent) {
-        let keyCode = key.keyCode;
+    let t: boolean = true;
+    function checkKeyCode(key: KeyboardEvent): void {
+        const keyCode: number = key.keyCode;
         switch (keyCode) {
             case 27:
                 t ? app.ticker.stop() : app.ticker.start();
@@ -38,9 +38,9 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
         }
     }
     let intMouse: any;
-    let mouseDown: any;
-    let delayAr: number[];
-    function mouseShooting(delay: MouseEvent, bool: boolean | undefined) {
+    let mouseDown: boolean;
+    //let delayAr: number[];
+    function mouseShooting(delay: MouseEvent, bool: boolean | undefined): void {
         if (bool !== undefined) {
             mouseDown = bool;
         } else if (mouseDown) {

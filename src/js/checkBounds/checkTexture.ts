@@ -1,17 +1,18 @@
-// ЭТО ПУСТЬ БУДЕТ ТОЛЬКО ДЛЯ ПУЛЬ
+import * as PIXI from "pixi.js";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { soundGame } from "../otherScripts/sound";
 import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
 import { player, playerHead } from "../Rooms/startGame";
 
-let isDamage = true;
+let isDamage: boolean = true;
 
-export default function checkTexture(delay: number, bullets: any, shooter?: any | undefined) {
-    let hit = false;
+export default function checkTexture(delay: number, bullets: any, shooter?: number | boolean) {
+    let hit: boolean = false;
 
     const bulletsBounds = bullets.getBounds();
-    let correctForHeadCollisionWidth = 0;
-    let correctForHeadCollisionHeight = 0;
-    let denominator = 2;
+    let correctForHeadCollisionWidth: number = 0;
+    let correctForHeadCollisionHeight: number = 0;
+    let denominator: number = 2;
 
     if (delay > 0) {
         // коллизия игрока с мобами
@@ -38,10 +39,10 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
             }
         }
     }
-    function check(colObj: PIXI.Sprite | any) {
-        let correctForHeadCollisionWidth = 0;
-        let correctForHeadCollisionHeight = 0;
-        let denominator = 2;
+    function check(colObj: PIXI.Sprite | any): boolean | undefined {
+        let correctForHeadCollisionWidth: number = 0;
+        let correctForHeadCollisionHeight: number = 0;
+        let denominator: number = 2;
         if (shooter) {
             // коллизия игрока с выстрелами мобов
             correctForHeadCollisionWidth = 5;
@@ -50,29 +51,29 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
         }
         const colObjBounds = colObj.getBounds();
 
-        let itsAngryMob = false;
+        let itsAngryMob: boolean = false;
 
-        const objCenterX = colObjBounds.x + correctForHeadCollisionWidth;
-        const objCenterY = colObjBounds.y + correctForHeadCollisionHeight;
-        const objHalfWidth = colObjBounds.width / denominator;
-        const objHalfHeight = colObjBounds.height / denominator;
+        const objCenterX: number = colObjBounds.x + correctForHeadCollisionWidth;
+        const objCenterY: number = colObjBounds.y + correctForHeadCollisionHeight;
+        const objHalfWidth: number = colObjBounds.width / denominator;
+        const objHalfHeight: number = colObjBounds.height / denominator;
 
-        let vx = bullets.centerX - objCenterX;
-        let vy = bullets.centerY - objCenterY;
+        let vx: number = bullets.centerX - objCenterX;
+        let vy: number = bullets.centerY - objCenterY;
 
-        let combineHalfWidths = bullets.halfWidth + objHalfWidth;
-        let combineHalfHeights = bullets.halfHeight + objHalfHeight;
+        let combineHalfWidths: number = bullets.halfWidth + objHalfWidth;
+        let combineHalfHeights: number = bullets.halfHeight + objHalfHeight;
 
         if (Math.abs(vx) < combineHalfWidths) {
             if (Math.abs(vy) < combineHalfHeights) {
-                const haveAngryMob = colObj.hasOwnProperty("angryMob");
-                const haveBullForPlayer = bullets.hasOwnProperty("forPlayer");
-                const haveBullForMobs = bullets.hasOwnProperty("forMobs");
-                const haveMobHp = colObj.hasOwnProperty("hp");
-                const haveUrl = colObj.hasOwnProperty("url");
+                const haveAngryMob: boolean = colObj.hasOwnProperty("angryMob");
+                const haveBullForPlayer: boolean = bullets.hasOwnProperty("forPlayer");
+                const haveBullForMobs: boolean = bullets.hasOwnProperty("forMobs");
+                const haveMobHp: boolean = colObj.hasOwnProperty("hp");
+                const haveUrl: boolean = colObj.hasOwnProperty("url");
                 if (haveAngryMob) itsAngryMob = colObj.angryMob; //если это моб, при косании с которым идет дамаг
 
-                let impulse = [(bullets.centerX - objCenterX) / 150, (bullets.centerY - objCenterY) / 150];
+                let impulse: number[] = [(bullets.centerX - objCenterX) / 150, (bullets.centerY - objCenterY) / 150];
 
                 if (impulse.reduce((acc, num) => Math.abs(acc) + Math.abs(num)) > 0.5) {
                     impulse = impulse.map((num) => num / 2);
@@ -109,7 +110,12 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
                     //попадание слез по мобам
                     if (haveUrl) {
                         //попадание по камням
-                        rooms[currentRoom].removeChild(colObj);
+                        colObj.anchor.set(0.5);
+                        soundGame("pop", true);
+                        if (colObj.hp.length === 0) {
+                            rooms[currentRoom].removeChild(colObj);
+                            roomArray[colObj.url].splice(roomArray[colObj.url].indexOf(colObj), 1);
+                        } else colObj.texture = PIXI.Texture.from(colObj.hp.shift());
                     }
                     colObj.freeze = impulse.slice(); //прерываем стандартное перемещение моба и передаем направление движения
                 } else if (delay > 0 && haveAngryMob && !itsAngryMob) {

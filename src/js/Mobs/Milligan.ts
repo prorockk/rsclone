@@ -25,7 +25,7 @@ class Milligan extends Mobs {
             milliganOne.angryMob = true;
             milliganOne.hp = 4;
             milliganOne.freeze = false;
-            milliganOne.damage = 2;
+            milliganOne.damage = 1;
             milliganOne.play();
         });
         app.ticker.add(() => {

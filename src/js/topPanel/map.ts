@@ -1,23 +1,21 @@
 import * as PIXI from "pixi.js";
 
-const cellOfRoom: any = {};
+interface mapCells {
+    [mapCellName: string]: PIXI.Graphics;
+}
 
-const cellHight = 12;
-const cellWidth = 30;
-const mapIconSize = 20;
-const availableCellColor = 0x383838;
-const visitedCellColor = 0x757575;
-const currentCellColor = 0xfbfbfb;
+const cellOfRoom: mapCells = {};
+const currentCellColor: number = 0xfbfbfb;
 let panelContainer: PIXI.Graphics;
 
-function createMap(PIXI: any, topPanel: any) {
+function createMap(topPanel: PIXI.Graphics): void {
     panelContainer = new PIXI.Graphics();
     panelContainer.beginFill(0x1b1818);
     panelContainer.lineStyle(15, 0x000000, 1);
     panelContainer.drawRect(0, 0, 800, 105);
     panelContainer.endFill();
 
-    const arrayOfRoomsName = [
+    const arrayOfRoomsName: string[] = [
         "inFirstRoom",
         "inSecondRoom",
         "inThirdRoom",
@@ -30,10 +28,13 @@ function createMap(PIXI: any, topPanel: any) {
         "inTenthRoom",
     ];
 
-    const mapCellNumber = 10;
+    const cellHight: number = 12;
+    const cellWidth: number = 30;
+    const mapCellNumber: number = 10;
+    const availableCellColor: number = 0x383838;
 
     for (let mapCellCounter = 0; mapCellCounter < mapCellNumber; mapCellCounter++) {
-        const mapCell = new PIXI.Graphics();
+        const mapCell: PIXI.Graphics = new PIXI.Graphics();
         mapCell.beginFill(0xffffff).tint = availableCellColor;
 
         mapCell.lineStyle(5, 0x1a1a1a, 1);
@@ -68,28 +69,26 @@ function createMap(PIXI: any, topPanel: any) {
 
     cellOfRoom["inFirstRoom"].tint = currentCellColor;
     cellOfRoom["inSecondRoom"].tint = availableCellColor;
-    cellOfRoom["inFirstRoom"].alpha = 1;
-    cellOfRoom["inSecondRoom"].alpha = 1;
+    cellOfRoom["inFirstRoom"].alpha = cellOfRoom["inSecondRoom"].alpha = 1;
     topPanel.addChild(panelContainer);
 }
 
-function updateMap(previousRoom: string, nextRoom: string) {
+function updateMap(previousRoom: string, nextRoom: string): void {
+    const visitedCellColor: number = 0x757575;
+    const mapIconSize: number = 20;
+
     cellOfRoom[previousRoom].tint = visitedCellColor;
     if (nextRoom === "inSecondRoom") {
-        cellOfRoom["inThirdRoom"].alpha = 1;
-        cellOfRoom["inFifthRoom"].alpha = 1;
-        cellOfRoom["inSeventhRoom"].alpha = 1;
+        cellOfRoom["inThirdRoom"].alpha = cellOfRoom["inFifthRoom"].alpha = cellOfRoom["inSeventhRoom"].alpha = 1;
     }
     if (nextRoom === "inThirdRoom") {
         cellOfRoom["inFourthRoom"].alpha = 1;
     }
     if (nextRoom === "inFifthRoom") {
         if (cellOfRoom["inSixthRoom"].alpha !== 1) {
-            const crown = PIXI.Sprite.from("../../assets/crown.png");
-            crown.width = mapIconSize;
-            crown.height = mapIconSize;
-            crown.x = 45;
-            crown.y = 45;
+            const crown: PIXI.Sprite = PIXI.Sprite.from("../../assets/crown.png");
+            crown.width = crown.height = mapIconSize;
+            crown.x = crown.y = 45;
             cellOfRoom["inSixthRoom"].addChild(crown);
         }
         cellOfRoom["inSixthRoom"].alpha = 1;
@@ -102,12 +101,11 @@ function updateMap(previousRoom: string, nextRoom: string) {
     }
     if (nextRoom === "inNinthRoom") {
         if (cellOfRoom["inTenthRoom"].alpha !== 1) {
-            const crown = PIXI.Sprite.from("../../assets/skull.png");
-            crown.width = mapIconSize;
-            crown.height = mapIconSize;
-            crown.x = 45;
-            crown.y = 15;
-            cellOfRoom["inTenthRoom"].addChild(crown);
+            const skull: PIXI.Sprite = PIXI.Sprite.from("../../assets/skull.png");
+            skull.width = skull.height = mapIconSize;
+            skull.x = 45;
+            skull.y = 15;
+            cellOfRoom["inTenthRoom"].addChild(skull);
         }
         cellOfRoom["inTenthRoom"].alpha = 1;
     }

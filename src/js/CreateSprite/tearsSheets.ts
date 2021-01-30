@@ -1,7 +1,7 @@
 import { AnimateMobType } from "../types/Types";
 import createElement from "./createGameElement";
 
-const tearsSheets = () => {
+const tearsSheets = (): any => {
     const animate: any = {
         name: "bullet",
         texture: {
@@ -31,7 +31,7 @@ const tearsSheets = () => {
         ],
         setBool: true,
     };
-    const sheets = new createElement().createAnimateElement(animate);
+    const sheets: createElement = new createElement().createAnimateElement(animate);
     animate.sheets = sheets;
     return animate;
 };

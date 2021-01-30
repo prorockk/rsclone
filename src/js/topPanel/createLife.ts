@@ -1,41 +1,43 @@
 import { playerHead } from "../Rooms/startGame";
+import * as PIXI from "pixi.js";
 
-const hearts: any = {
+interface HeartsCells {
+    [heartGroup: string]: HeartIcon;
+}
+
+interface HeartIcon {
+    [oneHeart: string]: PIXI.Sprite;
+}
+
+const hearts: HeartsCells = {
     firstHeart: {},
     secondHeart: {},
     thirdHeart: {},
 };
-const heartsTypes: any = ["empty", "half", "full"];
-const heartsNames: any = ["firstHeart", "secondHeart", "thirdHeart"];
 
-function createLifeContainer(PIXI: any, topPanel: any) {
-    const heartsUrl = ["../../assets/heart.png", "../../assets/heartHalf.png", "../../assets/heartFull.png"];
+const heartsNames: string[] = ["firstHeart", "secondHeart", "thirdHeart"];
 
-    const lifeLabel = PIXI.Sprite.from("../../assets/lifeLabel.png");
-    lifeLabel.width = 110;
-    lifeLabel.height = 20;
-    lifeLabel.x = 620;
-    lifeLabel.y = 10;
+function createLifeContainer(topPanel: PIXI.Graphics, setParamsTopElement: Function): void {
+    const heartsTypes: string[] = ["empty", "half", "full"];
+
+    const heartsUrl: string[] = ["../../assets/heart.png", "../../assets/heartHalf.png", "../../assets/heartFull.png"];
+    const lifeLabel: PIXI.Sprite = PIXI.Sprite.from("../../assets/lifeLabel.png");
+    setParamsTopElement(lifeLabel, 110, 20, 620, 10);
     topPanel.addChild(lifeLabel);
 
     for (let currentHeart = 0; currentHeart < heartsNames.length; currentHeart += 1) {
         for (let currentHeartType = 0; currentHeartType < heartsTypes.length; currentHeartType += 1) {
-            const heart = PIXI.Sprite.from(heartsUrl[currentHeartType]);
-            heart.width = 35;
-            heart.height = 30;
-            heart.x = 580 + 40 * currentHeart;
-            heart.y = 30;
-            topPanel.addChild(heart);
-
+            const heart: PIXI.Sprite = PIXI.Sprite.from(heartsUrl[currentHeartType]);
+            setParamsTopElement(heart, 35, 30, 580 + 40 * currentHeart, 30);
             hearts[heartsNames[currentHeart]][heartsTypes[currentHeartType]] = heart;
+            topPanel.addChild(heart);
         }
     }
 }
 
-function changeLife(hitPoints: number) {
+function changeLife(hitPoints: number): void {
     switch (hitPoints) {
         case 2:
-            playerHead.hp += 2;
             for (let healHeart = 0; healHeart < 3; healHeart += 1) {
                 if (hearts[heartsNames[healHeart]]["half"].alpha === 0) {
                     hearts[heartsNames[healHeart]]["half"].alpha = 1;
@@ -51,7 +53,6 @@ function changeLife(hitPoints: number) {
             }
             break;
         case 1:
-            playerHead.hp += 1;
             for (let healHeart = 0; healHeart < 3; healHeart += 1) {
                 if (hearts[heartsNames[healHeart]]["half"].alpha === 0) {
                     hearts[heartsNames[healHeart]]["half"].alpha = 1;

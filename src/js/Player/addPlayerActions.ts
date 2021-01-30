@@ -8,23 +8,23 @@ import { changeLife } from "../topPanel/createLife";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { soundGame } from "../otherScripts/sound";
 
-const addPlayerActions = () => {
+const addPlayerActions = (): void => {
     PlayerMethod.bullets = []; //новые скилы героя
 
-    const animate = tearsSheets();
-    const sheets = animate.sheets;
-    let switcherTears = true;
+    const animate: any = tearsSheets();
+    const sheets: any = animate.sheets;
+    let switcherTears: boolean = true;
     let tearsAr: number[] = [];
 
-    PlayerMethod.playerShooting = function (e: { x: any; y: any } | string) {
-        if (tearsAr.length > 0) return; //блокирование частых выстрелов
+    PlayerMethod.playerShooting = function (e: { x: number; y: number } | string): void {
+        if (tearsAr.length > 0 || this.froze || this.head.death) return; //блокирование частых выстрелов
         tearsAr.push(0);
         setTimeout(() => (tearsAr = []), 370);
 
         //добавляем функции для скилов героя
-        let bulletDirection;
-        const bulletSpeed = 8;
-        let tearPosition = 20; //выстрелы из разных глаз
+        let bulletDirection: string;
+        const bulletSpeed: number = 8;
+        let tearPosition: number = 20; //выстрелы из разных глаз
         if (switcherTears) {
             tearPosition = 10;
         }
@@ -34,8 +34,8 @@ const addPlayerActions = () => {
             bulletDirection = e;
         } else {
             // направление с мышки
-            const cursorPositionX = e.x;
-            const cursorPositionY = e.y;
+            const cursorPositionX: number = e.x;
+            const cursorPositionY: number = e.y;
             if (Math.abs(cursorPositionX - this.player.x) > Math.abs(cursorPositionY - this.player.y)) {
                 bulletDirection = cursorPositionX > this.player.x ? "right" : "left";
             } else {
@@ -49,7 +49,7 @@ const addPlayerActions = () => {
 
         this.head.textures = this.playerSheets[`${bulletDirection}See`]; //изменение напрвления головы
         this.head.play();
-        this.head.onComplete = () => {
+        this.head.onComplete = (): void => {
             this.head.textures = this.playerSheets.standSee;
             this.head.play();
         };
@@ -63,7 +63,7 @@ const addPlayerActions = () => {
         switcherTears ? soundGame("tear1", false) : soundGame("tear2", false);
     };
 
-    PlayerMethod.updateBullets = function (e: number) {
+    PlayerMethod.updateBullets = function (): void {
         for (let i = 0; i < this.bullets.length; i++) {
             //определение направления выстрела
             switch (this.bullets[i].direction) {
@@ -102,35 +102,39 @@ const addPlayerActions = () => {
         switch (url) {
             case "hp.png":
                 const hp = 6 - this.head.hp;
-                switch (hp) {
-                    case 0:
-                        return false;
-                    case 1:
-                        changeLife(1);
-                        return true;
-                    default:
+                if (hp === 0) {
+                    return false;
+                } else if (hp > 0) {
+                    soundGame("heal", true);
+                    if (hp === 1) {
+                        changeLife(hp % 2);
+                        this.head.hp += 1;
+                    } else {
                         changeLife(2);
-                        return true;
+                        this.head.hp += 2;
+                    }
+                    this.hp = this.head.hp;
+                    return true;
                 }
-                this.hp = this.head.hp;
             case "belt.png":
                 this.head.textures = this.playerSheets.buff;
                 this.head.anchor.set(0.5);
-                this.head.play();
+                this.head.onComplete = null;
+                soundGame("takeCoin", true);
                 item.getBounds().x = this.head.getBounds().x;
                 item.getBounds().y = this.head.getBounds().y;
-                item.anchor.set(0.5, 2.2);
+                this.head.play();
                 result = false;
                 this.froze = true;
                 setTimeout(() => {
                     rooms[currentRoom].removeChild(item);
                     this.head.anchor.set(0.5, 0.95);
-                    this.head.textures = this.playerSheets.standSee;
-                    this.head.play();
                     this.playerSpeed = 4;
                     this.player.speed = this.playerSpeed;
                     this.froze = false;
-                }, 500);
+                    this.head.textures = this.playerSheets.standSee;
+                    this.head.play();
+                }, 600);
         }
         objectOfGameObjects[currentRoom][url] = [];
         return result;
