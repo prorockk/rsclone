@@ -43,6 +43,7 @@ class createPlayer {
                 hit: ["isaac-hit.png"],
                 buff: ["buff.png"],
                 end: ["end.png"],
+                win: ["win.png"],
             },
             propertiesAr: [
                 {

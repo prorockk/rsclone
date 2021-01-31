@@ -126,6 +126,7 @@ const addPlayerActions = () => {
                     this.hp = this.head.hp;
                     return true;
                 }
+
             case "belt.png":
                 this.head.textures = this.playerSheets.buff;
                 this.head.anchor.set(0.5);

@@ -1,3 +1,4 @@
+import * as PIXI from "pixi.js";
 import { countMobs, currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
 import { FlyClass } from "./loadMobs";
@@ -18,59 +19,60 @@ class Gurdy extends Mobs {
         this.animateBullets = {};
     }
     loadUp() {
-        const gurdyBody = this.mob[0];
-        gurdyBody.hp = 5;
+        const [gurdyBody, gurdyHead] = this.mob;
+        gurdyBody.hp = 50;
         gurdyBody.angryMob = true;
         gurdyBody.freeze = false;
         gurdyBody.damage = 2;
-        gurdyBody.scale.set(1);
+        gurdyBody.scale.set(0.8);
         gurdyBody.play();
-        this.mob[1].scale.set(1);
-        this.mob[1].play();
-
+        gurdyHead.scale.set(0.8);
+        gurdyHead.play();
+        gurdyBody.update(0.5);
         app.ticker.add(() => {
             this.moveGurdy();
         });
     }
     moveGurdy() {
         if (this.mob.length === 0) return;
-        const gurdyOne = this.mob[1];
-        const body = this.mob[0];
+        const [gurdyBody, gurdyOne] = this.mob;
         const timeOut = this.moveCurrent % 1000;
-        if (body.hp === 0 && this.boolDeath) {
+        if (gurdyBody.hp === 0 && this.boolDeath) {
             this.boolDeath = false;
             gurdyOne.textures = this.sheets.fire;
-            gurdyOne.loop = body.loop = false;
+            gurdyOne.loop = gurdyBody.loop = false;
             gurdyOne.animationSpeed = 0.05;
             gurdyOne.play();
             this.sound(`miligan${this.generateRandNum(3)}`, false);
             this.mob.splice(0, 2);
+            this.bullets.forEach((bullet) => app.stage.removeChild(bullet));
+            this.bullets.splice(0, this.bullets.length);
             gurdyOne.onComplete = () => {
                 this.sound(`mobDeath${this.generateRandNum(4)}`, false);
-                body.textures = this.sheets.death;
-                body.scale.set(3);
-                body.animationSpeed = 0.6;
+                gurdyBody.textures = this.sheets.death;
+                gurdyBody.scale.set(3);
+                gurdyBody.animationSpeed = 0.6;
                 rooms[currentRoom].removeChild(gurdyOne);
-                body.play();
-                body.onComplete = () => {
-                    body.textures = this.sheets.death;
-                    body.play();
-                    body.dead = true;
-                    body.onComplete = () => {
-                        rooms[currentRoom].removeChild(body);
+                gurdyBody.play();
+                gurdyBody.onComplete = () => {
+                    gurdyBody.textures = this.sheets.death;
+                    gurdyBody.play();
+                    gurdyBody.dead = true;
+                    gurdyBody.onComplete = () => {
+                        rooms[currentRoom].removeChild(gurdyBody);
                         this.boolDeath = true;
                         countMobs.count -= 2;
                     };
                 };
             };
             return; //что бы избежать ошибки
-        } else if (body.freeze) {
-            body.tint = 16716853;
-            body.hp--;
+        } else if (gurdyBody.freeze) {
+            gurdyBody.tint = 16716853;
+            gurdyBody.hp--;
             setTimeout(() => {
-                body.tint = 16777215;
+                gurdyBody.tint = 16777215;
             }, 300);
-            body.freeze = false;
+            gurdyBody.freeze = false;
         } else if (timeOut > 300) {
             if (timeOut < 550 && timeOut % 20 === 0) {
                 gurdyOne.textures = this.sheets.angry;

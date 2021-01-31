@@ -28,9 +28,9 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
     document.addEventListener("keyup", (key) => {
         if (key.code === "KeyB") godMode = true;
         if (godMode) pass += key.code.slice(3, 4);
+        if (!"BAGUVIX".match(new RegExp(pass))) pass = "";
         if (pass.length === 7) {
             godMode = false;
-            console.log(pass);
             if (pass === "BAGUVIX") player.godMode = true;
             pass = "";
         }
