@@ -1,15 +1,17 @@
 import { app } from "../script";
+import pauseScreen from "../otherScripts/pauseScreen";
 
 export default function (PlayerMethod: any /* player : any, box : any*/) {
-    document.addEventListener("mousedown", (e) => mouseShooting(e, true));
+    app.view.addEventListener("mousedown", (e) => mouseShooting(e, true));
 
-    document.addEventListener("mouseup", (e) => mouseShooting(e, false));
-    document.addEventListener("mousemove", (e) => mouseShooting(e, undefined));
-    document.addEventListener("click", (e) => PlayerMethod.playerShooting.bind(PlayerMethod));
-
-    document.addEventListener("keydown", (key) => {
+    app.view.addEventListener("mouseup", (e) => mouseShooting(e, false));
+    app.view.addEventListener("mousemove", (e) => mouseShooting(e, undefined));
+    app.view.addEventListener("click", (e) => PlayerMethod.playerShooting.bind(PlayerMethod));
+    const keyDownShoot: any = (key: KeyboardEvent) => {
         checkKeyCode(key);
-    });
+    };
+    document.addEventListener("keydown", keyDownShoot);
+
     document.addEventListener("keyup", (key) => {
         PlayerMethod.activeKeys[key.code] = false;
     });
@@ -18,8 +20,15 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
         let keyCode = key.keyCode;
         switch (keyCode) {
             case 27:
-                t ? app.ticker.stop() : app.ticker.start();
+                if (t) {
+                    document.removeEventListener("keydown", keyDownShoot);
+                    pauseScreen(true);
+                } else {
+                    document.addEventListener("keydown", keyDownShoot);
+                    pauseScreen(false);
+                }
                 t = !t;
+                break;
             case 40:
                 PlayerMethod.playerShooting.call(PlayerMethod, "down");
                 break;

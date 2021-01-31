@@ -23,7 +23,7 @@ const styleOptions = new PIXI.TextStyle({
 
 let sheet: any;
 
-export default function renderMenu() {
+function renderMenu() {
     const backgroundMenu = PIXI.Sprite.from("./images/menuBack.png");
     backgroundMenu.width = 800;
     backgroundMenu.height = 600;
@@ -45,8 +45,14 @@ export default function renderMenu() {
     });
     newGame.on("click", () => {
         app.stage.removeChildren();
+        const startGameImg = PIXI.Sprite.from("../../../images/startGameBook.png");
+        startGameImg.anchor.set(0.5);
+        startGameImg.x = 400;
+        startGameImg.y = 300;
+        app.stage.addChild(startGameImg);
         soundGame("startMusic", true);
         setTimeout(() => {
+            app.stage.removeChildren();
             startGame();
             soundGame("floorMusic", true);
         }, 4000);
@@ -155,105 +161,6 @@ function renderStats() {
 }
 
 function renderOptions() {
-    const volume = new PIXI.Text("Volume", style);
-    volume.x = 230;
-    volume.y = 90;
-    volume.rotation = -0.1;
-
-    const music = new PIXI.Text("Music", styleOptions);
-    music.x = 160;
-    music.y = 150;
-    music.rotation = -0.1;
-
-    const musicVolumeLeft = PIXI.Sprite.from("../../images/arrow.png");
-    musicVolumeLeft.width = 30;
-    musicVolumeLeft.height = 30;
-    musicVolumeLeft.x = 310;
-    musicVolumeLeft.y = 175;
-    musicVolumeLeft.rotation = 3.3;
-    musicVolumeLeft.interactive = true;
-    musicVolumeLeft.buttonMode = true;
-    musicVolumeLeft.on("click", () => {
-        if (currentMusicVolume > 0) {
-            currentMusicVolume -= 1;
-            musicVolume.removeChildren();
-            musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
-            changeVolume(currentMusicVolume, currentSoundVolume);
-            soundGame("select", true);
-        }
-    });
-
-    const musicVolume = new PIXI.Container();
-    musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
-    musicVolume.x = 365;
-    musicVolume.y = 150;
-    musicVolume.rotation = -0.15;
-
-    const musicVolumeRight = PIXI.Sprite.from("../../images/arrow.png");
-    musicVolumeRight.width = 30;
-    musicVolumeRight.height = 30;
-    musicVolumeRight.x = 420;
-    musicVolumeRight.y = 125;
-    musicVolumeRight.rotation = -0.1;
-    musicVolumeRight.interactive = true;
-    musicVolumeRight.buttonMode = true;
-    musicVolumeRight.on("click", () => {
-        if (currentMusicVolume < 10) {
-            currentMusicVolume += 1;
-            musicVolume.removeChildren();
-            musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
-            changeVolume(currentMusicVolume, currentSoundVolume);
-            soundGame("unselect", true);
-        }
-    });
-
-    const sounds = new PIXI.Text("Sounds", styleOptions);
-    sounds.x = 160;
-    sounds.y = 200;
-    sounds.rotation = -0.1;
-
-    const soundsVolumeLeft = PIXI.Sprite.from("../../images/arrow.png");
-    soundsVolumeLeft.width = 30;
-    soundsVolumeLeft.height = 30;
-    soundsVolumeLeft.x = 315;
-    soundsVolumeLeft.y = 225;
-    soundsVolumeLeft.rotation = 3.3;
-    soundsVolumeLeft.interactive = true;
-    soundsVolumeLeft.buttonMode = true;
-    soundsVolumeLeft.on("click", () => {
-        if (currentSoundVolume > 0) {
-            currentSoundVolume -= 1;
-            soundsVolume.removeChildren();
-            soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
-            changeVolume(currentMusicVolume, currentSoundVolume);
-            soundGame("select", true);
-        }
-    });
-
-    const soundsVolume = new PIXI.Container();
-    soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
-    soundsVolume.x = 370;
-    soundsVolume.y = 195;
-    soundsVolume.rotation = -0.15;
-
-    const soundsVolumeRight = PIXI.Sprite.from("../../images/arrow.png");
-    soundsVolumeRight.width = 30;
-    soundsVolumeRight.height = 30;
-    soundsVolumeRight.x = 425;
-    soundsVolumeRight.y = 175;
-    soundsVolumeRight.rotation = -0.1;
-    soundsVolumeRight.interactive = true;
-    soundsVolumeRight.buttonMode = true;
-    soundsVolumeRight.on("click", () => {
-        if (currentSoundVolume < 10) {
-            currentSoundVolume += 1;
-            soundsVolume.removeChildren();
-            soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
-            changeVolume(currentMusicVolume, currentSoundVolume);
-            soundGame("unselect", true);
-        }
-    });
-
     const controls = new PIXI.Text("Controls", style);
     controls.x = 220;
     controls.y = 260;
@@ -326,31 +233,141 @@ function renderOptions() {
     left.addChild(leftKey);
 
     const optionsList = new PIXI.Container();
-    optionsList.addChild(volume);
-    optionsList.addChild(music);
-    optionsList.addChild(musicVolume);
-    optionsList.addChild(sounds);
-    optionsList.addChild(soundsVolume);
+
     optionsList.addChild(backFromOptions);
-    optionsList.addChild(soundsVolumeRight);
-    optionsList.addChild(soundsVolumeLeft);
-    optionsList.addChild(musicVolumeRight);
-    optionsList.addChild(musicVolumeLeft);
+
     optionsList.addChild(controls);
     optionsList.addChild(movesControl);
     optionsList.addChild(up);
     optionsList.addChild(right);
     optionsList.addChild(down);
     optionsList.addChild(left);
-
+    optionsList.addChild(renderOptionVolume(150, 95, -0.1));
     app.stage.addChild(optionsList);
+}
+
+function renderOptionVolume(left: number, top: number, rotation: number) {
+    const volume = new PIXI.Text("Volume", style);
+    volume.x = 85;
+    volume.rotation = rotation;
+
+    const music = new PIXI.Text("Music", styleOptions);
+    music.x = 10;
+    music.y = 60;
+    music.rotation = rotation;
+
+    const musicVolumeLeft = PIXI.Sprite.from("../../images/arrow.png");
+    musicVolumeLeft.width = 30;
+    musicVolumeLeft.height = 30;
+    musicVolumeLeft.x = 150;
+    musicVolumeLeft.y = 87;
+    musicVolumeLeft.rotation = 3.3;
+    musicVolumeLeft.interactive = true;
+    musicVolumeLeft.buttonMode = true;
+    musicVolumeLeft.on("click", () => {
+        if (currentMusicVolume > 0) {
+            currentMusicVolume -= 1;
+            musicVolume.removeChildren();
+            musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
+            changeVolume(currentMusicVolume, currentSoundVolume);
+            soundGame("select", true);
+        }
+    });
+
+    const musicVolume = new PIXI.Container();
+    musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
+    musicVolume.x = 205;
+    musicVolume.y = 60;
+    musicVolume.rotation = -0.15;
+
+    const musicVolumeRight = PIXI.Sprite.from("../../images/arrow.png");
+    musicVolumeRight.width = 30;
+    musicVolumeRight.height = 30;
+    musicVolumeRight.x = 260;
+    musicVolumeRight.y = 35;
+    musicVolumeRight.rotation = -0.1;
+    musicVolumeRight.interactive = true;
+    musicVolumeRight.buttonMode = true;
+    musicVolumeRight.on("click", () => {
+        if (currentMusicVolume < 10) {
+            currentMusicVolume += 1;
+            musicVolume.removeChildren();
+            musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
+            changeVolume(currentMusicVolume, currentSoundVolume);
+            soundGame("unselect", true);
+        }
+    });
+
+    const sounds = new PIXI.Text("Sounds", styleOptions);
+    sounds.x = 10;
+    sounds.y = 110;
+    sounds.rotation = -0.1;
+
+    const soundsVolumeLeft = PIXI.Sprite.from("../../images/arrow.png");
+    soundsVolumeLeft.width = 30;
+    soundsVolumeLeft.height = 30;
+    soundsVolumeLeft.x = 150;
+    soundsVolumeLeft.y = 135;
+    soundsVolumeLeft.rotation = 3.3;
+    soundsVolumeLeft.interactive = true;
+    soundsVolumeLeft.buttonMode = true;
+    soundsVolumeLeft.on("click", () => {
+        if (currentSoundVolume > 0) {
+            currentSoundVolume -= 1;
+            soundsVolume.removeChildren();
+            soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
+            changeVolume(currentMusicVolume, currentSoundVolume);
+            soundGame("select", true);
+        }
+    });
+
+    const soundsVolume = new PIXI.Container();
+    soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
+    soundsVolume.x = 210;
+    soundsVolume.y = 110;
+    soundsVolume.rotation = -0.15;
+
+    const soundsVolumeRight = PIXI.Sprite.from("../../images/arrow.png");
+    soundsVolumeRight.width = 30;
+    soundsVolumeRight.height = 30;
+    soundsVolumeRight.x = 265;
+    soundsVolumeRight.y = 85;
+    soundsVolumeRight.rotation = -0.1;
+    soundsVolumeRight.interactive = true;
+    soundsVolumeRight.buttonMode = true;
+    soundsVolumeRight.on("click", () => {
+        if (currentSoundVolume < 10) {
+            currentSoundVolume += 1;
+            soundsVolume.removeChildren();
+            soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
+            changeVolume(currentMusicVolume, currentSoundVolume);
+            soundGame("unselect", true);
+        }
+    });
+
+    const volumeContainer = new PIXI.Container();
+    volumeContainer.width = 330;
+    volumeContainer.height = 150;
+    volumeContainer.x = left;
+    volumeContainer.y = top;
+    volumeContainer.zIndex = 100;
+
+    volumeContainer.addChild(soundsVolumeRight);
+    volumeContainer.addChild(soundsVolumeLeft);
+    volumeContainer.addChild(musicVolumeRight);
+    volumeContainer.addChild(musicVolumeLeft);
+    volumeContainer.addChild(volume);
+    volumeContainer.addChild(music);
+    volumeContainer.addChild(musicVolume);
+    volumeContainer.addChild(sounds);
+    volumeContainer.addChild(soundsVolume);
+    return volumeContainer;
 }
 
 function pressControls(container: PIXI.Container, direction: string, defaultKey: string) {
     container.children[0].alpha = 0;
     const keyPressListener = (e: any) => {
         container.removeChildren();
-        console.log(e);
         if (Object.values(moveControls).indexOf(e.code) === -1 && e.code.match(/Key/)) {
             const text = new PIXI.Text(`${e.code.slice(3)}`, styleOptions);
             text.rotation = -0.1;
@@ -363,3 +380,5 @@ function pressControls(container: PIXI.Container, direction: string, defaultKey:
     };
     document.addEventListener("keypress", keyPressListener);
 }
+
+export { renderMenu, renderOptionVolume };
