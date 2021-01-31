@@ -6,6 +6,7 @@ import tearsSheets from "../CreateSprite/tearsSheets";
 import checkTexture from "../checkBounds/checkTexture";
 import createElement from "../CreateSprite/createGameElement";
 import { soundGame } from "../otherScripts/sound";
+import { AnimateMobType } from "../types/Types";
 
 class Mobs {
     boolDeath: boolean;
@@ -36,7 +37,7 @@ class Mobs {
         countMobs.count += this.name === "door" ? 0 : this.mob.length;
         this.sheets = this.mob[0].sheets;
 
-        const animateBullets = tearsSheets();
+        const animateBullets: AnimateMobType = tearsSheets();
         this.sheetsBullets = animateBullets.sheets;
         this.animateBullets = animateBullets;
 

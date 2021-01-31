@@ -15,7 +15,7 @@ class Spotty extends Mobs {
         this.boolDeath = true;
         this.moveCurrent = 0;
     }
-    loadUp() {
+    loadUp(): void {
         this.mob.forEach((spottyOne: any, numSpotty: number) => {
             spottyOne.angryMob = true;
             spottyOne.anchor.set(0.5, 1);
@@ -31,7 +31,7 @@ class Spotty extends Mobs {
             this.moveSpotty();
         });
     }
-    moveSpotty() {
+    moveSpotty(): void {
         this.mob.forEach((spottyOne: any, currentSpotty: number) => {
             if (spottyOne.hp === 0 && this.boolDeath) {
                 spottyOne.animationSpeed = 0.4;
@@ -41,10 +41,10 @@ class Spotty extends Mobs {
                 //анимация нанесения урона
                 this.freezeMob(spottyOne);
             } else {
-                const speedSpotty = 0.6;
-                const randomNum = Math.random() - 0.02;
-                const numWalk = 1000;
-                let wallCollision = false;
+                const speedSpotty: number = 0.6;
+                const randomNum: number = Math.random() - 0.02;
+                const numWalk: number = 1000;
+                let wallCollision: boolean = false;
                 const boundsSpotty = spottyOne.getBounds();
                 const setDirection = (x: number, y: number, direction: string) => {
                     spottyOne.textures = this.sheets[`${direction}Walk`];

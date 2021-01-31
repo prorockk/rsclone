@@ -12,10 +12,10 @@ let player: any = {};
 let playerHead: any = {};
 let countMobs: { count: number } = { count: 0 };
 
-// interface RoomsInterface{
-//     [room:string]: PIXI.Container;
-// };
-const rooms: any = {
+interface RoomsInterface {
+    [room: string]: PIXI.Container | any;
+}
+const rooms: RoomsInterface = {
     inFirstRoom: new PIXI.Container(),
     inSecondRoom: new PIXI.Container(),
     inThirdRoom: new PIXI.Container(),
@@ -43,7 +43,6 @@ BackGroundImage.height = 500;
 BackGroundImage.x = 0;
 BackGroundImage.y = 100;
 BackGroundImage.anchor.set(0, 0);
-BackGroundImage.scale.set(1.5);
 
 function startGame(): void {
     const loader: PIXI.Loader = app.loader;

@@ -1,8 +1,8 @@
 import { AnimateMobType } from "../types/Types";
 import createElement from "./createGameElement";
 
-const tearsSheets = (): any => {
-    const animate: any = {
+const tearsSheets = (): AnimateMobType => {
+    const animate: AnimateMobType = {
         name: "bullet",
         texture: {
             shot: ["tear_pop-0.png"],
