@@ -37,11 +37,11 @@ function renderMenu() {
     newGame.buttonMode = true;
     newGame.on("mouseover", (e: any) => {
         e.target.scale.set(1.1);
-        soundGame("select", true);
+        soundGame("select");
     });
     newGame.on("mouseout", () => {
         newGame.scale.set(1);
-        soundGame("unselect", true);
+        soundGame("unselect");
     });
     newGame.on("click", () => {
         app.stage.removeChildren();
@@ -50,11 +50,12 @@ function renderMenu() {
         startGameImg.x = 400;
         startGameImg.y = 300;
         app.stage.addChild(startGameImg);
-        soundGame("startMusic", true);
+        soundGame("menuMusic", true);
+        soundGame("startMusic");
         setTimeout(() => {
             app.stage.removeChildren();
             startGame();
-            soundGame("floorMusic", true);
+            soundGame("floorMusic");
         }, 4000);
     });
 
@@ -66,16 +67,16 @@ function renderMenu() {
     options.buttonMode = true;
     options.on("mouseover", (e: any) => {
         e.target.scale.set(1.1);
-        soundGame("select", true);
+        soundGame("select");
     });
     options.on("mouseout", () => {
         options.scale.set(1);
-        soundGame("unselect", true);
+        soundGame("unselect");
     });
     options.on("click", () => {
         app.stage.removeChild(menuList);
         renderOptions();
-        soundGame("pageTurn", true);
+        soundGame("pageTurn");
     });
 
     const stat = new PIXI.Text("STATS", style);
@@ -86,16 +87,16 @@ function renderMenu() {
     stat.buttonMode = true;
     stat.on("mouseover", (e: any) => {
         e.target.scale.set(1.1);
-        soundGame("select", true);
+        soundGame("select");
     });
     stat.on("mouseout", () => {
         stat.scale.set(1);
-        soundGame("unselect", true);
+        soundGame("unselect");
     });
     stat.on("click", () => {
         app.stage.removeChild(menuList);
         renderStats();
-        soundGame("pageTurn", true);
+        soundGame("pageTurn");
     });
 
     const exit = new PIXI.Text("X", style);
@@ -122,7 +123,7 @@ function renderMenu() {
             sheet = PIXI.Loader.shared.resources["../../../assets/volume.json"].spritesheet;
         }
         isMusic = true;
-        soundGame("menuMusic", true);
+        soundGame("menuMusic");
     }
 }
 
@@ -150,7 +151,7 @@ function renderStats() {
     back.on("click", () => {
         app.stage.removeChild(statList);
         renderMenu();
-        soundGame("pageTurn", true);
+        soundGame("pageTurn");
     });
 
     const statList = new PIXI.Container();
@@ -175,7 +176,7 @@ function renderOptions() {
     backFromOptions.on("click", () => {
         app.stage.removeChild(optionsList);
         renderMenu();
-        soundGame("pageTurn", true);
+        soundGame("pageTurn");
     });
 
     const movesControl = new PIXI.Sprite(sheet.textures[`controls.png`]);
@@ -270,7 +271,7 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
             musicVolume.removeChildren();
             musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
             changeVolume(currentMusicVolume, currentSoundVolume);
-            soundGame("select", true);
+            soundGame("select");
         }
     });
 
@@ -294,7 +295,7 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
             musicVolume.removeChildren();
             musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
             changeVolume(currentMusicVolume, currentSoundVolume);
-            soundGame("unselect", true);
+            soundGame("unselect");
         }
     });
 
@@ -317,7 +318,7 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
             soundsVolume.removeChildren();
             soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
             changeVolume(currentMusicVolume, currentSoundVolume);
-            soundGame("select", true);
+            soundGame("select");
         }
     });
 
@@ -341,7 +342,7 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
             soundsVolume.removeChildren();
             soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
             changeVolume(currentMusicVolume, currentSoundVolume);
-            soundGame("unselect", true);
+            soundGame("unselect");
         }
     });
 

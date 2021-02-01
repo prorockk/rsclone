@@ -1,8 +1,8 @@
 import { app } from "../script";
-import pauseScreen from "../otherScripts/pauseScreen";
+import { renderPause, closePause } from "../otherScripts/pauseScreen";
 
 export default function (PlayerMethod: any /* player : any, box : any*/) {
-    app.view.addEventListener("mousedown", (e) => mouseShooting(e, true));
+    app.view.onmousedown = (e) => mouseShooting(e, true);
 
     app.view.addEventListener("mouseup", (e) => mouseShooting(e, false));
     app.view.addEventListener("mousemove", (e) => mouseShooting(e, undefined));
@@ -19,13 +19,21 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
     function checkKeyCode(key: KeyboardEvent) {
         let keyCode = key.keyCode;
         switch (keyCode) {
+            case 0:
+                document.removeEventListener("keydown", keyDownShoot);
+                break;
             case 27:
+                if (app.ticker.started && !t) t = !t;
                 if (t) {
-                    document.removeEventListener("keydown", keyDownShoot);
-                    pauseScreen(true);
+                    app.view.onmousedown = null;
+                    // document.removeEventListener("keydown", keyDownShoot);
+                    // document.addEventListener('keydown', closePause)
+                    renderPause(true);
                 } else {
-                    document.addEventListener("keydown", keyDownShoot);
-                    pauseScreen(false);
+                    app.view.onmousedown = (e) => mouseShooting(e, true);
+                    // document.removeEventListener('keydown', closePause)
+                    renderPause(false);
+                    // document.addEventListener("keydown", keyDownShoot);
                 }
                 t = !t;
                 break;
