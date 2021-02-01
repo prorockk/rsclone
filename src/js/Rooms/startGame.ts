@@ -7,12 +7,15 @@ import { updateMap } from "../topPanel/map";
 import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
 
-const PlayerMethod = new createPlayer();
+const PlayerMethod: createPlayer = new createPlayer();
 let player: any = {};
 let playerHead: any = {};
 let countMobs: { count: number } = { count: 0 };
 
-const rooms: any = {
+interface RoomsInterface {
+    [room: string]: PIXI.Container | any;
+}
+const rooms: RoomsInterface = {
     inFirstRoom: new PIXI.Container(),
     inSecondRoom: new PIXI.Container(),
     inThirdRoom: new PIXI.Container(),
@@ -25,25 +28,24 @@ const rooms: any = {
     inTenthRoom: new PIXI.Container(),
 };
 
-let currentRoom = "inFirstRoom";
+let currentRoom: string = "inFirstRoom";
 
 for (let room in rooms) {
     rooms[room].scale.set(1.5);
     rooms[room].sortableChildren = true;
 }
 
-const topPanel = new PIXI.Graphics();
+const topPanel: PIXI.Graphics = new PIXI.Graphics();
 
-const BackGroundImage = PIXI.Sprite.from("../assets/floor.png");
+const BackGroundImage: PIXI.Sprite = PIXI.Sprite.from("../assets/floor.png");
 BackGroundImage.width = 800;
 BackGroundImage.height = 500;
 BackGroundImage.x = 0;
 BackGroundImage.y = 100;
 BackGroundImage.anchor.set(0, 0);
-BackGroundImage.scale.set(1.5);
 
-function startGame() {
-    const loader = app.loader;
+function startGame(): void {
+    const loader: PIXI.Loader = app.loader;
     loader.add("isaac", "../assets/isaac_moving_table.json");
     loader.load(() => {
         createElementsInAllRooms(rooms);
@@ -59,33 +61,19 @@ function startGame() {
     });
 
     app.stage.addChild(BackGroundImage);
-    app.stage.addChild(rooms["inFirstRoom"]); // O N E
+    app.stage.addChild(rooms["inFirstRoom"]);
 
     createTopPanel();
 }
 
-function moveTo(room: string) {
-    app.stage.removeChild(
-        //ПОЧЕМУ НЕЛЬЗЯ УдаляТЬ app.stage.removeChild(rooms[currentRoom])?
-        rooms["inFirstRoom"],
-        rooms["inSecondRoom"],
-        rooms["inThirdRoom"],
-        rooms["inFourthRoom"],
-        rooms["inFifthRoom"],
-        rooms["inSixthRoom"],
-        rooms["inSeventhRoom"],
-        rooms["inEighthRoom"],
-        rooms["inNinthRoom"],
-        rooms["inTenthRoom"]
-    );
+function moveTo(room: string): void {
+    app.stage.removeChild(rooms[currentRoom]);
     app.stage.addChild(rooms[room]);
     app.stage.setChildIndex(rooms[room], 1);
     updateMap(currentRoom, room);
     currentRoom = room;
     countMobs.count = 0;
     loadMobs();
-    //mapCells.tint = 0x7b28a4;
-    //cell.endFill();
 }
 
 export {
@@ -100,11 +88,3 @@ export {
     countMobs,
     BackGroundImage,
 };
-/*
-            {
-                "coords": [266, 170],
-                "url": "instruction.png",
-                "size": [400, 90],
-                "room": "inFirstRoom"
-            },
-*/

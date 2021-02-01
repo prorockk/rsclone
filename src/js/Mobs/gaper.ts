@@ -20,7 +20,7 @@ class Gaper extends Mobs {
             gaperOne.hp = 4;
             gaperOne.angryMob = true;
             gaperOne.freeze = false;
-            gaperOne.damage = 1;
+            gaperOne.damage = 2;
             gaperOne.play();
         });
         app.ticker.add(() => {
@@ -48,6 +48,7 @@ class Gaper extends Mobs {
             }
             if (this.moveCurrent % (100 + currentGap * 30) === 0) {
                 //направление пуль и создание
+                this.sound(`roar${(currentGap % 3) + 1}`, false);
                 gaperOne.textures = this.sheets.angry;
                 gaperOne.play();
                 const bullet = this.shootIntoPlayer(gaperOne);

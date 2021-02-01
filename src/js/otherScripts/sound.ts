@@ -4,7 +4,15 @@ import PIXISound from "pixi-sound";
 let musicVolume: number = storage.get("musicVolume") === null ? 0.5 : storage.get("musicVolume");
 let soundVolume: number = storage.get("soundVolume") === null ? 0.5 : storage.get("soundVolume");
 
-const sound: any = {
+interface sounds {
+    [sound: string]: oneSound;
+}
+interface oneSound {
+    url: string;
+    loop?: boolean;
+}
+
+const sound: sounds = {
     menuMusic: { url: "../assets/music/titleScreenLoop.ogg", loop: true },
     floorMusic: { url: "../assets/music/basementLoop.ogg", loop: true }, // муузыка на этаже
     deathMusic: { url: "../assets/music/death.ogg", loop: true }, // музычка при смерти
@@ -42,9 +50,9 @@ const sound: any = {
     meatJump3: { url: "../assets/sounds/Meat_jumps2.mp3" }, // кусок мяса прыгает
     meatJump4: { url: "../assets/sounds/Meat_jumps3.mp3" }, // кусок мяса прыгает
     meatJump5: { url: "../assets/sounds/Meat_jumps4.mp3" }, // кусок мяса прыгает
-    miligan1: { url: "../assets/sounds/miligan1.mp3" }, // Милиган хнык
-    miligan2: { url: "../assets/sounds/miligan2.mp3" }, // Милиган хнык
-    miligan3: { url: "../assets/sounds/miligan3.mp3" }, // Милиган хнык
+    miligan1: { url: "../assets/sounds/miligan0.mp3" }, // Милиган хнык
+    miligan2: { url: "../assets/sounds/miligan1.mp3" }, // Милиган хнык
+    miligan3: { url: "../assets/sounds/miligan2.mp3" }, // Милиган хнык
     summon: { url: "../assets/sounds/summon.wav" }, // спавн мобов
     roar1: { url: "../assets/sounds/Roar_0.mp3" }, // башка кричит
     roar2: { url: "../assets/sounds/Roar_1.mp3" }, // башка кричит
@@ -55,15 +63,18 @@ for (let name in sound) {
     PIXISound.add(name, sound[name]);
 }
 
-function soundGame(soundName: String, isStop: Boolean) {
-    if (isStop) PIXISound.stop(`${soundName}`);
+function soundGame(soundName: String, isStop: Boolean): void {
+    if (isStop) {
+        PIXISound.stop(`${soundName}`);
+        return;
+    }
     if (soundName.match(/start/)) PIXISound.stop("menuMusic");
     else if (soundName.match(/death|boss/)) PIXISound.stop("floorMusic");
     if (soundName.match(/Music/)) PIXISound.play(`${soundName}`, { volume: musicVolume });
     else PIXISound.play(`${soundName}`, { volume: soundVolume });
 }
 
-function changeVolume(music: number, sounds: number) {
+function changeVolume(music: number, sounds: number): void {
     if (musicVolume === 0) {
         PIXISound.stop("menuMusic");
         PIXISound.play("menuMusic", { volume: music / 10 });

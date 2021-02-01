@@ -2,7 +2,7 @@ import "../styles.css";
 import * as PIXI from "pixi.js";
 import Menu from "./otherScripts/menu";
 
-const app = new PIXI.Application({
+const app: PIXI.Application = new PIXI.Application({
     width: 800, //469
     height: 600, //312
     backgroundColor: 0xaaaaaa,

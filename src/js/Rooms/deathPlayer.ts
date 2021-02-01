@@ -4,11 +4,13 @@ import { BackGroundImage, currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
 import { panelContainer } from "../topPanel/map";
 
-function deathPlayer() {
+function deathPlayer(): void {
     soundGame("isaacDeath", false);
     soundGame("deathMusic", false);
-    const ticker = app.ticker;
-    const blurFilter1 = new PIXI.filters.BlurFilter();
+    soundGame(`flyLoop1`, true);
+    soundGame(`flyLoop2`, true);
+    const ticker: PIXI.Ticker = app.ticker;
+    const blurFilter1: PIXI.filters.BlurFilter = new PIXI.filters.BlurFilter();
     blurFilter1.blur = 0;
     BackGroundImage.filters = [blurFilter1];
     rooms[currentRoom].filters = [blurFilter1];
@@ -18,8 +20,6 @@ function deathPlayer() {
             ticker.speed -= 0.01;
             blurFilter1.blur += 0.1;
         } else {
-            console.log("off");
-
             ticker.stop();
         }
     });
