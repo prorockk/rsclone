@@ -16,7 +16,7 @@ class Potter extends Mobs {
         this.bullets = [];
         this.animateBullets = {};
     }
-    loadUp() {
+    loadUp(): void {
         this.mob.forEach((potterOne: any, current: number) => {
             potterOne.hp = 2;
             potterOne.angryMob = true;
@@ -29,7 +29,7 @@ class Potter extends Mobs {
             this.movePotter();
         });
     }
-    movePotter() {
+    movePotter(): void {
         this.mob.forEach((potterOne: any, countPotter) => {
             if (potterOne.hp === 0 && this.boolDeath) {
                 //удаление мух с запуском поледней анимации

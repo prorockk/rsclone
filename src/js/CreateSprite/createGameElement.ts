@@ -9,8 +9,8 @@ class createElement {
     }
     createGameElement = (paramObj: any) => {
         const { coords, url, size, room } = paramObj;
-        let [positionX, positionY] = coords;
-        let [width, height] = size;
+        let [positionX, positionY]: number[] = coords;
+        let [width, height]: number[] = size;
         const texture: any = PIXI.Texture.from(url);
         const gameElement: any = PIXI.Sprite.from(texture);
         for (let key in paramObj) {

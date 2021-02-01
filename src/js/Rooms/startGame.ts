@@ -6,12 +6,16 @@ import createElementsInAllRooms from "./createRooms";
 import { updateMap } from "../topPanel/map";
 import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
+import { soundGame } from "../otherScripts/sound";
 
-const PlayerMethod = new createPlayer();
+const PlayerMethod: createPlayer = new createPlayer();
 let player: any = {};
 let playerHead: any = {};
 let countMobs: { count: number } = { count: 0 };
 
+// interface RoomsInterface{
+//     [room:string]: PIXI.Container;
+// };
 const rooms: any = {
     inFirstRoom: new PIXI.Container(),
     inSecondRoom: new PIXI.Container(),
@@ -25,16 +29,16 @@ const rooms: any = {
     inTenthRoom: new PIXI.Container(),
 };
 
-let currentRoom = "inFirstRoom";
+let currentRoom: string = "inFirstRoom";
 
 for (let room in rooms) {
     rooms[room].scale.set(1.5);
     rooms[room].sortableChildren = true;
 }
 
-const topPanel = new PIXI.Graphics();
+const topPanel: PIXI.Graphics = new PIXI.Graphics();
 
-const BackGroundImage = PIXI.Sprite.from("../assets/floor.png");
+const BackGroundImage: PIXI.Sprite = PIXI.Sprite.from("../assets/floor.png");
 BackGroundImage.width = 800;
 BackGroundImage.height = 500;
 BackGroundImage.x = 0;
@@ -42,8 +46,8 @@ BackGroundImage.y = 100;
 BackGroundImage.anchor.set(0, 0);
 BackGroundImage.scale.set(1.5);
 
-function startGame() {
-    const loader = app.loader;
+function startGame(): void {
+    const loader: PIXI.Loader = app.loader;
     loader.add("isaac", "../assets/isaac_moving_table.json");
     loader.load(() => {
         createElementsInAllRooms(rooms);
@@ -62,9 +66,10 @@ function startGame() {
     app.stage.addChild(rooms["inFirstRoom"]);
 
     createTopPanel();
+    soundGame("floorMusic", false);
 }
 
-function moveTo(room: string) {
+function moveTo(room: string): void {
     app.stage.removeChild(rooms[currentRoom]);
     app.stage.addChild(rooms[room]);
     app.stage.setChildIndex(rooms[room], 1);

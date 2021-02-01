@@ -4,15 +4,15 @@ import { soundGame } from "../otherScripts/sound";
 import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
 import { player, playerHead } from "../Rooms/startGame";
 
-let isDamage = true;
+let isDamage: boolean = true;
 
-export default function checkTexture(delay: number, bullets: any, shooter?: any | undefined) {
-    let hit = false;
+export default function checkTexture(delay: number, bullets: any, shooter?: number | boolean) {
+    let hit: boolean = false;
 
     const bulletsBounds = bullets.getBounds();
-    let correctForHeadCollisionWidth = 0;
-    let correctForHeadCollisionHeight = 0;
-    let denominator = 2;
+    let correctForHeadCollisionWidth: number = 0;
+    let correctForHeadCollisionHeight: number = 0;
+    let denominator: number = 2;
 
     if (delay > 0) {
         // коллизия игрока с мобами
@@ -39,16 +39,16 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
             }
         }
     }
-    function check(colObj: PIXI.Sprite | any) {
+    function check(colObj: PIXI.Sprite | any): boolean | undefined {
         const haveUrl = colObj.hasOwnProperty("url");
         const haveBullForPlayer = bullets.hasOwnProperty("forPlayer");
         const haveBullForMobs = bullets.hasOwnProperty("forMobs");
         if (haveUrl && colObj.url === "invisibleBlock.png" && (haveBullForMobs || haveBullForPlayer)) {
             return false;
         }
-        let correctForHeadCollisionWidth = 0;
-        let correctForHeadCollisionHeight = 0;
-        let denominator = 2;
+        let correctForHeadCollisionWidth: number = 0;
+        let correctForHeadCollisionHeight: number = 0;
+        let denominator: number = 2;
         if (shooter) {
             // коллизия игрока с выстрелами мобов
             correctForHeadCollisionWidth = 5;
@@ -57,26 +57,26 @@ export default function checkTexture(delay: number, bullets: any, shooter?: any 
         }
         const colObjBounds = colObj.getBounds();
 
-        let itsAngryMob = false;
+        let itsAngryMob: boolean = false;
 
-        const objCenterX = colObjBounds.x + correctForHeadCollisionWidth;
-        const objCenterY = colObjBounds.y + correctForHeadCollisionHeight;
-        const objHalfWidth = colObjBounds.width / denominator;
-        const objHalfHeight = colObjBounds.height / denominator;
+        const objCenterX: number = colObjBounds.x + correctForHeadCollisionWidth;
+        const objCenterY: number = colObjBounds.y + correctForHeadCollisionHeight;
+        const objHalfWidth: number = colObjBounds.width / denominator;
+        const objHalfHeight: number = colObjBounds.height / denominator;
 
-        let vx = bullets.centerX - objCenterX;
-        let vy = bullets.centerY - objCenterY;
+        let vx: number = bullets.centerX - objCenterX;
+        let vy: number = bullets.centerY - objCenterY;
 
-        let combineHalfWidths = bullets.halfWidth + objHalfWidth;
-        let combineHalfHeights = bullets.halfHeight + objHalfHeight;
+        let combineHalfWidths: number = bullets.halfWidth + objHalfWidth;
+        let combineHalfHeights: number = bullets.halfHeight + objHalfHeight;
 
         if (Math.abs(vx) < combineHalfWidths) {
             if (Math.abs(vy) < combineHalfHeights) {
-                const haveAngryMob = colObj.hasOwnProperty("angryMob");
-                const haveMobHp = colObj.hasOwnProperty("hp");
+                const haveAngryMob: boolean = colObj.hasOwnProperty("angryMob");
+                const haveMobHp: boolean = colObj.hasOwnProperty("hp");
                 if (haveAngryMob) itsAngryMob = colObj.angryMob; //если это моб, при косании с которым идет дамаг
 
-                let impulse = [(bullets.centerX - objCenterX) / 150, (bullets.centerY - objCenterY) / 150];
+                let impulse: number[] = [(bullets.centerX - objCenterX) / 150, (bullets.centerY - objCenterY) / 150];
 
                 if (impulse.reduce((acc, num) => Math.abs(acc) + Math.abs(num)) > 0.5) {
                     impulse = impulse.map((num) => num / 2);

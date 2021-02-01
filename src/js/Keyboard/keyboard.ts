@@ -36,7 +36,7 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
         }
         PlayerMethod.activeKeys[key.code] = false;
     });
-    let t = true;
+    let t: boolean = true;
     function checkKeyCode(key: KeyboardEvent) {
         if (key.keyCode === 27) {
             t ? app.ticker.stop() : app.ticker.start();
@@ -46,9 +46,9 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
     }
 
     let intMouse: any;
-    let mouseDown: any;
-    let delayAr: number[];
-    function mouseShooting(delay: MouseEvent, bool: boolean | undefined) {
+    let mouseDown: boolean;
+    //let delayAr: number[];
+    function mouseShooting(delay: MouseEvent, bool: boolean | undefined): void {
         if (bool !== undefined) {
             mouseDown = bool;
         } else if (mouseDown) {

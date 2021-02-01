@@ -14,7 +14,10 @@ class Doors extends Mobs {
             this.mob.forEach((door: any, count) => {
                 if (count === 0) {
                     this.sound("doorClose", false);
-                    currentRoom !== "inTenthRoom" ? this.sound("floorMusic", false) : this.sound("bossMusic", true);
+                    if (currentRoom === "inTenthRoom") {
+                        this.sound("floorMusic", true);
+                        this.sound("bossMusic", false);
+                    }
                 }
                 door.textures = this.sheets[`${door.sheetSpriteStr}Close`];
                 door.play();
@@ -34,8 +37,10 @@ class Doors extends Mobs {
             this.mob.forEach((door: any, count: number) => {
                 if (count === 0) {
                     this.sound("doorOpen", false);
-                    this.sound("floorMusic", true);
-                    this.sound("bossMusic", true);
+                    if (currentRoom === "inTenthRoom") {
+                        this.sound("floorMusic", false);
+                        this.sound("bossMusic", true);
+                    }
                 }
                 door.textures = this.sheets[`${door.sheetSpriteStr}Open`];
                 door.play();

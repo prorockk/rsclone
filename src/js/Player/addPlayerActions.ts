@@ -8,23 +8,23 @@ import { changeLife } from "../topPanel/createLife";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { soundGame } from "../otherScripts/sound";
 
-const addPlayerActions = () => {
+const addPlayerActions = (): void => {
     PlayerMethod.bullets = []; //новые скилы героя
 
-    const animate = tearsSheets();
-    const sheets = animate.sheets;
-    let switcherTears = true;
+    const animate: any = tearsSheets();
+    const sheets: any = animate.sheets;
+    let switcherTears: boolean = true;
     let tearsAr: number[] = [];
 
-    PlayerMethod.playerShooting = function (e: MouseEvent | string) {
+    PlayerMethod.playerShooting = function (e: MouseEvent | string): void {
         if (tearsAr.length > 0 || this.froze || this.head.death) return; //блокирование частых выстрелов
         tearsAr.push(0);
         setTimeout(() => (tearsAr = []), 370);
 
         //добавляем функции для скилов героя
-        let bulletDirection;
-        const bulletSpeed = 8;
-        let tearPosition = 20; //выстрелы из разных глаз
+        let bulletDirection: string;
+        const bulletSpeed: number = 8;
+        let tearPosition: number = 20; //выстрелы из разных глаз
         if (switcherTears) {
             tearPosition = 10;
         }
@@ -34,8 +34,8 @@ const addPlayerActions = () => {
             bulletDirection = e;
         } else {
             // направление с мышки
-            const cursorPositionX = e.offsetX;
-            const cursorPositionY = e.offsetY;
+            const cursorPositionX: number = e.offsetX;
+            const cursorPositionY: number = e.offsetY;
             if (Math.abs(cursorPositionX - this.player.x) > Math.abs(cursorPositionY - this.player.y)) {
                 bulletDirection = cursorPositionX > this.player.x ? "right" : "left";
             } else {
@@ -49,7 +49,7 @@ const addPlayerActions = () => {
 
         this.head.textures = this.playerSheets[`${bulletDirection}See`]; //изменение напрвления головы
         this.head.play();
-        this.head.onComplete = () => {
+        this.head.onComplete = (): void => {
             this.head.textures = this.playerSheets.standSee;
             this.head.play();
         };
@@ -68,6 +68,7 @@ const addPlayerActions = () => {
         if (this.activeKeys["ArrowDown"]) this.playerShooting("down");
         if (this.activeKeys["ArrowLeft"]) this.playerShooting("left");
         if (this.activeKeys["ArrowRight"]) this.playerShooting("right");
+        if (this.player.hasOwnProperty("godMode")) this.head.tint = this.player.tint = 0x008000;
 
         for (let i = 0; i < this.bullets.length; i++) {
             //определение направления выстрела
@@ -126,6 +127,7 @@ const addPlayerActions = () => {
                     this.hp = this.head.hp;
                     return true;
                 }
+                break;
 
             case "belt.png":
                 this.head.textures = this.playerSheets.buff;
@@ -146,6 +148,15 @@ const addPlayerActions = () => {
                     this.head.textures = this.playerSheets.standSee;
                     this.head.play();
                 }, 600);
+                break;
+
+            case "trap_door1.png":
+                this.head.textures = this.playerSheets.win;
+                this.head.anchor.set(0.5);
+                this.head.onComplete = null;
+                soundGame("takeCoin", false);
+                this.head.play();
+                break;
         }
         objectOfGameObjects[currentRoom][url] = [];
         return result;

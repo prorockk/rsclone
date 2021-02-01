@@ -6,14 +6,15 @@ import tearsSheets from "../CreateSprite/tearsSheets";
 import checkTexture from "../checkBounds/checkTexture";
 import createElement from "../CreateSprite/createGameElement";
 import { soundGame } from "../otherScripts/sound";
+import pixiSound from "pixi-sound";
 
 class Mobs {
     boolDeath: boolean;
-    name: any;
+    name: string;
     mob: any[];
     sheets: any;
     animateBullets: any;
-    bullets: any;
+    bullets: any[];
     sheetsBullets: { [x: string]: PIXI.Texture[] };
     shootEffect: any;
     sound: (soundName: String, isStop: Boolean) => void;
@@ -27,7 +28,7 @@ class Mobs {
         this.animateBullets = {};
         this.sound = soundGame;
     }
-    doneLoading() {
+    doneLoading(): void {
         if (
             !objectOfGameObjects[currentRoom].hasOwnProperty(this.name) ||
             objectOfGameObjects[currentRoom][this.name].length === 0
@@ -69,7 +70,7 @@ class Mobs {
             countMobs.count--;
         };
     }
-    freezeMob(mobOne: { freeze: string | boolean | any[]; hp: number; x: number; y: number; tint: number }) {
+    freezeMob(mobOne: { freeze: boolean | number[]; hp: number; x: number; y: number; tint: number }) {
         if (Array.isArray(mobOne.freeze)) {
             mobOne.hp--;
             const impulse = mobOne.freeze.slice();
@@ -88,9 +89,10 @@ class Mobs {
         mobOne.freeze = true;
         mobOne.tint = 16716853;
     }
-    shootIntoPlayer(mobOne: { getBounds: () => any }) {
+    shootIntoPlayer(mobOne: { getBounds: () => PIXI.Rectangle }) {
         const mobsBounds = mobOne.getBounds();
         const playerHeadBounds = playerHead.getBounds();
+        this.animateBullets.propertiesAr.splice(1, 4);
         this.animateBullets.propertiesAr[0].x = mobsBounds.x + mobsBounds.width / 2;
         this.animateBullets.propertiesAr[0].y = mobsBounds.y + mobsBounds.height / 2;
         const [bullet]: any = new createElement().addAnimateElement(this.animateBullets);
@@ -119,7 +121,7 @@ class Mobs {
         this.sound(`mobShoot${this.generateRandNum(3)}`, false);
         return bullet;
     }
-    shootToFourDirection(mobOne: { getBounds: () => any }) {
+    shootToFourDirection(mobOne: { getBounds: () => PIXI.Rectangle }) {
         const mobsBounds = mobOne.getBounds();
         this.animateBullets.propertiesAr[0].x = mobsBounds.x + mobsBounds.width / 2;
         this.animateBullets.propertiesAr[0].y = mobsBounds.y + mobsBounds.height / 2;

@@ -1,10 +1,10 @@
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { countMobs, currentRoom } from "../Rooms/startGame";
 
-export default function checkCollision(player: any, side: string) {
-    const playerBounds = player.getBounds();
+export default function checkCollision(player: any, side: string): boolean | undefined {
+    const playerBounds: any = player.getBounds();
 
-    const roomArray = objectOfGameObjects[currentRoom];
+    const roomArray: any = objectOfGameObjects[currentRoom];
 
     for (let groupEl in roomArray) {
         if (groupEl.match(/door/) && countMobs.count === 0) {

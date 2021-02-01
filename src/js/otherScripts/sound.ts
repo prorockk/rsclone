@@ -4,7 +4,15 @@ import PIXISound from "pixi-sound";
 let musicVolume: number = storage.get("musicVolume") === null ? 0.5 : storage.get("musicVolume");
 let soundVolume: number = storage.get("soundVolume") === null ? 0.5 : storage.get("soundVolume");
 
-const sound: any = {
+interface sounds {
+    [sound: string]: oneSound;
+}
+interface oneSound {
+    url: string;
+    loop?: boolean;
+}
+
+const sound: sounds = {
     menuMusic: { url: "../assets/music/titleScreenLoop.ogg", loop: true },
     floorMusic: { url: "../assets/music/basementLoop.ogg", loop: true }, // муузыка на этаже
     deathMusic: { url: "../assets/music/death.ogg", loop: true }, // музычка при смерти
@@ -66,7 +74,7 @@ function soundGame(soundName: String, isStop: Boolean) {
     else PIXISound.play(`${soundName}`, { volume: soundVolume });
 }
 
-function changeVolume(music: number, sounds: number) {
+function changeVolume(music: number, sounds: number): void {
     if (musicVolume === 0) {
         PIXISound.stop("menuMusic");
         PIXISound.play("menuMusic", { volume: music / 10 });

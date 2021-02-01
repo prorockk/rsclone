@@ -79,13 +79,14 @@ class createPlayer {
         this.checkBounds = new CheckBounds(this.player, this.head);
 
         addPlayerActions();
+
         app.ticker.add((e: number) => {
             this.movePlayer();
             this.updateBullets(e);
             checkTexture(e, this.head, 0);
         });
     };
-    movePlayer() {
+    movePlayer(): void {
         if (this.head.hp < this.hp || this.froze) {
             //анимация нанесения урона
             this.froze = true;
@@ -109,13 +110,12 @@ class createPlayer {
                     this.head.play();
                 } else {
                     this.head.hp % 2 === 0 ? soundGame("hurt2", false) : soundGame("hurt1", false);
-                }
-                // при малом и большом домаге добавляем мигание один раз
+                } // при малом и большом домаге добавляем мигание один раз
                 this.player.alpha = 0;
                 this.head.alpha = 0;
-                let visual = true;
+                let visual: boolean = true;
                 const intTint = setInterval(() => {
-                    const changeAlpha = (current: number) => {
+                    const changeAlpha = (current: number): void => {
                         this.player.alpha = current;
                         this.head.alpha = current;
                         visual = !visual;
@@ -144,7 +144,7 @@ class createPlayer {
 
         this.player.x = this.head.x;
         this.player.y = this.head.y;
-        const playerPlay = (direction: string) => {
+        const playerPlay = (direction: string): void => {
             this.player.textures = this.playerSheets[`${direction}Walk`];
             this.player.play();
         };
