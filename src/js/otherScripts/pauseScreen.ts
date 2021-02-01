@@ -6,9 +6,6 @@ import * as storage from "./storage";
 let musicIsOn = true;
 let soundsIsOn = true;
 
-let currentSoundVolume = storage.get("soundVolume") === null ? 5 : storage.get("soundVolume") * 10;
-let currentMusicVolume = storage.get("musicVolume") === null ? 5 : storage.get("musicVolume") * 10;
-
 export const closePause = (e: KeyboardEvent) => {
     if (e.keyCode === 27) renderPause(false);
 };
@@ -47,18 +44,15 @@ function getPauseScreen() {
     musicOnOff.y = 60;
     musicOnOff.interactive = true;
     musicOnOff.buttonMode = true;
-    musicOnOff.on("click", (e: Event) => {
+    musicOnOff.on("click", () => {
         app.ticker.start();
         musicOnOff.removeChildren();
         if (musicIsOn) {
-            console.log(2);
             musicOnOff.addChild(new PIXI.Text("Off", styleOptions));
-            onOff(true);
+            onOff(true, "music");
         } else {
-            console.log(currentMusicVolume);
-
             musicOnOff.addChild(new PIXI.Text("On", styleOptions));
-            onOff(false);
+            onOff(false, "music");
         }
         setTimeout(() => app.ticker.stop(), 30);
         musicIsOn = !musicIsOn;
@@ -69,6 +63,26 @@ function getPauseScreen() {
     const sounds = new PIXI.Text("Sounds", styleOptions);
     sounds.x = 50;
     sounds.y = 110;
+
+    const soundsOnOff = new PIXI.Container();
+    soundsOnOff.x = 200;
+    soundsOnOff.y = 110;
+    soundsOnOff.interactive = true;
+    soundsOnOff.buttonMode = true;
+    soundsOnOff.on("click", () => {
+        app.ticker.start();
+        soundsOnOff.removeChildren();
+        if (soundsIsOn) {
+            soundsOnOff.addChild(new PIXI.Text("Off", styleOptions));
+            onOff(true, "sounds");
+        } else {
+            soundsOnOff.addChild(new PIXI.Text("On", styleOptions));
+            onOff(false, "dounds");
+        }
+        setTimeout(() => app.ticker.stop(), 30);
+        soundsIsOn = !soundsIsOn;
+    });
+    const soundsOn = new PIXI.Text("On", styleOptions);
 
     const pauseScreen = new PIXI.Container();
     pauseScreen.width = 350;
@@ -87,8 +101,6 @@ function getPauseScreen() {
     resumeGame.interactive = true;
     resumeGame.buttonMode = true;
     resumeGame.on("click", () => {
-        // const t = new KeyboardEvent('keydown', {keyCode: 27})
-        // document.dispatchEvent(t)
         renderPause(false);
     });
 
@@ -100,20 +112,13 @@ function getPauseScreen() {
     mainMenu.on("click", () => {
         const t = new KeyboardEvent("keydown");
         document.dispatchEvent(t);
-        // app.ticker.start()
         app.view.dispatchEvent(new Event("mouseup"));
         app.stage.removeChildren();
         getApp();
-        // setTimeout(()=>app.ticker.destroy(), 100)
     });
     musicOnOff.addChild(musicOn);
-    pauseScreen.addChild(pauseBackground);
-    pauseScreen.addChild(mainMenu);
-    pauseScreen.addChild(resumeGame);
-    pauseScreen.addChild(music);
-    pauseScreen.addChild(sounds);
-    pauseScreen.addChild(musicOnOff);
+    soundsOnOff.addChild(soundsOn);
+    pauseScreen.addChild(pauseBackground, mainMenu, resumeGame, music, sounds, musicOnOff, soundsOnOff);
 
-    // pauseScreen.addChild(renderOptionVolume(0, 0, 0));
     return pauseScreen;
 }

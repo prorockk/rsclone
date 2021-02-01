@@ -99,25 +99,31 @@ function changeVolume(music: number, sounds: number) {
     PIXISound.find(musicArr[0]).volume = musicVolume;
 }
 
-function onOff(mute: boolean, type?: string) {
+function onOff(mute: boolean, type: string) {
     if (mute) {
-        musicVolume = 0;
-        soundVolume = 0;
-        musicArr.forEach((element: string) => {
-            PIXISound.find(element).muted = true;
-        });
-        soundsArr.forEach((element: string) => {
-            PIXISound.find(element).muted = true;
-        });
+        if (type === "music") {
+            musicVolume = 0;
+            musicArr.forEach((element: string) => {
+                PIXISound.find(element).muted = true;
+            });
+        } else {
+            soundVolume = 0;
+            soundsArr.forEach((element: string) => {
+                PIXISound.find(element).muted = true;
+            });
+        }
     } else {
-        musicVolume = storage.get("musicVolume");
-        soundVolume = storage.get("soundVolume");
-        musicArr.forEach((element: string) => {
-            PIXISound.find(element).muted = false;
-        });
-        soundsArr.forEach((element: string) => {
-            PIXISound.find(element).muted = false;
-        });
+        if (type === "music") {
+            musicVolume = storage.get("musicVolume");
+            musicArr.forEach((element: string) => {
+                PIXISound.find(element).muted = false;
+            });
+        } else {
+            soundVolume = storage.get("soundVolume");
+            soundsArr.forEach((element: string) => {
+                PIXISound.find(element).muted = false;
+            });
+        }
     }
 }
 
