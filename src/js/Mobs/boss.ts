@@ -81,6 +81,7 @@ class Gurdy extends Mobs {
             gurdyBody.freeze = false;
         } else if (timeOut > 300) {
             if (timeOut < 550 && timeOut % 20 === 0) {
+                //if (timeOut < 570) this.sound("gurdyShoot2", false)
                 gurdyOne.textures = this.sheets.angry;
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
@@ -94,6 +95,7 @@ class Gurdy extends Mobs {
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
                 gurdyOne.play();
+                //this.sound("gurdyShoot1", false)
                 gurdyOne.onComplete = () => {
                     gurdyOne.textures = this.sheets.stand;
                     gurdyOne.animationSpeed = 0.05;
@@ -160,6 +162,7 @@ class Gurdy extends Mobs {
                 gurdyOne.animationSpeed = 0.05;
                 gurdyOne.loop = true;
                 gurdyOne.play();
+                this.sound("summon", false);
                 const flyAr = FlyClass.create();
                 flyAr.forEach((flyOne: any) => {
                     flyOne.x = gurdyOne.x + (Math.random() - 0.6) * 100;
