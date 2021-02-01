@@ -6,7 +6,7 @@ import { player, playerHead } from "../Rooms/startGame";
 
 let isDamage: boolean = true;
 
-export default function checkTexture(delay: number, bullets: any, shooter?: number | boolean) {
+export default function checkTexture(delay: number, bullets: any, shooter?: number | boolean): boolean | undefined {
     let hit: boolean = false;
 
     const bulletsBounds = bullets.getBounds();
