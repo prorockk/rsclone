@@ -22,7 +22,6 @@ class createElement {
         gameElement.y = positionY;
         gameElement.width = width;
         gameElement.height = height;
-        //свойство какашки
 
         this.sendToObject(gameElement, room, url);
 

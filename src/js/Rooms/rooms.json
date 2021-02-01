@@ -89,6 +89,8 @@
                 "room": "inFirstRoom",
                 "setBool": false,
                 "texture": {
+                    "doorClose": ["door_4.png", "door_5.png", "door_6.png", "door_7.png"],
+                    "doorOpen": ["door_3.png", "door_2.png", "door_1.png", "door_0.png"],
                     "door": ["door_0.png"]
                 },
                 "propertiesAr": [
@@ -2239,7 +2241,10 @@
                 "texture": {
                     "bossClose": ["bossDoor_4.png", "bossDoor_5.png", "bossDoor_6.png", "bossDoor_7.png"],
                     "bossOpen": ["bossDoor_3.png", "bossDoor_2.png", "bossDoor_1.png", "bossDoor_0.png"],
-                    "boss": ["bossDoor_0.png"]
+                    "boss": ["bossDoor_0.png"],
+                    "trap": ["trap_door1.png"],
+                    "trapClose": ["trap_door6.png", "trap_door5.png", "trap_door4.png"],
+                    "trapOpen": ["trap_door3.png", "trap_door2.png", "trap_door1.png"]
                 },
                 "propertiesAr": [
                     {
@@ -2250,6 +2255,84 @@
                         "x": 500,
                         "y": 230,
                         "rotation": "1.57"
+                    },
+                    {
+                        "sheetSpriteStr": "trap",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.3,
+                        "loop": false,
+                        "x": 160,
+                        "y": 290
+                    }
+                ]
+            },
+            {
+                "name": "gurdy",
+                "room": "inTenthRoom",
+                "setBool": false,
+                "texture": {
+                    "move": ["gurdy-bg1.png", "gurdy-bg2.png", "gurdy-bg3.png"],
+                    "laugh": ["gurdy8.png", "gurdy9.png", "gurdy10.png"],
+                    "stand": ["gurdy1.png", "gurdy2.png"],
+                    "fire": ["gurdy5.png", "gurdy6.png"],
+                    "angry": ["gurdy3.png", "gurdy10.png", "gurdy4.png", "gurdy5.png", "gurdy6.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "move",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.08,
+                        "loop": true,
+                        "x": 180,
+                        "y": 210
+                    },
+                    {
+                        "sheetSpriteStr": "stand",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.05,
+                        "loop": true,
+                        "x": 180,
+                        "y": 210
+                    }
+                ]
+            },
+            {
+                "name": "fly",
+                "room": "inTenthRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly2-1.png", "fly1-2.png"],
+                    "simpleFly": ["fly1-1.png", "fly1-2.png"],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "simpleFly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 80,
+                        "y": 210
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 280,
+                        "y": 100
                     }
                 ]
             }
