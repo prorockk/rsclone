@@ -1,5 +1,6 @@
 import { player } from "../Rooms/startGame";
 import { app } from "../script";
+import mouseDefault from "./mouseRightClick";
 
 export default function (PlayerMethod: any /* player : any, box : any*/): void {
     document.addEventListener("mousedown", (e) => {
@@ -11,14 +12,6 @@ export default function (PlayerMethod: any /* player : any, box : any*/): void {
     });
     document.addEventListener("mousemove", (e) => mouseShooting(e, undefined));
     document.addEventListener("click", (e) => PlayerMethod.playerShooting.bind(PlayerMethod));
-
-    function mouseDefault(event: MouseEvent) {
-        if (event.button === 2) {
-            console.log("Type this for GodMode: BAGUVIX");
-            event.preventDefault();
-            return true;
-        }
-    }
 
     document.addEventListener("keydown", (key) => {
         checkKeyCode(key);

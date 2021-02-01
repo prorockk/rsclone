@@ -17,13 +17,9 @@ describe("setParamsTopElement", () => {
     const newHeight = 30;
     const newX = 5;
     const newY = 10;
-    let result: void;
 
-    beforeEach(() => {
-        result = setParamsTopElement(el, newWidth, newHeight, newX, newY);
-    });
     it("should return void", () => {
-        expect(result).toBeUndefined();
+        expect(setParamsTopElement(el, newWidth, newHeight, newX, newY)).toBeUndefined();
     });
     it("should change object values", () => {
         expect(el.width).toBeDefined();
