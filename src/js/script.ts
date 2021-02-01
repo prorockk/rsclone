@@ -1,6 +1,7 @@
 import "../styles.css";
 import * as PIXI from "pixi.js";
 import Menu from "./otherScripts/menu";
+import network from "./otherScripts/network";
 
 const app: PIXI.Application = new PIXI.Application({
     width: 800, //469
@@ -8,6 +9,11 @@ const app: PIXI.Application = new PIXI.Application({
     backgroundColor: 0xaaaaaa,
     antialias: true,
 });
+
+network.get().then((f) => {
+    console.log(f);
+});
+
 // const defaultIcon = "url('examples/assets/bunny.png'),auto";
 // const hoverIcon = "url('examples/assets/bunny_saturated.png'),auto";
 

@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import { countMobs, currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
+import { changeLife } from "../topPanel/createLife";
 import { FlyClass } from "./loadMobs";
 import Mobs from "./Mobs";
 
@@ -10,6 +11,7 @@ class Gurdy extends Mobs {
     sheetsBullets: any;
     bullets: any[];
     animateBullets: any;
+    gurdy: any;
     constructor() {
         super("gurdy");
         this.boolDeath = true;
@@ -19,16 +21,19 @@ class Gurdy extends Mobs {
         this.animateBullets = {};
     }
     loadUp() {
-        const [gurdyBody, gurdyHead] = this.mob;
+        const [gurdy, gurdyBody, gurdyHead] = this.mob;
         gurdyBody.hp = 50;
         gurdyBody.angryMob = true;
         gurdyBody.freeze = false;
         gurdyBody.damage = 2;
         gurdyBody.scale.set(0.8);
-        gurdyBody.play();
+        gurdy.scale.set(0.8);
+        gurdy.play();
+        this.gurdy = gurdy;
         gurdyHead.scale.set(0.8);
         gurdyHead.play();
-        gurdyBody.update(0.5);
+        this.mob.shift();
+
         app.ticker.add(() => {
             this.moveGurdy();
         });
@@ -40,7 +45,7 @@ class Gurdy extends Mobs {
         if (gurdyBody.hp === 0 && this.boolDeath) {
             this.boolDeath = false;
             gurdyOne.textures = this.sheets.fire;
-            gurdyOne.loop = gurdyBody.loop = false;
+            gurdyOne.loop = this.gurdy.loop = false;
             gurdyOne.animationSpeed = 0.05;
             gurdyOne.play();
             this.sound(`miligan${this.generateRandNum(3)}`, false);
@@ -49,32 +54,34 @@ class Gurdy extends Mobs {
             this.bullets.splice(0, this.bullets.length);
             gurdyOne.onComplete = () => {
                 this.sound(`mobDeath${this.generateRandNum(4)}`, false);
-                gurdyBody.textures = this.sheets.death;
-                gurdyBody.scale.set(3);
-                gurdyBody.animationSpeed = 0.6;
+                this.gurdy.textures = this.sheets.death;
+                this.gurdy.scale.set(3);
+                this.gurdy.animationSpeed = 0.6;
                 rooms[currentRoom].removeChild(gurdyOne);
-                gurdyBody.play();
-                gurdyBody.onComplete = () => {
-                    gurdyBody.textures = this.sheets.death;
-                    gurdyBody.play();
-                    gurdyBody.dead = true;
-                    gurdyBody.onComplete = () => {
-                        rooms[currentRoom].removeChild(gurdyBody);
+                this.gurdy.play();
+                this.gurdy.onComplete = () => {
+                    this.gurdy.textures = this.sheets.death;
+                    this.gurdy.play();
+                    this.gurdy.dead = true;
+                    this.gurdy.onComplete = () => {
+                        rooms[currentRoom].removeChild(gurdyBody, this.gurdy);
                         this.boolDeath = true;
-                        countMobs.count -= 2;
+                        countMobs.count -= 3;
                     };
                 };
             };
             return; //что бы избежать ошибки
         } else if (gurdyBody.freeze) {
-            gurdyBody.tint = 16716853;
+            changeLife("boss");
+            this.gurdy.tint = 16716853;
             gurdyBody.hp--;
             setTimeout(() => {
-                gurdyBody.tint = 16777215;
+                this.gurdy.tint = 16777215;
             }, 300);
             gurdyBody.freeze = false;
         } else if (timeOut > 300) {
             if (timeOut < 550 && timeOut % 20 === 0) {
+                //if (timeOut < 570) this.sound("gurdyShoot2", false)
                 gurdyOne.textures = this.sheets.angry;
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
@@ -88,6 +95,7 @@ class Gurdy extends Mobs {
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
                 gurdyOne.play();
+                //this.sound("gurdyShoot1", false)
                 gurdyOne.onComplete = () => {
                     gurdyOne.textures = this.sheets.stand;
                     gurdyOne.animationSpeed = 0.05;
@@ -154,6 +162,7 @@ class Gurdy extends Mobs {
                 gurdyOne.animationSpeed = 0.05;
                 gurdyOne.loop = true;
                 gurdyOne.play();
+                this.sound("summon", false);
                 const flyAr = FlyClass.create();
                 flyAr.forEach((flyOne: any) => {
                     flyOne.x = gurdyOne.x + (Math.random() - 0.6) * 100;

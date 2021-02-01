@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+import { bossPanel, bossMask } from "./createLife";
 
 interface mapCells {
     [mapCellName: string]: PIXI.Graphics;
@@ -70,6 +71,7 @@ function createMap(topPanel: PIXI.Graphics): void {
     cellOfRoom["inFirstRoom"].tint = currentCellColor;
     cellOfRoom["inSecondRoom"].tint = availableCellColor;
     cellOfRoom["inFirstRoom"].alpha = cellOfRoom["inSecondRoom"].alpha = 1;
+
     topPanel.addChild(panelContainer);
 }
 
@@ -109,6 +111,12 @@ function updateMap(previousRoom: string, nextRoom: string): void {
             cellOfRoom["inTenthRoom"].addChild(skull);
         }
         cellOfRoom["inTenthRoom"].alpha = 1;
+        bossPanel.alpha = 0;
+        bossMask.alpha = 0;
+    }
+    if (nextRoom === "inTenthRoom") {
+        bossMask.alpha = 1;
+        bossPanel.alpha = 1;
     }
     cellOfRoom[nextRoom].tint = currentCellColor;
 }

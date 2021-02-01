@@ -2231,6 +2231,13 @@
                 "url": "invisibleBlock.png",
                 "size": [470, 35],
                 "room": "inTenthRoom"
+            },
+            {
+                "coords": [230, 211],
+                "url": "trap_door1.png",
+                "size": [38, 38],
+                "room": "inTenthRoom",
+                "angryMob": false
             }
         ],
         "createAnimateElement": [
@@ -2255,14 +2262,6 @@
                         "x": 500,
                         "y": 230,
                         "rotation": "1.57"
-                    },
-                    {
-                        "sheetSpriteStr": "trap",
-                        "anchor": 0.5,
-                        "animationSpeed": 0.3,
-                        "loop": false,
-                        "x": 160,
-                        "y": 290
                     }
                 ]
             },
@@ -2271,7 +2270,8 @@
                 "room": "inTenthRoom",
                 "setBool": false,
                 "texture": {
-                    "move": ["gurdy-bg1.png", "gurdy-bg2.png", "gurdy-bg3.png"],
+                    "transparent": ["gurdy-transporent.png"],
+                    "move": ["gurdy-bg1.png", "gurdy-bg3.png"],
                     "laugh": ["gurdy8.png", "gurdy9.png", "gurdy10.png"],
                     "stand": ["gurdy1.png", "gurdy2.png"],
                     "fire": ["gurdy5.png", "gurdy6.png"],
@@ -2295,16 +2295,24 @@
                         "anchor": 0.5,
                         "animationSpeed": 0.08,
                         "loop": true,
-                        "x": 180,
-                        "y": 210
+                        "x": 230,
+                        "y": 230
+                    },
+                    {
+                        "sheetSpriteStr": "transparent",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": true,
+                        "x": 262,
+                        "y": 255
                     },
                     {
                         "sheetSpriteStr": "stand",
                         "anchor": 0.5,
                         "animationSpeed": 0.05,
                         "loop": true,
-                        "x": 180,
-                        "y": 210
+                        "x": 233,
+                        "y": 207
                     }
                 ]
             },

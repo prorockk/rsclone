@@ -1,5 +1,6 @@
 import { playerHead } from "../Rooms/startGame";
 import * as PIXI from "pixi.js";
+import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 
 interface HeartsCells {
     [heartGroup: string]: HeartIcon;
@@ -15,10 +16,27 @@ const hearts: HeartsCells = {
     thirdHeart: {},
 };
 
+let bossPanel: PIXI.Sprite;
+let bossMask: PIXI.Graphics;
+
 const heartsNames: string[] = ["firstHeart", "secondHeart", "thirdHeart"];
 
 function createLifeContainer(topPanel: PIXI.Graphics, setParamsTopElement: Function): void {
     const heartsTypes: string[] = ["empty", "half", "full"];
+
+    bossPanel = PIXI.Sprite.from("../../assets/bossPanel.png");
+    setParamsTopElement(bossPanel, 570, 86, 13, 10);
+
+    bossMask = new PIXI.Graphics();
+    bossMask.beginFill(0x800000);
+    bossMask.lineStyle(1, 0x000000, 0);
+    bossMask.drawRoundedRect(212, 51, 216.5, 9, 5);
+    bossMask.endFill();
+
+    bossMask.alpha = 0;
+    bossPanel.alpha = 0;
+
+    topPanel.addChild(bossPanel, bossMask);
 
     const heartsUrl: string[] = ["../../assets/heart.png", "../../assets/heartHalf.png", "../../assets/heartFull.png"];
     const lifeLabel: PIXI.Sprite = PIXI.Sprite.from("../../assets/lifeLabel.png");
@@ -35,7 +53,7 @@ function createLifeContainer(topPanel: PIXI.Graphics, setParamsTopElement: Funct
     }
 }
 
-function changeLife(hitPoints: number): void {
+function changeLife(hitPoints: number | string): void {
     switch (hitPoints) {
         case 2:
             for (let healHeart = 0; healHeart < 3; healHeart += 1) {
@@ -90,7 +108,10 @@ function changeLife(hitPoints: number): void {
                 }
             }
             break;
+        case "boss":
+            bossMask.width -= 4.33;
+            bossMask.x += 4.33;
     }
 }
 
-export { createLifeContainer, changeLife };
+export { createLifeContainer, changeLife, bossPanel, bossMask };

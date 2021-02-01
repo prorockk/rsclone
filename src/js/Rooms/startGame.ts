@@ -6,6 +6,7 @@ import createElementsInAllRooms from "./createRooms";
 import { updateMap } from "../topPanel/map";
 import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
+import { soundGame } from "../otherScripts/sound";
 
 const PlayerMethod: createPlayer = new createPlayer();
 let player: any = {};
@@ -64,6 +65,7 @@ function startGame(): void {
     app.stage.addChild(rooms["inFirstRoom"]);
 
     createTopPanel();
+    soundGame("floorMusic", false);
 }
 
 function moveTo(room: string): void {

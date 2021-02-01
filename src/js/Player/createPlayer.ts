@@ -79,6 +79,7 @@ class createPlayer {
         this.checkBounds = new CheckBounds(this.player, this.head);
 
         addPlayerActions();
+
         app.ticker.add((e: number) => {
             this.movePlayer();
             this.updateBullets(e);
@@ -109,8 +110,7 @@ class createPlayer {
                     this.head.play();
                 } else {
                     this.head.hp % 2 === 0 ? soundGame("hurt2", false) : soundGame("hurt1", false);
-                }
-                // при малом и большом домаге добавляем мигание один раз
+                } // при малом и большом домаге добавляем мигание один раз
                 this.player.alpha = 0;
                 this.head.alpha = 0;
                 let visual: boolean = true;

@@ -69,6 +69,7 @@ const addPlayerActions = (): void => {
         if (this.activeKeys["ArrowDown"]) this.playerShooting("down");
         if (this.activeKeys["ArrowLeft"]) this.playerShooting("left");
         if (this.activeKeys["ArrowRight"]) this.playerShooting("right");
+        if (this.player.hasOwnProperty("godMode")) this.head.tint = this.player.tint = 0x008000;
 
         for (let i = 0; i < this.bullets.length; i++) {
             //определение направления выстрела
@@ -127,6 +128,7 @@ const addPlayerActions = (): void => {
                     this.hp = this.head.hp;
                     return true;
                 }
+                break;
 
             case "belt.png":
                 this.head.textures = this.playerSheets.buff;
@@ -147,6 +149,15 @@ const addPlayerActions = (): void => {
                     this.head.textures = this.playerSheets.standSee;
                     this.head.play();
                 }, 600);
+                break;
+
+            case "trap_door1.png":
+                this.head.textures = this.playerSheets.win;
+                this.head.anchor.set(0.5);
+                this.head.onComplete = null;
+                soundGame("takeCoin", false);
+                this.head.play();
+                break;
         }
         objectOfGameObjects[currentRoom][url] = [];
         return result;
