@@ -17,7 +17,7 @@ class Mobs {
     bullets: any[];
     sheetsBullets: { [x: string]: PIXI.Texture[] };
     shootEffect: any;
-    sound: (soundName: String, isStop: Boolean) => void;
+    sound: (soundName: string, isStop?: Boolean | undefined) => void;
     constructor(name: string) {
         this.name = name;
         this.sheets = {};

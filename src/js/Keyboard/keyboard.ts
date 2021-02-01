@@ -1,21 +1,23 @@
 import { player } from "../Rooms/startGame";
 import { app } from "../script";
 import mouseDefault from "./mouseRightClick";
+import { renderPause, closePause } from "../otherScripts/pauseScreen";
 
-export default function (PlayerMethod: any /* player : any, box : any*/): void {
-    document.addEventListener("mousedown", (e) => {
+export default function (PlayerMethod: any /* player : any, box : any*/) {
+    app.view.onmousedown = (e: MouseEvent) => {
         if (!mouseDefault(e)) mouseShooting(e, true);
-    });
+    };
 
-    document.addEventListener("mouseup", (e) => {
+    app.view.addEventListener("mouseup", (e: MouseEvent) => {
         if (!mouseDefault(e)) mouseShooting(e, false);
     });
-    document.addEventListener("mousemove", (e) => mouseShooting(e, undefined));
-    document.addEventListener("click", (e) => PlayerMethod.playerShooting.bind(PlayerMethod));
-
-    document.addEventListener("keydown", (key) => {
+    app.view.addEventListener("mousemove", (e: MouseEvent) => mouseShooting(e, undefined));
+    app.view.addEventListener("click", (e: MouseEvent) => PlayerMethod.playerShooting.bind(PlayerMethod));
+    const keyDownShoot: any = (key: KeyboardEvent) => {
         checkKeyCode(key);
-    });
+    };
+    document.addEventListener("keydown", keyDownShoot);
+
     let godMode = false;
     let pass: string = "";
     document.addEventListener("keyup", (key) => {
@@ -31,9 +33,24 @@ export default function (PlayerMethod: any /* player : any, box : any*/): void {
     });
     let t: boolean = true;
     function checkKeyCode(key: KeyboardEvent) {
-        if (key.keyCode === 27) {
-            t ? app.ticker.stop() : app.ticker.start();
-            t = !t;
+        let keyCode = key.keyCode;
+        switch (keyCode) {
+            case 0:
+                document.removeEventListener("keydown", keyDownShoot);
+                break;
+            case 27:
+                if (app.ticker.started && !t) {
+                    t = !t;
+                }
+                if (t) {
+                    app.view.onmousedown = null;
+                    renderPause(true);
+                } else {
+                    app.view.onmousedown = (e: MouseEvent) => mouseShooting(e, true);
+                    renderPause(false);
+                }
+                t = !t;
+                break;
         }
         PlayerMethod.activeKeys[key.code] = true;
     }
