@@ -10,10 +10,6 @@ const app: PIXI.Application = new PIXI.Application({
     antialias: true,
 });
 
-network.get().then((f) => {
-    console.log(f);
-});
-
 // const defaultIcon = "url('examples/assets/bunny.png'),auto";
 // const hoverIcon = "url('examples/assets/bunny_saturated.png'),auto";
 

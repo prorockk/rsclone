@@ -49,14 +49,10 @@ BackGroundImage.scale.set(1.5);
 function startGame(): void {
     const loader: PIXI.Loader = app.loader;
     loader.add("isaac", "../assets/isaac_moving_table.json");
-    loader.load(() => {
-        createElementsInAllRooms(rooms);
-        setTimeout(() => {
-            loadMobs();
-        }, 100);
-    });
-    loader.onComplete.add(() => {
-        PlayerMethod.doneLoading(); //РЕАЛИЗОВАТЬ ЗАГРУЗКУ СПРАЙТОВ В ОТДЕЛЬНОМ ПРОМИСЕ
+    loader.load(async function () {
+        await createElementsInAllRooms(rooms);
+        loadMobs();
+        PlayerMethod.doneLoading();
         [player, playerHead] = PlayerMethod.init.call(PlayerMethod);
         controller(PlayerMethod);
         app.stage.addChild(topPanel);
