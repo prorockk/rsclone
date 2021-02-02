@@ -28,7 +28,7 @@ class createPlayer {
     };
     doneLoading = () => {
         //createSheets...........
-        const animate: any = {
+        const animate: AnimateMobType = {
             name: "player",
             texture: {
                 downWalk: ["to1.png", "to2.png", "stand.png"],

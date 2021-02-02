@@ -23,6 +23,7 @@
         "core-js": "^3.6.5",
         "image-webpack-loader": "^7.0.1",
         "pixi-sound": "^3.0.5",
+        "pixi-text-input": "^1.0.5",
         "pixi.js": "^5.3.7",
         "pixi.js-legacy": "^5.3.7"
     },
@@ -95,5 +96,17 @@
         "setupFiles": [
             "jest-canvas-mock"
         ]
-    }
+    },
+    "main": "babel.config.js",
+    "directories": {
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/prorockk/TBoI.git"
+    },
+    "bugs": {
+        "url": "https://github.com/prorockk/TBoI/issues"
+    },
+    "homepage": "https://github.com/prorockk/TBoI#readme"
 }

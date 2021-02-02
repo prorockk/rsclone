@@ -15,6 +15,7 @@ function deathPlayer(): void {
     BackGroundImage.filters = [blurFilter1];
     rooms[currentRoom].filters = [blurFilter1];
     panelContainer.filters = [blurFilter1];
+
     ticker.add(() => {
         if (ticker.speed > 0.1) {
             ticker.speed -= 0.01;

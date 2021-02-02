@@ -10,7 +10,7 @@ import Gurdy from "./boss";
 
 let FlyClass: any;
 
-const loadMobs = () => {
+const loadMobs = (): void => {
     FlyClass = new Fly();
     const GaperClass = new Gaper();
     const MilliganClass = new Milligan();

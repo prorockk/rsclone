@@ -6,7 +6,7 @@ import { player, playerHead } from "../Rooms/startGame";
 
 let isDamage: boolean = true;
 
-export default function checkTexture(delay: number, bullets: any, shooter?: number | boolean) {
+export default function checkTexture(delay: number, bullets: any, shooter?: number | boolean): boolean | undefined {
     let hit: boolean = false;
 
     const bulletsBounds = bullets.getBounds();
@@ -40,9 +40,9 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
         }
     }
     function check(colObj: PIXI.Sprite | any): boolean | undefined {
-        const haveUrl = colObj.hasOwnProperty("url");
-        const haveBullForPlayer = bullets.hasOwnProperty("forPlayer");
-        const haveBullForMobs = bullets.hasOwnProperty("forMobs");
+        const haveUrl: boolean = colObj.hasOwnProperty("url");
+        const haveBullForPlayer: boolean = bullets.hasOwnProperty("forPlayer");
+        const haveBullForMobs: boolean = bullets.hasOwnProperty("forMobs");
         if (haveUrl && colObj.url === "invisibleBlock.png" && (haveBullForMobs || haveBullForPlayer)) {
             return false;
         }

@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { objectOfGameObjects } from "./objectOfGameObjects";
+import { AnimateMobType } from "../types/Types";
 
 class createElement {
     rooms: any;
@@ -11,7 +12,7 @@ class createElement {
         const { coords, url, size, room } = paramObj;
         let [positionX, positionY]: number[] = coords;
         let [width, height]: number[] = size;
-        const texture: any = PIXI.Texture.from(url);
+        const texture: PIXI.Texture = PIXI.Texture.from(url);
         const gameElement: any = PIXI.Sprite.from(texture);
         for (let key in paramObj) {
             gameElement[key] = paramObj[key];
@@ -26,7 +27,7 @@ class createElement {
 
         return gameElement;
     };
-    createAnimateElement = (animateObj: any) => {
+    createAnimateElement = (animateObj: AnimateMobType) => {
         const Sheets: any = {};
         const { texture } = animateObj;
         for (const key in texture) {

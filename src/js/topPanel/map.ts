@@ -80,6 +80,7 @@ function updateMap(previousRoom: string, nextRoom: string): void {
     const mapIconSize: number = 20;
 
     cellOfRoom[previousRoom].tint = visitedCellColor;
+
     if (nextRoom === "inSecondRoom") {
         cellOfRoom["inThirdRoom"].alpha = cellOfRoom["inFifthRoom"].alpha = cellOfRoom["inSeventhRoom"].alpha = 1;
     }

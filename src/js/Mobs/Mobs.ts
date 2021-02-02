@@ -6,7 +6,7 @@ import tearsSheets from "../CreateSprite/tearsSheets";
 import checkTexture from "../checkBounds/checkTexture";
 import createElement from "../CreateSprite/createGameElement";
 import { soundGame } from "../otherScripts/sound";
-import pixiSound from "pixi-sound";
+import { AnimateMobType } from "../types/Types";
 
 class Mobs {
     boolDeath: boolean;
@@ -17,7 +17,7 @@ class Mobs {
     bullets: any[];
     sheetsBullets: { [x: string]: PIXI.Texture[] };
     shootEffect: any;
-    sound: (soundName: String, isStop: Boolean) => void;
+    sound: (soundName: string, isStop?: Boolean | undefined) => void;
     constructor(name: string) {
         this.name = name;
         this.sheets = {};
@@ -39,7 +39,7 @@ class Mobs {
         countMobs.count += this.name === "door" ? 0 : this.mob.length;
         this.sheets = this.mob[0].sheets;
 
-        const animateBullets = tearsSheets();
+        const animateBullets: AnimateMobType = tearsSheets();
         this.sheetsBullets = animateBullets.sheets;
         this.animateBullets = animateBullets;
 

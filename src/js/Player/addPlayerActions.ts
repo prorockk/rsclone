@@ -7,11 +7,12 @@ import createElement from "../CreateSprite/createGameElement";
 import { changeLife } from "../topPanel/createLife";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { soundGame } from "../otherScripts/sound";
+import { AnimateMobType } from "../types/Types";
 
 const addPlayerActions = (): void => {
     PlayerMethod.bullets = []; //новые скилы героя
 
-    const animate: any = tearsSheets();
+    const animate: AnimateMobType = tearsSheets();
     const sheets: any = animate.sheets;
     let switcherTears: boolean = true;
     let tearsAr: number[] = [];
@@ -63,7 +64,7 @@ const addPlayerActions = (): void => {
         switcherTears ? soundGame("tear1", false) : soundGame("tear2", false);
     };
 
-    PlayerMethod.updateBullets = function (e: number) {
+    PlayerMethod.updateBullets = function (e: number): void {
         if (this.activeKeys["ArrowUp"]) this.playerShooting("up");
         if (this.activeKeys["ArrowDown"]) this.playerShooting("down");
         if (this.activeKeys["ArrowLeft"]) this.playerShooting("left");
