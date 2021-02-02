@@ -9,6 +9,7 @@ import { changeLife } from "../topPanel/createLife";
 import createElement from "../CreateSprite/createGameElement";
 import deathPlayer from "../Rooms/deathPlayer";
 import { moveControls } from "../otherScripts/changeControls";
+import { soundGame } from "../otherScripts/sound";
 
 class createPlayer {
     [x: string]: any;
@@ -27,7 +28,7 @@ class createPlayer {
     };
     doneLoading = () => {
         //createSheets...........
-        const animate: any = {
+        const animate: AnimateMobType = {
             name: "player",
             texture: {
                 downWalk: ["to1.png", "to2.png", "stand.png"],
@@ -42,6 +43,7 @@ class createPlayer {
                 hit: ["isaac-hit.png"],
                 buff: ["buff.png"],
                 end: ["end.png"],
+                win: ["win.png"],
             },
             propertiesAr: [
                 {
@@ -71,43 +73,49 @@ class createPlayer {
         head.hp = 6;
         this.player = legs;
         this.head = head;
+        this.head.death = false;
         this.player.speed = this.playerSpeed;
         this.player.play();
         this.checkBounds = new CheckBounds(this.player, this.head);
 
         addPlayerActions();
+
         app.ticker.add((e: number) => {
             this.movePlayer();
             this.updateBullets(e);
             checkTexture(e, this.head, 0);
         });
     };
-    movePlayer() {
+    movePlayer(): void {
         if (this.head.hp < this.hp || this.froze) {
             //анимация нанесения урона
             this.froze = true;
+            if (this.head.death) return;
             if (this.head.hp <= 0) {
                 changeLife(-2); //               функция урон сердце
+                this.head.death = true;
                 this.head.textures = this.playerSheets.end;
                 this.head.anchor.set(0.5);
+                this.head.onComplete = null;
                 this.head.play();
                 deathPlayer();
-                this.head.hp = 1;
             } else if (this.head.hp < this.hp) {
                 changeLife(-1); //               функция урон сердце
                 if (this.head.hp + 1 < this.hp) {
+                    soundGame("hurt3", false);
                     //если большой дамаг то меняем текстурку
-                    changeLife(-2); //               функция урон сердце
+                    changeLife(-1); //               функция урон сердце
                     this.head.textures = this.playerSheets.hit;
                     this.head.anchor.set(0.5);
                     this.head.play();
-                }
-                // при малом и большом домаге добавляем мигание один раз
+                } else {
+                    this.head.hp % 2 === 0 ? soundGame("hurt2", false) : soundGame("hurt1", false);
+                } // при малом и большом домаге добавляем мигание один раз
                 this.player.alpha = 0;
                 this.head.alpha = 0;
-                let visual = true;
+                let visual: boolean = true;
                 const intTint = setInterval(() => {
-                    const changeAlpha = (current: number) => {
+                    const changeAlpha = (current: number): void => {
                         this.player.alpha = current;
                         this.head.alpha = current;
                         visual = !visual;
@@ -133,9 +141,10 @@ class createPlayer {
             this.hp = this.head.hp;
             return;
         }
+
         this.player.x = this.head.x;
         this.player.y = this.head.y;
-        const playerPlay = (direction: string) => {
+        const playerPlay = (direction: string): void => {
             this.player.textures = this.playerSheets[`${direction}Walk`];
             this.player.play();
         };

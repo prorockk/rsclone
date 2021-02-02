@@ -1,12 +1,9 @@
-import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { countMobs, currentRoom, rooms } from "../Rooms/startGame";
 import Mobs from "./Mobs";
 import { FlyClass } from "./loadMobs";
 
 class Milligan extends Mobs {
-    private milligan: any;
-    private milliganSheets: any;
     boolDeath: boolean;
     moveCurrent: number;
     constructor() {
@@ -25,7 +22,7 @@ class Milligan extends Mobs {
             milliganOne.angryMob = true;
             milliganOne.hp = 4;
             milliganOne.freeze = false;
-            milliganOne.damage = 2;
+            milliganOne.damage = 1;
             milliganOne.play();
         });
         app.ticker.add(() => {
@@ -47,6 +44,7 @@ class Milligan extends Mobs {
                 headMill.loop = false;
                 headMill.animationSpeed = 0.15;
                 headMill.play();
+                this.sound(`miligan${this.generateRandNum(3)}`, false);
 
                 headMill.onComplete = () => {
                     const flyAr = FlyClass.create();
@@ -54,6 +52,7 @@ class Milligan extends Mobs {
                         flyOne.x = legsMill.x + (Math.random() - 0.6) * 20;
                         flyOne.y = legsMill.y + (Math.random() - 0.6) * 20;
                     });
+                    this.sound(`mobDeath${this.generateRandNum(4)}`, false);
                     headMill.textures = this.sheets.death;
                     headMill.scale.set(1.6);
                     headMill.animationSpeed = 0.6;
@@ -133,6 +132,9 @@ class Milligan extends Mobs {
                     }
                     legsMill.y += speedMil;
                     legsMill.x += randomNum;
+                }
+                if (this.moveCurrent % numWalk === 150) {
+                    this.sound(`miligan${this.generateRandNum(3)}`, false);
                 }
                 headMill.x = legsMill.x;
                 headMill.y = legsMill.y;

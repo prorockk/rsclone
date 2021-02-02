@@ -21,7 +21,8 @@ const sound: sounds = {
     floorMusic: { url: "../assets/music/basementLoop.ogg", loop: true }, // муузыка на этаже
     deathMusic: { url: "../assets/music/death.ogg", loop: true }, // музычка при смерти
     bossMusic: { url: "../assets/music/bossFight.ogg", loop: true }, // музычка на босе
-    bossEnter: { url: "../assets/sounds/bossEnter.wav" }, // какаху сломали
+    endMusic: { url: "../assets/music/credits.ogg", loop: true },
+    bossEnter: { url: "../assets/sounds/bossEnter.wav" }, //сломали
     flyLoop1: { url: "../assets/sounds/fly.wav", loop: true }, // муха бз
     flyLoop2: { url: "../assets/sounds/fly2.wav", loop: true }, // муха бз
     mobShoot1: { url: "../assets/sounds/bloodshoot0.wav" }, // моб стреляет
@@ -48,17 +49,17 @@ const sound: sounds = {
     takeCoin: { url: "../assets/sounds/coinPickup.wav" }, // лутаем монетку
     heal: { url: "../assets/sounds/heartIntake.wav" }, // лутаем сердечко
     pop: { url: "../assets/sounds/pop.wav" }, // какаху сломали
-    win: { url: "../assets/sounds/superholy.wav" }, // какаху сломали
+    win: { url: "../assets/sounds/superholy.wav" }, // сломали
     boom: { url: "../assets/sounds/explosion.wav" }, // взрыв бомбы
-    fart: { url: "../assets/sounds/Fart.wav" }, // пердёж
+    fart: { url: "../assets/sounds/Fart.wav" }, //
     meatJump1: { url: "../assets/sounds/Meat_jumps0.wav" }, // кусок мяса прыгает
     meatJump2: { url: "../assets/sounds/Meat_jumps1.wav" }, // кусок мяса прыгает
     meatJump3: { url: "../assets/sounds/Meat_jumps2.wav" }, // кусок мяса прыгает
     meatJump4: { url: "../assets/sounds/Meat_jumps3.wav" }, // кусок мяса прыгает
     meatJump5: { url: "../assets/sounds/Meat_jumps4.wav" }, // кусок мяса прыгает
-    miligan1: { url: "../assets/sounds/miligan1.wav" }, // Милиган хнык
-    miligan2: { url: "../assets/sounds/miligan2.wav" }, // Милиган хнык
-    miligan3: { url: "../assets/sounds/miligan3.wav" }, // Милиган хнык
+    miligan1: { url: "../assets/sounds/miligan0.wav" }, // Милиган хнык
+    miligan2: { url: "../assets/sounds/miligan1.wav" }, // Милиган хнык
+    miligan3: { url: "../assets/sounds/miligan2.wav" }, // Милиган хнык
     summon: { url: "../assets/sounds/summon.wav" }, // спавн мобов
     roar1: { url: "../assets/sounds/Roar_0.wav" }, // башка кричит
     roar2: { url: "../assets/sounds/Roar_1.wav" }, // башка кричит
@@ -87,7 +88,7 @@ function soundGame(soundName: string, isStop?: Boolean) {
     }
 }
 
-function changeVolume(music: number, sounds: number) {
+function changeVolume(music: number, sounds: number): void {
     if (musicVolume === 0) {
         PIXISound.stop("menuMusic");
         PIXISound.play("menuMusic", { volume: music / 10 });

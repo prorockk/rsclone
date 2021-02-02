@@ -2,7 +2,6 @@ import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { countMobs, currentRoom, player, rooms } from "../Rooms/startGame";
 import Mobs from "./Mobs";
-import { soundGame } from "../otherScripts/sound";
 
 class Doors extends Mobs {
     boolDeath: boolean;
@@ -13,7 +12,13 @@ class Doors extends Mobs {
     loadUp() {
         if (countMobs.count > 0) {
             this.mob.forEach((door: any, count) => {
-                if (count === 0) soundGame("doorClose", false);
+                if (count === 0) {
+                    this.sound("doorClose", false);
+                    if (currentRoom === "inTenthRoom") {
+                        this.sound("floorMusic", true);
+                        this.sound("bossMusic", false);
+                    }
+                }
                 door.textures = this.sheets[`${door.sheetSpriteStr}Close`];
                 door.play();
             });
@@ -21,6 +26,7 @@ class Doors extends Mobs {
                 this.close();
             });
         }
+
         this.mob.forEach((door: any) => {
             door.scale.set(1.08);
         });
@@ -29,7 +35,13 @@ class Doors extends Mobs {
         if (countMobs.count <= 0 && this.boolDeath) {
             this.boolDeath = false;
             this.mob.forEach((door: any, count: number) => {
-                if (count === 0) soundGame("doorOpen", false);
+                if (count === 0) {
+                    this.sound("doorOpen", false);
+                    if (currentRoom === "inTenthRoom") {
+                        this.sound("floorMusic", false);
+                        this.sound("bossMusic", true);
+                    }
+                }
                 door.textures = this.sheets[`${door.sheetSpriteStr}Open`];
                 door.play();
             });

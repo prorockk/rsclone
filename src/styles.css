@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "DRKrapka";
+    src: url("../assets/fonts/Isaac-Regular.woff");
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -10,9 +15,4 @@ body {
     align-items: center;
     background-image: url("../images/e45a1c8ddd6a1ec1f69c317b6807fc7f30217098.png");
     background-repeat: repeat-x;
-}
-
-@font-face {
-    font-family: "DRKrapka";
-    src: url("../assets/fonts/Isaac-Regular.woff");
 }

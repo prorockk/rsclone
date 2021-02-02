@@ -6,9 +6,13 @@ import createElementsInAllRooms from "./createRooms";
 import { updateMap } from "../topPanel/map";
 import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
+import { soundGame } from "../otherScripts/sound";
 import { createObjectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+interface RoomsInterface {
+    [room: string]: PIXI.Container | any;
+}
 
-let rooms: any;
+let rooms: RoomsInterface;
 let currentRoom: any;
 let countMobs: { count: number };
 let BackGroundImage: PIXI.Sprite;
@@ -51,7 +55,9 @@ function startGame() {
     BackGroundImage.x = 0;
     BackGroundImage.y = 100;
     BackGroundImage.anchor.set(0, 0);
+
     createObjectOfGameObjects();
+
     const loader = app.loader;
     loader.load(() => {
         createElementsInAllRooms(rooms);
@@ -67,33 +73,20 @@ function startGame() {
     });
 
     app.stage.addChild(BackGroundImage);
-    app.stage.addChild(rooms["inFirstRoom"]); // O N E
+    app.stage.addChild(rooms["inFirstRoom"]);
 
     createTopPanel();
+    soundGame("floorMusic", false);
 }
 
-function moveTo(room: string) {
-    app.stage.removeChild(
-        //ПОЧЕМУ НЕЛЬЗЯ УдаляТЬ app.stage.removeChild(rooms[currentRoom])?
-        rooms["inFirstRoom"],
-        rooms["inSecondRoom"],
-        rooms["inThirdRoom"],
-        rooms["inFourthRoom"],
-        rooms["inFifthRoom"],
-        rooms["inSixthRoom"],
-        rooms["inSeventhRoom"],
-        rooms["inEighthRoom"],
-        rooms["inNinthRoom"],
-        rooms["inTenthRoom"]
-    );
+function moveTo(room: string): void {
+    app.stage.removeChild(rooms[currentRoom]);
     app.stage.addChild(rooms[room]);
     app.stage.setChildIndex(rooms[room], 1);
     updateMap(currentRoom, room);
     currentRoom = room;
     countMobs.count = 0;
     loadMobs();
-    //mapCells.tint = 0x7b28a4;
-    //cell.endFill();
 }
 
 export {
@@ -108,11 +101,3 @@ export {
     countMobs,
     BackGroundImage,
 };
-/*
-            {
-                "coords": [266, 170],
-                "url": "instruction.png",
-                "size": [400, 90],
-                "room": "inFirstRoom"
-            },
-*/

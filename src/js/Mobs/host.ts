@@ -74,7 +74,10 @@ class Host extends Mobs {
             } else if (this.moveCurrent % (180 + countHost * 50) === 20) {
                 hostOne.textures = this.sheets.block;
                 hostOne.play();
-                hostOne.onComplete = () => (hostOne.block = true);
+                hostOne.onComplete = () => {
+                    this.sound(`fart`, false);
+                    hostOne.block = true;
+                };
             }
         });
         this.trackShot();

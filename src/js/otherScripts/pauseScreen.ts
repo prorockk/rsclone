@@ -1,14 +1,10 @@
 import * as PIXI from "pixi.js";
 import { app, getApp } from "../script";
 import { onOff, soundGame } from "./sound";
-import * as storage from "./storage";
 
 let musicIsOn = true;
 let soundsIsOn = true;
 
-export const closePause = (e: KeyboardEvent) => {
-    if (e.keyCode === 27) renderPause(false);
-};
 const style = new PIXI.TextStyle({
     fontSize: 40,
     fontFamily: "DRKrapka",
@@ -93,7 +89,7 @@ function getPauseScreen() {
     const pauseBackground = PIXI.Sprite.from("../../../images/pausecard.png");
     pauseBackground.width = 350;
     pauseBackground.height = 350;
-    pauseBackground.zIndex = -1;
+    // pauseBackground.zIndex = -1;
 
     const resumeGame = new PIXI.Text(`Resume Game`, style);
     resumeGame.x = 45;
@@ -101,6 +97,8 @@ function getPauseScreen() {
     resumeGame.interactive = true;
     resumeGame.buttonMode = true;
     resumeGame.on("click", () => {
+        const event = new KeyboardEvent("keydown", { code: "Escape" });
+        document.dispatchEvent(event);
         renderPause(false);
     });
 
@@ -110,8 +108,7 @@ function getPauseScreen() {
     mainMenu.interactive = true;
     mainMenu.buttonMode = true;
     mainMenu.on("click", () => {
-        const t = new KeyboardEvent("keydown");
-        document.dispatchEvent(t);
+        document.dispatchEvent(new KeyboardEvent("keydown", { code: "deleteEvent" }));
         app.view.dispatchEvent(new Event("mouseup"));
         app.stage.removeChildren();
         getApp();

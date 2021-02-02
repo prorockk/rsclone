@@ -1,12 +1,14 @@
 import "../styles.css";
 import * as PIXI from "pixi.js";
 import { renderMenu } from "./otherScripts/menu";
+import renderPreview from "./otherScripts/preview";
+import { startGame } from "./Rooms/startGame";
 
 let app: PIXI.Application;
 
-let is = true;
+let isFirstTime = true;
 
-function getApp() {
+function getApp(isRun?: boolean) {
     if (app) {
         // app.ticker.destroy()
         app.ticker.stop();
@@ -27,12 +29,15 @@ function getApp() {
 
     // app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
     // app.renderer.plugins.interaction.cursorStyles.hover = hoverIcon;
-
-    setTimeout(renderMenu, 500);
+    if (isFirstTime) renderPreview();
+    else {
+        isFirstTime = false;
+        isRun ? startGame() : renderMenu();
+    }
     document.body.appendChild(app.view);
 }
 getApp();
-
+document.body.append("Need to load font");
 document.body.style.height = `${window.innerHeight}px`;
 window.onresize = () => (document.body.style.height = `${window.innerHeight}px`);
 

@@ -1,63 +1,61 @@
+import { player } from "../Rooms/startGame";
 import { app } from "../script";
-import { renderPause, closePause } from "../otherScripts/pauseScreen";
+import mouseDefault from "./mouseRightClick";
+import { renderPause } from "../otherScripts/pauseScreen";
 
 export default function (PlayerMethod: any /* player : any, box : any*/) {
-    app.view.onmousedown = (e) => mouseShooting(e, true);
+    app.view.onmousedown = (e: MouseEvent) => {
+        if (!mouseDefault(e)) mouseShooting(e, true);
+    };
 
-    app.view.addEventListener("mouseup", (e) => mouseShooting(e, false));
-    app.view.addEventListener("mousemove", (e) => mouseShooting(e, undefined));
-    app.view.addEventListener("click", (e) => PlayerMethod.playerShooting.bind(PlayerMethod));
+    app.view.addEventListener("mouseup", (e: MouseEvent) => {
+        if (!mouseDefault(e)) mouseShooting(e, false);
+    });
+    app.view.addEventListener("mousemove", (e: MouseEvent) => mouseShooting(e, undefined));
+    app.view.addEventListener("click", (e: MouseEvent) => PlayerMethod.playerShooting.bind(PlayerMethod));
     const keyDownShoot: any = (key: KeyboardEvent) => {
         checkKeyCode(key);
     };
     document.addEventListener("keydown", keyDownShoot);
 
+    let godMode = false;
+    let pass: string = "";
     document.addEventListener("keyup", (key) => {
+        if (key.code === "KeyB") godMode = true;
+        if (godMode) pass += key.code.slice(3, 4);
+        if (!"BAGUVIX".match(new RegExp(pass))) pass = "";
+        if (pass.length === 7) {
+            godMode = false;
+            if (pass === "BAGUVIX") player.godMode = true;
+            pass = "";
+        }
         PlayerMethod.activeKeys[key.code] = false;
     });
-    let t = true;
+    let t: boolean = true;
     function checkKeyCode(key: KeyboardEvent) {
-        let keyCode = key.keyCode;
+        let keyCode = key.code;
         switch (keyCode) {
-            case 0:
+            case "deleteEvent":
                 document.removeEventListener("keydown", keyDownShoot);
                 break;
-            case 27:
-                if (app.ticker.started && !t) t = !t;
+            case "Escape":
                 if (t) {
                     app.view.onmousedown = null;
-                    // document.removeEventListener("keydown", keyDownShoot);
-                    // document.addEventListener('keydown', closePause)
                     renderPause(true);
                 } else {
-                    app.view.onmousedown = (e) => mouseShooting(e, true);
-                    // document.removeEventListener('keydown', closePause)
+                    app.view.onmousedown = (e: MouseEvent) => mouseShooting(e, true);
                     renderPause(false);
-                    // document.addEventListener("keydown", keyDownShoot);
                 }
                 t = !t;
                 break;
-            case 40:
-                PlayerMethod.playerShooting.call(PlayerMethod, "down");
-                break;
-            case 39:
-                PlayerMethod.playerShooting.call(PlayerMethod, "right");
-                break;
-            case 38:
-                PlayerMethod.playerShooting.call(PlayerMethod, "up");
-                break;
-            case 37:
-                PlayerMethod.playerShooting.call(PlayerMethod, "left");
-                break;
-            default:
-                PlayerMethod.activeKeys[key.code] = true;
-                break;
         }
+        PlayerMethod.activeKeys[key.code] = true;
     }
+
     let intMouse: any;
-    let mouseDown: any;
-    let delayAr: number[];
-    function mouseShooting(delay: MouseEvent, bool: boolean | undefined) {
+    let mouseDown: boolean;
+    //let delayAr: number[];
+    function mouseShooting(delay: MouseEvent, bool: boolean | undefined): void {
         if (bool !== undefined) {
             mouseDown = bool;
         } else if (mouseDown) {

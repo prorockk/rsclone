@@ -1,4 +1,3 @@
-import * as PIXI from "pixi.js";
 import { currentRoom } from "../Rooms/startGame";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 
@@ -10,14 +9,14 @@ class CheckBounds {
         this.head = gameHead;
     }
 
-    init(playerDirection: string) {
+    init(): boolean {
         const changeRoom = (func: () => void) => {
             try {
                 func();
             } catch (e) {
                 let visual = true;
                 const intTint = setInterval(() => {
-                    const changeAlpha = (current: number) => {
+                    const changeAlpha = (current: number): void => {
                         this.player.alpha = current;
                         this.head.alpha = current;
                         visual = !visual;

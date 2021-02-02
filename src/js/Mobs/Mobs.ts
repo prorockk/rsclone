@@ -5,16 +5,19 @@ import { countMobs, currentRoom, playerHead, rooms } from "../Rooms/startGame";
 import tearsSheets from "../CreateSprite/tearsSheets";
 import checkTexture from "../checkBounds/checkTexture";
 import createElement from "../CreateSprite/createGameElement";
+import { soundGame } from "../otherScripts/sound";
+import { AnimateMobType } from "../types/Types";
 
 class Mobs {
     boolDeath: boolean;
-    name: any;
+    name: string;
     mob: any[];
     sheets: any;
     animateBullets: any;
-    bullets: any;
+    bullets: any[];
     sheetsBullets: { [x: string]: PIXI.Texture[] };
     shootEffect: any;
+    sound: (soundName: string, isStop?: Boolean | undefined) => void;
     constructor(name: string) {
         this.name = name;
         this.sheets = {};
@@ -23,8 +26,9 @@ class Mobs {
         this.sheetsBullets = {};
         this.bullets = [];
         this.animateBullets = {};
+        this.sound = soundGame;
     }
-    doneLoading() {
+    doneLoading(): void {
         if (
             !objectOfGameObjects[currentRoom].hasOwnProperty(this.name) ||
             objectOfGameObjects[currentRoom][this.name].length === 0
@@ -35,7 +39,7 @@ class Mobs {
         countMobs.count += this.name === "door" ? 0 : this.mob.length;
         this.sheets = this.mob[0].sheets;
 
-        const animateBullets = tearsSheets();
+        const animateBullets: AnimateMobType = tearsSheets();
         this.sheetsBullets = animateBullets.sheets;
         this.animateBullets = animateBullets;
 
@@ -51,9 +55,11 @@ class Mobs {
         });
         return;
     }
+    generateRandNum = (num: number) => (Math.ceil(Math.random() * 10) % num) + 1;
     deleteMob(mobOne: { textures: any; loop: boolean; play: () => void; onComplete: () => void; dead: boolean }) {
         mobOne.textures = this.sheets.death;
         mobOne.loop = false;
+        this.sound(`mobDeath${this.generateRandNum(4)}`, false);
         this.mob.splice(this.mob.indexOf(mobOne), 1);
         mobOne.play();
         this.boolDeath = false;
@@ -64,7 +70,7 @@ class Mobs {
             countMobs.count--;
         };
     }
-    freezeMob(mobOne: { freeze: string | boolean | any[]; hp: number; x: number; y: number; tint: number }) {
+    freezeMob(mobOne: { freeze: boolean | number[]; hp: number; x: number; y: number; tint: number }) {
         if (Array.isArray(mobOne.freeze)) {
             mobOne.hp--;
             const impulse = mobOne.freeze.slice();
@@ -83,16 +89,17 @@ class Mobs {
         mobOne.freeze = true;
         mobOne.tint = 16716853;
     }
-    shootIntoPlayer(mobOne: { getBounds: () => any }) {
+    shootIntoPlayer(mobOne: { getBounds: () => PIXI.Rectangle }) {
         const mobsBounds = mobOne.getBounds();
         const playerHeadBounds = playerHead.getBounds();
+        this.animateBullets.propertiesAr.splice(1, 4);
         this.animateBullets.propertiesAr[0].x = mobsBounds.x + mobsBounds.width / 2;
         this.animateBullets.propertiesAr[0].y = mobsBounds.y + mobsBounds.height / 2;
         const [bullet]: any = new createElement().addAnimateElement(this.animateBullets);
         const diffX = Math.abs(playerHeadBounds.x - mobsBounds.x);
         const diffY = Math.abs(playerHeadBounds.y - mobsBounds.y);
         if (diffX >= diffY) {
-            //задаем равномерную скорость по кривой
+            //задаем равномерную скорость по вектору
             bullet.bulletSpeedX = (diffX / diffY) * 2;
             bullet.bulletSpeedY = 2;
         } else {
@@ -111,9 +118,10 @@ class Mobs {
         bullet.damage = 1;
         bullet.tint = 9109504;
         this.bullets.push(bullet);
+        this.sound(`mobShoot${this.generateRandNum(3)}`, false);
         return bullet;
     }
-    shootToFourDirection(mobOne: { getBounds: () => any }) {
+    shootToFourDirection(mobOne: { getBounds: () => PIXI.Rectangle }) {
         const mobsBounds = mobOne.getBounds();
         this.animateBullets.propertiesAr[0].x = mobsBounds.x + mobsBounds.width / 2;
         this.animateBullets.propertiesAr[0].y = mobsBounds.y + mobsBounds.height / 2;
@@ -167,11 +175,16 @@ class Mobs {
             bullet.position.x += bullet.bulletSpeedX;
             bullet.position.y += bullet.bulletSpeedY; //удаление пуль
             if (
-                checkTexture(1, this.bullets[i], true) || //для игрока
-                checkTexture(0, this.bullets[i], false) || //для объектов
+                checkTexture(1, bullet, true) || //для игрока
+                checkTexture(0, bullet, false) || //для объектов
                 !this.boolDeath ||
-                playerHead.hp <= 0
+                playerHead.hp <= 0 ||
+                bullet.y < 135 ||
+                bullet.y > 530 ||
+                bullet.x > 735 ||
+                bullet.x < 35
             ) {
+                this.sound("tearSplat", false);
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = this.sheetsBullets.death;
                 deleteBullet.play();
