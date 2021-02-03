@@ -1,4 +1,3 @@
-import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
 import checkTexture from "../checkBounds/checkTexture";
@@ -14,7 +13,7 @@ const addPlayerActions = (): void => {
     PlayerMethod.bullets = [];
 
     const animate: AnimateMobType = tearsSheets();
-    const sheets: any = animate.sheets;
+    const { sheets } = animate;
     let switcherTears: boolean = true;
     let tearsAr: number[] = [];
 
@@ -63,10 +62,10 @@ const addPlayerActions = (): void => {
     };
 
     PlayerMethod.updateBullets = function (e: number): void {
-        if (this.activeKeys["ArrowUp"]) this.playerShooting("up");
-        if (this.activeKeys["ArrowDown"]) this.playerShooting("down");
-        if (this.activeKeys["ArrowLeft"]) this.playerShooting("left");
-        if (this.activeKeys["ArrowRight"]) this.playerShooting("right");
+        if (this.activeKeys.ArrowUp) this.playerShooting("up");
+        if (this.activeKeys.ArrowDown) this.playerShooting("down");
+        if (this.activeKeys.ArrowLeft) this.playerShooting("left");
+        if (this.activeKeys.ArrowRight) this.playerShooting("right");
         if (this.player.hasOwnProperty("godMode")) this.head.tint = this.player.tint = 0x008000;
 
         for (let i = 0; i < this.bullets.length; i++) {
@@ -107,13 +106,14 @@ const addPlayerActions = (): void => {
 
     PlayerMethod.buffPlayer = function (item: any): boolean {
         let result: boolean = true;
-        const url: string = item.url;
+        const { url } = item;
         switch (url) {
             case "hp.png":
                 const hp = 6 - this.head.hp;
                 if (hp === 0) {
                     return false;
-                } else if (hp > 0) {
+                }
+                if (hp > 0) {
                     soundGame("heal", false);
                     if (hp === 1) {
                         this.head.hp += 1;

@@ -6,7 +6,7 @@ export default function checkCollision(player: any, side: string): boolean | und
 
     const roomArray: any = gameObjects[currentRoom];
 
-    for (let groupEl in roomArray) {
+    for (const groupEl in roomArray) {
         if (groupEl.match(/door/) && mainCounter.count === 0) {
             continue;
         }

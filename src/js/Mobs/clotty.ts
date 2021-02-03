@@ -3,11 +3,17 @@ import Mobs from "./Mobs";
 
 class Clotty extends Mobs {
     boolDeath: boolean;
+
     moveCurrent: number;
+
     sheetsBullets: any;
+
     bullets: any[];
+
     animateBullets: any;
+
     jump: boolean;
+
     constructor() {
         super("clotty");
         this.boolDeath = true;
@@ -17,6 +23,7 @@ class Clotty extends Mobs {
         this.animateBullets = {};
         this.jump = false;
     }
+
     loadUp() {
         this.mob.forEach((clottyOne: any) => {
             clottyOne.hp = 6;
@@ -30,6 +37,7 @@ class Clotty extends Mobs {
             this.moveClotty();
         });
     }
+
     moveClotty() {
         this.mob.forEach((clottyOne: any, countClotty: number) => {
             const timeOut = this.moveCurrent % (130 + countClotty * 50);

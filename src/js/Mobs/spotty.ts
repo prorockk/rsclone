@@ -1,16 +1,18 @@
-import * as PIXI from "pixi.js";
 import { app } from "../script";
 import Mobs from "./Mobs";
 import checkTexture from "../checkBounds/checkTexture";
 
 class Spotty extends Mobs {
     boolDeath: boolean;
+
     moveCurrent: number;
+
     constructor() {
         super("spotty");
         this.boolDeath = true;
         this.moveCurrent = 0;
     }
+
     loadUp(): void {
         this.mob.forEach((spottyOne: any) => {
             spottyOne.angryMob = true;
@@ -27,6 +29,7 @@ class Spotty extends Mobs {
             this.moveSpotty();
         });
     }
+
     moveSpotty(): void {
         this.mob.forEach((spottyOne: any, currentSpotty: number) => {
             if (spottyOne.hp === 0 && this.boolDeath) {
@@ -50,7 +53,7 @@ class Spotty extends Mobs {
                 };
                 if (boundsSpotty.y < 160 || boundsSpotty.y > 505 || boundsSpotty.x > 710 || boundsSpotty.x < 60) {
                     wallCollision = true;
-                    this.moveCurrent = this.moveCurrent * 13;
+                    this.moveCurrent *= 13;
                 }
                 if (randomNum < 0 || checkTexture(0, spottyOne, false) || wallCollision) {
                     if (spottyOne.scale.x < 0) spottyOne.scale.x *= -1;

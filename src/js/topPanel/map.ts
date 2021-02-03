@@ -67,9 +67,9 @@ function createMap(topPanel: PIXI.Graphics): void {
         panelContainer.addChild(mapCell);
     }
 
-    cellOfRoom["inFirstRoom"].tint = currentCellColor;
-    cellOfRoom["inSecondRoom"].tint = availableCellColor;
-    cellOfRoom["inFirstRoom"].alpha = cellOfRoom["inSecondRoom"].alpha = 1;
+    cellOfRoom.inFirstRoom.tint = currentCellColor;
+    cellOfRoom.inSecondRoom.tint = availableCellColor;
+    cellOfRoom.inFirstRoom.alpha = cellOfRoom.inSecondRoom.alpha = 1;
 
     topPanel.addChild(panelContainer);
 }
@@ -81,35 +81,35 @@ function updateMap(previousRoom: string, nextRoom: string): void {
     cellOfRoom[previousRoom].tint = visitedCellColor;
 
     if (nextRoom === "inSecondRoom") {
-        cellOfRoom["inThirdRoom"].alpha = cellOfRoom["inFifthRoom"].alpha = cellOfRoom["inSeventhRoom"].alpha = 1;
+        cellOfRoom.inThirdRoom.alpha = cellOfRoom.inFifthRoom.alpha = cellOfRoom.inSeventhRoom.alpha = 1;
     }
     if (nextRoom === "inThirdRoom") {
-        cellOfRoom["inFourthRoom"].alpha = 1;
+        cellOfRoom.inFourthRoom.alpha = 1;
     }
     if (nextRoom === "inFifthRoom") {
-        if (cellOfRoom["inSixthRoom"].alpha !== 1) {
+        if (cellOfRoom.inSixthRoom.alpha !== 1) {
             const crown: PIXI.Sprite = PIXI.Sprite.from("../../assets/crown.png");
             crown.width = crown.height = mapIconSize;
             crown.x = crown.y = 45;
-            cellOfRoom["inSixthRoom"].addChild(crown);
+            cellOfRoom.inSixthRoom.addChild(crown);
         }
-        cellOfRoom["inSixthRoom"].alpha = 1;
+        cellOfRoom.inSixthRoom.alpha = 1;
     }
     if (nextRoom === "inSeventhRoom") {
-        cellOfRoom["inEighthRoom"].alpha = 1;
+        cellOfRoom.inEighthRoom.alpha = 1;
     }
     if (nextRoom === "inEighthRoom") {
-        cellOfRoom["inNinthRoom"].alpha = 1;
+        cellOfRoom.inNinthRoom.alpha = 1;
     }
     if (nextRoom === "inNinthRoom") {
-        if (cellOfRoom["inTenthRoom"].alpha !== 1) {
+        if (cellOfRoom.inTenthRoom.alpha !== 1) {
             const skull: PIXI.Sprite = PIXI.Sprite.from("../../assets/skull.png");
             skull.width = skull.height = mapIconSize;
             skull.x = 45;
             skull.y = 15;
-            cellOfRoom["inTenthRoom"].addChild(skull);
+            cellOfRoom.inTenthRoom.addChild(skull);
         }
-        cellOfRoom["inTenthRoom"].alpha = 1;
+        cellOfRoom.inTenthRoom.alpha = 1;
         bossPanel.alpha = 0;
         bossMask.alpha = 0;
     }

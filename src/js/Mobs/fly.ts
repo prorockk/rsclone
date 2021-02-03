@@ -5,10 +5,12 @@ import createElement from "../CreateSprite/createGameElement";
 
 class Fly extends Mobs {
     boolDeath: boolean;
+
     constructor() {
         super("fly");
         this.boolDeath = true;
     }
+
     loadUp() {
         this.mob.forEach((flyOne: any) => {
             if (flyOne.sheetSpriteStr === "fly") {
@@ -23,11 +25,12 @@ class Fly extends Mobs {
             flyOne.freeze = false;
             flyOne.play();
         });
-        this.sound(`flyLoop1`, false);
+        this.sound("flyLoop1", false);
         app.ticker.add(() => {
             this.moveFly();
         });
     }
+
     create() {
         const randCurrentFly = Math.ceil(Math.random() * 3.5);
         const properties = {
@@ -44,7 +47,7 @@ class Fly extends Mobs {
             room: currentRoom,
             name: "fly",
         };
-        if (this.mob.length === 0) this.sound(`flyLoop1`, false);
+        if (this.mob.length === 0) this.sound("flyLoop1", false);
         const flyAr: any[] = new createElement(rooms).addAnimateElement(animateObj);
         flyAr.forEach((flyOne: any) => {
             flyOne.hp = 3;
@@ -56,12 +59,13 @@ class Fly extends Mobs {
         mainCounter.count += flyAr.length;
         return flyAr;
     }
+
     moveFly() {
         const playerX = player.getBounds().x;
         const playerY = player.getBounds().y;
         this.mob.forEach((flyOne: any) => {
             if (flyOne.hp === 0 && this.boolDeath) {
-                if (this.mob.length === 1) this.sound(`flyLoop1`, true);
+                if (this.mob.length === 1) this.sound("flyLoop1", true);
                 this.deleteMob(flyOne);
             } else if (flyOne.freeze) {
                 this.freezeMob(flyOne);

@@ -51,7 +51,6 @@ export default function renderEndGame(isDeath?: boolean): void {
     });
 
     function leaveFromEndScreen(): void {
-        app.ticker.start();
         app.stage.removeChildren();
         soundGame("endMusic", true);
         soundGame("deathMusic", true);

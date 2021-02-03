@@ -12,7 +12,7 @@ export default function (PlayerMethod: any) {
         if (!mouseDefault(e)) mouseShooting(e, false);
     });
     app.view.addEventListener("mousemove", (e: MouseEvent) => mouseShooting(e, undefined));
-    app.view.addEventListener("click", (e: MouseEvent) => PlayerMethod.playerShooting.bind(PlayerMethod));
+    app.view.addEventListener("click", (e: MouseEvent) => PlayerMethod.playerShooting.call(PlayerMethod, e));
     const keyDownShoot: any = (key: KeyboardEvent) => {
         checkKeyCode(key);
     };
@@ -33,7 +33,7 @@ export default function (PlayerMethod: any) {
     });
     let t: boolean = true;
     function checkKeyCode(key: KeyboardEvent) {
-        let keyCode = key.code;
+        const keyCode = key.code;
         switch (keyCode) {
             case "deleteEvent":
                 document.removeEventListener("keydown", keyDownShoot);

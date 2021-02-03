@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+
 export default function createArrowContainer(topPanel: PIXI.Graphics, setParamsToPixiElem: Function): void {
     const arrowContainer = PIXI.Sprite.from("../../assets/Arrows.png");
     const arrowImage = PIXI.Sprite.from("../../assets/arrowsTear.png");

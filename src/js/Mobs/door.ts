@@ -1,14 +1,17 @@
+import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { mainCounter, currentRoom } from "../Rooms/startGame";
+import { mainCounter, currentRoom, rooms } from "../Rooms/startGame";
 import Mobs from "./Mobs";
-import { objectOfGameObjects } from "../CreateSprite/GameObjects";
+import { gameObjects } from "../CreateSprite/GameObjects";
 
 class Doors extends Mobs {
     boolDeath: boolean;
+
     constructor() {
         super("door");
         this.boolDeath = true;
     }
+
     loadUp() {
         if (mainCounter.count > 0) {
             this.mob.forEach((door: any, count) => {
@@ -31,6 +34,7 @@ class Doors extends Mobs {
             door.scale.set(1.08);
         });
     }
+
     close() {
         if (mainCounter.count <= 0 && this.boolDeath) {
             this.boolDeath = false;
@@ -38,15 +42,14 @@ class Doors extends Mobs {
                 if (count === 0) {
                     this.sound("doorOpen");
                     if (currentRoom === "inTenthRoom") {
-                        this.sound("floorMusic");
-                        this.sound("bossMusic", true);
                         const texture = PIXI.Texture.from("trap_door1.png");
                         const bowl: any = PIXI.Sprite.from(texture);
-                        bowl.x = 233;
-                        bowl.y = 215;
+                        bowl.anchor.set(0.5);
+                        bowl.x = 270;
+                        bowl.y = 230;
                         bowl.url = "trap_door1.png";
                         bowl.angryMob = false;
-                        objectOfGameObjects[currentRoom]["trap_door1.png"] = [bowl];
+                        gameObjects[currentRoom]["trap_door1.png"] = [bowl];
                         rooms[currentRoom].addChild(bowl);
                     }
                 }

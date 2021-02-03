@@ -1,8 +1,7 @@
 import * as PIXI from "pixi.js";
 import { gameObjects } from "../CreateSprite/GameObjects";
 import { soundGame } from "../otherScripts/sound";
-import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
-import { player, playerHead } from "../Rooms/startGame";
+import { currentRoom, PlayerMethod, rooms, player, playerHead } from "../Rooms/startGame";
 
 let isDamage: boolean = true;
 
@@ -28,16 +27,16 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
     const roomArray = gameObjects[currentRoom];
     if (shooter) {
         return check(playerHead);
-    } else {
-        for (let groupEl in roomArray) {
-            for (let i = 0; i < roomArray[groupEl].length; i += 1) {
-                if (typeof shooter === "boolean" && roomArray[groupEl][i].hasOwnProperty("angryMob")) return false;
-                if (check(roomArray[groupEl][i])) {
-                    return true;
-                }
+    }
+    for (const groupEl in roomArray) {
+        for (let i = 0; i < roomArray[groupEl].length; i += 1) {
+            if (typeof shooter === "boolean" && roomArray[groupEl][i].hasOwnProperty("angryMob")) return false;
+            if (check(roomArray[groupEl][i])) {
+                return true;
             }
         }
     }
+
     function check(colObj: PIXI.Sprite | any): boolean | undefined {
         const haveUrl: boolean = colObj.hasOwnProperty("url");
         const haveBullForPlayer: boolean = bullets.hasOwnProperty("forPlayer");
@@ -62,11 +61,11 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
         const objHalfWidth: number = colObjBounds.width / denominator;
         const objHalfHeight: number = colObjBounds.height / denominator;
 
-        let vx: number = bullets.centerX - objCenterX;
-        let vy: number = bullets.centerY - objCenterY;
+        const vx: number = bullets.centerX - objCenterX;
+        const vy: number = bullets.centerY - objCenterY;
 
-        let combineHalfWidths: number = bullets.halfWidth + objHalfWidth;
-        let combineHalfHeights: number = bullets.halfHeight + objHalfHeight;
+        const combineHalfWidths: number = bullets.halfWidth + objHalfWidth;
+        const combineHalfHeights: number = bullets.halfHeight + objHalfHeight;
 
         if (Math.abs(vx) < combineHalfWidths) {
             if (Math.abs(vy) < combineHalfHeights) {
@@ -131,9 +130,8 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
                     setTimeout(() => clearInterval(int), 250);
                 }
                 return true;
-            } else {
-                hit = false;
             }
+            hit = false;
         } else {
             hit = false;
         }

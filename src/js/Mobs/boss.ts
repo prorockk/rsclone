@@ -1,5 +1,3 @@
-import * as PIXI from "pixi.js";
-import { gameObjects } from "../CreateSprite/GameObjects";
 import { mainCounter, currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
 import { changeLife } from "../topPanel/createLife";
@@ -8,11 +6,17 @@ import Mobs from "./Mobs";
 
 class Gurdy extends Mobs {
     boolDeath: boolean;
+
     moveCurrent: number;
+
     sheetsBullets: any;
+
     bullets: any[];
+
     animateBullets: any;
+
     gurdy: any;
+
     constructor() {
         super("gurdy");
         this.boolDeath = true;
@@ -21,6 +25,7 @@ class Gurdy extends Mobs {
         this.bullets = [];
         this.animateBullets = {};
     }
+
     loadUp() {
         const [gurdy, gurdyBody, gurdyHead] = this.mob;
         gurdyBody.hp = 50;
@@ -39,6 +44,7 @@ class Gurdy extends Mobs {
             this.moveGurdy();
         });
     }
+
     moveGurdy() {
         if (this.mob.length === 0) return;
         const [gurdyBody, gurdyOne] = this.mob;
@@ -60,7 +66,9 @@ class Gurdy extends Mobs {
                 rooms[currentRoom].removeChild(gurdyOne);
                 this.gurdy.play();
                 this.gurdy.onComplete = () => {
-                    this.sound(`bosswin`);
+                    this.sound("bossMusic", true);
+                    this.sound("bosswin");
+                    setTimeout(() => this.sound("floorMusic"), 3200);
                     this.gurdy.textures = this.sheets.death;
                     this.gurdy.play();
                     this.gurdy.dead = true;
@@ -73,7 +81,8 @@ class Gurdy extends Mobs {
                 };
             };
             return;
-        } else if (gurdyBody.freeze) {
+        }
+        if (gurdyBody.freeze) {
             changeLife("boss");
             this.gurdy.tint = 16716853;
             gurdyBody.hp--;

@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+
 interface exemplaryPixiItem {
     x: number;
     y: number;

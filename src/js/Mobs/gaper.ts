@@ -3,10 +3,15 @@ import Mobs from "./Mobs";
 
 class Gaper extends Mobs {
     boolDeath: boolean;
+
     moveCurrent: number;
+
     sheetsBullets: any;
+
     bullets: any[];
+
     animateBullets: any;
+
     constructor() {
         super("gaper");
         this.boolDeath = true;
@@ -15,6 +20,7 @@ class Gaper extends Mobs {
         this.bullets = [];
         this.animateBullets = {};
     }
+
     loadUp() {
         this.mob.forEach((gaperOne: any) => {
             gaperOne.hp = 4;
@@ -27,6 +33,7 @@ class Gaper extends Mobs {
             this.moveGaper();
         });
     }
+
     moveGaper() {
         this.mob.forEach((gaperOne: any, currentGap: number) => {
             if (gaperOne.hp === 0 && this.boolDeath) {

@@ -2,24 +2,30 @@ import * as PIXI from "pixi.js";
 import createPlayer from "../Player/createPlayer";
 import { app } from "../script";
 import controller from "../Keyboard/keyboard";
-import createElementsInAllRooms from "./createRooms";
+import { createElementsInAllRooms } from "./createRooms";
 import { updateMap } from "../topPanel/map";
 import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
 import { createGameObjects } from "../CreateSprite/GameObjects";
 import { sendChangeUser } from "../otherScripts/login";
+
 interface RoomsInterface {
     [room: string]: PIXI.Container | any;
 }
 
 let rooms: RoomsInterface;
 let currentRoom: string;
-let mainCounter: {
+const mainCounter: {
     count: number;
     user: { name: string; kills: number; death: number; win: number; [id: string]: string | number };
 } = {
     count: 0,
-    user: { name: "", kills: 0, death: 0, win: 0 },
+    user: {
+        name: "",
+        kills: 0,
+        death: 0,
+        win: 0,
+    },
 };
 let BackGroundImage: PIXI.Sprite;
 let topPanel: PIXI.Graphics;
@@ -48,7 +54,7 @@ function startGame(): void {
 
     currentRoom = "inFirstRoom";
 
-    for (let room in rooms) {
+    for (const room in rooms) {
         rooms[room].scale.set(1.5);
         rooms[room].sortableChildren = true;
     }
@@ -64,8 +70,8 @@ function startGame(): void {
 
     createGameObjects();
 
-    const loader: PIXI.Loader = app.loader;
-    loader.load(async function () {
+    const { loader } = app;
+    loader.load(async () => {
         await createElementsInAllRooms(rooms);
         loadMobs();
         PlayerMethod.doneLoading();
@@ -74,7 +80,7 @@ function startGame(): void {
     });
 
     app.stage.addChild(BackGroundImage);
-    app.stage.addChild(rooms["inFirstRoom"]);
+    app.stage.addChild(rooms.inFirstRoom);
     app.stage.addChild(topPanel);
     createTopPanel();
 }

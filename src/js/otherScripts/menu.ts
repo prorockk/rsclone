@@ -6,6 +6,7 @@ import { changeControls, moveControls } from "./changeControls";
 import * as storage from "./storage";
 import createFontStyle from "./createFontStyle";
 import { setParamsToPixiElem } from "./setParamsToPixiElem";
+import { uploadRooms } from "../Rooms/createRooms";
 
 let currentSoundVolume = storage.get("soundVolume") === null ? 5 : storage.get("soundVolume");
 let currentMusicVolume = storage.get("musicVolume") === null ? 5 : storage.get("musicVolume");
@@ -47,11 +48,14 @@ function renderMenu(): void {
         app.stage.addChild(startGameImg);
         soundGame("menuMusic", true);
         soundGame("startMusic");
-        setTimeout(() => {
-            app.stage.removeChildren();
-            startGame();
-            soundGame("floorMusic");
-        }, 4000);
+        uploadRooms().then(() => {
+            setTimeout(() => {
+                app.stage.removeChildren();
+                soundGame("startMusic", true);
+                startGame();
+                soundGame("floorMusic");
+            }, 3000);
+        });
     });
 
     const options: PIXI.Text = new PIXI.Text("OPTIONS", style);
@@ -111,28 +115,29 @@ interface UserInterface {
 }
 
 function renderStats(): void {
-    const user: UserInterface = mainCounter.user;
+    const { user } = mainCounter;
 
     const statList: PIXI.Container = new PIXI.Container();
 
-    const death: PIXI.Text = new PIXI.Text(`Deaths:   ${user.name}`, style);
-    setParamsToPixiElem(death, 210, 220, -0.1, false, false);
+    const death: PIXI.Text = new PIXI.Text(`Deaths:   ${user.death}`, style);
+    setParamsToPixiElem(death, 200, 220, -0.1, false, false);
 
-    const kills: PIXI.Text = new PIXI.Text(`Kills:   ${user.name}`, style);
-    setParamsToPixiElem(kills, 220, 290, -0.1, false, false);
+    const kills: PIXI.Text = new PIXI.Text(`Kills:   ${user.kills}`, style);
+    setParamsToPixiElem(kills, 210, 290, -0.1, false, false);
 
     const name: PIXI.Text = new PIXI.Text(`${user.name}`, style);
-    setParamsToPixiElem(name, 200, 150, -0.1, false, false);
+    setParamsToPixiElem(name, 300, 150, -0.1, false, false);
     name.anchor.set(0.5);
 
     const wins: PIXI.Text = new PIXI.Text(`Wins:   ${user.win}`, style);
-    setParamsToPixiElem(name, 230, 360, -0.1, false, false);
+    setParamsToPixiElem(wins, 220, 360, -0.1, false, false);
 
     const back: PIXI.Sprite = PIXI.Sprite.from("./assets/back.png");
     setParamsToPixiElem(back, 1, 600, 0, true, true);
     back.anchor.set(0, 1);
     const backBtn = () => {
         app.stage.removeChild(statList);
+        document.onkeyup = null;
         renderMenu();
         soundGame("pageTurn");
     };
@@ -164,6 +169,7 @@ function renderOptions() {
     backFromOptions.anchor.set(0, 1);
     const backBtn = () => {
         app.stage.removeChild(optionsList);
+        document.onkeyup = null;
         renderMenu();
         soundGame("pageTurn");
     };
@@ -181,7 +187,7 @@ function renderOptions() {
     document.onkeyup = (e) => {
         if (e.code === "Escape") backBtn();
     };
-    const movesControl: PIXI.Sprite = new PIXI.Sprite(sheet.textures[`controls.png`]);
+    const movesControl: PIXI.Sprite = new PIXI.Sprite(sheet.textures["controls.png"]);
     setParamsToPixiElem(movesControl, 330, 390, -0.1, false, false);
     movesControl.scale.set(1.5);
 
@@ -251,7 +257,7 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
 
     const musicVolume: PIXI.Container = new PIXI.Container();
     musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
-    setParamsToPixiElem(musicVolume, 205, 30, -0.15, false, false);
+    setParamsToPixiElem(musicVolume, 205, 60, -0.15, false, false);
 
     const musicVolumeRight: PIXI.Sprite = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(musicVolumeRight, 260, 35, -0.1, true, true, 30, 30);

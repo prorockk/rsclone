@@ -18,15 +18,12 @@ export async function findUser(userName: string): Promise<any> {
 
     if (!currentUser) currentUser = await setUser(userName);
 
-    console.log("currentUser:", currentUser);
     storage.set("User", userName);
 
     return currentUser;
 }
 
 export async function sendChangeUser(): Promise<void> {
-    console.log(mainCounter.user);
-
     await sendResponse.set(mainCounter.user);
 }
 

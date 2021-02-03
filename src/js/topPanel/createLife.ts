@@ -56,14 +56,15 @@ function changeLife(hitPoints: number | string): void {
     switch (hitPoints) {
         case 2:
             for (let healHeart = 0; healHeart < 3; healHeart += 1) {
-                if (hearts[heartsNames[healHeart]]["half"].alpha === 0) {
-                    hearts[heartsNames[healHeart]]["half"].alpha = 1;
-                    hearts[heartsNames[healHeart]]["full"].alpha = 1;
+                if (hearts[heartsNames[healHeart]].half.alpha === 0) {
+                    hearts[heartsNames[healHeart]].half.alpha = 1;
+                    hearts[heartsNames[healHeart]].full.alpha = 1;
                     return;
-                } else if (hearts[heartsNames[healHeart]]["full"].alpha === 0) {
-                    hearts[heartsNames[healHeart]]["full"].alpha = 1;
+                }
+                if (hearts[heartsNames[healHeart]].full.alpha === 0) {
+                    hearts[heartsNames[healHeart]].full.alpha = 1;
                     if (healHeart !== 2) {
-                        hearts[heartsNames[healHeart + 1]]["half"].alpha = 1;
+                        hearts[heartsNames[healHeart + 1]].half.alpha = 1;
                     }
                     return;
                 }
@@ -71,36 +72,39 @@ function changeLife(hitPoints: number | string): void {
             break;
         case 1:
             for (let healHeart = 0; healHeart < 3; healHeart += 1) {
-                if (hearts[heartsNames[healHeart]]["half"].alpha === 0) {
-                    hearts[heartsNames[healHeart]]["half"].alpha = 1;
+                if (hearts[heartsNames[healHeart]].half.alpha === 0) {
+                    hearts[heartsNames[healHeart]].half.alpha = 1;
                     return;
-                } else if (hearts[heartsNames[healHeart]]["full"].alpha === 0) {
-                    hearts[heartsNames[healHeart]]["full"].alpha = 1;
+                }
+                if (hearts[heartsNames[healHeart]].full.alpha === 0) {
+                    hearts[heartsNames[healHeart]].full.alpha = 1;
                     return;
                 }
             }
             break;
         case -1:
             for (let damageHeart = 2; damageHeart >= 0; damageHeart -= 1) {
-                if (hearts[heartsNames[damageHeart]]["full"].alpha !== 0) {
-                    hearts[heartsNames[damageHeart]]["full"].alpha = 0;
+                if (hearts[heartsNames[damageHeart]].full.alpha !== 0) {
+                    hearts[heartsNames[damageHeart]].full.alpha = 0;
                     return;
-                } else if (hearts[heartsNames[damageHeart]]["half"].alpha !== 0) {
-                    hearts[heartsNames[damageHeart]]["half"].alpha = 0;
+                }
+                if (hearts[heartsNames[damageHeart]].half.alpha !== 0) {
+                    hearts[heartsNames[damageHeart]].half.alpha = 0;
                     return;
                 }
             }
             break;
         case -2:
             for (let damageHeart = 2; damageHeart >= 0; damageHeart -= 1) {
-                if (hearts[heartsNames[damageHeart]]["full"].alpha !== 0) {
-                    hearts[heartsNames[damageHeart]]["full"].alpha = 0;
-                    hearts[heartsNames[damageHeart]]["half"].alpha = 0;
+                if (hearts[heartsNames[damageHeart]].full.alpha !== 0) {
+                    hearts[heartsNames[damageHeart]].full.alpha = 0;
+                    hearts[heartsNames[damageHeart]].half.alpha = 0;
                     return;
-                } else if (hearts[heartsNames[damageHeart]]["half"].alpha !== 0) {
-                    hearts[heartsNames[damageHeart]]["half"].alpha = 0;
+                }
+                if (hearts[heartsNames[damageHeart]].half.alpha !== 0) {
+                    hearts[heartsNames[damageHeart]].half.alpha = 0;
                     if (damageHeart !== 0) {
-                        hearts[heartsNames[damageHeart - 1]]["full"].alpha = 0;
+                        hearts[heartsNames[damageHeart - 1]].full.alpha = 0;
                     }
                     return;
                 }

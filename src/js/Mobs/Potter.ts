@@ -3,10 +3,15 @@ import Mobs from "./Mobs";
 
 class Potter extends Mobs {
     boolDeath: boolean;
+
     moveCurrent: number;
+
     sheetsBullets: any;
+
     bullets: any[];
+
     animateBullets: any;
+
     constructor() {
         super("potter");
         this.boolDeath = true;
@@ -15,6 +20,7 @@ class Potter extends Mobs {
         this.bullets = [];
         this.animateBullets = {};
     }
+
     loadUp(): void {
         this.mob.forEach((potterOne: any) => {
             potterOne.hp = 2;
@@ -28,6 +34,7 @@ class Potter extends Mobs {
             this.movePotter();
         });
     }
+
     movePotter(): void {
         this.mob.forEach((potterOne: any, countPotter) => {
             if (potterOne.hp === 0 && this.boolDeath) {

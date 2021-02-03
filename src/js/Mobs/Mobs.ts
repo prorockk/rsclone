@@ -10,14 +10,23 @@ import { AnimateMobType } from "../types/Types";
 
 class Mobs {
     boolDeath: boolean;
+
     name: string;
+
     mob: any[];
+
     sheets: any;
+
     animateBullets: any;
+
     bullets: any[];
+
     sheetsBullets: { [x: string]: PIXI.Texture[] };
+
     shootEffect: any;
+
     sound: (soundName: string, isStop?: Boolean | undefined) => void;
+
     constructor(name: string) {
         this.name = name;
         this.sheets = {};
@@ -28,6 +37,7 @@ class Mobs {
         this.animateBullets = {};
         this.sound = soundGame;
     }
+
     doneLoading(): void {
         if (!gameObjects[currentRoom].hasOwnProperty(this.name) || gameObjects[currentRoom][this.name].length === 0) {
             return;
@@ -42,6 +52,7 @@ class Mobs {
 
         this.loadUp();
     }
+
     loadUp() {
         this.mob.forEach((mobOne: any) => {
             mobOne.hp = 2;
@@ -50,9 +61,10 @@ class Mobs {
             mobOne.freeze = false;
             mobOne.play();
         });
-        return;
     }
+
     generateRandNum = (num: number) => (Math.ceil(Math.random() * 10) % num) + 1;
+
     deleteMob(mobOne: { textures: any; loop: boolean; play: () => void; onComplete: () => void; dead: boolean }) {
         mobOne.textures = this.sheets.death;
         mobOne.loop = false;
@@ -68,6 +80,7 @@ class Mobs {
             mainCounter.user.kills++;
         };
     }
+
     freezeMob(mobOne: { freeze: boolean | number[]; hp: number; x: number; y: number; tint: number }) {
         if (Array.isArray(mobOne.freeze)) {
             mobOne.hp--;
@@ -86,6 +99,7 @@ class Mobs {
         mobOne.freeze = true;
         mobOne.tint = 16716853;
     }
+
     shootIntoPlayer(mobOne: { getBounds: () => PIXI.Rectangle }) {
         const mobsBounds = mobOne.getBounds();
         const playerHeadBounds = playerHead.getBounds();
@@ -116,6 +130,7 @@ class Mobs {
         this.sound(`mobShoot${this.generateRandNum(3)}`);
         return bullet;
     }
+
     shootToFourDirection(mobOne: { getBounds: () => PIXI.Rectangle }) {
         const mobsBounds = mobOne.getBounds();
         this.animateBullets.propertiesAr[0].x = mobsBounds.x + mobsBounds.width / 2;
@@ -163,6 +178,7 @@ class Mobs {
         );
         return bulletArr;
     }
+
     trackShot() {
         for (let i = 0; i < this.bullets.length; i++) {
             const bullet = this.bullets[i];

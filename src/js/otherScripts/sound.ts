@@ -1,5 +1,5 @@
-import * as storage from "./storage";
 import PIXISound from "pixi-sound";
+import * as storage from "./storage";
 
 interface oneSound {
     url: string;
@@ -48,7 +48,7 @@ const sound: sounds = {
     doorClose: { url: "../assets/sounds/doorClose.wav" },
     isaacDeath: { url: "../assets/sounds/isaacDeath.wav" },
     pageTurn: { url: "../assets/sounds/pageTurn.wav" },
-    takeCoin: { url: "../assets/sounds/coinPickup.wav" },
+    takeCoin: { url: "../assets/sounds/holy.wav" },
     heal: { url: "../assets/sounds/heartIntake.wav" },
     pop: { url: "../assets/sounds/pop.wav" },
     win: { url: "../assets/sounds/superholy.wav" },
@@ -70,7 +70,7 @@ const sound: sounds = {
     bosswin: { url: "../assets/sounds/boswin.wav" },
 };
 
-for (let name in sound) {
+for (const name in sound) {
     PIXISound.add(name, sound[name]);
 }
 
@@ -79,21 +79,17 @@ function soundGame(soundName: string, isStop?: Boolean): void {
         PIXISound.stop(soundName);
         if (soundName.match(/fly/)) soundsArr.pop();
         else musicArr.splice(musicArr.indexOf(soundName), 1);
+    } else if (soundName.match(/Music/)) {
+        PIXISound.play(soundName);
+        musicArr.push(soundName);
+        PIXISound.find(soundName).volume = volumeArr[musicVolume];
     } else {
-        if (soundName.match(/Music/)) {
-            PIXISound.play(soundName);
-            PIXISound.find(soundName).volume = volumeArr[musicVolume];
-            musicArr.push(soundName);
-        } else {
-            PIXISound.play(soundName, { volume: volumeArr[soundVolume] });
-            if (soundName.match(/fly/)) soundsArr.push(soundName);
-        }
+        PIXISound.play(soundName, { volume: volumeArr[soundVolume] });
+        if (soundName.match(/fly/)) soundsArr.push(soundName);
     }
 }
 
 function changeVolume(music: number, sounds: number): void {
-    console.log(volumeArr[musicVolume]);
-
     if (musicVolume === 0) {
         PIXISound.stop("menuMusic");
         PIXISound.play("menuMusic");
@@ -102,7 +98,7 @@ function changeVolume(music: number, sounds: number): void {
     soundVolume = sounds;
     storage.set("musicVolume", musicVolume);
     storage.set("soundVolume", soundVolume);
-    PIXISound.find(musicArr[0]).volume = volumeArr[musicVolume];
+    PIXISound.find("menuMusic").volume = volumeArr[musicVolume];
 }
 
 function onOff(mute: boolean, type: string) {
@@ -118,20 +114,18 @@ function onOff(mute: boolean, type: string) {
                 PIXISound.find(element).muted = true;
             });
         }
+    } else if (type === "music") {
+        musicVolume = storage.get("musicVolume");
+        musicArr.forEach((element: string) => {
+            PIXISound.find(element).muted = false;
+            PIXISound.find(element).volume = volumeArr[musicVolume];
+        });
     } else {
-        if (type === "music") {
-            musicVolume = storage.get("musicVolume");
-            musicArr.forEach((element: string) => {
-                PIXISound.find(element).muted = false;
-                PIXISound.find(element).volume = volumeArr[musicVolume];
-            });
-        } else {
-            soundVolume = storage.get("soundVolume");
-            soundsArr.forEach((element: string) => {
-                PIXISound.find(element).muted = false;
-                PIXISound.find(element).volume = volumeArr[soundVolume];
-            });
-        }
+        soundVolume = storage.get("soundVolume");
+        soundsArr.forEach((element: string) => {
+            PIXISound.find(element).muted = false;
+            PIXISound.find(element).volume = volumeArr[soundVolume];
+        });
     }
 }
 

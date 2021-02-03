@@ -5,16 +5,18 @@ import { AnimateMobType } from "../types/Types";
 
 class createElement {
     rooms: any;
+
     constructor(rooms?: any) {
         this.rooms = rooms;
     }
+
     createGameElement = (paramObj: any) => {
         const { coords, url, size, room } = paramObj;
-        let [positionX, positionY]: number[] = coords;
-        let [width, height]: number[] = size;
+        const [positionX, positionY]: number[] = coords;
+        const [width, height]: number[] = size;
         const texture: PIXI.Texture = PIXI.Texture.from(url);
         const gameElement: any = PIXI.Sprite.from(texture);
-        for (let key in paramObj) {
+        for (const key in paramObj) {
             gameElement[key] = paramObj[key];
         }
         gameElement.anchor.set(0.5);
@@ -27,19 +29,19 @@ class createElement {
 
         return gameElement;
     };
+
     createAnimateElement = (animateObj: AnimateMobType) => {
         const Sheets: any = {};
         const { texture } = animateObj;
         for (const key in texture) {
-            Sheets[key] = texture[key].map((element: string) => {
-                return PIXI.Texture.from(element);
-            });
+            Sheets[key] = texture[key].map((element: string) => PIXI.Texture.from(element));
         }
         if (animateObj.setBool) return Sheets;
         animateObj.sheets = Sheets;
         const mobAr = this.addAnimateElement(animateObj);
         return [Sheets, ...mobAr];
     };
+
     addAnimateElement = (animateObj: any) => {
         const { propertiesAr, sheets, room, name } = animateObj;
 
@@ -62,6 +64,7 @@ class createElement {
         });
         return mobAr;
     };
+
     sendToObject = (gameElement: any, room: string | number, url: string | number) => {
         this.rooms[room].addChild(gameElement);
         if (gameElement.hasOwnProperty("picture")) return;

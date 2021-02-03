@@ -5,12 +5,15 @@ import { FlyClass } from "./loadMobs";
 
 class Milligan extends Mobs {
     boolDeath: boolean;
+
     moveCurrent: number;
+
     constructor() {
         super("milligan");
         this.boolDeath = true;
         this.moveCurrent = 0;
     }
+
     loadUp() {
         this.mob.forEach((milliganOne: any, numMilligan: number) => {
             milliganOne.head = true;
@@ -28,6 +31,7 @@ class Milligan extends Mobs {
             this.moveMilligan();
         });
     }
+
     moveMilligan() {
         this.mob.forEach((milliganOne: any, currentMil: number, mill: any[]) => {
             let legsMill: any;
@@ -66,7 +70,6 @@ class Milligan extends Mobs {
                         mainCounter.user.kills++;
                     };
                 };
-                return;
             } else if (headMill.freeze || legsMill.freeze) {
                 legsMill.freeze ? (headMill.freeze = legsMill.freeze) : (legsMill.freeze = headMill.freeze);
                 this.freezeMob(legsMill);

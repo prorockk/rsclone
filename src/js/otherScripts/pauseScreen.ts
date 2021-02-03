@@ -80,7 +80,7 @@ function getPauseScreen(): PIXI.Container {
     pauseBackground.width = 350;
     pauseBackground.height = 350;
 
-    const resumeGame: PIXI.Text = new PIXI.Text(`Resume Game`, style);
+    const resumeGame: PIXI.Text = new PIXI.Text("Resume Game", style);
     setParamsToPixiElem(resumeGame, 45, 200, 0, true, true);
 
     resumeGame.on("click", () => {
@@ -89,7 +89,7 @@ function getPauseScreen(): PIXI.Container {
         sendChangeUser();
     });
 
-    const mainMenu: PIXI.Text = new PIXI.Text(`Main menu`, style);
+    const mainMenu: PIXI.Text = new PIXI.Text("Main menu", style);
     setParamsToPixiElem(mainMenu, 75, 250, 0, true, true);
 
     mainMenu.on("click", () => {

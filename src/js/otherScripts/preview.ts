@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { soundGame } from "./sound";
-import { renderMenu } from "../otherScripts/menu";
+import { renderMenu } from "./menu";
 import * as user from "./login";
 import { mainCounter } from "../Rooms/startGame";
 import { findUser } from "./login";
@@ -15,21 +15,21 @@ export default function renderPreview(): void {
     setParamsToPixiElem(shadow, 0, 0, 0, false, false, 800, 600);
 
     const logo: PIXI.Sprite = PIXI.Sprite.from("./images/logo.png");
-    setParamsToPixiElem(logo, 80, 30, 0, false, false, 660, 150);
+    setParamsToPixiElem(logo, 400, 100, 0, false, false, 660, 150);
     logo.anchor.set(0.5);
     let countRotation: number = 5 * 10 ** -4;
     app.ticker.add(() => {
         logo.rotation += countRotation;
         countRotation = Math.abs(logo.rotation) > 0.01 ? countRotation * -1 : countRotation;
-        logo.rotation = logo.rotation % 0.02;
+        logo.rotation %= 0.02;
     });
 
     const button: PIXI.Sprite = PIXI.Sprite.from("./assets/controloverlay.png");
     setParamsToPixiElem(button, 800, 600, 0, true, true, 150, 150);
     button.scale.set(1.1);
     button.anchor.set(1, 1);
-    
-    let isaacArray: PIXI.Texture[] = [
+
+    const isaacArray: PIXI.Texture[] = [
         PIXI.Texture.from("./images/filespotlight1.png"),
         PIXI.Texture.from("./images/filespotlight2.png"),
     ];
@@ -37,10 +37,10 @@ export default function renderPreview(): void {
     animatedIsaac.animationSpeed = 0.08;
     setParamsToPixiElem(animatedIsaac, 250, 150, 0, false, false, 300, 300);
 
-    const whoAmI: PIXI.Sprite = PIXI.Sprite.from("./images/whoAmI.png")
-    setParamsToPixiElem(whoAmI,250, 150, 0, false, false, 300, 300);
+    const whoAmI: PIXI.Sprite = PIXI.Sprite.from("./images/whoAmI.png");
+    setParamsToPixiElem(whoAmI, 250, 150, 0, false, false, 300, 300);
 
-    const previewArray: PIXI.Sprite|PIXI.AnimatedSprite[] = [backgroundPreview, logo, shadow, button, whoAmI];
+    const previewArray: any[] = [backgroundPreview, logo, shadow, button, whoAmI];
 
     const start = () => {
         if (input.value.length > 0 && input.value.length < 10 && input.value.match(/[A-Za-z0-9]/)) {
@@ -75,8 +75,8 @@ export default function renderPreview(): void {
 
     async function getCurrentUser() {
         mainCounter.user = await findUser(input.value);
-        renderMenu();
         app.stage.removeChild(...previewArray);
+        renderMenu();
     }
     const userName: string = user.login();
     const input: HTMLInputElement = document.createElement("input");

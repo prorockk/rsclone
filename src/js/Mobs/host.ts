@@ -3,10 +3,15 @@ import Mobs from "./Mobs";
 
 class Host extends Mobs {
     boolDeath: boolean;
+
     moveCurrent: number;
+
     sheetsBullets: any;
+
     bullets: any[];
+
     animateBullets: any;
+
     constructor() {
         super("host");
         this.boolDeath = true;
@@ -15,6 +20,7 @@ class Host extends Mobs {
         this.bullets = [];
         this.animateBullets = {};
     }
+
     loadUp() {
         this.mob.forEach((hostOne: any) => {
             hostOne.hp = 4;
@@ -29,6 +35,7 @@ class Host extends Mobs {
             this.moveGaper();
         });
     }
+
     moveGaper() {
         this.mob.forEach((hostOne: any, countHost: number) => {
             if (hostOne.hp === 0 && this.boolDeath) {

@@ -33,7 +33,7 @@ function createResourcesContainer(topPanel: PIXI.Graphics, setParamsToPixiElem: 
 
 function changeResources(resourceName: string, value: number): void {
     value = Number(resources[resourceName].text) + value;
-    resources[resourceName].text = value <= 9 ? "0" + value : `${value}`;
+    resources[resourceName].text = value <= 9 ? `0${value}` : `${value}`;
 }
 
 export { createResourcesContainer, changeResources };

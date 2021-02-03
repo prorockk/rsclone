@@ -10,7 +10,7 @@ const moveControls: MoveControlsInterface = {
     right: storage.get("right") || "KeyD",
     down: storage.get("down") || "KeyS",
 };
-for (let name in moveControls) {
+for (const name in moveControls) {
     storage.set(`${name}`, `${moveControls[name]}`);
 }
 

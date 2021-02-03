@@ -12,6 +12,7 @@ import { soundGame } from "../otherScripts/sound";
 
 class createPlayer {
     [x: string]: any;
+
     constructor() {
         this.playerSheets = {};
         this.playerSpeed = 3;
@@ -22,9 +23,9 @@ class createPlayer {
         this.hp = 6;
         this.froze = false;
     }
-    init = () => {
-        return [this.player, this.head];
-    };
+
+    init = () => [this.player, this.head];
+
     doneLoading = () => {
         const animate: AnimateMobType = {
             name: "player",
@@ -84,6 +85,7 @@ class createPlayer {
             checkTexture(e, this.head, 0);
         });
     };
+
     movePlayer(): void {
         if (this.head.hp < this.hp || this.froze) {
             this.froze = true;
