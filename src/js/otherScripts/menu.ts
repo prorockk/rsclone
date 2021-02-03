@@ -17,12 +17,6 @@ const styleOptions: PIXI.TextStyle = new PIXI.TextStyle(createFontStyle(32, "DRK
 
 let sheet: any;
 
-PIXI.Loader.shared.add("../../../assets/volume.json").load(setup);
-function setup() {
-    sheet = PIXI.Loader.shared.resources["../../../assets/volume.json"].spritesheet;
-}
-isFirstTime = false;
-
 function renderMenu() {
     const backgroundMenu = PIXI.Sprite.from("./images/menuBack.png");
     backgroundMenu.width = 800;
@@ -30,11 +24,7 @@ function renderMenu() {
 
     const newGame = new PIXI.Text("NEW RUN", style);
     setParamsToPixiElem(newGame, 200, 120, -0.1, true, true);
-    // newGame.x = 200;
-    // newGame.y = 120;
-    // newGame.rotation = -0.1;
-    // newGame.interactive = true;
-    // newGame.buttonMode = true;
+
     newGame.on("mouseover", (e: any) => {
         e.target.scale.set(1.1);
         soundGame("select");
@@ -45,10 +35,11 @@ function renderMenu() {
     });
     newGame.on("click", () => {
         app.stage.removeChildren();
-        const startGameImg = PIXI.Sprite.from("../../../images/startGameBook1.png");
+        const startGameImg = PIXI.Sprite.from("../../../images/pentagramma.png");
         startGameImg.anchor.set(0.5);
         startGameImg.x = 400;
         startGameImg.y = 300;
+        app.ticker.add(() => (startGameImg.rotation += 0.03));
         app.stage.addChild(startGameImg);
         soundGame("menuMusic", true);
         soundGame("startMusic");
@@ -61,11 +52,7 @@ function renderMenu() {
 
     const options: PIXI.Text = new PIXI.Text("OPTIONS", style);
     setParamsToPixiElem(options, 215, 250, -0.1, true, true);
-    // options.x = 215;
-    // options.y = 250;
-    // options.rotation = -0.1;
-    // options.interactive = true;
-    // options.buttonMode = true;
+
     options.on("mouseover", (e: any) => {
         e.target.scale.set(1.1);
         soundGame("select");
@@ -82,11 +69,7 @@ function renderMenu() {
 
     const stat: PIXI.Text = new PIXI.Text("STATS", style);
     setParamsToPixiElem(stat, 225, 370, -0.1, true, true);
-    // stat.x = 225;
-    // stat.y = 370;
-    // stat.rotation = -0.1;
-    // stat.interactive = true;
-    // stat.buttonMode = true;
+
     stat.on("mouseover", (e: any) => {
         e.target.scale.set(1.1);
         soundGame("select");
@@ -101,23 +84,17 @@ function renderMenu() {
         soundGame("pageTurn");
     });
 
-    const exit: PIXI.Text = new PIXI.Text("X", style);
-    setParamsToPixiElem(exit, 525, 420, -0.1, true, true);
-    // exit.x = 525;
-    // exit.y = 420;
-    // exit.rotation = -0.1;
-    // exit.interactive = true;
-    // exit.buttonMode = true;
-    exit.on("mouseover", (e: any) => e.target.scale.set(1.1));
-    exit.on("mouseout", () => exit.scale.set(1));
-    exit.on("click", () => window.close());
-
     const menuList = new PIXI.Container();
-    menuList.addChild(newGame, options, stat, exit);
+    menuList.addChild(newGame, options, stat);
 
     app.stage.addChild(backgroundMenu, menuList);
 
     if (isFirstTime) {
+        PIXI.Loader.shared.add("../../../assets/volume.json").load(setup);
+        function setup() {
+            sheet = PIXI.Loader.shared.resources["../../../assets/volume.json"].spritesheet;
+        }
+        isFirstTime = false;
     }
 }
 

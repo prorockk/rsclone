@@ -18,13 +18,13 @@ function deathPlayer(): void {
     BackGroundImage.filters = [blurFilter1];
     rooms[currentRoom].filters = [blurFilter1];
     panelContainer.filters = [blurFilter1];
-    renderEndScreen(true);
     ticker.add(() => {
         if (ticker.speed > 0.1) {
             ticker.speed -= 0.01;
             blurFilter1.blur += 0.1;
         } else {
-            ticker.stop();
+            renderEndScreen(true);
+            setTimeout(() => ticker.stop(), 30);
         }
     });
 }
