@@ -7,7 +7,7 @@ import { updateMap } from "../topPanel/map";
 import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
 import { soundGame } from "../otherScripts/sound";
-import { createObjectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { createObjectOfGameObjects } from "../CreateSprite/GameObjects";
 import { sendChangeUser } from "../otherScripts/login";
 interface RoomsInterface {
     [room: string]: PIXI.Container | any;
@@ -72,12 +72,11 @@ function startGame() {
         PlayerMethod.doneLoading();
         [player, playerHead] = PlayerMethod.init.call(PlayerMethod);
         controller(PlayerMethod);
-        app.stage.addChild(topPanel);
     });
 
     app.stage.addChild(BackGroundImage);
     app.stage.addChild(rooms["inFirstRoom"]);
-
+    app.stage.addChild(topPanel);
     createTopPanel();
 }
 

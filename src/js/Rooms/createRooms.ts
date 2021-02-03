@@ -1,15 +1,13 @@
-import * as PIXI from "pixi.js";
-import { send } from "process";
 import createElement from "../CreateSprite/createGameElement";
 import sendResponse from "../otherScripts/network";
 
 export default async function createElementsInAllRooms(rooms: any) {
     // New JSON
 
-    const res: Response = await fetch("../src/js/Rooms/rooms.json");
-    const roomsArr: any = await res.json();
-    // const res: any[] = await sendResponse.get("level");
-    // const roomsArr: any = await res[0].firstLvl;
+    // const res: Response = await fetch("../src/js/Rooms/rooms.json");
+    // const roomsArr: any = await res.json();
+    const res: any[] = await sendResponse.get("level");
+    const roomsArr: any = await res[0].firstLvl;
 
     const createStatic: createElement = new createElement(rooms);
 

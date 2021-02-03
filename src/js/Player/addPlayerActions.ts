@@ -5,7 +5,7 @@ import checkTexture from "../checkBounds/checkTexture";
 import tearsSheets from "../CreateSprite/tearsSheets";
 import createElement from "../CreateSprite/createGameElement";
 import { changeLife } from "../topPanel/createLife";
-import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { objectOfGameObjects } from "../CreateSprite/GameObjects";
 import { soundGame } from "../otherScripts/sound";
 import { AnimateMobType } from "../types/Types";
 import renderEndGame from "../otherScripts/endScreen";

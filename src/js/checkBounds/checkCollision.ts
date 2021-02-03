@@ -1,4 +1,4 @@
-import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { objectOfGameObjects } from "../CreateSprite/GameObjects";
 import { mainCounter, currentRoom } from "../Rooms/startGame";
 
 export default function checkCollision(player: any, side: string): boolean | undefined {

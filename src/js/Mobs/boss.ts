@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+import { objectOfGameObjects } from "../CreateSprite/GameObjects";
 import { mainCounter, currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
 import { changeLife } from "../topPanel/createLife";
@@ -71,7 +72,7 @@ class Gurdy extends Mobs {
                     };
                 };
             };
-            return; //что бы избежать ошибки
+            return;
         } else if (gurdyBody.freeze) {
             changeLife("boss");
             this.gurdy.tint = 16716853;
@@ -82,7 +83,7 @@ class Gurdy extends Mobs {
             gurdyBody.freeze = false;
         } else if (timeOut > 300) {
             if (timeOut < 550 && timeOut % 20 === 0) {
-                if (timeOut < 570) this.sound("gurdyShoot2");
+                if (timeOut <= 320) this.sound("gurdyShoot2");
                 gurdyOne.textures = this.sheets.angry;
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
@@ -96,7 +97,7 @@ class Gurdy extends Mobs {
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
                 gurdyOne.play();
-                this.sound("gurdyShoot1");
+                if (timeOut === 650) this.sound("gurdyShoot1");
                 gurdyOne.onComplete = () => {
                     gurdyOne.textures = this.sheets.stand;
                     gurdyOne.animationSpeed = 0.05;

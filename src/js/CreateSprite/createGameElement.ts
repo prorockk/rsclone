@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { objectOfGameObjects } from "./objectOfGameObjects";
+import { objectOfGameObjects } from "./GameObjects";
 import { AnimateMobType } from "../types/Types";
 
 class createElement {

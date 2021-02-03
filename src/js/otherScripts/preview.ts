@@ -34,7 +34,7 @@ export default function renderPreview() {
     button.anchor.set(1, 1);
     button.interactive = true;
     button.buttonMode = true;
-    button.scale.set(1);
+    button.scale.set(1.1);
 
     let isaacArray = [
         PIXI.Texture.from("./images/filespotlight1.png"),

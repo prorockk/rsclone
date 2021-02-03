@@ -772,7 +772,7 @@
                 "room": "inFourthRoom"
             },
             {
-                "coords": [450, 235],
+                "coords": [450, 230],
                 "url": "hp.png",
                 "size": [15, 12],
                 "room": "inFourthRoom",
@@ -2287,13 +2287,6 @@
                 "url": "invisibleBlock.png",
                 "size": [470, 35],
                 "room": "inTenthRoom"
-            },
-            {
-                "coords": [230, 220],
-                "url": "trap_door1.png",
-                "size": [38, 38],
-                "room": "inTenthRoom",
-                "angryMob": false
             }
         ],
         "createAnimateElement": [
@@ -2304,10 +2297,7 @@
                 "texture": {
                     "bossClose": ["bossDoor_4.png", "bossDoor_5.png", "bossDoor_6.png", "bossDoor_7.png"],
                     "bossOpen": ["bossDoor_3.png", "bossDoor_2.png", "bossDoor_1.png", "bossDoor_0.png"],
-                    "boss": ["bossDoor_0.png"],
-                    "trap": ["trap_door1.png"],
-                    "trapClose": ["trap_door6.png", "trap_door5.png", "trap_door4.png"],
-                    "trapOpen": ["trap_door3.png", "trap_door2.png", "trap_door1.png"]
+                    "boss": ["bossDoor_0.png"]
                 },
                 "propertiesAr": [
                     {
@@ -2368,7 +2358,7 @@
                         "animationSpeed": 0.05,
                         "loop": true,
                         "x": 233,
-                        "y": 207
+                        "y": 215
                     }
                 ]
             },
