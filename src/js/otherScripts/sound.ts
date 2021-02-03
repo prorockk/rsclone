@@ -51,7 +51,6 @@ const sound: sounds = {
     pop: { url: "../assets/sounds/pop.wav" }, // какаху сломали
     win: { url: "../assets/sounds/superholy.wav" }, // сломали
     boom: { url: "../assets/sounds/explosion.wav" }, // взрыв бомбы
-    fart: { url: "../assets/sounds/Fart.wav" }, //
     meatJump1: { url: "../assets/sounds/Meat_jumps0.wav" }, // кусок мяса прыгает
     meatJump2: { url: "../assets/sounds/Meat_jumps1.wav" }, // кусок мяса прыгает
     meatJump3: { url: "../assets/sounds/Meat_jumps2.wav" }, // кусок мяса прыгает

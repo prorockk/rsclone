@@ -75,7 +75,6 @@ class Host extends Mobs {
                 hostOne.textures = this.sheets.block;
                 hostOne.play();
                 hostOne.onComplete = () => {
-                    this.sound(`fart`, false);
                     hostOne.block = true;
                 };
             }

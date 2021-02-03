@@ -118,7 +118,7 @@ class Mobs {
         bullet.damage = 1;
         bullet.tint = 9109504;
         this.bullets.push(bullet);
-        this.sound(`mobShoot${this.generateRandNum(3)}`, false);
+        this.sound(`mobShoot${this.generateRandNum(3)}`);
         return bullet;
     }
     shootToFourDirection(mobOne: { getBounds: () => PIXI.Rectangle }) {
@@ -184,7 +184,7 @@ class Mobs {
                 bullet.x > 735 ||
                 bullet.x < 35
             ) {
-                this.sound("tearSplat", false);
+                this.sound("tearSplat");
                 const deleteBullet = this.bullets[i];
                 deleteBullet.textures = this.sheetsBullets.death;
                 deleteBullet.play();

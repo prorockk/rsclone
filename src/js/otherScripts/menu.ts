@@ -23,12 +23,6 @@ const styleOptions: PIXI.TextStyle = new PIXI.TextStyle({
 
 let sheet: any;
 
-PIXI.Loader.shared.add("../../../assets/volume.json").load(setup);
-function setup() {
-    sheet = PIXI.Loader.shared.resources["../../../assets/volume.json"].spritesheet;
-}
-isFirstTime = false;
-
 function renderMenu() {
     const backgroundMenu = PIXI.Sprite.from("./images/menuBack.png");
     backgroundMenu.width = 800;
@@ -50,10 +44,11 @@ function renderMenu() {
     });
     newGame.on("click", () => {
         app.stage.removeChildren();
-        const startGameImg = PIXI.Sprite.from("../../../images/startGameBook1.png");
+        const startGameImg = PIXI.Sprite.from("../../../images/pentagramma.png");
         startGameImg.anchor.set(0.5);
         startGameImg.x = 400;
         startGameImg.y = 300;
+        app.ticker.add(() => (startGameImg.rotation += 0.03));
         app.stage.addChild(startGameImg);
         soundGame("menuMusic", true);
         soundGame("startMusic");
@@ -104,22 +99,17 @@ function renderMenu() {
         soundGame("pageTurn");
     });
 
-    const exit: PIXI.Text = new PIXI.Text("X", style);
-    exit.x = 525;
-    exit.y = 420;
-    exit.rotation = -0.1;
-    exit.interactive = true;
-    exit.buttonMode = true;
-    exit.on("mouseover", (e: any) => e.target.scale.set(1.1));
-    exit.on("mouseout", () => exit.scale.set(1));
-    exit.on("click", () => window.close());
-
     const menuList = new PIXI.Container();
-    menuList.addChild(newGame, options, stat, exit);
+    menuList.addChild(newGame, options, stat);
 
     app.stage.addChild(backgroundMenu, menuList);
 
     if (isFirstTime) {
+        PIXI.Loader.shared.add("../../../assets/volume.json").load(setup);
+        function setup() {
+            sheet = PIXI.Loader.shared.resources["../../../assets/volume.json"].spritesheet;
+        }
+        isFirstTime = false;
     }
 }
 
@@ -128,15 +118,11 @@ function renderStats() {
     death.x = 200;
     death.y = 150;
     death.rotation = -0.1;
-    death.interactive = true;
-    death.buttonMode = true;
 
     const kills: PIXI.Text = new PIXI.Text("Kills:   0", style);
     kills.x = 210;
     kills.y = 250;
     kills.rotation = -0.1;
-    kills.interactive = true;
-    kills.buttonMode = true;
 
     const back: PIXI.Text = new PIXI.Text("X", style);
     back.x = 525;

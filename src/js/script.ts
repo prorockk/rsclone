@@ -19,19 +19,21 @@ function getApp(isRun?: boolean) {
     app = new PIXI.Application({
         width: 800, //469
         height: 600, //312
-        backgroundColor: 0x000000,
+        backgroundColor: 0x1b1818,
         antialias: true,
     });
+    PIXI.utils.clearTextureCache();
     app.loader.add("isaac", "../assets/isaac_moving_table.json");
 
-    // const defaultIcon = "url('examples/assets/bunny.png'),auto";
+    const defaultIcon = "url('../images/cursor.png'),auto";
     // const hoverIcon = "url('examples/assets/bunny_saturated.png'),auto";
 
-    // app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
-    // app.renderer.plugins.interaction.cursorStyles.hover = hoverIcon;
-    if (isFirstTime) renderPreview();
-    else {
+    app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
+    app.renderer.plugins.interaction.cursorStyles.hover = defaultIcon;
+    if (isFirstTime) {
+        renderPreview();
         isFirstTime = false;
+    } else {
         isRun ? startGame() : renderMenu();
     }
     document.body.appendChild(app.view);

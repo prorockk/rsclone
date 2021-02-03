@@ -97,8 +97,7 @@ function getPauseScreen() {
     resumeGame.interactive = true;
     resumeGame.buttonMode = true;
     resumeGame.on("click", () => {
-        const event = new KeyboardEvent("keydown", { code: "Escape" });
-        document.dispatchEvent(event);
+        document.dispatchEvent(new KeyboardEvent("keydown", { code: "Escape" }));
         renderPause(false);
     });
 
@@ -108,6 +107,11 @@ function getPauseScreen() {
     mainMenu.interactive = true;
     mainMenu.buttonMode = true;
     mainMenu.on("click", () => {
+        soundGame("floorMusic", true);
+        soundGame("flyLoop1", true);
+        soundGame("bossMusic", true);
+        soundGame("flyLoop2", true);
+        soundGame("menuMusic");
         document.dispatchEvent(new KeyboardEvent("keydown", { code: "deleteEvent" }));
         app.view.dispatchEvent(new Event("mouseup"));
         app.stage.removeChildren();

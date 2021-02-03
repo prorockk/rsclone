@@ -58,7 +58,7 @@ class Clotty extends Mobs {
                 };
             }
             if (this.jump && timeOut > 7 && timeOut < 35) {
-                this.sound(`meatJump${this.generateRandNum(5)}`, false);
+                if (timeOut === 34) this.sound(`meatJump${this.generateRandNum(5)}`);
                 const clottySpeed = clottyOne.scale.x > 0 ? 1.5 : -1.5;
                 clottyOne.x += clottySpeed;
             }

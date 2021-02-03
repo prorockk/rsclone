@@ -14,6 +14,7 @@ const style = new PIXI.TextStyle({
 });
 
 export default function renderEndGame(isDeath?: boolean) {
+    document.dispatchEvent(new KeyboardEvent("keydown", { code: "deleteEvent" }));
     const titleText: string = isDeath ? "Game over" : "Congratulation";
     const newRunText: string = isDeath ? "Try again" : "New Run";
 
@@ -37,9 +38,7 @@ export default function renderEndGame(isDeath?: boolean) {
     tryAgain.interactive = true;
     tryAgain.buttonMode = true;
     tryAgain.on("click", () => {
-        app.ticker.start();
-        app.stage.removeChildren();
-        soundGame("deathMusic", true);
+        leaveFromEndScreen();
         getApp(true);
     });
 
@@ -49,13 +48,18 @@ export default function renderEndGame(isDeath?: boolean) {
     mainMenu.interactive = true;
     mainMenu.buttonMode = true;
     mainMenu.on("click", () => {
-        app.ticker.start();
-        app.stage.removeChildren();
-        soundGame("deathMusic", true);
-        soundGame("endMusic", true);
-        app.view.dispatchEvent(new Event("mouseup"));
+        soundGame("menuMusic");
+        leaveFromEndScreen();
         getApp();
     });
+
+    function leaveFromEndScreen() {
+        app.ticker.start();
+        app.stage.removeChildren();
+        soundGame("endMusic", true);
+        soundGame("deathMusic", true);
+        app.view.dispatchEvent(new Event("mouseup"));
+    }
 
     endScreen.addChild(endBackground, title, tryAgain, mainMenu);
 

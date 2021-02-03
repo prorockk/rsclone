@@ -76,7 +76,6 @@ function startGame() {
     app.stage.addChild(rooms["inFirstRoom"]);
 
     createTopPanel();
-    soundGame("floorMusic", false);
 }
 
 function moveTo(room: string): void {
