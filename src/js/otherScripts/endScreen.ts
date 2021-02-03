@@ -49,6 +49,7 @@ export default function renderEndGame(isDeath?: boolean) {
     tryAgain.interactive = true;
     tryAgain.buttonMode = true;
     tryAgain.on("click", () => {
+        soundGame("floorMusic");
         leaveFromEndScreen();
         getApp(true);
     });
