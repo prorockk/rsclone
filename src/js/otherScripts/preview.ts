@@ -2,11 +2,9 @@ import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { soundGame } from "./sound";
 import { renderMenu } from "../otherScripts/menu";
-import * as storage from "./storage";
 import * as user from "./login";
 import { mainCounter } from "../Rooms/startGame";
 import { findUser } from "./login";
-import { stringify } from "querystring";
 
 export default function renderPreview() {
     const setSpriteOptions = (url: string, width: number, height: number, x?: number, y?: number) => {
@@ -33,7 +31,7 @@ export default function renderPreview() {
         PIXI.Texture.from("./images/filespotlight1.png"),
         PIXI.Texture.from("./images/filespotlight2.png"),
     ];
-    let animatedIsaac = new PIXI.AnimatedSprite(isaacArray);
+    const animatedIsaac = new PIXI.AnimatedSprite(isaacArray);
     animatedIsaac.animationSpeed = 0.08;
     animatedIsaac.width = 300;
     animatedIsaac.height = 300;
@@ -45,8 +43,6 @@ export default function renderPreview() {
     const previewArray = [backgroundPreview, logo, shadow, button, whoAmI];
 
     button.on("click", () => {
-        console.log(input.value);
-
         if (input.value.length > 0 && input.value.length < 10 && input.value.match(/[A-Za-z0-9]/)) {
             app.stage.addChild(animatedIsaac);
             app.stage.removeChild(whoAmI);

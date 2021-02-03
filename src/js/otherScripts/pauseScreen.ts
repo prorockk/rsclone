@@ -68,7 +68,7 @@ function getPauseScreen() {
             onOff(true, "sounds");
         } else {
             soundsOnOff.addChild(new PIXI.Text("On", styleOptions));
-            onOff(false, "dounds");
+            onOff(false, "sounds");
         }
         setTimeout(() => app.ticker.stop(), 30);
         soundsIsOn = !soundsIsOn;
