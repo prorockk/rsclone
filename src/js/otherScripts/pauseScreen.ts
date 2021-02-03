@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 import { app, getApp } from "../script";
 import { onOff, soundGame } from "./sound";
 import * as storage from "./storage";
+import createFontStyle from "./createFontStyle";
 
 let musicIsOn = true;
 let soundsIsOn = true;
@@ -12,16 +13,9 @@ let currentMusicVolume = storage.get("musicVolume") === null ? 5 : storage.get("
 export const closePause = (e: KeyboardEvent) => {
     if (e.keyCode === 27) renderPause(false);
 };
-const style = new PIXI.TextStyle({
-    fontSize: 40,
-    fontFamily: "DRKrapka",
-    fontWeight: "900",
-});
-const styleOptions = new PIXI.TextStyle({
-    fontSize: 32,
-    fontFamily: "DRKrapka",
-    fontWeight: "900",
-});
+
+const style = new PIXI.TextStyle(createFontStyle(40, "DRKrapka", "900"));
+const styleOptions = new PIXI.TextStyle(createFontStyle(32, "DRKrapka", "900"));
 
 const cont: any = getPauseScreen();
 
