@@ -22,12 +22,19 @@ export default function renderPreview() {
     const backgroundPreview: PIXI.Sprite = setSpriteOptions("./images/previewBackground.png", 800, 600);
     const shadow: PIXI.Sprite = setSpriteOptions("./assets/menuoverlay.png", 800, 600);
 
-    const logo: PIXI.Sprite = setSpriteOptions("./images/logo.png", 660, 150, 80, 30);
-
+    const logo: PIXI.Sprite = setSpriteOptions("./images/logo.png", 660, 150, 400, 100);
+    logo.anchor.set(0.5);
+    let countRotation = 5 * 10 ** -4;
+    app.ticker.add(() => {
+        logo.rotation += countRotation;
+        countRotation = Math.abs(logo.rotation) > 0.01 ? countRotation * -1 : countRotation;
+        logo.rotation = logo.rotation % 0.02;
+    });
     const button: PIXI.Sprite = setSpriteOptions("./assets/controloverlay.png", 150, 150, 800, 600);
     button.anchor.set(1, 1);
     button.interactive = true;
     button.buttonMode = true;
+    button.scale.set(1);
 
     let isaacArray = [
         PIXI.Texture.from("./images/filespotlight1.png"),
@@ -41,17 +48,17 @@ export default function renderPreview() {
     animatedIsaac.y = 150;
 
     const previewArray = [backgroundPreview, animatedIsaac, logo, shadow, button];
-
-    button.on("click", () => {
-        console.log(input.value);
-
+    const start = () => {
         if (input.value.length > 0 && input.value.length < 10 && !input.value.match(/[^*\S]/gi)) {
+            document.onkeypress = null;
             animatedIsaac.play();
             document.body.removeChild(input);
             app.stage.removeChild(button);
             getCurrentUser();
         }
-    });
+    };
+
+    button.on("click", start);
     button.on("mouseover", () => {
         button.scale.set(1.05);
         soundGame("select");
@@ -60,6 +67,11 @@ export default function renderPreview() {
         button.scale.set(1);
         soundGame("unselect");
     });
+
+    document.onkeypress = (e) => {
+        if (e.code === "Space") start();
+    };
+
     async function getCurrentUser() {
         mainCounter.user = await findUser(input.value);
         renderMenu();
