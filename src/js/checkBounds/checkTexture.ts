@@ -87,7 +87,6 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
                     !player.hasOwnProperty("godMode")
                 ) {
                     //вызывается в app.ticker (delay, head, false) и в move у мобов во время стрельбы
-                    //столкновение мобов ИЛИ их слез с игроком
                     if (haveBullForPlayer) impulse = impulse.map((cord: number) => cord * -1);
 
                     const int = setInterval(() => {
@@ -112,13 +111,12 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
                         playerHead.hp -= colObj.damage || bullets.damage;
                     }
                 } else if (haveMobHp && haveBullForMobs && delay === 0) {
-                    //вызывается в AddPlayerActions
-                    //попадание слез по мобам
+                    //вызывается в AddPlayerActions попадание слез по мобам
                     if (haveUrl) {
                         //попадание по камням
                         colObj.anchor.set(0.5);
-                        soundGame("pop", false);
                         if (colObj.hp.length === 0) {
+                            soundGame("pop");
                             rooms[currentRoom].removeChild(colObj);
                             roomArray[colObj.url].splice(roomArray[colObj.url].indexOf(colObj), 1);
                         } else colObj.texture = PIXI.Texture.from(colObj.hp.shift());

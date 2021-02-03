@@ -8,6 +8,7 @@ import { changeLife } from "../topPanel/createLife";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { soundGame } from "../otherScripts/sound";
 import { AnimateMobType } from "../types/Types";
+import renderEndGame from "../otherScripts/endScreen";
 
 const addPlayerActions = (): void => {
     PlayerMethod.bullets = []; //новые скилы героя
@@ -152,11 +153,16 @@ const addPlayerActions = (): void => {
                 break;
 
             case "trap_door1.png":
+                renderEndGame();
                 this.head.textures = this.playerSheets.win;
                 this.head.anchor.set(0.5);
                 this.head.onComplete = null;
-                soundGame("takeCoin", false);
+                soundGame("win");
+                soundGame("floorMusic", true);
+                soundGame("bossMusic", true);
+                soundGame("endMusic");
                 this.head.play();
+                setTimeout(() => app.ticker.stop(), 30);
                 break;
         }
         objectOfGameObjects[currentRoom][url] = [];

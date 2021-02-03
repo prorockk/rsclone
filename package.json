@@ -24,6 +24,7 @@
         "image-webpack-loader": "^7.0.1",
         "pixi-sound": "^3.0.5",
         "pixi-text-input": "^1.0.5",
+        "pixi-textinput-v5": "^4.0.0-beta.10",
         "pixi.js": "^5.3.7",
         "pixi.js-legacy": "^5.3.7"
     },

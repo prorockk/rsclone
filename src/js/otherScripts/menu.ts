@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { startGame } from "../Rooms/startGame";
+import { mainCounter, startGame } from "../Rooms/startGame";
 import { soundGame, changeVolume } from "./sound";
 import { changeControls, moveControls } from "./changeControls";
 import * as storage from "./storage";
@@ -8,7 +8,7 @@ import * as storage from "./storage";
 let currentSoundVolume = storage.get("soundVolume") === null ? 5 : storage.get("soundVolume") * 10;
 let currentMusicVolume = storage.get("musicVolume") === null ? 5 : storage.get("musicVolume") * 10;
 
-let isMusic: boolean = false;
+let isFirstTime: boolean = true;
 
 const style: PIXI.TextStyle = new PIXI.TextStyle({
     fontSize: 40,
@@ -23,11 +23,16 @@ const styleOptions: PIXI.TextStyle = new PIXI.TextStyle({
 
 let sheet: any;
 
+PIXI.Loader.shared.add("../../../assets/volume.json").load(setup);
+function setup() {
+    sheet = PIXI.Loader.shared.resources["../../../assets/volume.json"].spritesheet;
+}
+isFirstTime = false;
+
 function renderMenu() {
     const backgroundMenu = PIXI.Sprite.from("./images/menuBack.png");
     backgroundMenu.width = 800;
     backgroundMenu.height = 600;
-    app.stage.addChild(backgroundMenu);
 
     const newGame = new PIXI.Text("NEW RUN", style);
     newGame.x = 200;
@@ -45,7 +50,7 @@ function renderMenu() {
     });
     newGame.on("click", () => {
         app.stage.removeChildren();
-        const startGameImg = PIXI.Sprite.from("../../../images/startGameBook.png");
+        const startGameImg = PIXI.Sprite.from("../../../images/startGameBook1.png");
         startGameImg.anchor.set(0.5);
         startGameImg.x = 400;
         startGameImg.y = 300;
@@ -110,37 +115,37 @@ function renderMenu() {
     exit.on("click", () => window.close());
 
     const menuList = new PIXI.Container();
-    menuList.addChild(newGame);
-    menuList.addChild(options);
-    menuList.addChild(stat);
-    menuList.addChild(exit);
+    menuList.addChild(newGame, options, stat, exit);
 
-    app.stage.addChild(menuList);
+    app.stage.addChild(backgroundMenu, menuList);
 
-    if (!isMusic) {
-        PIXI.Loader.shared.add("../../../assets/volume.json").load(setup);
-        function setup() {
-            sheet = PIXI.Loader.shared.resources["../../../assets/volume.json"].spritesheet;
-        }
-        isMusic = true;
-        soundGame("menuMusic");
+    if (isFirstTime) {
     }
 }
 
 function renderStats() {
-    const death: PIXI.Text = new PIXI.Text("Death:   0", style);
-    death.x = 200;
-    death.y = 150;
-    death.rotation = -0.1;
-    death.interactive = true;
-    death.buttonMode = true;
+    const statList: PIXI.Container = new PIXI.Container();
+    const user = mainCounter.user;
+    if (user === undefined) return;
+    const name: PIXI.Text = new PIXI.Text(`Name:   ${user.name}`, style);
+    name.x = 200;
+    name.y = 150;
+    name.rotation = -0.1;
 
-    const kills: PIXI.Text = new PIXI.Text("Kills:   0", style);
-    kills.x = 210;
-    kills.y = 250;
+    const death: PIXI.Text = new PIXI.Text(`Death:   ${user.death}`, style);
+    death.x = 210;
+    death.y = 220;
+    death.rotation = -0.1;
+
+    const kills: PIXI.Text = new PIXI.Text(`Kills:   ${user.kills}`, style);
+    kills.x = 220;
+    kills.y = 290;
     kills.rotation = -0.1;
-    kills.interactive = true;
-    kills.buttonMode = true;
+
+    const wins: PIXI.Text = new PIXI.Text(`Wins:   ${user.win}`, style);
+    wins.x = 230;
+    wins.y = 360;
+    wins.rotation = -0.1;
 
     const back: PIXI.Text = new PIXI.Text("X", style);
     back.x = 525;
@@ -153,11 +158,7 @@ function renderStats() {
         renderMenu();
         soundGame("pageTurn");
     });
-
-    const statList: PIXI.Container = new PIXI.Container();
-    statList.addChild(death);
-    statList.addChild(kills);
-    statList.addChild(back);
+    statList.addChild(name, death, kills, back, wins);
     app.stage.addChild(statList);
 }
 
@@ -235,15 +236,17 @@ function renderOptions() {
 
     const optionsList = new PIXI.Container();
 
-    optionsList.addChild(backFromOptions);
+    optionsList.addChild(
+        backFromOptions,
+        controls,
+        movesControl,
+        up,
+        right,
+        down,
+        left,
+        renderOptionVolume(150, 95, -0.1)
+    );
 
-    optionsList.addChild(controls);
-    optionsList.addChild(movesControl);
-    optionsList.addChild(up);
-    optionsList.addChild(right);
-    optionsList.addChild(down);
-    optionsList.addChild(left);
-    optionsList.addChild(renderOptionVolume(150, 95, -0.1));
     app.stage.addChild(optionsList);
 }
 
@@ -353,15 +356,18 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
     volumeContainer.y = top;
     volumeContainer.zIndex = 100;
 
-    volumeContainer.addChild(soundsVolumeRight);
-    volumeContainer.addChild(soundsVolumeLeft);
-    volumeContainer.addChild(musicVolumeRight);
-    volumeContainer.addChild(musicVolumeLeft);
-    volumeContainer.addChild(volume);
-    volumeContainer.addChild(music);
-    volumeContainer.addChild(musicVolume);
-    volumeContainer.addChild(sounds);
-    volumeContainer.addChild(soundsVolume);
+    volumeContainer.addChild(
+        soundsVolumeRight,
+        soundsVolumeLeft,
+        musicVolumeRight,
+        musicVolumeLeft,
+        volume,
+        music,
+        musicVolume,
+        sounds,
+        soundsVolume
+    );
+
     return volumeContainer;
 }
 

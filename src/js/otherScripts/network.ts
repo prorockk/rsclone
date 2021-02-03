@@ -1,5 +1,6 @@
 const requestURLObj: { [level: string]: string } = {
     level: "https://rs-clone-wars.herokuapp.com/todos",
+    users: "https://rs-clone-wars.herokuapp.com/users",
 };
 
 export default {
@@ -26,9 +27,9 @@ export default {
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" },
         };
-        return fetch(requestURLObj.users, config).then((response) => {
-            return response.json();
-        });
+        return fetch(`${requestURLObj.users}/${data.id}`, config)
+            .then((response) => response.json())
+            .catch((error) => console.log(error));
     },
 
     async remove(data: any) {

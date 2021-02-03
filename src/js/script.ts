@@ -1,12 +1,14 @@
 import "../styles.css";
 import * as PIXI from "pixi.js";
 import { renderMenu } from "./otherScripts/menu";
+import renderPreview from "./otherScripts/preview";
+import { startGame } from "./Rooms/startGame";
 
 let app: PIXI.Application;
 
-let is = true;
+let isFirstTime = true;
 
-function getApp() {
+function getApp(isRun?: boolean) {
     if (app) {
         // app.ticker.destroy()
         app.ticker.stop();
@@ -20,20 +22,37 @@ function getApp() {
         backgroundColor: 0x000000,
         antialias: true,
     });
-    app.loader.add("isaac", "../assets/isaac_moving_table.json");
+    app.loader.add("isaac", "../assets/sprite-sheets.json");
 
-    // const defaultIcon = "url('examples/assets/bunny.png'),auto";
-    // const hoverIcon = "url('examples/assets/bunny_saturated.png'),auto";
+    // const defaultIcon = "url('../images/cursor.png'),auto";
+    // // const hoverIcon = "url('examples/assets/bunny_saturated.png'),auto";
 
     // app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
-    // app.renderer.plugins.interaction.cursorStyles.hover = hoverIcon;
+    // app.renderer.plugins.interaction.cursorStyles.hover = defaultIcon;
 
-    setTimeout(renderMenu, 500);
+    if (isFirstTime) {
+        renderPreview();
+        isFirstTime = false;
+    } else {
+        isRun ? startGame() : renderMenu();
+    }
     document.body.appendChild(app.view);
 }
 getApp();
-
+document.body.append("Need to load font");
 document.body.style.height = `${window.innerHeight}px`;
 window.onresize = () => (document.body.style.height = `${window.innerHeight}px`);
 
 export { app, getApp };
+
+// async function setJSON () {
+//     const res: Response = await fetch("../src/js/Rooms/rooms.json");
+//     const roomsArr: any = await res.json();
+//     const lvlObj = { firstLvl: roomsArr }
+//     network.create(lvlObj).then((f) => {
+//         console.log(f);
+//     });
+
+// }
+
+// setJSON()

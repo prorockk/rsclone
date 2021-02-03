@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { countMobs, currentRoom, player, rooms } from "../Rooms/startGame";
+import { mainCounter, currentRoom, player, rooms } from "../Rooms/startGame";
 import Mobs from "./Mobs";
 
 class Doors extends Mobs {
@@ -10,7 +10,7 @@ class Doors extends Mobs {
         this.boolDeath = true;
     }
     loadUp() {
-        if (countMobs.count > 0) {
+        if (mainCounter.count > 0) {
             this.mob.forEach((door: any, count) => {
                 if (count === 0) {
                     this.sound("doorClose", false);
@@ -32,7 +32,7 @@ class Doors extends Mobs {
         });
     }
     close() {
-        if (countMobs.count <= 0 && this.boolDeath) {
+        if (mainCounter.count <= 0 && this.boolDeath) {
             this.boolDeath = false;
             this.mob.forEach((door: any, count: number) => {
                 if (count === 0) {
