@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { objectOfGameObjects } from "../CreateSprite/GameObjects";
 import { soundGame } from "../otherScripts/sound";
 import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
 import { player, playerHead } from "../Rooms/startGame";

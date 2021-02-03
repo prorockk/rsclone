@@ -39,7 +39,9 @@ function renderMenu() {
         startGameImg.anchor.set(0.5);
         startGameImg.x = 400;
         startGameImg.y = 300;
+        startGameImg.zIndex.toLocaleString();
         app.ticker.add(() => (startGameImg.rotation += 0.03));
+        app.stage.removeChildren();
         app.stage.addChild(startGameImg);
         soundGame("menuMusic", true);
         soundGame("startMusic");
@@ -103,18 +105,18 @@ function renderStats() {
 
     const statList: PIXI.Container = new PIXI.Container();
 
-    const death: PIXI.Text = new PIXI.Text(`Deaths:   ${user.name}`, style);
-    setParamsToPixiElem(death, 210, 220, -0.1, false, false);
-
-    const kills: PIXI.Text = new PIXI.Text(`Kills:   ${user.name}`, style);
-    setParamsToPixiElem(kills, 220, 290, -0.1, false, false);
-
     const name: PIXI.Text = new PIXI.Text(`${user.name}`, style);
-    setParamsToPixiElem(name, 200, 150, -0.1, false, false);
+    setParamsToPixiElem(name, 310, 150, -0.1, false, false);
     name.anchor.set(0.5);
 
+    const death: PIXI.Text = new PIXI.Text(`Deaths:   ${user.death}`, style);
+    setParamsToPixiElem(death, 210, 220, -0.1, false, false);
+
+    const kills: PIXI.Text = new PIXI.Text(`Kills:   ${user.kills}`, style);
+    setParamsToPixiElem(kills, 220, 290, -0.1, false, false);
+
     const wins: PIXI.Text = new PIXI.Text(`Wins:   ${user.win}`, style);
-    setParamsToPixiElem(name, 230, 360, -0.1, false, false);
+    setParamsToPixiElem(wins, 230, 360, -0.1, false, false);
 
     const back: PIXI.Text = new PIXI.Text("X", style);
     setParamsToPixiElem(back, 525, 420, -0.1, true, true);
@@ -211,7 +213,7 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
 
     const musicVolume = new PIXI.Container();
     musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
-    setParamsToPixiElem(musicVolume, 205, 30, -0.15, false, false);
+    setParamsToPixiElem(musicVolume, 205, 60, -0.15, false, false);
 
     const musicVolumeRight = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(musicVolumeRight, 260, 35, -0.1, true, true, 30, 30);

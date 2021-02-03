@@ -1,5 +1,5 @@
 import { currentRoom } from "../Rooms/startGame";
-import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { objectOfGameObjects } from "../CreateSprite/GameObjects";
 
 class CheckBounds {
     player: any;

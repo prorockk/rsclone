@@ -1,6 +1,6 @@
 import { playerHead } from "../Rooms/startGame";
 import * as PIXI from "pixi.js";
-import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { objectOfGameObjects } from "../CreateSprite/GameObjects";
 
 interface HeartsCells {
     [heartGroup: string]: HeartIcon;
