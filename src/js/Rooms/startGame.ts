@@ -7,7 +7,7 @@ import { updateMap } from "../topPanel/map";
 import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
 import { soundGame } from "../otherScripts/sound";
-import { createObjectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { createObjectOfGameObjects } from "../CreateSprite/GameObjects";
 import { sendChangeUser } from "../otherScripts/login";
 interface RoomsInterface {
     [room: string]: PIXI.Container | any;
@@ -28,7 +28,7 @@ let PlayerMethod: any;
 let player: any;
 let playerHead: any;
 
-function startGame() {
+function startGame(startGameImg?: PIXI.Sprite) {
     PlayerMethod = new createPlayer();
     player = {};
     playerHead = {};
@@ -72,13 +72,12 @@ function startGame() {
         PlayerMethod.doneLoading();
         [player, playerHead] = PlayerMethod.init.call(PlayerMethod);
         controller(PlayerMethod);
-        app.stage.addChild(topPanel);
     });
 
+    createTopPanel();
     app.stage.addChild(BackGroundImage);
     app.stage.addChild(rooms["inFirstRoom"]);
-
-    createTopPanel();
+    app.stage.addChild(topPanel);
 }
 
 function moveTo(room: string): void {

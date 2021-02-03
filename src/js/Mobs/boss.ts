@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+import { objectOfGameObjects } from "../CreateSprite/GameObjects";
 import { mainCounter, currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
 import { changeLife } from "../topPanel/createLife";
@@ -22,7 +23,7 @@ class Gurdy extends Mobs {
     }
     loadUp() {
         const [gurdy, gurdyBody, gurdyHead] = this.mob;
-        gurdyBody.hp = 50;
+        gurdyBody.hp = 10;
         gurdyBody.angryMob = true;
         gurdyBody.freeze = false;
         gurdyBody.damage = 2;
@@ -68,6 +69,14 @@ class Gurdy extends Mobs {
                         this.boolDeath = true;
                         mainCounter.count -= 3;
                         mainCounter.user.kills++;
+                        const texture = PIXI.Texture.from("trap_door1.png");
+                        const bowl: any = PIXI.Sprite.from(texture);
+                        bowl.x = 233;
+                        bowl.y = 215;
+                        bowl.url = "trap_door1.png";
+                        bowl.angryMob = false;
+                        objectOfGameObjects[currentRoom]["trap_door1.png"] = [bowl];
+                        rooms[currentRoom].addChild(bowl);
                     };
                 };
             };

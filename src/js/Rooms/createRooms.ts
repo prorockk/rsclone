@@ -1,7 +1,4 @@
-import * as PIXI from "pixi.js";
-import { send } from "process";
 import createElement from "../CreateSprite/createGameElement";
-import sendResponse from "../otherScripts/network";
 
 export default async function createElementsInAllRooms(rooms: any) {
     // New JSON

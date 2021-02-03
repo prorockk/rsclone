@@ -70,6 +70,9 @@ export default function renderEndGame(isDeath?: boolean) {
         app.stage.removeChildren();
         soundGame("endMusic", true);
         soundGame("deathMusic", true);
+        soundGame("flyLoop1", true);
+        soundGame("flyLoop2", true);
+        soundGame("bossMusic", true);
         app.view.dispatchEvent(new Event("mouseup"));
     }
 
