@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { countMobs, currentRoom, rooms } from "../Rooms/startGame";
+import { mainCounter, currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
 import { changeLife } from "../topPanel/createLife";
 import { FlyClass } from "./loadMobs";
@@ -48,25 +48,26 @@ class Gurdy extends Mobs {
             gurdyOne.loop = this.gurdy.loop = false;
             gurdyOne.animationSpeed = 0.05;
             gurdyOne.play();
-            this.sound(`miligan${this.generateRandNum(3)}`, false);
+            this.sound(`mobDeath${this.generateRandNum(3)}`, false);
             this.mob.splice(0, 2);
             this.bullets.forEach((bullet) => app.stage.removeChild(bullet));
             this.bullets.splice(0, this.bullets.length);
             gurdyOne.onComplete = () => {
-                this.sound(`mobDeath${this.generateRandNum(4)}`, false);
                 this.gurdy.textures = this.sheets.death;
                 this.gurdy.scale.set(3);
                 this.gurdy.animationSpeed = 0.6;
                 rooms[currentRoom].removeChild(gurdyOne);
                 this.gurdy.play();
                 this.gurdy.onComplete = () => {
+                    this.sound(`bosswin`);
                     this.gurdy.textures = this.sheets.death;
                     this.gurdy.play();
                     this.gurdy.dead = true;
                     this.gurdy.onComplete = () => {
                         rooms[currentRoom].removeChild(gurdyBody, this.gurdy);
                         this.boolDeath = true;
-                        countMobs.count -= 3;
+                        mainCounter.count -= 3;
+                        mainCounter.user.kills++;
                     };
                 };
             };
@@ -81,7 +82,7 @@ class Gurdy extends Mobs {
             gurdyBody.freeze = false;
         } else if (timeOut > 300) {
             if (timeOut < 550 && timeOut % 20 === 0) {
-                //if (timeOut < 570) this.sound("gurdyShoot2", false)
+                if (timeOut < 570) this.sound("gurdyShoot2");
                 gurdyOne.textures = this.sheets.angry;
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
@@ -95,7 +96,7 @@ class Gurdy extends Mobs {
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
                 gurdyOne.play();
-                //this.sound("gurdyShoot1", false)
+                this.sound("gurdyShoot1");
                 gurdyOne.onComplete = () => {
                     gurdyOne.textures = this.sheets.stand;
                     gurdyOne.animationSpeed = 0.05;

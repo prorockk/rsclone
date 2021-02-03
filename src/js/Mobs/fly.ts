@@ -1,5 +1,5 @@
 import { app } from "../script";
-import { countMobs, currentRoom, player, rooms } from "../Rooms/startGame";
+import { mainCounter, currentRoom, player, rooms } from "../Rooms/startGame";
 import Mobs from "./Mobs";
 import createElement from "../CreateSprite/createGameElement";
 import { soundGame } from "../otherScripts/sound";
@@ -12,7 +12,7 @@ class Fly extends Mobs {
     }
     loadUp() {
         this.mob.forEach((flyOne: any, current: number) => {
-            if (current % 2 !== 0) {
+            if (flyOne.sheetSpriteStr === "fly") {
                 flyOne.hp = 2;
                 flyOne.angryMob = true;
                 flyOne.damage = 1;
@@ -54,7 +54,7 @@ class Fly extends Mobs {
             flyOne.damage = 1;
             flyOne.play();
         });
-        countMobs.count += flyAr.length;
+        mainCounter.count += flyAr.length;
         return flyAr;
     }
     moveFly() {

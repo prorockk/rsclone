@@ -21,7 +21,8 @@ const sound: sounds = {
     floorMusic: { url: "../assets/music/basementLoop.ogg", loop: true }, // муузыка на этаже
     deathMusic: { url: "../assets/music/death.ogg", loop: true }, // музычка при смерти
     bossMusic: { url: "../assets/music/bossFight.ogg", loop: true }, // музычка на босе
-    bossEnter: { url: "../assets/sounds/bossEnter.wav" }, //сломали
+    bossEnter: { url: "../assets/sounds/bossEnter.wav" },
+    endMusic: { url: "../assets/music/credits.ogg", loop: true },
     flyLoop1: { url: "../assets/sounds/fly.wav", loop: true }, // муха бз
     flyLoop2: { url: "../assets/sounds/fly2.wav", loop: true }, // муха бз
     mobShoot1: { url: "../assets/sounds/bloodshoot0.wav" }, // моб стреляет
@@ -65,6 +66,7 @@ const sound: sounds = {
     roar3: { url: "../assets/sounds/Roar_2.wav" }, // башка кричит
     gurdyShoot1: { url: "../assets/sounds/Monster_Yell_A_0.wav" }, // башка кричит
     gurdyShoot2: { url: "../assets/sounds/Monster_Yell_A_1.wav" }, // башка кричит
+    bosswin: { url: "../assets/sounds/bosswin.wav" },
 };
 
 for (let name in sound) {

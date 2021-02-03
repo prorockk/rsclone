@@ -1,13 +1,9 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { countMobs, currentRoom, rooms } from "../Rooms/startGame";
 import Mobs from "./Mobs";
-import { FlyClass } from "./loadMobs";
 import checkTexture from "../checkBounds/checkTexture";
 
 class Spotty extends Mobs {
-    private spotty: any;
-    private spottySheets: any;
     boolDeath: boolean;
     moveCurrent: number;
     constructor() {

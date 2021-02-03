@@ -1,7 +1,7 @@
 import { player } from "../Rooms/startGame";
 import { app } from "../script";
 import mouseDefault from "./mouseRightClick";
-import { renderPause, closePause } from "../otherScripts/pauseScreen";
+import { renderPause } from "../otherScripts/pauseScreen";
 
 export default function (PlayerMethod: any /* player : any, box : any*/) {
     app.view.onmousedown = (e: MouseEvent) => {
@@ -33,15 +33,12 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
     });
     let t: boolean = true;
     function checkKeyCode(key: KeyboardEvent) {
-        let keyCode = key.keyCode;
+        let keyCode = key.code;
         switch (keyCode) {
-            case 0:
+            case "deleteEvent":
                 document.removeEventListener("keydown", keyDownShoot);
                 break;
-            case 27:
-                if (app.ticker.started && !t) {
-                    t = !t;
-                }
+            case "Escape":
                 if (t) {
                     app.view.onmousedown = null;
                     renderPause(true);

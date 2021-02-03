@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { objectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
 import { app } from "../script";
-import { countMobs, currentRoom, playerHead, rooms } from "../Rooms/startGame";
+import { mainCounter, currentRoom, playerHead, rooms } from "../Rooms/startGame";
 import tearsSheets from "../CreateSprite/tearsSheets";
 import checkTexture from "../checkBounds/checkTexture";
 import createElement from "../CreateSprite/createGameElement";
@@ -36,7 +36,7 @@ class Mobs {
             return;
         }
         this.mob = objectOfGameObjects[currentRoom][this.name];
-        countMobs.count += this.name === "door" ? 0 : this.mob.length;
+        mainCounter.count += this.name === "door" ? 0 : this.mob.length;
         this.sheets = this.mob[0].sheets;
 
         const animateBullets: AnimateMobType = tearsSheets();
@@ -67,7 +67,8 @@ class Mobs {
             mobOne.dead = true;
             rooms[currentRoom].removeChild(mobOne);
             this.boolDeath = true;
-            countMobs.count--;
+            mainCounter.count--;
+            mainCounter.user.kills++;
         };
     }
     freezeMob(mobOne: { freeze: boolean | number[]; hp: number; x: number; y: number; tint: number }) {
@@ -139,13 +140,13 @@ class Mobs {
                     damage: number;
                     tint: number;
                 },
-                countBull: any
+                mainCounterBull: any
             ) => {
                 const setSpeed = (x: number, y: number) => {
                     bullet.bulletSpeedX = x;
                     bullet.bulletSpeedY = y;
                 };
-                switch (countBull) {
+                switch (mainCounterBull) {
                     case 0:
                         setSpeed(-bulletSpeed, 0);
                         break;

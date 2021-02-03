@@ -1,5 +1,5 @@
 import { app } from "../script";
-import { countMobs, currentRoom, rooms } from "../Rooms/startGame";
+import { mainCounter, currentRoom, rooms } from "../Rooms/startGame";
 import Mobs from "./Mobs";
 import { FlyClass } from "./loadMobs";
 
@@ -64,7 +64,8 @@ class Milligan extends Mobs {
                         headMill.dead = true;
                         rooms[currentRoom].removeChild(headMill);
                         this.boolDeath = true;
-                        countMobs.count -= 2;
+                        mainCounter.count -= 2;
+                        mainCounter.user.kills++;
                     };
                 };
                 return; //что бы избежать ошибки

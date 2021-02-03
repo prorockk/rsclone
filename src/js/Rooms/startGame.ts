@@ -8,13 +8,20 @@ import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
 import { soundGame } from "../otherScripts/sound";
 import { createObjectOfGameObjects } from "../CreateSprite/objectOfGameObjects";
+import { sendChangeUser } from "../otherScripts/login";
 interface RoomsInterface {
     [room: string]: PIXI.Container | any;
 }
 
 let rooms: RoomsInterface;
 let currentRoom: any;
-let countMobs: { count: number };
+let mainCounter: {
+    count: number;
+    user: { name: string; kills: number; death: number; win: number; [id: string]: string | number };
+} = {
+    count: 0,
+    user: { name: "", kills: 0, death: 0, win: 0 },
+};
 let BackGroundImage: PIXI.Sprite;
 let topPanel: PIXI.Graphics;
 let PlayerMethod: any;
@@ -25,7 +32,7 @@ function startGame() {
     PlayerMethod = new createPlayer();
     player = {};
     playerHead = {};
-    countMobs = { count: 0 };
+    mainCounter.count = 0;
 
     rooms = {
         inFirstRoom: new PIXI.Container(),
@@ -58,15 +65,11 @@ function startGame() {
 
     createObjectOfGameObjects();
 
-    const loader = app.loader;
-    loader.load(() => {
-        createElementsInAllRooms(rooms);
-        setTimeout(() => {
-            loadMobs();
-        }, 100);
-    });
-    loader.onComplete.add(() => {
-        PlayerMethod.doneLoading(); //РЕАЛИЗОВАТЬ ЗАГРУЗКУ СПРАЙТОВ В ОТДЕЛЬНОМ ПРОМИСЕ
+    const loader: PIXI.Loader = app.loader;
+    loader.load(async function () {
+        await createElementsInAllRooms(rooms);
+        loadMobs();
+        PlayerMethod.doneLoading();
         [player, playerHead] = PlayerMethod.init.call(PlayerMethod);
         controller(PlayerMethod);
         app.stage.addChild(topPanel);
@@ -85,8 +88,9 @@ function moveTo(room: string): void {
     app.stage.setChildIndex(rooms[room], 1);
     updateMap(currentRoom, room);
     currentRoom = room;
-    countMobs.count = 0;
+    mainCounter.count = 0;
     loadMobs();
+    sendChangeUser();
 }
 
 export {
@@ -98,6 +102,6 @@ export {
     player,
     rooms,
     playerHead,
-    countMobs,
+    mainCounter,
     BackGroundImage,
 };

@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { startGame } from "../Rooms/startGame";
+import { mainCounter, startGame } from "../Rooms/startGame";
 import { soundGame, changeVolume } from "./sound";
 import { changeControls, moveControls } from "./changeControls";
 import * as storage from "./storage";
@@ -10,18 +10,23 @@ import { setParamsToPixiElem } from "./setParamsToPixiElem";
 let currentSoundVolume = storage.get("soundVolume") === null ? 5 : storage.get("soundVolume") * 10;
 let currentMusicVolume = storage.get("musicVolume") === null ? 5 : storage.get("musicVolume") * 10;
 
-let isMusic: boolean = false;
+let isFirstTime: boolean = true;
 
 const style: PIXI.TextStyle = new PIXI.TextStyle(createFontStyle(40, "DRKrapka", "900"));
 const styleOptions: PIXI.TextStyle = new PIXI.TextStyle(createFontStyle(32, "DRKrapka", "900"));
 
 let sheet: any;
 
+PIXI.Loader.shared.add("../../../assets/volume.json").load(setup);
+function setup() {
+    sheet = PIXI.Loader.shared.resources["../../../assets/volume.json"].spritesheet;
+}
+isFirstTime = false;
+
 function renderMenu() {
     const backgroundMenu = PIXI.Sprite.from("./images/menuBack.png");
     backgroundMenu.width = 800;
     backgroundMenu.height = 600;
-    app.stage.addChild(backgroundMenu);
 
     const newGame = new PIXI.Text("NEW RUN", style);
     setParamsToPixiElem(newGame, 200, 120, -0.1, true, true);
@@ -40,7 +45,7 @@ function renderMenu() {
     });
     newGame.on("click", () => {
         app.stage.removeChildren();
-        const startGameImg = PIXI.Sprite.from("../../../images/startGameBook.png");
+        const startGameImg = PIXI.Sprite.from("../../../images/startGameBook1.png");
         startGameImg.anchor.set(0.5);
         startGameImg.x = 400;
         startGameImg.y = 300;
@@ -108,73 +113,51 @@ function renderMenu() {
     exit.on("click", () => window.close());
 
     const menuList = new PIXI.Container();
-    menuList.addChild(newGame);
-    menuList.addChild(options);
-    menuList.addChild(stat);
-    menuList.addChild(exit);
+    menuList.addChild(newGame, options, stat, exit);
 
-    app.stage.addChild(menuList);
+    app.stage.addChild(backgroundMenu, menuList);
 
-    if (!isMusic) {
-        PIXI.Loader.shared.add("../../../assets/volume.json").load(setup);
-        function setup() {
-            sheet = PIXI.Loader.shared.resources["../../../assets/volume.json"].spritesheet;
-        }
-        isMusic = true;
-        soundGame("menuMusic");
+    if (isFirstTime) {
     }
 }
 
 function renderStats() {
-    const death: PIXI.Text = new PIXI.Text("Death:   0", style);
-    setParamsToPixiElem(death, 200, 150, -0.1, true, true);
-    // death.x = 200;
-    // death.y = 150;
-    // death.rotation = -0.1;
-    // death.interactive = true;
-    // death.buttonMode = true;
+    const user = mainCounter.user;
 
-    const kills: PIXI.Text = new PIXI.Text("Kills:   0", style);
-    setParamsToPixiElem(kills, 210, 250, -0.1, true, true);
-    // kills.x = 210;
-    // kills.y = 250;
-    // kills.rotation = -0.1;
-    // kills.interactive = true;
-    // kills.buttonMode = true;
+    const statList: PIXI.Container = new PIXI.Container();
+
+    const death: PIXI.Text = new PIXI.Text(`Deaths:   ${user.name}`, style);
+    setParamsToPixiElem(death, 210, 220, -0.1, false, false);
+
+    const kills: PIXI.Text = new PIXI.Text(`Kills:   ${user.name}`, style);
+    setParamsToPixiElem(kills, 220, 290, -0.1, false, false);
+
+    const name: PIXI.Text = new PIXI.Text(`${user.name}`, style);
+    setParamsToPixiElem(name, 200, 150, -0.1, false, false);
+    name.anchor.set(0.5);
+
+    const wins: PIXI.Text = new PIXI.Text(`Wins:   ${user.win}`, style);
+    setParamsToPixiElem(name, 230, 360, -0.1, false, false);
 
     const back: PIXI.Text = new PIXI.Text("X", style);
     setParamsToPixiElem(back, 525, 420, -0.1, true, true);
-    // back.x = 525;
-    // back.y = 420;
-    // back.rotation = -0.1;
-    // back.interactive = true;
-    // back.buttonMode = true;
+
     back.on("click", () => {
         app.stage.removeChild(statList);
         renderMenu();
         soundGame("pageTurn");
     });
-
-    const statList: PIXI.Container = new PIXI.Container();
-    statList.addChild(death);
-    statList.addChild(kills);
-    statList.addChild(back);
+    statList.addChild(name, death, kills, back, wins);
     app.stage.addChild(statList);
 }
 
 function renderOptions() {
     const controls = new PIXI.Text("Controls", style);
-    controls.x = 220;
-    controls.y = 260;
-    controls.rotation = -0.1;
+    setParamsToPixiElem(controls, 220, 260, -0.1, false, false);
 
     const backFromOptions: PIXI.Text = new PIXI.Text("X", style);
     setParamsToPixiElem(backFromOptions, 525, 420, -0.1, true, true);
-    // backFromOptions.x = 525;
-    // backFromOptions.y = 420;
-    // backFromOptions.rotation = -0.1;
-    // backFromOptions.interactive = true;
-    // backFromOptions.buttonMode = true;
+
     backFromOptions.on("click", () => {
         app.stage.removeChild(optionsList);
         renderMenu();
@@ -182,96 +165,63 @@ function renderOptions() {
     });
 
     const movesControl: PIXI.Sprite = new PIXI.Sprite(sheet.textures[`controls.png`]);
-    movesControl.x = 330;
-    movesControl.y = 390;
-    movesControl.rotation = -0.1;
+    setParamsToPixiElem(movesControl, 330, 390, -0.1, false, false);
     movesControl.scale.set(1.5);
 
     const up: PIXI.Container = new PIXI.Container();
     setParamsToPixiElem(up, 310, 320, -0.1, true, true, 33, 33);
-    // up.x = 310;
-    // up.y = 320;
-    // up.width = 33;
-    // up.height = 33;
-    // up.rotation = -0.1;
-    // up.interactive = true;
-    // up.buttonMode = true;
+
     up.on("click", () => pressControls(up, "up", `${storage.get("up").slice(3)}`));
     const upKey = new PIXI.Text(`${storage.get("up").slice(3)}`, styleOptions);
     up.addChild(upKey);
 
     const right: PIXI.Container = new PIXI.Container();
     setParamsToPixiElem(right, 370, 370, -0.1, true, true, 33, 33);
-    // right.x = 370;
-    // right.y = 370;
-    // right.width = 33;
-    // right.height = 33;
-    // right.rotation = -0.1;
-    // right.interactive = true;
-    // right.buttonMode = true;
+
     right.on("click", () => pressControls(right, "right", `${storage.get("right").slice(3)}`));
     const rightKey = new PIXI.Text(`${storage.get("right").slice(3)}`, styleOptions);
     right.addChild(rightKey);
 
     const down: PIXI.Container = new PIXI.Container();
     setParamsToPixiElem(down, 320, 430, -0.1, true, true, 33, 33);
-    // down.x = 320;
-    // down.y = 430;
-    // down.width = 33;
-    // down.height = 33;
-    // down.rotation = -0.1;
-    // down.interactive = true;
-    // down.buttonMode = true;
+
     down.on("click", () => pressControls(down, "down", `${storage.get("down").slice(3)}`));
     const downKey = new PIXI.Text(`${storage.get("down").slice(3)}`, styleOptions);
     down.addChild(downKey);
 
     const left: PIXI.Container = new PIXI.Container();
     setParamsToPixiElem(left, 260, 380, -0.1, true, true, 33, 33);
-    // left.x = 260;
-    // left.y = 380;
-    // left.width = 33;
-    // left.height = 33;
-    // left.rotation = -0.1;
-    // left.interactive = true;
-    // left.buttonMode = true;
+
     left.on("click", () => pressControls(left, "left", "A"));
     const leftKey = new PIXI.Text(`${storage.get("left").slice(3)}`, styleOptions);
     left.addChild(leftKey);
 
     const optionsList = new PIXI.Container();
 
-    optionsList.addChild(backFromOptions);
+    optionsList.addChild(
+        backFromOptions,
+        controls,
+        movesControl,
+        up,
+        right,
+        down,
+        left,
+        renderOptionVolume(150, 95, -0.1)
+    );
 
-    optionsList.addChild(controls);
-    optionsList.addChild(movesControl);
-    optionsList.addChild(up);
-    optionsList.addChild(right);
-    optionsList.addChild(down);
-    optionsList.addChild(left);
-    optionsList.addChild(renderOptionVolume(150, 95, -0.1));
     app.stage.addChild(optionsList);
 }
 
 function renderOptionVolume(left: number, top: number, rotation: number) {
     const volume = new PIXI.Text("Volume", style);
-    volume.x = 85;
-    volume.rotation = rotation;
+    setParamsToPixiElem(volume, 85, 0, -0.1, false, false);
 
     const music = new PIXI.Text("Music", styleOptions);
-    music.x = 10;
-    music.y = 60;
-    music.rotation = rotation;
+    setParamsToPixiElem(music, 10, 60, -0.1, false, false);
 
     const musicVolumeLeft = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(musicVolumeLeft, 150, 87, 3.3, true, true, 30, 30);
-    // musicVolumeLeft.width = 30;
-    // musicVolumeLeft.height = 30;
-    // musicVolumeLeft.x = 150;
-    // musicVolumeLeft.y = 87;
-    // musicVolumeLeft.rotation = 3.3;
-    // musicVolumeLeft.interactive = true;
-    // musicVolumeLeft.buttonMode = true;
+
     musicVolumeLeft.on("click", () => {
         if (currentMusicVolume > 0) {
             currentMusicVolume -= 1;
@@ -284,19 +234,11 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
 
     const musicVolume = new PIXI.Container();
     musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
-    musicVolume.x = 205;
-    musicVolume.y = 60;
-    musicVolume.rotation = -0.15;
+    setParamsToPixiElem(musicVolume, 205, 30, -0.15, false, false);
 
     const musicVolumeRight = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(musicVolumeRight, 260, 35, -0.1, true, true, 30, 30);
-    // musicVolumeRight.width = 30;
-    // musicVolumeRight.height = 30;
-    // musicVolumeRight.x = 260;
-    // musicVolumeRight.y = 35;
-    // musicVolumeRight.rotation = -0.1;
-    // musicVolumeRight.interactive = true;
-    // musicVolumeRight.buttonMode = true;
+
     musicVolumeRight.on("click", () => {
         if (currentMusicVolume < 10) {
             currentMusicVolume += 1;
@@ -308,19 +250,11 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
     });
 
     const sounds = new PIXI.Text("Sounds", styleOptions);
-    sounds.x = 10;
-    sounds.y = 110;
-    sounds.rotation = -0.1;
+    setParamsToPixiElem(sounds, 10, 110, -0.1, false, false);
 
     const soundsVolumeLeft = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(soundsVolumeLeft, 150, 135, 3.3, true, true, 30, 30);
-    // soundsVolumeLeft.width = 30;
-    // soundsVolumeLeft.height = 30;
-    // soundsVolumeLeft.x = 150;
-    // soundsVolumeLeft.y = 135;
-    // soundsVolumeLeft.rotation = 3.3;
-    // soundsVolumeLeft.interactive = true;
-    // soundsVolumeLeft.buttonMode = true;
+
     soundsVolumeLeft.on("click", () => {
         if (currentSoundVolume > 0) {
             currentSoundVolume -= 1;
@@ -333,19 +267,11 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
 
     const soundsVolume = new PIXI.Container();
     soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
-    soundsVolume.x = 210;
-    soundsVolume.y = 110;
-    soundsVolume.rotation = -0.15;
+    setParamsToPixiElem(soundsVolume, 210, 110, -0.15, false, false);
 
     const soundsVolumeRight = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(soundsVolumeRight, 265, 85, -0.1, true, true, 30, 30);
-    // soundsVolumeRight.width = 30;
-    // soundsVolumeRight.height = 30;
-    // soundsVolumeRight.x = 265;
-    // soundsVolumeRight.y = 85;
-    // soundsVolumeRight.rotation = -0.1;
-    // soundsVolumeRight.interactive = true;
-    // soundsVolumeRight.buttonMode = true;
+
     soundsVolumeRight.on("click", () => {
         if (currentSoundVolume < 10) {
             currentSoundVolume += 1;
@@ -357,21 +283,21 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
     });
 
     const volumeContainer = new PIXI.Container();
-    volumeContainer.width = 330;
-    volumeContainer.height = 150;
-    volumeContainer.x = left;
-    volumeContainer.y = top;
-    volumeContainer.zIndex = 100;
+    setParamsToPixiElem(volumeContainer, left, top, 0, false, false, 330, 150);
+    // volumeContainer.zIndex = 100;
 
-    volumeContainer.addChild(soundsVolumeRight);
-    volumeContainer.addChild(soundsVolumeLeft);
-    volumeContainer.addChild(musicVolumeRight);
-    volumeContainer.addChild(musicVolumeLeft);
-    volumeContainer.addChild(volume);
-    volumeContainer.addChild(music);
-    volumeContainer.addChild(musicVolume);
-    volumeContainer.addChild(sounds);
-    volumeContainer.addChild(soundsVolume);
+    volumeContainer.addChild(
+        soundsVolumeRight,
+        soundsVolumeLeft,
+        musicVolumeRight,
+        musicVolumeLeft,
+        volume,
+        music,
+        musicVolume,
+        sounds,
+        soundsVolume
+    );
+
     return volumeContainer;
 }
 

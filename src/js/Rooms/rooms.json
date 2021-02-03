@@ -201,6 +201,20 @@
                 "hp": ["poops-2.png", "poops-3.png"]
             },
             {
+                "coords": [460, 280],
+                "url": "poops-4.png",
+                "size": [24, 23],
+                "room": "inSecondRoom",
+                "picture": true
+            },
+            {
+                "coords": [460, 280],
+                "url": "poops-1.png",
+                "size": [32, 32],
+                "room": "inSecondRoom",
+                "hp": ["poops-2.png", "poops-3.png"]
+            },
+            {
                 "coords": [145, 95],
                 "url": "invisibleBlock.png",
                 "size": [215, 35],
@@ -756,6 +770,13 @@
                 "url": "invisibleBlock.png",
                 "size": [470, 35],
                 "room": "inFourthRoom"
+            },
+            {
+                "coords": [450, 235],
+                "url": "hp.png",
+                "size": [15, 12],
+                "room": "inFourthRoom",
+                "angryMob": false
             }
         ],
         "createAnimateElement": [
@@ -822,7 +843,7 @@
                         "anchor": 0.5,
                         "animationSpeed": 0.2,
                         "loop": false,
-                        "x": 330,
+                        "x": 310,
                         "y": 245
                     }
                 ]
@@ -861,7 +882,7 @@
                         "anchor": 0.5,
                         "animationSpeed": 0.2,
                         "loop": false,
-                        "x": 450,
+                        "x": 400,
                         "y": 245
                     },
                     {
@@ -1100,7 +1121,7 @@
                         "anchor": 0.5,
                         "animationSpeed": 0.4,
                         "loop": true,
-                        "x": 70,
+                        "x": 80,
                         "y": 230
                     }
                 ]
@@ -1157,7 +1178,7 @@
                         "animationSpeed": 0.1,
                         "loop": true,
                         "x": 420,
-                        "y": 255
+                        "y": 265
                     },
                     {
                         "sheetSpriteStr": "angry",
@@ -1165,7 +1186,7 @@
                         "animationSpeed": 0.1,
                         "loop": true,
                         "x": 420,
-                        "y": 255
+                        "y": 265
                     },
                     {
                         "sheetSpriteStr": "downWalk",
@@ -1644,15 +1665,15 @@
                 "room": "inEighthRoom"
             },
             {
-                "coords": [267, 260],
+                "coords": [265, 260],
                 "url": "rock3.png",
-                "size": [35, 35],
+                "size": [45, 35],
                 "room": "inEighthRoom"
             },
             {
-                "coords": [233, 260],
+                "coords": [230, 260],
                 "url": "rock2.png",
-                "size": [35, 45],
+                "size": [35, 35],
                 "room": "inEighthRoom",
                 "rotation": "4.71"
             },
@@ -1738,6 +1759,41 @@
                 ]
             },
             {
+                "name": "potter",
+                "room": "inEighthRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly-1.png", "fly-2.png"],
+                    "shoot": [
+                        "shoot-1.png",
+                        "shoot-2.png",
+                        "shoot-3.png",
+                        "shoot-4.png",
+                        "shoot-5.png",
+                        "shoot-6.png",
+                        "shoot-7.png",
+                        "shoot-8.png",
+                        "shoot-9.png",
+                        "shoot-10.png",
+                        "shoot-11.png",
+                        "shoot-12.png",
+                        "shoot-13.png",
+                        "shoot-14.png"
+                    ],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 180,
+                        "y": 120
+                    }
+                ]
+            },
+            {
                 "name": "host",
                 "room": "inEighthRoom",
                 "setBool": false,
@@ -1793,8 +1849,8 @@
                         "anchor": 0.5,
                         "animationSpeed": 0.1,
                         "loop": false,
-                        "x": 190,
-                        "y": 220
+                        "x": 180,
+                        "y": 235
                     },
                     {
                         "sheetSpriteStr": "angry",
@@ -1809,8 +1865,8 @@
                         "anchor": 0.5,
                         "animationSpeed": 0.1,
                         "loop": false,
-                        "x": 350,
-                        "y": 220
+                        "x": 360,
+                        "y": 235
                     }
                 ]
             }
@@ -2233,7 +2289,7 @@
                 "room": "inTenthRoom"
             },
             {
-                "coords": [230, 211],
+                "coords": [230, 220],
                 "url": "trap_door1.png",
                 "size": [38, 38],
                 "room": "inTenthRoom",
@@ -2327,7 +2383,7 @@
                 },
                 "propertiesAr": [
                     {
-                        "sheetSpriteStr": "simpleFly",
+                        "sheetSpriteStr": "fly",
                         "anchor": 0.5,
                         "animationSpeed": 0.4,
                         "loop": true,
@@ -2339,8 +2395,16 @@
                         "anchor": 0.5,
                         "animationSpeed": 0.4,
                         "loop": true,
-                        "x": 280,
-                        "y": 100
+                        "x": 80,
+                        "y": 230
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 80,
+                        "y": 180
                     }
                 ]
             }
