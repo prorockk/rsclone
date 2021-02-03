@@ -1,25 +1,23 @@
 import * as PIXI from "pixi.js";
-import { mainCounter } from "../Rooms/startGame";
 import { app, getApp } from "../script";
 import { sendChangeUser } from "./login";
 import { onOff, soundGame } from "./sound";
-import * as storage from "./storage";
 import createFontStyle from "./createFontStyle";
 import { setParamsToPixiElem } from "./setParamsToPixiElem";
 
-let musicIsOn = true;
-let soundsIsOn = true;
+let musicIsOn: boolean = true;
+let soundsIsOn: boolean = true;
 
 export const closePause = (e: KeyboardEvent) => {
     if (e.keyCode === 27) renderPause(false);
 };
 
-const style = new PIXI.TextStyle(createFontStyle(40, "DRKrapka", "900"));
-const styleOptions = new PIXI.TextStyle(createFontStyle(32, "DRKrapka", "900"));
+const style: PIXI.TextStyle = new PIXI.TextStyle(createFontStyle(40, "DRKrapka", "900"));
+const styleOptions: PIXI.TextStyle = new PIXI.TextStyle(createFontStyle(32, "DRKrapka", "900"));
 
-const cont: any = getPauseScreen();
+const cont: PIXI.Container = getPauseScreen();
 
-export function renderPause(isShow: boolean) {
+export function renderPause(isShow: boolean): void {
     if (isShow) {
         soundGame("pageTurn");
         app.stage.addChild(cont);
@@ -31,7 +29,7 @@ export function renderPause(isShow: boolean) {
     }
 }
 
-function getPauseScreen() {
+function getPauseScreen(): PIXI.Container {
     const music = new PIXI.Text("Music", styleOptions);
     setParamsToPixiElem(music, 50, 60, 0, false, false);
 
@@ -52,12 +50,12 @@ function getPauseScreen() {
         musicIsOn = !musicIsOn;
     });
 
-    const musicOn = new PIXI.Text("On", styleOptions);
+    const musicOn: PIXI.Text = new PIXI.Text("On", styleOptions);
 
-    const sounds = new PIXI.Text("Sounds", styleOptions);
+    const sounds: PIXI.Text = new PIXI.Text("Sounds", styleOptions);
     setParamsToPixiElem(sounds, 50, 110, 0, false, false);
 
-    const soundsOnOff = new PIXI.Container();
+    const soundsOnOff: PIXI.Container = new PIXI.Container();
     setParamsToPixiElem(soundsOnOff, 200, 110, 0, true, true);
 
     soundsOnOff.on("click", () => {
@@ -73,17 +71,16 @@ function getPauseScreen() {
         setTimeout(() => app.ticker.stop(), 30);
         soundsIsOn = !soundsIsOn;
     });
-    const soundsOn = new PIXI.Text("On", styleOptions);
+    const soundsOn: PIXI.Text = new PIXI.Text("On", styleOptions);
 
-    const pauseScreen = new PIXI.Container();
+    const pauseScreen: PIXI.Container = new PIXI.Container();
     setParamsToPixiElem(pauseScreen, 225, 125, 0, false, false, 350, 350);
 
-    const pauseBackground = PIXI.Sprite.from("../../../images/pausecard.png");
+    const pauseBackground: PIXI.Sprite = PIXI.Sprite.from("../../../images/pausecard.png");
     pauseBackground.width = 350;
     pauseBackground.height = 350;
-    // pauseBackground.zIndex = -1;
 
-    const resumeGame = new PIXI.Text(`Resume Game`, style);
+    const resumeGame: PIXI.Text = new PIXI.Text(`Resume Game`, style);
     setParamsToPixiElem(resumeGame, 45, 200, 0, true, true);
 
     resumeGame.on("click", () => {
@@ -92,7 +89,7 @@ function getPauseScreen() {
         sendChangeUser();
     });
 
-    const mainMenu = new PIXI.Text(`Main menu`, style);
+    const mainMenu: PIXI.Text = new PIXI.Text(`Main menu`, style);
     setParamsToPixiElem(mainMenu, 75, 250, 0, true, true);
 
     mainMenu.on("click", () => {

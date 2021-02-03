@@ -3,7 +3,7 @@ import { app } from "../script";
 import mouseDefault from "./mouseRightClick";
 import { renderPause } from "../otherScripts/pauseScreen";
 
-export default function (PlayerMethod: any /* player : any, box : any*/) {
+export default function (PlayerMethod: any) {
     app.view.onmousedown = (e: MouseEvent) => {
         if (!mouseDefault(e)) mouseShooting(e, true);
     };
@@ -18,7 +18,7 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
     };
     document.addEventListener("keydown", keyDownShoot);
 
-    let godMode = false;
+    let godMode: boolean = false;
     let pass: string = "";
     document.addEventListener("keyup", (key) => {
         if (key.code === "KeyB") godMode = true;
@@ -54,7 +54,6 @@ export default function (PlayerMethod: any /* player : any, box : any*/) {
 
     let intMouse: any;
     let mouseDown: boolean;
-    //let delayAr: number[];
     function mouseShooting(delay: MouseEvent, bool: boolean | undefined): void {
         if (bool !== undefined) {
             mouseDown = bool;

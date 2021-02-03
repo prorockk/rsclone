@@ -6,12 +6,11 @@ interface Resources {
 
 const resources: Resources = {};
 
-function createResourcesContainer(topPanel: PIXI.Graphics, setParamsTopElement: Function): void {
+function createResourcesContainer(topPanel: PIXI.Graphics, setParamsToPixiElem: Function): void {
     const resourcesKeys: string[] = ["coins", "bombs", "keys"];
 
     const resourceContainer: PIXI.Sprite = PIXI.Sprite.from("../../assets/resources.png");
-    setParamsTopElement(resourceContainer, 45, 80, 300, 10);
-
+    setParamsToPixiElem(resourceContainer, 300, 10, 0, false, false, 45, 80);
     const resourcesTextStyle: PIXI.TextStyle = new PIXI.TextStyle({
         fontSize: 20,
         fill: "white",

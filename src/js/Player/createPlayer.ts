@@ -1,4 +1,3 @@
-import * as PIXI from "pixi.js";
 import { app } from "../script";
 import CheckBounds from "../checkBounds/checkBounds";
 import { AnimateMobType } from "../types/Types";
@@ -27,7 +26,6 @@ class createPlayer {
         return [this.player, this.head];
     };
     doneLoading = () => {
-        //createSheets...........
         const animate: AnimateMobType = {
             name: "player",
             texture: {
@@ -65,7 +63,7 @@ class createPlayer {
             ],
             setBool: false,
         };
-        const [sheets, legs, head] = new createElement().createAnimateElement(animate);
+        const [sheets, legs, head]: any[] = new createElement().createAnimateElement(animate);
         this.playerSheets = sheets;
         head.anchor.set(0.5, 0.95);
         head.scale.set(1.5);
@@ -88,11 +86,10 @@ class createPlayer {
     };
     movePlayer(): void {
         if (this.head.hp < this.hp || this.froze) {
-            //анимация нанесения урона
             this.froze = true;
             if (this.head.death) return;
             if (this.head.hp <= 0) {
-                changeLife(-2); //               функция урон сердце
+                changeLife(-2);
                 this.head.death = true;
                 this.head.textures = this.playerSheets.end;
                 this.head.anchor.set(0.5);
@@ -100,17 +97,16 @@ class createPlayer {
                 this.head.play();
                 deathPlayer();
             } else if (this.head.hp < this.hp) {
-                changeLife(-1); //               функция урон сердце
+                changeLife(-1);
                 if (this.head.hp + 1 < this.hp) {
                     soundGame("hurt3", false);
-                    //если большой дамаг то меняем текстурку
-                    changeLife(-1); //               функция урон сердце
+                    changeLife(-1);
                     this.head.textures = this.playerSheets.hit;
                     this.head.anchor.set(0.5);
                     this.head.play();
                 } else {
                     this.head.hp % 2 === 0 ? soundGame("hurt2", false) : soundGame("hurt1", false);
-                } // при малом и большом домаге добавляем мигание один раз
+                }
                 this.player.alpha = 0;
                 this.head.alpha = 0;
                 let visual: boolean = true;

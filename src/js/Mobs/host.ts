@@ -37,10 +37,8 @@ class Host extends Mobs {
                 hostOne.scale.set(1.6);
                 this.deleteMob(hostOne);
             } else if (hostOne.freeze && !hostOne.block) {
-                //анимация нанесения урона
                 this.freezeMob(hostOne);
             } else if (this.moveCurrent % (180 + countHost * 50) === 0) {
-                //направление пуль и создание
                 hostOne.textures = this.sheets.shoot;
                 hostOne.play();
                 hostOne.onComplete = () => {
@@ -49,7 +47,7 @@ class Host extends Mobs {
                     for (let countBull = 0; countBull < 3; countBull += 1) {
                         const bullet = this.shootIntoPlayer(hostOne);
                         bullet.scale.set(1.2);
-                        bullet.x += bullet.bulletSpeedX * 3; // перемещаем начало выстрела на границу моба
+                        bullet.x += bullet.bulletSpeedX * 3;
                         bullet.y += bullet.bulletSpeedY * 3;
                         const setSpeed = (speed: number) => {
                             if (bullet.bulletSpeedX * bullet.bulletSpeedY > 0) {

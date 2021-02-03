@@ -12,7 +12,7 @@ class Spotty extends Mobs {
         this.moveCurrent = 0;
     }
     loadUp(): void {
-        this.mob.forEach((spottyOne: any, numSpotty: number) => {
+        this.mob.forEach((spottyOne: any) => {
             spottyOne.angryMob = true;
             spottyOne.anchor.set(0.5, 1);
             spottyOne.hp = 6;
@@ -34,7 +34,6 @@ class Spotty extends Mobs {
                 spottyOne.anchor.set(0.5, 0.5);
                 this.deleteMob(spottyOne);
             } else if (spottyOne.freeze) {
-                //анимация нанесения урона
                 this.freezeMob(spottyOne);
             } else {
                 const speedSpotty: number = 0.6;
@@ -56,17 +55,13 @@ class Spotty extends Mobs {
                 if (randomNum < 0 || checkTexture(0, spottyOne, false) || wallCollision) {
                     if (spottyOne.scale.x < 0) spottyOne.scale.x *= -1;
                     if (this.moveCurrent % numWalk < 250) {
-                        //право
                         setDirection(speedSpotty, 0, "right");
                     } else if (this.moveCurrent % numWalk < 500) {
-                        // вверх
                         setDirection(0, -speedSpotty, "up");
                     } else if (this.moveCurrent % numWalk < 750) {
-                        // влево
                         setDirection(-speedSpotty, 0, "right");
                         spottyOne.scale.x *= -1;
                     } else if (this.moveCurrent % numWalk < 1000) {
-                        // вниз
                         setDirection(0, speedSpotty, "down");
                     }
                 }
@@ -87,7 +82,7 @@ class Spotty extends Mobs {
                         bullet.scale.set(0.8);
                         bullet.bulletSpeedX = spottyOne.speedSpottyX * bulletSpeed;
                         bullet.bulletSpeedY = spottyOne.speedSpottyY * bulletSpeed;
-                        bullet.x += bullet.bulletSpeedX * 5; // перемещаем начало выстрела на границу моба
+                        bullet.x += bullet.bulletSpeedX * 5;
                         bullet.y += bullet.bulletSpeedY * 5;
                     };
                 }

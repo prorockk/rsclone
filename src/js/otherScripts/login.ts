@@ -9,7 +9,7 @@ export function login() {
     return storage.get("User") === null ? "" : storage.get("User");
 }
 
-export async function findUser(userName: string) {
+export async function findUser(userName: string): Promise<any> {
     usersList = await sendResponse.get("users");
 
     usersList.forEach((user) => {
@@ -24,12 +24,12 @@ export async function findUser(userName: string) {
     return currentUser;
 }
 
-export async function sendChangeUser() {
+export async function sendChangeUser(): Promise<void> {
     console.log(mainCounter.user);
 
     await sendResponse.set(mainCounter.user);
 }
 
-async function setUser(userName: string) {
+async function setUser(userName: string): Promise<any> {
     return await sendResponse.create({ name: userName });
 }

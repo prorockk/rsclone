@@ -1,44 +1,34 @@
 import * as PIXI from "pixi.js";
-import TextInput from "pixi-textinput-v5";
 import { app } from "../script";
 import { soundGame } from "./sound";
 import { renderMenu } from "../otherScripts/menu";
-import * as storage from "./storage";
 import * as user from "./login";
 import { mainCounter } from "../Rooms/startGame";
 import { findUser } from "./login";
+import { setParamsToPixiElem } from "./setParamsToPixiElem";
 
-export default function renderPreview() {
-    const setSpriteOptions = (url: string, width: number, height: number, x?: number, y?: number) => {
-        const sprite = PIXI.Sprite.from(url);
-        sprite.width = width;
-        sprite.height = height;
-        if (x && y) {
-            sprite.x = x;
-            sprite.y = y;
-        }
-        return sprite;
-    };
-    const backgroundPreview: PIXI.Sprite = setSpriteOptions("./images/previewBackground.png", 800, 600);
-    const shadow: PIXI.Sprite = setSpriteOptions("./assets/menuoverlay.png", 800, 600);
+export default function renderPreview(): void {
+    const backgroundPreview: PIXI.Sprite = PIXI.Sprite.from("./images/previewBackground.png");
+    setParamsToPixiElem(backgroundPreview, 0, 0, 0, false, false, 800, 600);
 
-    const logo: PIXI.Sprite = setSpriteOptions("./images/logo.png", 660, 150, 80, 30);
+    const shadow: PIXI.Sprite = PIXI.Sprite.from("./assets/menuoverlay.png");
+    setParamsToPixiElem(shadow, 0, 0, 0, false, false, 800, 600);
 
-    const button: PIXI.Sprite = setSpriteOptions("./assets/controloverlay.png", 150, 150, 800, 600);
+    const logo: PIXI.Sprite = PIXI.Sprite.from("./images/logo.png");
+    setParamsToPixiElem(logo, 80, 30, 0, false, false, 660, 150);
+
+    const button: PIXI.Sprite = PIXI.Sprite.from("./assets/controloverlay.png");
+    setParamsToPixiElem(button, 800, 600, 0, true, true, 150, 150);
+
     button.anchor.set(1, 1);
-    button.interactive = true;
-    button.buttonMode = true;
 
-    let isaacArray = [
+    let isaacArray: PIXI.Texture[] = [
         PIXI.Texture.from("./images/filespotlight1.png"),
         PIXI.Texture.from("./images/filespotlight2.png"),
     ];
-    let animatedIsaac = new PIXI.AnimatedSprite(isaacArray);
+    let animatedIsaac: PIXI.AnimatedSprite = new PIXI.AnimatedSprite(isaacArray);
     animatedIsaac.animationSpeed = 0.08;
-    animatedIsaac.width = 300;
-    animatedIsaac.height = 300;
-    animatedIsaac.x = 250;
-    animatedIsaac.y = 150;
+    setParamsToPixiElem(animatedIsaac, 250, 150, 0, false, false, 300, 300);
 
     const previewArray = [backgroundPreview, animatedIsaac, logo, shadow, button];
 
@@ -60,12 +50,12 @@ export default function renderPreview() {
         button.scale.set(1);
         soundGame("unselect");
     });
-    async function getCurrentUser() {
+    async function getCurrentUser(): Promise<void> {
         mainCounter.user = await findUser(input.value);
         renderMenu();
         app.stage.removeChild(...previewArray);
     }
-    const userName = user.login();
+    const userName: string = user.login();
     const input: HTMLInputElement = document.createElement("input");
     input.value = userName;
     document.body.appendChild(input);

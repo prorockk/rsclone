@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { objectOfGameObjects } from "../CreateSprite/GameObjects";
+import { gameObjects } from "../CreateSprite/GameObjects";
 import { soundGame } from "../otherScripts/sound";
 import { currentRoom, PlayerMethod, rooms } from "../Rooms/startGame";
 import { player, playerHead } from "../Rooms/startGame";
@@ -15,7 +15,6 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
     let denominator: number = 2;
 
     if (delay > 0) {
-        // коллизия игрока с мобами
         correctForHeadCollisionWidth = 5;
         correctForHeadCollisionHeight = 10;
         denominator = 4;
@@ -26,13 +25,13 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
 
     bullets.halfWidth = bulletsBounds.width / denominator;
     bullets.halfHeight = bulletsBounds.height / denominator;
-    const roomArray = objectOfGameObjects[currentRoom];
+    const roomArray = gameObjects[currentRoom];
     if (shooter) {
         return check(playerHead);
     } else {
         for (let groupEl in roomArray) {
             for (let i = 0; i < roomArray[groupEl].length; i += 1) {
-                if (typeof shooter === "boolean" && roomArray[groupEl][i].hasOwnProperty("angryMob")) return false; //что бы мобы не стреляли сами в себя, передаем shooter = false
+                if (typeof shooter === "boolean" && roomArray[groupEl][i].hasOwnProperty("angryMob")) return false;
                 if (check(roomArray[groupEl][i])) {
                     return true;
                 }
@@ -50,7 +49,6 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
         let correctForHeadCollisionHeight: number = 0;
         let denominator: number = 2;
         if (shooter) {
-            // коллизия игрока с выстрелами мобов
             correctForHeadCollisionWidth = 5;
             correctForHeadCollisionHeight = 10;
             denominator = 2.2;
@@ -74,7 +72,7 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
             if (Math.abs(vy) < combineHalfHeights) {
                 const haveAngryMob: boolean = colObj.hasOwnProperty("angryMob");
                 const haveMobHp: boolean = colObj.hasOwnProperty("hp");
-                if (haveAngryMob) itsAngryMob = colObj.angryMob; //если это моб, при косании с которым идет дамаг
+                if (haveAngryMob) itsAngryMob = colObj.angryMob;
 
                 let impulse: number[] = [(bullets.centerX - objCenterX) / 150, (bullets.centerY - objCenterY) / 150];
 
@@ -86,34 +84,29 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
                     ((delay > 0 && itsAngryMob) || (haveBullForPlayer && shooter)) &&
                     !player.hasOwnProperty("godMode")
                 ) {
-                    //вызывается в app.ticker (delay, head, false) и в move у мобов во время стрельбы
                     if (haveBullForPlayer) impulse = impulse.map((cord: number) => cord * -1);
 
                     const int = setInterval(() => {
                         if (!checkTexture(1, playerHead, false)) {
-                            player.x += impulse[0]; //откдывание героя от противника
+                            player.x += impulse[0];
                             player.y += impulse[1];
                             playerHead.x += impulse[0];
                             playerHead.y += impulse[1];
                         }
                     }, 20);
                     setTimeout(() => {
-                        //уронная пауза
                         clearInterval(int);
                     }, 250);
 
                     if (isDamage) {
-                        //урон по герою
                         isDamage = false;
                         setTimeout(() => {
                             isDamage = true;
-                        }, 800); //уронная пауза
+                        }, 800);
                         playerHead.hp -= colObj.damage || bullets.damage;
                     }
                 } else if (haveMobHp && haveBullForMobs && delay === 0) {
-                    //вызывается в AddPlayerActions попадание слез по мобам
                     if (haveUrl) {
-                        //попадание по камням
                         colObj.anchor.set(0.5);
                         if (colObj.hp.length === 0) {
                             soundGame("pop");
@@ -121,7 +114,7 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
                             roomArray[colObj.url].splice(roomArray[colObj.url].indexOf(colObj), 1);
                         } else colObj.texture = PIXI.Texture.from(colObj.hp.shift());
                     }
-                    colObj.freeze = impulse.slice(); //прерываем стандартное перемещение моба и передаем направление движения
+                    colObj.freeze = impulse.slice();
                 } else if (delay > 0 && haveAngryMob && !itsAngryMob) {
                     if (haveUrl) {
                         if (PlayerMethod.buffPlayer.call(PlayerMethod, colObj)) {
@@ -131,7 +124,7 @@ export default function checkTexture(delay: number, bullets: any, shooter?: numb
                     }
                     const int = setInterval(() => {
                         if (!checkTexture(0, colObj, false)) {
-                            colObj.x -= impulse[0] * 1.5; //откдывание предметов и мух
+                            colObj.x -= impulse[0] * 1.5;
                             colObj.y -= impulse[1] * 1.5;
                         }
                     }, 20);

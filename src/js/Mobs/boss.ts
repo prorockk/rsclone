@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { objectOfGameObjects } from "../CreateSprite/GameObjects";
+import { gameObjects } from "../CreateSprite/GameObjects";
 import { mainCounter, currentRoom, rooms } from "../Rooms/startGame";
 import { app } from "../script";
 import { changeLife } from "../topPanel/createLife";
@@ -75,12 +75,12 @@ class Gurdy extends Mobs {
                         bowl.y = 215;
                         bowl.url = "trap_door1.png";
                         bowl.angryMob = false;
-                        objectOfGameObjects[currentRoom]["trap_door1.png"] = [bowl];
+                        gameObjects[currentRoom]["trap_door1.png"] = [bowl];
                         rooms[currentRoom].addChild(bowl);
                     };
                 };
             };
-            return; //что бы избежать ошибки
+            return;
         } else if (gurdyBody.freeze) {
             changeLife("boss");
             this.gurdy.tint = 16716853;
@@ -134,7 +134,7 @@ class Gurdy extends Mobs {
                                     bullet.bulletSpeedX = speedX;
                                     bullet.bulletSpeedY = speedY;
                                 }
-                                bullet.x += bullet.bulletSpeedX * 4; // перемещаем начало выстрела на границу моба
+                                bullet.x += bullet.bulletSpeedX * 4;
                                 bullet.y += bullet.bulletSpeedY * 4;
                                 const setSpeed = (speed: number) => {
                                     if (bullet.bulletSpeedX * bullet.bulletSpeedY > 0) {

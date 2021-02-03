@@ -6,15 +6,14 @@ import createElementsInAllRooms from "./createRooms";
 import { updateMap } from "../topPanel/map";
 import loadMobs from "../Mobs/loadMobs";
 import createTopPanel from "../topPanel/createTopPanel";
-import { soundGame } from "../otherScripts/sound";
-import { createObjectOfGameObjects } from "../CreateSprite/GameObjects";
+import { createGameObjects } from "../CreateSprite/GameObjects";
 import { sendChangeUser } from "../otherScripts/login";
 interface RoomsInterface {
     [room: string]: PIXI.Container | any;
 }
 
 let rooms: RoomsInterface;
-let currentRoom: any;
+let currentRoom: string;
 let mainCounter: {
     count: number;
     user: { name: string; kills: number; death: number; win: number; [id: string]: string | number };
@@ -28,7 +27,7 @@ let PlayerMethod: any;
 let player: any;
 let playerHead: any;
 
-function startGame(startGameImg?: PIXI.Sprite) {
+function startGame(startGameImg?: PIXI.Sprite): void {
     PlayerMethod = new createPlayer();
     player = {};
     playerHead = {};
@@ -63,7 +62,7 @@ function startGame(startGameImg?: PIXI.Sprite) {
     BackGroundImage.y = 100;
     BackGroundImage.anchor.set(0, 0);
 
-    createObjectOfGameObjects();
+    createGameObjects();
 
     const loader: PIXI.Loader = app.loader;
     loader.load(async function () {

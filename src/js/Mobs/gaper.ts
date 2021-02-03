@@ -34,12 +34,10 @@ class Gaper extends Mobs {
                 gaperOne.scale.set(1.6);
                 this.deleteMob(gaperOne);
             } else if (gaperOne.freeze) {
-                //анимация нанесения урона
                 this.freezeMob(gaperOne);
             }
 
             if (this.moveCurrent % 8 === 4) {
-                //перемещение
                 gaperOne.x += 3;
                 gaperOne.y -= 0.5;
             } else if (this.moveCurrent % 8 === 0) {
@@ -47,12 +45,11 @@ class Gaper extends Mobs {
                 gaperOne.y += 0.5;
             }
             if (this.moveCurrent % (100 + currentGap * 30) === 0) {
-                //направление пуль и создание
                 this.sound(`roar${(currentGap % 3) + 1}`, false);
                 gaperOne.textures = this.sheets.angry;
                 gaperOne.play();
                 const bullet = this.shootIntoPlayer(gaperOne);
-                bullet.x += bullet.bulletSpeedX * 4; // перемещаем начало выстрела на границу моба
+                bullet.x += bullet.bulletSpeedX * 4;
                 bullet.y += bullet.bulletSpeedY * 4;
             }
         });

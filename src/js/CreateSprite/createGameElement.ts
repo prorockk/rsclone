@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { objectOfGameObjects } from "./GameObjects";
+import { gameObjects } from "./GameObjects";
 import { AnimateMobType } from "../types/Types";
 
 class createElement {
@@ -64,11 +64,11 @@ class createElement {
     };
     sendToObject = (gameElement: any, room: string | number, url: string | number) => {
         this.rooms[room].addChild(gameElement);
-        if (gameElement.hasOwnProperty("picture")) return; //спрайты без коллизии
-        if (objectOfGameObjects[room].hasOwnProperty(url)) {
-            objectOfGameObjects[room][url].push(gameElement);
+        if (gameElement.hasOwnProperty("picture")) return;
+        if (gameObjects[room].hasOwnProperty(url)) {
+            gameObjects[room][url].push(gameElement);
         } else {
-            objectOfGameObjects[room][url] = [gameElement];
+            gameObjects[room][url] = [gameElement];
         }
     };
 }

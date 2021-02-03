@@ -1,6 +1,5 @@
-import * as PIXI from "pixi.js";
 import { app } from "../script";
-import { mainCounter, currentRoom, player, rooms } from "../Rooms/startGame";
+import { mainCounter, currentRoom } from "../Rooms/startGame";
 import Mobs from "./Mobs";
 
 class Doors extends Mobs {

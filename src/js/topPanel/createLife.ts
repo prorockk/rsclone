@@ -1,6 +1,4 @@
-import { playerHead } from "../Rooms/startGame";
 import * as PIXI from "pixi.js";
-import { objectOfGameObjects } from "../CreateSprite/GameObjects";
 
 interface HeartsCells {
     [heartGroup: string]: HeartIcon;
@@ -21,11 +19,11 @@ let bossMask: PIXI.Graphics;
 
 const heartsNames: string[] = ["firstHeart", "secondHeart", "thirdHeart"];
 
-function createLifeContainer(topPanel: PIXI.Graphics, setParamsTopElement: Function): void {
+function createLifeContainer(topPanel: PIXI.Graphics, setParamsToPixiElem: Function): void {
     const heartsTypes: string[] = ["empty", "half", "full"];
 
     bossPanel = PIXI.Sprite.from("../../assets/bossPanel.png");
-    setParamsTopElement(bossPanel, 570, 86, 13, 10);
+    setParamsToPixiElem(bossPanel, 13, 10, 0, false, false, 570, 86);
 
     bossMask = new PIXI.Graphics();
     bossMask.beginFill(0x800000);
@@ -40,13 +38,13 @@ function createLifeContainer(topPanel: PIXI.Graphics, setParamsTopElement: Funct
 
     const heartsUrl: string[] = ["../../assets/heart.png", "../../assets/heartHalf.png", "../../assets/heartFull.png"];
     const lifeLabel: PIXI.Sprite = PIXI.Sprite.from("../../assets/lifeLabel.png");
-    setParamsTopElement(lifeLabel, 110, 20, 620, 10);
+    setParamsToPixiElem(lifeLabel, 620, 10, 0, false, false, 110, 20);
     topPanel.addChild(lifeLabel);
 
     for (let currentHeart = 0; currentHeart < heartsNames.length; currentHeart += 1) {
         for (let currentHeartType = 0; currentHeartType < heartsTypes.length; currentHeartType += 1) {
             const heart: PIXI.Sprite = PIXI.Sprite.from(heartsUrl[currentHeartType]);
-            setParamsTopElement(heart, 35, 30, 580 + 40 * currentHeart, 30);
+            setParamsToPixiElem(heart, 580 + 40 * currentHeart, 30, 0, false, false, 35, 30);
             hearts[heartsNames[currentHeart]][heartsTypes[currentHeartType]] = heart;
             topPanel.addChild(heart);
         }
@@ -83,7 +81,6 @@ function changeLife(hitPoints: number | string): void {
             break;
         case -1:
             for (let damageHeart = 2; damageHeart >= 0; damageHeart -= 1) {
-                //const currentDamageHeart = hearts[heartsNames[damageHeart]]
                 if (hearts[heartsNames[damageHeart]]["full"].alpha !== 0) {
                     hearts[heartsNames[damageHeart]]["full"].alpha = 0;
                     return;

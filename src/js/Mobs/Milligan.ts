@@ -15,7 +15,6 @@ class Milligan extends Mobs {
         this.mob.forEach((milliganOne: any, numMilligan: number) => {
             milliganOne.head = true;
             if (numMilligan % 2 === 0) {
-                //ноги
                 milliganOne.anchor.set(0.6, -0.8);
                 milliganOne.head = false;
             }
@@ -34,8 +33,7 @@ class Milligan extends Mobs {
             let legsMill: any;
             let headMill: any;
             if (currentMil % 2 !== 0) {
-                //только с головой
-                legsMill = mill[currentMil - 1]; // это ноги
+                legsMill = mill[currentMil - 1];
                 headMill = milliganOne;
             } else return;
             if ((!milliganOne.hp || (milliganOne.hp < 1 && Math.random() < 0.2)) && this.boolDeath) {
@@ -68,9 +66,8 @@ class Milligan extends Mobs {
                         mainCounter.user.kills++;
                     };
                 };
-                return; //что бы избежать ошибки
+                return;
             } else if (headMill.freeze || legsMill.freeze) {
-                //анимация нанесения урона
                 legsMill.freeze ? (headMill.freeze = legsMill.freeze) : (legsMill.freeze = headMill.freeze);
                 this.freezeMob(legsMill);
                 this.freezeMob(headMill);
@@ -78,7 +75,6 @@ class Milligan extends Mobs {
                     const impulse = headMill.freeze.slice();
                     headMill.hp--;
                     const intTint = setInterval(() => {
-                        // перемещение и  мигание один раз
                         headMill.x -= impulse[0];
                         headMill.y -= impulse[1];
                         legsMill.x -= impulse[0];
@@ -97,12 +93,10 @@ class Milligan extends Mobs {
                 legsMill.freeze = true;
                 headMill.freeze = true;
             } else {
-                //перемещение только ноги
                 const speedMil = 0.25;
                 const randomNum = (Math.random() - 0.5) * 0.7;
                 const numWalk = 400;
                 if (this.moveCurrent % numWalk < 100) {
-                    //право
                     if (this.moveCurrent % numWalk === 0) {
                         legsMill.textures = this.sheets.rightWalk;
                         legsMill.play();
@@ -110,7 +104,6 @@ class Milligan extends Mobs {
                     legsMill.x += speedMil;
                     legsMill.y += randomNum;
                 } else if (this.moveCurrent % numWalk < 200) {
-                    //вверх
                     if (this.moveCurrent % numWalk === 100) {
                         legsMill.textures = this.sheets.upWalk;
                         legsMill.play();
@@ -118,7 +111,6 @@ class Milligan extends Mobs {
                     legsMill.y -= speedMil;
                     legsMill.x -= randomNum;
                 } else if (this.moveCurrent % numWalk < 300) {
-                    //влево
                     if (this.moveCurrent % numWalk === 200) {
                         legsMill.textures = this.sheets.leftWalk;
                         legsMill.play();
@@ -126,7 +118,6 @@ class Milligan extends Mobs {
                     legsMill.x -= speedMil;
                     legsMill.y -= randomNum;
                 } else if (this.moveCurrent % numWalk < 400) {
-                    //вниз
                     if (this.moveCurrent % numWalk === 300) {
                         legsMill.textures = this.sheets.downWalk;
                         legsMill.play();

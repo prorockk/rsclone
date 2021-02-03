@@ -1,4 +1,3 @@
-import * as PIXI from "pixi.js";
 import { app } from "../script";
 import Mobs from "./Mobs";
 
@@ -17,7 +16,7 @@ class Potter extends Mobs {
         this.animateBullets = {};
     }
     loadUp(): void {
-        this.mob.forEach((potterOne: any, current: number) => {
+        this.mob.forEach((potterOne: any) => {
             potterOne.hp = 2;
             potterOne.angryMob = true;
             potterOne.damage = 1;
@@ -32,11 +31,9 @@ class Potter extends Mobs {
     movePotter(): void {
         this.mob.forEach((potterOne: any, countPotter) => {
             if (potterOne.hp === 0 && this.boolDeath) {
-                //удаление мух с запуском поледней анимации
                 if (this.mob.length === 1) this.sound("flyLoop2", true);
                 this.deleteMob(potterOne);
             } else if (potterOne.freeze) {
-                //анимация нанесения урона
                 this.freezeMob(potterOne);
             } else {
                 if (this.moveCurrent % 5 === 0) {
@@ -45,8 +42,6 @@ class Potter extends Mobs {
                     potterOne.y += randomNum;
                 }
                 if (this.moveCurrent % (100 + countPotter * 30) === 0) {
-                    //стрельба
-                    //направление пуль и создание
                     potterOne.textures = this.sheets.shoot;
                     potterOne.loop = false;
                     potterOne.play();
@@ -56,13 +51,13 @@ class Potter extends Mobs {
                         potterOne.play();
                         const bullet = this.shootIntoPlayer(potterOne);
                         bullet.scale.set(0.8);
-                        bullet.x += bullet.bulletSpeedX * 2; // перемещаем начало выстрела на границу моба
+                        bullet.x += bullet.bulletSpeedX * 2;
                         bullet.y += bullet.bulletSpeedY * 2;
                     };
                 }
             }
         });
-        this.trackShot(); //перемещаем слезу и удаляем
+        this.trackShot();
         this.moveCurrent = (this.moveCurrent % 10 ** 4) + 1;
     }
 }

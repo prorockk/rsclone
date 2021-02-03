@@ -18,53 +18,53 @@ const musicArr: string[] = [];
 
 const sound: sounds = {
     menuMusic: { url: "../assets/music/titleScreenLoop.ogg", loop: true },
-    floorMusic: { url: "../assets/music/basementLoop.ogg", loop: true }, // муузыка на этаже
-    deathMusic: { url: "../assets/music/death.ogg", loop: true }, // музычка при смерти
-    bossMusic: { url: "../assets/music/bossFight.ogg", loop: true }, // музычка на босе
+    floorMusic: { url: "../assets/music/basementLoop.ogg", loop: true },
+    deathMusic: { url: "../assets/music/death.ogg", loop: true },
+    bossMusic: { url: "../assets/music/bossFight.ogg", loop: true },
     bossEnter: { url: "../assets/sounds/bossEnter.wav" },
     endMusic: { url: "../assets/music/credits.ogg", loop: true },
-    flyLoop1: { url: "../assets/sounds/fly.wav", loop: true }, // муха бз
-    flyLoop2: { url: "../assets/sounds/fly2.wav", loop: true }, // муха бз
-    mobShoot1: { url: "../assets/sounds/bloodshoot0.wav" }, // моб стреляет
-    mobShoot2: { url: "../assets/sounds/bloodshoot1.wav" }, // моб стреляет
-    mobShoot3: { url: "../assets/sounds/bloodshoot2.wav" }, // моб стреляет
-    mobDeath1: { url: "../assets/sounds/Death_Burst_Small_0.wav" }, // моб умер
-    mobDeath2: { url: "../assets/sounds/Death_Burst_Small_1.wav" }, // моб умер
-    mobDeath3: { url: "../assets/sounds/Death_Burst_Small_2.wav" }, // моб умер
-    mobDeath4: { url: "../assets/sounds/deathBurst.wav" }, // моб умер
+    flyLoop1: { url: "../assets/sounds/fly.wav", loop: true },
+    flyLoop2: { url: "../assets/sounds/fly2.wav", loop: true },
+    mobShoot1: { url: "../assets/sounds/bloodshoot0.wav" },
+    mobShoot2: { url: "../assets/sounds/bloodshoot1.wav" },
+    mobShoot3: { url: "../assets/sounds/bloodshoot2.wav" },
+    mobDeath1: { url: "../assets/sounds/Death_Burst_Small_0.wav" },
+    mobDeath2: { url: "../assets/sounds/Death_Burst_Small_1.wav" },
+    mobDeath3: { url: "../assets/sounds/Death_Burst_Small_2.wav" },
+    mobDeath4: { url: "../assets/sounds/deathBurst.wav" },
     startMusic: { url: "../assets/music/titleScreenJingle.ogg" },
     select: { url: "../assets/sounds/selectLeft.wav" },
     unselect: { url: "../assets/sounds/selectRight.wav" },
-    tear1: { url: "../assets/sounds/tear1.wav" }, // слеза выстрел
-    tear2: { url: "../assets/sounds/tear2.wav" }, // слеза выстрел другим глазом
-    tearPop: { url: "../assets/sounds/tearPop.wav" }, // слеза шмяк о стену
-    tearSplat: { url: "../assets/sounds/tearSplat.wav" }, // слеза плюх об пол
+    tear1: { url: "../assets/sounds/tear1.wav" },
+    tear2: { url: "../assets/sounds/tear2.wav" },
+    tearPop: { url: "../assets/sounds/tearPop.wav" },
+    tearSplat: { url: "../assets/sounds/tearSplat.wav" },
     hurt1: { url: "../assets/sounds/hurt1.wav" },
-    hurt2: { url: "../assets/sounds/hurt2.wav" }, // получение урона
+    hurt2: { url: "../assets/sounds/hurt2.wav" },
     hurt3: { url: "../assets/sounds/hurt3.wav" },
-    doorOpen: { url: "../assets/sounds/doorOpen.wav" }, // открылась дверь при зачистке комнаты
-    doorClose: { url: "../assets/sounds/doorClose.wav" }, // закрылась дверь при зачистке комнаты
-    isaacDeath: { url: "../assets/sounds/isaacDeath.wav" }, // умер гг
+    doorOpen: { url: "../assets/sounds/doorOpen.wav" },
+    doorClose: { url: "../assets/sounds/doorClose.wav" },
+    isaacDeath: { url: "../assets/sounds/isaacDeath.wav" },
     pageTurn: { url: "../assets/sounds/pageTurn.wav" },
-    takeCoin: { url: "../assets/sounds/coinPickup.wav" }, // лутаем монетку
-    heal: { url: "../assets/sounds/heartIntake.wav" }, // лутаем сердечко
-    pop: { url: "../assets/sounds/pop.wav" }, // какаху сломали
-    win: { url: "../assets/sounds/superholy.wav" }, // сломали
-    boom: { url: "../assets/sounds/explosion.wav" }, // взрыв бомбы
-    meatJump1: { url: "../assets/sounds/Meat_jumps0.wav" }, // кусок мяса прыгает
-    meatJump2: { url: "../assets/sounds/Meat_jumps1.wav" }, // кусок мяса прыгает
-    meatJump3: { url: "../assets/sounds/Meat_jumps2.wav" }, // кусок мяса прыгает
-    meatJump4: { url: "../assets/sounds/Meat_jumps3.wav" }, // кусок мяса прыгает
-    meatJump5: { url: "../assets/sounds/Meat_jumps4.wav" }, // кусок мяса прыгает
-    miligan1: { url: "../assets/sounds/miligan0.wav" }, // Милиган хнык
-    miligan2: { url: "../assets/sounds/miligan1.wav" }, // Милиган хнык
-    miligan3: { url: "../assets/sounds/miligan2.wav" }, // Милиган хнык
-    summon: { url: "../assets/sounds/summon.wav" }, // спавн мобов
-    roar1: { url: "../assets/sounds/Roar_0.wav" }, // башка кричит
-    roar2: { url: "../assets/sounds/Roar_1.wav" }, // башка кричит
-    roar3: { url: "../assets/sounds/Roar_2.wav" }, // башка кричит
-    gurdyShoot1: { url: "../assets/sounds/Monster_Yell_A_0.wav" }, // башка кричит
-    gurdyShoot2: { url: "../assets/sounds/Monster_Yell_A_1.wav" }, // башка кричит
+    takeCoin: { url: "../assets/sounds/coinPickup.wav" },
+    heal: { url: "../assets/sounds/heartIntake.wav" },
+    pop: { url: "../assets/sounds/pop.wav" },
+    win: { url: "../assets/sounds/superholy.wav" },
+    boom: { url: "../assets/sounds/explosion.wav" },
+    meatJump1: { url: "../assets/sounds/Meat_jumps0.wav" },
+    meatJump2: { url: "../assets/sounds/Meat_jumps1.wav" },
+    meatJump3: { url: "../assets/sounds/Meat_jumps2.wav" },
+    meatJump4: { url: "../assets/sounds/Meat_jumps3.wav" },
+    meatJump5: { url: "../assets/sounds/Meat_jumps4.wav" },
+    miligan1: { url: "../assets/sounds/miligan0.wav" },
+    miligan2: { url: "../assets/sounds/miligan1.wav" },
+    miligan3: { url: "../assets/sounds/miligan2.wav" },
+    summon: { url: "../assets/sounds/summon.wav" },
+    roar1: { url: "../assets/sounds/Roar_0.wav" },
+    roar2: { url: "../assets/sounds/Roar_1.wav" },
+    roar3: { url: "../assets/sounds/Roar_2.wav" },
+    gurdyShoot1: { url: "../assets/sounds/Monster_Yell_A_0.wav" },
+    gurdyShoot2: { url: "../assets/sounds/Monster_Yell_A_1.wav" },
     bosswin: { url: "../assets/sounds/bosswin.wav" },
 };
 
@@ -72,7 +72,7 @@ for (let name in sound) {
     PIXISound.add(name, sound[name]);
 }
 
-function soundGame(soundName: string, isStop?: Boolean) {
+function soundGame(soundName: string, isStop?: Boolean): void {
     if (isStop) {
         PIXISound.stop(`${soundName}`);
         if (soundName.match(/fly/)) soundsArr.pop();

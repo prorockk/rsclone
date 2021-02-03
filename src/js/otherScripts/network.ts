@@ -3,15 +3,23 @@ const requestURLObj: { [level: string]: string } = {
     users: "https://rs-clone-wars.herokuapp.com/users",
 };
 
+interface ConfigInterface {
+    method: string;
+    body: string;
+    headers: {
+        "Content-Type": string;
+    };
+}
+
 export default {
-    async get(request: string) {
+    async get(request: string): Promise<any> {
         return fetch(requestURLObj[request])
             .then((response) => response.json())
             .catch((error) => console.log(error));
     },
 
-    async create(data: any) {
-        const config = {
+    async create(data: any): Promise<any> {
+        const config: ConfigInterface = {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" },
@@ -21,8 +29,8 @@ export default {
             .catch((error) => console.log(error));
     },
 
-    async set(data: any) {
-        const config = {
+    async set(data: any): Promise<any> {
+        const config: ConfigInterface = {
             method: "PUT",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" },
@@ -32,8 +40,8 @@ export default {
             .catch((error) => console.log(error));
     },
 
-    async remove(data: any) {
-        const config = {
+    async remove(data: any): Promise<any> {
+        const config: ConfigInterface = {
             method: "DELETE",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" },

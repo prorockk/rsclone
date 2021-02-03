@@ -1,8 +1,8 @@
 import { moveTo } from "../Rooms/startGame";
 
-let objectOfGameObjects: any;
-function createObjectOfGameObjects(): void {
-    objectOfGameObjects = {
+let gameObjects: any;
+function createGameObjects(): void {
+    gameObjects = {
         inFirstRoom: {
             toUpperRoom: (): void => moveTo("inSecondRoom"),
         },
@@ -43,4 +43,4 @@ function createObjectOfGameObjects(): void {
         },
     };
 }
-export { objectOfGameObjects, createObjectOfGameObjects };
+export { gameObjects, createGameObjects };

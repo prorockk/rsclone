@@ -1,5 +1,10 @@
 import * as storage from "./storage";
-const moveControls: any = {
+
+interface MoveControlsInterface {
+    [direction: string]: any;
+}
+
+const moveControls: MoveControlsInterface = {
     up: storage.get("up") || "KeyW",
     left: storage.get("left") || "KeyA",
     right: storage.get("right") || "KeyD",

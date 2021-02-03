@@ -2,7 +2,6 @@ import { app } from "../script";
 import { mainCounter, currentRoom, player, rooms } from "../Rooms/startGame";
 import Mobs from "./Mobs";
 import createElement from "../CreateSprite/createGameElement";
-import { soundGame } from "../otherScripts/sound";
 
 class Fly extends Mobs {
     boolDeath: boolean;
@@ -11,7 +10,7 @@ class Fly extends Mobs {
         this.boolDeath = true;
     }
     loadUp() {
-        this.mob.forEach((flyOne: any, current: number) => {
+        this.mob.forEach((flyOne: any) => {
             if (flyOne.sheetSpriteStr === "fly") {
                 flyOne.hp = 2;
                 flyOne.angryMob = true;
@@ -62,11 +61,9 @@ class Fly extends Mobs {
         const playerY = player.getBounds().y;
         this.mob.forEach((flyOne: any) => {
             if (flyOne.hp === 0 && this.boolDeath) {
-                //удаление мух с запуском поледней анимации
                 if (this.mob.length === 1) this.sound(`flyLoop1`, true);
                 this.deleteMob(flyOne);
             } else if (flyOne.freeze) {
-                //анимация нанесения урона
                 this.freezeMob(flyOne);
             } else if (flyOne.angryMob) {
                 const randomSymbol = Math.ceil(Math.random() - 0.5) - 0.2;

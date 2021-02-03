@@ -5,13 +5,13 @@ import checkTexture from "../checkBounds/checkTexture";
 import tearsSheets from "../CreateSprite/tearsSheets";
 import createElement from "../CreateSprite/createGameElement";
 import { changeLife } from "../topPanel/createLife";
-import { objectOfGameObjects } from "../CreateSprite/GameObjects";
+import { gameObjects } from "../CreateSprite/GameObjects";
 import { soundGame } from "../otherScripts/sound";
 import { AnimateMobType } from "../types/Types";
 import renderEndGame from "../otherScripts/endScreen";
 
 const addPlayerActions = (): void => {
-    PlayerMethod.bullets = []; //новые скилы героя
+    PlayerMethod.bullets = [];
 
     const animate: AnimateMobType = tearsSheets();
     const sheets: any = animate.sheets;
@@ -19,23 +19,20 @@ const addPlayerActions = (): void => {
     let tearsAr: number[] = [];
 
     PlayerMethod.playerShooting = function (e: MouseEvent | string): void {
-        if (tearsAr.length > 0 || this.froze || this.head.death) return; //блокирование частых выстрелов
+        if (tearsAr.length > 0 || this.froze || this.head.death) return;
         tearsAr.push(0);
         setTimeout(() => (tearsAr = []), 370);
 
-        //добавляем функции для скилов героя
         let bulletDirection: string;
         const bulletSpeed: number = 8;
-        let tearPosition: number = 20; //выстрелы из разных глаз
+        let tearPosition: number = 20;
         if (switcherTears) {
             tearPosition = 10;
         }
         switcherTears = !switcherTears;
         if (typeof e === "string") {
-            //направление с клавиатуры
             bulletDirection = e;
         } else {
-            // направление с мышки
             const cursorPositionX: number = e.offsetX;
             const cursorPositionY: number = e.offsetY;
             if (Math.abs(cursorPositionX - this.player.x) > Math.abs(cursorPositionY - this.player.y)) {
@@ -45,11 +42,11 @@ const addPlayerActions = (): void => {
             }
         }
 
-        const startPointBullet = bulletDirection === "up" ? 25 : 7.5; //коректировка выстрелов вверх
+        const startPointBullet = bulletDirection === "up" ? 25 : 7.5;
         animate.propertiesAr[0].x = this.player.getBounds().x + tearPosition;
         animate.propertiesAr[0].y = this.player.getBounds().y - startPointBullet;
 
-        this.head.textures = this.playerSheets[`${bulletDirection}See`]; //изменение напрвления головы
+        this.head.textures = this.playerSheets[`${bulletDirection}See`];
         this.head.play();
         this.head.onComplete = (): void => {
             this.head.textures = this.playerSheets.standSee;
@@ -73,7 +70,6 @@ const addPlayerActions = (): void => {
         if (this.player.hasOwnProperty("godMode")) this.head.tint = this.player.tint = 0x008000;
 
         for (let i = 0; i < this.bullets.length; i++) {
-            //определение направления выстрела
             switch (this.bullets[i].direction) {
                 case "up":
                     this.bullets[i].position.y -= this.bullets[i].speed;
@@ -89,7 +85,6 @@ const addPlayerActions = (): void => {
                     break;
             }
 
-            //удаление пуль
             if (
                 checkTexture(0, this.bullets[i]) ||
                 this.bullets[i].y < 135 ||
@@ -110,9 +105,9 @@ const addPlayerActions = (): void => {
         }
     };
 
-    PlayerMethod.buffPlayer = function (item: any) {
-        let result = true;
-        const url = item.url;
+    PlayerMethod.buffPlayer = function (item: any): boolean {
+        let result: boolean = true;
+        const url: string = item.url;
         switch (url) {
             case "hp.png":
                 const hp = 6 - this.head.hp;
@@ -165,7 +160,7 @@ const addPlayerActions = (): void => {
                 setTimeout(() => app.ticker.stop(), 30);
                 break;
         }
-        objectOfGameObjects[currentRoom][url] = [];
+        gameObjects[currentRoom][url] = [];
         return result;
     };
 };

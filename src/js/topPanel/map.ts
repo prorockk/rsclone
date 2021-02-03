@@ -42,29 +42,28 @@ function createMap(topPanel: PIXI.Graphics): void {
         mapCell.alpha = 0;
 
         mapCellCounter === 0
-            ? mapCell.drawRect(110, 65, cellWidth, cellHight) //1
+            ? mapCell.drawRect(110, 65, cellWidth, cellHight)
             : mapCellCounter === 1
-            ? mapCell.drawRect(110, 50, cellWidth, cellHight) //2
+            ? mapCell.drawRect(110, 50, cellWidth, cellHight)
             : mapCellCounter === 2
-            ? mapCell.drawRect(145, 50, cellWidth, cellHight) //3
+            ? mapCell.drawRect(145, 50, cellWidth, cellHight)
             : mapCellCounter === 3
-            ? mapCell.drawRect(180, 50, cellWidth, cellHight) //4
+            ? mapCell.drawRect(180, 50, cellWidth, cellHight)
             : mapCellCounter === 4
-            ? mapCell.drawRect(75, 50, cellWidth, cellHight) //5
+            ? mapCell.drawRect(75, 50, cellWidth, cellHight)
             : mapCellCounter === 5
-            ? mapCell.drawRect(40, 50, cellWidth, cellHight) //6
+            ? mapCell.drawRect(40, 50, cellWidth, cellHight)
             : mapCellCounter === 6
-            ? mapCell.drawRect(110, 35, cellWidth, cellHight) //7
+            ? mapCell.drawRect(110, 35, cellWidth, cellHight)
             : mapCellCounter === 7
-            ? mapCell.drawRect(110, 20, cellWidth, cellHight) //8
+            ? mapCell.drawRect(110, 20, cellWidth, cellHight)
             : mapCellCounter === 8
-            ? mapCell.drawRect(75, 20, cellWidth, cellHight) //9
-            : mapCell.drawRect(40, 20, cellWidth, cellHight); //10
+            ? mapCell.drawRect(75, 20, cellWidth, cellHight)
+            : mapCell.drawRect(40, 20, cellWidth, cellHight);
 
         mapCell.endFill();
 
         cellOfRoom[arrayOfRoomsName[mapCellCounter]] = mapCell;
-        //mapRectangle.addChild(mapCell); panelContainer
         panelContainer.addChild(mapCell);
     }
 

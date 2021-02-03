@@ -7,8 +7,8 @@ import * as storage from "./storage";
 import createFontStyle from "./createFontStyle";
 import { setParamsToPixiElem } from "./setParamsToPixiElem";
 
-let currentSoundVolume = storage.get("soundVolume") === null ? 5 : storage.get("soundVolume") * 10;
-let currentMusicVolume = storage.get("musicVolume") === null ? 5 : storage.get("musicVolume") * 10;
+let currentSoundVolume: number = storage.get("soundVolume") === null ? 5 : storage.get("soundVolume") * 10;
+let currentMusicVolume: number = storage.get("musicVolume") === null ? 5 : storage.get("musicVolume") * 10;
 
 let isFirstTime: boolean = true;
 
@@ -17,12 +17,12 @@ const styleOptions: PIXI.TextStyle = new PIXI.TextStyle(createFontStyle(32, "DRK
 
 let sheet: any;
 
-function renderMenu() {
-    const backgroundMenu = PIXI.Sprite.from("./images/menuBack.png");
+function renderMenu(): void {
+    const backgroundMenu: PIXI.Sprite = PIXI.Sprite.from("./images/menuBack.png");
     backgroundMenu.width = 800;
     backgroundMenu.height = 600;
 
-    const newGame = new PIXI.Text("NEW RUN", style);
+    const newGame: PIXI.Text = new PIXI.Text("NEW RUN", style);
     setParamsToPixiElem(newGame, 200, 120, -0.1, true, true);
 
     newGame.on("mouseover", (e: any) => {
@@ -35,7 +35,7 @@ function renderMenu() {
     });
     newGame.on("click", () => {
         app.stage.removeChildren();
-        const startGameImg = PIXI.Sprite.from("../../../images/pentagramma.png");
+        const startGameImg: PIXI.Sprite = PIXI.Sprite.from("../../../images/pentagramma.png");
         startGameImg.anchor.set(0.5);
         startGameImg.x = 400;
         startGameImg.y = 300;
@@ -86,7 +86,7 @@ function renderMenu() {
         soundGame("pageTurn");
     });
 
-    const menuList = new PIXI.Container();
+    const menuList: PIXI.Container = new PIXI.Container();
     menuList.addChild(newGame, options, stat);
 
     app.stage.addChild(backgroundMenu, menuList);
@@ -100,8 +100,16 @@ function renderMenu() {
     }
 }
 
-function renderStats() {
-    const user = mainCounter.user;
+interface UserInterface {
+    [id: string]: string | number;
+    name: string;
+    kills: number;
+    death: number;
+    win: number;
+}
+
+function renderStats(): void {
+    const user: UserInterface = mainCounter.user;
 
     const statList: PIXI.Container = new PIXI.Container();
 
@@ -165,17 +173,17 @@ function renderOptions() {
     setParamsToPixiElem(down, 320, 430, -0.1, true, true, 33, 33);
 
     down.on("click", () => pressControls(down, "down", `${storage.get("down").slice(3)}`));
-    const downKey = new PIXI.Text(`${storage.get("down").slice(3)}`, styleOptions);
+    const downKey: PIXI.Text = new PIXI.Text(`${storage.get("down").slice(3)}`, styleOptions);
     down.addChild(downKey);
 
     const left: PIXI.Container = new PIXI.Container();
     setParamsToPixiElem(left, 260, 380, -0.1, true, true, 33, 33);
 
     left.on("click", () => pressControls(left, "left", "A"));
-    const leftKey = new PIXI.Text(`${storage.get("left").slice(3)}`, styleOptions);
+    const leftKey: PIXI.Text = new PIXI.Text(`${storage.get("left").slice(3)}`, styleOptions);
     left.addChild(leftKey);
 
-    const optionsList = new PIXI.Container();
+    const optionsList: PIXI.Container = new PIXI.Container();
 
     optionsList.addChild(
         backFromOptions,
@@ -192,13 +200,13 @@ function renderOptions() {
 }
 
 function renderOptionVolume(left: number, top: number, rotation: number) {
-    const volume = new PIXI.Text("Volume", style);
+    const volume: PIXI.Text = new PIXI.Text("Volume", style);
     setParamsToPixiElem(volume, 85, 0, -0.1, false, false);
 
-    const music = new PIXI.Text("Music", styleOptions);
+    const music: PIXI.Text = new PIXI.Text("Music", styleOptions);
     setParamsToPixiElem(music, 10, 60, -0.1, false, false);
 
-    const musicVolumeLeft = PIXI.Sprite.from("../../images/arrow.png");
+    const musicVolumeLeft: PIXI.Sprite = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(musicVolumeLeft, 150, 87, 3.3, true, true, 30, 30);
 
     musicVolumeLeft.on("click", () => {
@@ -211,11 +219,11 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
         }
     });
 
-    const musicVolume = new PIXI.Container();
+    const musicVolume: PIXI.Container = new PIXI.Container();
     musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
     setParamsToPixiElem(musicVolume, 205, 60, -0.15, false, false);
 
-    const musicVolumeRight = PIXI.Sprite.from("../../images/arrow.png");
+    const musicVolumeRight: PIXI.Sprite = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(musicVolumeRight, 260, 35, -0.1, true, true, 30, 30);
 
     musicVolumeRight.on("click", () => {
@@ -228,10 +236,10 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
         }
     });
 
-    const sounds = new PIXI.Text("Sounds", styleOptions);
+    const sounds: PIXI.Text = new PIXI.Text("Sounds", styleOptions);
     setParamsToPixiElem(sounds, 10, 110, -0.1, false, false);
 
-    const soundsVolumeLeft = PIXI.Sprite.from("../../images/arrow.png");
+    const soundsVolumeLeft: PIXI.Sprite = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(soundsVolumeLeft, 150, 135, 3.3, true, true, 30, 30);
 
     soundsVolumeLeft.on("click", () => {
@@ -244,7 +252,7 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
         }
     });
 
-    const soundsVolume = new PIXI.Container();
+    const soundsVolume: PIXI.Container = new PIXI.Container();
     soundsVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentSoundVolume}.png`]));
     setParamsToPixiElem(soundsVolume, 210, 110, -0.15, false, false);
 
@@ -261,9 +269,8 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
         }
     });
 
-    const volumeContainer = new PIXI.Container();
+    const volumeContainer: PIXI.Container = new PIXI.Container();
     setParamsToPixiElem(volumeContainer, left, top, 0, false, false, 330, 150);
-    // volumeContainer.zIndex = 100;
 
     volumeContainer.addChild(
         soundsVolumeRight,

@@ -1,5 +1,5 @@
 import { currentRoom } from "../Rooms/startGame";
-import { objectOfGameObjects } from "../CreateSprite/GameObjects";
+import { gameObjects } from "../CreateSprite/GameObjects";
 
 class CheckBounds {
     player: any;
@@ -36,25 +36,25 @@ class CheckBounds {
 
         if (playerBounds.y < 150) {
             this.player.y = this.head.y = 490;
-            changeRoom(objectOfGameObjects[currentRoom]["toUpperRoom"]);
+            changeRoom(gameObjects[currentRoom]["toUpperRoom"]);
             return true;
         }
 
         if (playerBounds.y > 515) {
             this.player.y = this.head.y = 190;
-            changeRoom(objectOfGameObjects[currentRoom]["toBottomRoom"]);
+            changeRoom(gameObjects[currentRoom]["toBottomRoom"]);
             return true;
         }
 
         if (playerBounds.x > 720) {
             this.player.x = this.head.x = 100;
-            changeRoom(objectOfGameObjects[currentRoom]["toRightRoom"]);
+            changeRoom(gameObjects[currentRoom]["toRightRoom"]);
             return true;
         }
 
         if (playerBounds.x < 50) {
             this.player.x = this.head.x = 700;
-            changeRoom(objectOfGameObjects[currentRoom]["toLeftRoom"]);
+            changeRoom(gameObjects[currentRoom]["toLeftRoom"]);
             return true;
         }
         return false;

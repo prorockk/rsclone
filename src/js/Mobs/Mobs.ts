@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { objectOfGameObjects } from "../CreateSprite/GameObjects";
+import { gameObjects } from "../CreateSprite/GameObjects";
 import { app } from "../script";
 import { mainCounter, currentRoom, playerHead, rooms } from "../Rooms/startGame";
 import tearsSheets from "../CreateSprite/tearsSheets";
@@ -29,13 +29,10 @@ class Mobs {
         this.sound = soundGame;
     }
     doneLoading(): void {
-        if (
-            !objectOfGameObjects[currentRoom].hasOwnProperty(this.name) ||
-            objectOfGameObjects[currentRoom][this.name].length === 0
-        ) {
+        if (!gameObjects[currentRoom].hasOwnProperty(this.name) || gameObjects[currentRoom][this.name].length === 0) {
             return;
         }
-        this.mob = objectOfGameObjects[currentRoom][this.name];
+        this.mob = gameObjects[currentRoom][this.name];
         mainCounter.count += this.name === "door" ? 0 : this.mob.length;
         this.sheets = this.mob[0].sheets;
 
@@ -76,7 +73,6 @@ class Mobs {
             mobOne.hp--;
             const impulse = mobOne.freeze.slice();
             const intTint = setInterval(() => {
-                // перемещение и  мигание один раз
                 mobOne.x -= impulse[0];
                 mobOne.y -= impulse[1];
                 mobOne.tint = 16716853;
@@ -100,7 +96,6 @@ class Mobs {
         const diffX = Math.abs(playerHeadBounds.x - mobsBounds.x);
         const diffY = Math.abs(playerHeadBounds.y - mobsBounds.y);
         if (diffX >= diffY) {
-            //задаем равномерную скорость по вектору
             bullet.bulletSpeedX = (diffX / diffY) * 2;
             bullet.bulletSpeedY = 2;
         } else {
@@ -108,14 +103,13 @@ class Mobs {
             bullet.bulletSpeedX = 2;
         }
         if (bullet.bulletSpeedX > 3.5 || bullet.bulletSpeedY > 3.5) {
-            // коректируем скорость полу в координатах близких к 0
             const multiSpeed = bullet.bulletSpeedX / bullet.bulletSpeedY + bullet.bulletSpeedY / bullet.bulletSpeedX;
             bullet.bulletSpeedX /= multiSpeed / 1.5;
             bullet.bulletSpeedY /= multiSpeed / 1.5;
         }
-        bullet.bulletSpeedY *= playerHeadBounds.y - mobsBounds.y >= 0 ? 1 : -1; //направление выстрела
+        bullet.bulletSpeedY *= playerHeadBounds.y - mobsBounds.y >= 0 ? 1 : -1;
         bullet.bulletSpeedX *= playerHeadBounds.x - mobsBounds.x >= 0 ? 1 : -1;
-        bullet.forPlayer = true; //указание для коллизии
+        bullet.forPlayer = true;
         bullet.damage = 1;
         bullet.tint = 9109504;
         this.bullets.push(bullet);
@@ -159,9 +153,9 @@ class Mobs {
                     case 3:
                         setSpeed(0, bulletSpeed);
                 }
-                bullet.x += bullet.bulletSpeedX * 4; // перемещаем начало выстрела на границу моба
+                bullet.x += bullet.bulletSpeedX * 4;
                 bullet.y += bullet.bulletSpeedY * 4;
-                bullet.forPlayer = true; //указание для коллизии
+                bullet.forPlayer = true;
                 bullet.damage = 1;
                 bullet.tint = 9109504;
                 this.bullets.push(bullet);
@@ -171,13 +165,12 @@ class Mobs {
     }
     trackShot() {
         for (let i = 0; i < this.bullets.length; i++) {
-            //определение направления выстрела
             const bullet = this.bullets[i];
             bullet.position.x += bullet.bulletSpeedX;
-            bullet.position.y += bullet.bulletSpeedY; //удаление пуль
+            bullet.position.y += bullet.bulletSpeedY;
             if (
-                checkTexture(1, bullet, true) || //для игрока
-                checkTexture(0, bullet, false) || //для объектов
+                checkTexture(1, bullet, true) ||
+                checkTexture(0, bullet, false) ||
                 !this.boolDeath ||
                 playerHead.hp <= 0 ||
                 bullet.y < 135 ||
