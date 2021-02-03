@@ -10,8 +10,10 @@ interface sounds {
     [sound: string]: oneSound;
 }
 
-let musicVolume: number = storage.get("musicVolume") === null ? 0.5 : storage.get("musicVolume");
-let soundVolume: number = storage.get("soundVolume") === null ? 0.5 : storage.get("soundVolume");
+let musicVolume: number = storage.get("musicVolume") === null ? 5 : storage.get("musicVolume");
+let soundVolume: number = storage.get("soundVolume") === null ? 5 : storage.get("soundVolume");
+
+const volumeArr = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
 
 const soundsArr: string[] = [];
 const musicArr: string[] = [];
@@ -65,7 +67,7 @@ const sound: sounds = {
     roar3: { url: "../assets/sounds/Roar_2.wav" },
     gurdyShoot1: { url: "../assets/sounds/Monster_Yell_A_0.wav" },
     gurdyShoot2: { url: "../assets/sounds/Monster_Yell_A_1.wav" },
-    bosswin: { url: "../assets/sounds/bosswin.wav" },
+    bosswin: { url: "../assets/sounds/boswin.wav" },
 };
 
 for (let name in sound) {
@@ -74,51 +76,62 @@ for (let name in sound) {
 
 function soundGame(soundName: string, isStop?: Boolean): void {
     if (isStop) {
-        PIXISound.stop(`${soundName}`);
+        PIXISound.stop(soundName);
         if (soundName.match(/fly/)) soundsArr.pop();
         else musicArr.splice(musicArr.indexOf(soundName), 1);
     } else {
         if (soundName.match(/Music/)) {
-            PIXISound.play(`${soundName}`, { volume: musicVolume });
+            PIXISound.play(soundName);
+            PIXISound.find(soundName).volume = volumeArr[musicVolume];
             musicArr.push(soundName);
         } else {
-            PIXISound.play(`${soundName}`, { volume: soundVolume });
+            PIXISound.play(soundName, { volume: volumeArr[soundVolume] });
             if (soundName.match(/fly/)) soundsArr.push(soundName);
         }
     }
 }
 
 function changeVolume(music: number, sounds: number): void {
+    console.log(volumeArr[musicVolume]);
+
     if (musicVolume === 0) {
         PIXISound.stop("menuMusic");
-        PIXISound.play("menuMusic", { volume: music / 10 });
+        PIXISound.play("menuMusic");
     }
-    musicVolume = music / 10;
-    soundVolume = sounds / 10;
+    musicVolume = music;
+    soundVolume = sounds;
     storage.set("musicVolume", musicVolume);
     storage.set("soundVolume", soundVolume);
-    PIXISound.find(musicArr[0]).volume = musicVolume;
+    PIXISound.find(musicArr[0]).volume = volumeArr[musicVolume];
 }
 
-function onOff(mute: boolean, type?: string) {
+function onOff(mute: boolean, type: string) {
     if (mute) {
-        musicVolume = 0;
-        soundVolume = 0;
-        musicArr.forEach((element: string) => {
-            PIXISound.find(element).muted = true;
-        });
-        soundsArr.forEach((element: string) => {
-            PIXISound.find(element).muted = true;
-        });
+        if (type === "music") {
+            musicVolume = 0;
+            musicArr.forEach((element: string) => {
+                PIXISound.find(element).muted = true;
+            });
+        } else {
+            soundVolume = 0;
+            soundsArr.forEach((element: string) => {
+                PIXISound.find(element).muted = true;
+            });
+        }
     } else {
-        musicVolume = storage.get("musicVolume");
-        soundVolume = storage.get("soundVolume");
-        musicArr.forEach((element: string) => {
-            PIXISound.find(element).muted = false;
-        });
-        soundsArr.forEach((element: string) => {
-            PIXISound.find(element).muted = false;
-        });
+        if (type === "music") {
+            musicVolume = storage.get("musicVolume");
+            musicArr.forEach((element: string) => {
+                PIXISound.find(element).muted = false;
+                PIXISound.find(element).volume = volumeArr[musicVolume];
+            });
+        } else {
+            soundVolume = storage.get("soundVolume");
+            soundsArr.forEach((element: string) => {
+                PIXISound.find(element).muted = false;
+                PIXISound.find(element).volume = volumeArr[soundVolume];
+            });
+        }
     }
 }
 

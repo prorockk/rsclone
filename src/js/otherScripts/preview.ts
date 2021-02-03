@@ -26,20 +26,28 @@ export default function renderPreview(): void {
         PIXI.Texture.from("./images/filespotlight1.png"),
         PIXI.Texture.from("./images/filespotlight2.png"),
     ];
-    let animatedIsaac: PIXI.AnimatedSprite = new PIXI.AnimatedSprite(isaacArray);
+    const animatedIsaac = new PIXI.AnimatedSprite(isaacArray);
     animatedIsaac.animationSpeed = 0.08;
     setParamsToPixiElem(animatedIsaac, 250, 150, 0, false, false, 300, 300);
 
-    const previewArray = [backgroundPreview, animatedIsaac, logo, shadow, button];
+    const whoAmI: PIXI.Sprite = PIXI.Sprite.from("./images/whoAmI.png")
+    setParamsToPixiElem(whoAmI,250, 150, 0, false, false, 300, 300);
+
+    const previewArray = [backgroundPreview, logo, shadow, button, whoAmI];
 
     button.on("click", () => {
-        console.log(input.value);
-
-        if (input.value.length > 0 && input.value.length < 10 && !input.value.match(/[^*\S]/gi)) {
+        if (input.value.length > 0 && input.value.length < 10 && input.value.match(/[A-Za-z0-9]/)) {
+            app.stage.addChild(animatedIsaac);
+            app.stage.removeChild(whoAmI);
             animatedIsaac.play();
             document.body.removeChild(input);
             app.stage.removeChild(button);
             getCurrentUser();
+        } else {
+            input.classList.add("invalid");
+            setTimeout(() => {
+                input.classList.remove("invalid");
+            }, 3000);
         }
     });
     button.on("mouseover", () => {
@@ -58,6 +66,11 @@ export default function renderPreview(): void {
     const userName: string = user.login();
     const input: HTMLInputElement = document.createElement("input");
     input.value = userName;
+    input.setAttribute("placeholder", "Enter your name");
+    input.setAttribute("spellcheck", "false");
+
+    const inputCurrentBottom: string = `${(window.innerHeight - 600) / 2 + 120}px`;
+    input.style.bottom = inputCurrentBottom;
     document.body.appendChild(input);
     app.stage.addChild(...previewArray);
     soundGame("menuMusic");

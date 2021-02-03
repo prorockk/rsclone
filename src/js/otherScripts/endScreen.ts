@@ -37,6 +37,7 @@ export default function renderEndGame(isDeath?: boolean): void {
     const tryAgain: PIXI.Text = new PIXI.Text(newRunText, styleOptions);
     setParamsToPixiElem(tryAgain, isDeath ? 100 : 110, 130, 0, true, true);
     tryAgain.on("click", () => {
+        soundGame("floorMusic");
         leaveFromEndScreen();
         getApp(true);
     });
