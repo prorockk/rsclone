@@ -1,5 +1,4 @@
 import * as PIXI from "pixi.js";
-import TextInput from "pixi-textinput-v5";
 import { app } from "../script";
 import { soundGame } from "./sound";
 import { renderMenu } from "../otherScripts/menu";
@@ -7,6 +6,7 @@ import * as storage from "./storage";
 import * as user from "./login";
 import { mainCounter } from "../Rooms/startGame";
 import { findUser } from "./login";
+import { stringify } from "querystring";
 
 export default function renderPreview() {
     const setSpriteOptions = (url: string, width: number, height: number, x?: number, y?: number) => {
@@ -40,16 +40,25 @@ export default function renderPreview() {
     animatedIsaac.x = 250;
     animatedIsaac.y = 150;
 
-    const previewArray = [backgroundPreview, animatedIsaac, logo, shadow, button];
+    const whoAmI: PIXI.Sprite = setSpriteOptions("./images/whoAmI.png", 300, 300, 250, 150);
+
+    const previewArray = [backgroundPreview, logo, shadow, button, whoAmI];
 
     button.on("click", () => {
         console.log(input.value);
 
-        if (input.value.length > 0 && input.value.length < 10 && !input.value.match(/[^*\S]/gi)) {
+        if (input.value.length > 0 && input.value.length < 10 && input.value.match(/[A-Za-z0-9]/)) {
+            app.stage.addChild(animatedIsaac);
+            app.stage.removeChild(whoAmI);
             animatedIsaac.play();
             document.body.removeChild(input);
             app.stage.removeChild(button);
             getCurrentUser();
+        } else {
+            input.classList.add("invalid");
+            setTimeout(() => {
+                input.classList.remove("invalid");
+            }, 3000);
         }
     });
     button.on("mouseover", () => {
@@ -68,6 +77,11 @@ export default function renderPreview() {
     const userName = user.login();
     const input: HTMLInputElement = document.createElement("input");
     input.value = userName;
+    input.setAttribute("placeholder", "Enter your name");
+    input.setAttribute("spellcheck", "false");
+
+    const inputCurrentBottom: string = `${(window.innerHeight - 600) / 2 + 120}px`;
+    input.style.bottom = inputCurrentBottom;
     document.body.appendChild(input);
     app.stage.addChild(...previewArray);
     soundGame("menuMusic");

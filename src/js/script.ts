@@ -42,7 +42,7 @@ getApp();
 document.body.append("Need to load font");
 document.body.style.height = `${window.innerHeight}px`;
 window.onresize = () => (document.body.style.height = `${window.innerHeight}px`);
-
+console.log(document.body.style.height);
 export { app, getApp };
 
 // async function setJSON () {

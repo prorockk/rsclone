@@ -21,12 +21,29 @@ body {
 
 input {
     position: absolute;
-    width: 300px;
-    height: 50px;
+    width: 240px;
+    height: 30px;
     background-color: rgb(231, 221, 220);
     font-size: 18px;
-    border: 8px ridge rgb(138, 105, 68);
+    text-align: center;
+    border: 4px ridge rgb(138, 105, 68);
     border-radius: 5px;
     outline: none;
-    bottom: 25vh;
+    transform: rotate(-2deg);
+}
+
+.invalid {
+    animation: false 1s infinite;
+}
+
+@keyframes false {
+    0% {
+        border-color: rgb(138, 105, 68);
+    }
+    50% {
+        border-color: red;
+    }
+    100% {
+        border-color: rgb(138, 105, 68);
+    }
 }

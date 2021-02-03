@@ -211,7 +211,7 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
 
     const musicVolume = new PIXI.Container();
     musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
-    setParamsToPixiElem(musicVolume, 205, 30, -0.15, false, false);
+    setParamsToPixiElem(musicVolume, 205, 60, -0.15, false, false);
 
     const musicVolumeRight = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(musicVolumeRight, 260, 35, -0.1, true, true, 30, 30);
