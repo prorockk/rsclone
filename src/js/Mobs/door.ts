@@ -1,6 +1,7 @@
 import { app } from "../script";
 import { mainCounter, currentRoom } from "../Rooms/startGame";
 import Mobs from "./Mobs";
+import { objectOfGameObjects } from "../CreateSprite/GameObjects";
 
 class Doors extends Mobs {
     boolDeath: boolean;
@@ -12,11 +13,11 @@ class Doors extends Mobs {
         if (mainCounter.count > 0) {
             this.mob.forEach((door: any, count) => {
                 if (count === 0) {
-                    this.sound("doorClose");
                     if (currentRoom === "inTenthRoom") {
+                        this.sound("bossEnter");
                         this.sound("floorMusic", true);
                         this.sound("bossMusic");
-                    }
+                    } else this.sound("doorClose");
                 }
                 door.textures = this.sheets[`${door.sheetSpriteStr}Close`];
                 door.play();
@@ -39,6 +40,14 @@ class Doors extends Mobs {
                     if (currentRoom === "inTenthRoom") {
                         this.sound("floorMusic");
                         this.sound("bossMusic", true);
+                        const texture = PIXI.Texture.from("trap_door1.png");
+                        const bowl: any = PIXI.Sprite.from(texture);
+                        bowl.x = 233;
+                        bowl.y = 215;
+                        bowl.url = "trap_door1.png";
+                        bowl.angryMob = false;
+                        objectOfGameObjects[currentRoom]["trap_door1.png"] = [bowl];
+                        rooms[currentRoom].addChild(bowl);
                     }
                 }
                 door.textures = this.sheets[`${door.sheetSpriteStr}Open`];

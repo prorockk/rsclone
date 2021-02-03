@@ -22,10 +22,6 @@ function getApp(isRun?: boolean): void {
     PIXI.utils.clearTextureCache();
     app.loader.add("isaac", "../assets/sprite-sheets.json");
 
-    const defaultIcon: string = "url('../images/cursor.png'),auto";
-
-    app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
-    app.renderer.plugins.interaction.cursorStyles.hover = defaultIcon;
     if (isFirstTime) {
         renderPreview();
         isFirstTime = false;

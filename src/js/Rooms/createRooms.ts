@@ -1,8 +1,10 @@
 import createElement from "../CreateSprite/createGameElement";
+import sendResponse from "../otherScripts/network";
 
-export default async function createElementsInAllRooms(rooms: any) {
-    const res: Response = await fetch("../src/js/Rooms/rooms.json");
-    const roomsArr: any = await res.json();
+export default async function createElementsInAllRooms(rooms: any): Promise<any> {
+    const res: any[] = await sendResponse.get("level");
+    const roomsArr: any = await res[0].firstLvl;
+
     const createStatic: createElement = new createElement(rooms);
     return await roomsArr.forEach((room: { [x: string]: any[] }) => {
         for (let func in room) {

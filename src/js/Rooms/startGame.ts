@@ -27,7 +27,7 @@ let PlayerMethod: any;
 let player: any;
 let playerHead: any;
 
-function startGame(startGameImg?: PIXI.Sprite): void {
+function startGame(): void {
     PlayerMethod = new createPlayer();
     player = {};
     playerHead = {};
@@ -73,10 +73,10 @@ function startGame(startGameImg?: PIXI.Sprite): void {
         controller(PlayerMethod);
     });
 
-    createTopPanel();
     app.stage.addChild(BackGroundImage);
     app.stage.addChild(rooms["inFirstRoom"]);
     app.stage.addChild(topPanel);
+    createTopPanel();
 }
 
 function moveTo(room: string): void {

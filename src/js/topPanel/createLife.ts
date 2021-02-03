@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+import { app } from "../script";
 
 interface HeartsCells {
     [heartGroup: string]: HeartIcon;
@@ -23,18 +24,18 @@ function createLifeContainer(topPanel: PIXI.Graphics, setParamsToPixiElem: Funct
     const heartsTypes: string[] = ["empty", "half", "full"];
 
     bossPanel = PIXI.Sprite.from("../../assets/bossPanel.png");
-    setParamsToPixiElem(bossPanel, 13, 10, 0, false, false, 570, 86);
+    setParamsToPixiElem(bossPanel, 308, 125, 0, false, false, 185, 30);
 
     bossMask = new PIXI.Graphics();
     bossMask.beginFill(0x800000);
     bossMask.lineStyle(1, 0x000000, 0);
-    bossMask.drawRoundedRect(212, 51, 216.5, 9, 5);
+    bossMask.drawRoundedRect(335, 134, 150, 10, 5);
     bossMask.endFill();
 
     bossMask.alpha = 0;
     bossPanel.alpha = 0;
 
-    topPanel.addChild(bossPanel, bossMask);
+    app.stage.addChild(bossPanel, bossMask);
 
     const heartsUrl: string[] = ["../../assets/heart.png", "../../assets/heartHalf.png", "../../assets/heartFull.png"];
     const lifeLabel: PIXI.Sprite = PIXI.Sprite.from("../../assets/lifeLabel.png");
@@ -106,8 +107,8 @@ function changeLife(hitPoints: number | string): void {
             }
             break;
         case "boss":
-            bossMask.width -= 4.33;
-            bossMask.x += 4.33;
+            bossMask.width -= 3;
+            bossMask.x += 6.72;
     }
 }
 

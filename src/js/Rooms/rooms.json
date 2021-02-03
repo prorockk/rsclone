@@ -772,7 +772,7 @@
                 "room": "inFourthRoom"
             },
             {
-                "coords": [450, 235],
+                "coords": [450, 230],
                 "url": "hp.png",
                 "size": [15, 12],
                 "room": "inFourthRoom",

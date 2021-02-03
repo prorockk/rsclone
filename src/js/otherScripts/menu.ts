@@ -22,7 +22,11 @@ function renderMenu(): void {
     backgroundMenu.width = 800;
     backgroundMenu.height = 600;
 
-    const newGame: PIXI.Text = new PIXI.Text("NEW RUN", style);
+    const shadow: PIXI.Sprite = PIXI.Sprite.from("./assets/menuoverlay.png");
+    shadow.width = 800;
+    shadow.height = 600;
+
+    const newGame = new PIXI.Text("NEW RUN", style);
     setParamsToPixiElem(newGame, 200, 120, -0.1, true, true);
 
     newGame.on("mouseover", (e: any) => {
@@ -87,7 +91,7 @@ function renderMenu(): void {
     const menuList: PIXI.Container = new PIXI.Container();
     menuList.addChild(newGame, options, stat);
 
-    app.stage.addChild(backgroundMenu, menuList);
+    app.stage.addChild(backgroundMenu, shadow, menuList);
 
     if (isFirstTime) {
         PIXI.Loader.shared.add("../../../assets/volume.json").load(setup);
@@ -124,14 +128,29 @@ function renderStats(): void {
     const wins: PIXI.Text = new PIXI.Text(`Wins:   ${user.win}`, style);
     setParamsToPixiElem(name, 230, 360, -0.1, false, false);
 
-    const back: PIXI.Text = new PIXI.Text("X", style);
-    setParamsToPixiElem(back, 525, 420, -0.1, true, true);
-
-    back.on("click", () => {
+    const back: PIXI.Sprite = PIXI.Sprite.from("./assets/back.png");
+    setParamsToPixiElem(back, 1, 600, 0, true, true);
+    back.anchor.set(0, 1);
+    const backBtn = () => {
         app.stage.removeChild(statList);
         renderMenu();
         soundGame("pageTurn");
+    };
+    back.on("click", backBtn);
+
+    back.on("mouseover", () => {
+        back.scale.set(1.05);
+        soundGame("select");
     });
+    back.on("mouseout", () => {
+        back.scale.set(1);
+        soundGame("unselect");
+    });
+
+    document.onkeyup = (e) => {
+        if (e.code === "Escape") backBtn();
+    };
+
     statList.addChild(name, death, kills, back, wins);
     app.stage.addChild(statList);
 }
@@ -140,15 +159,28 @@ function renderOptions() {
     const controls = new PIXI.Text("Controls", style);
     setParamsToPixiElem(controls, 220, 260, -0.1, false, false);
 
-    const backFromOptions: PIXI.Text = new PIXI.Text("X", style);
-    setParamsToPixiElem(backFromOptions, 525, 420, -0.1, true, true);
-
-    backFromOptions.on("click", () => {
+    const backFromOptions: PIXI.Sprite = PIXI.Sprite.from("./assets/back.png");
+    setParamsToPixiElem(backFromOptions, 1, 600, 0, true, true);
+    backFromOptions.anchor.set(0, 1);
+    const backBtn = () => {
         app.stage.removeChild(optionsList);
         renderMenu();
         soundGame("pageTurn");
+    };
+    backFromOptions.on("click", backBtn);
+
+    backFromOptions.on("mouseover", () => {
+        backFromOptions.scale.set(1.05);
+        soundGame("select");
+    });
+    backFromOptions.on("mouseout", () => {
+        backFromOptions.scale.set(1);
+        soundGame("unselect");
     });
 
+    document.onkeyup = (e) => {
+        if (e.code === "Escape") backBtn();
+    };
     const movesControl: PIXI.Sprite = new PIXI.Sprite(sheet.textures[`controls.png`]);
     setParamsToPixiElem(movesControl, 330, 390, -0.1, false, false);
     movesControl.scale.set(1.5);
@@ -219,7 +251,7 @@ function renderOptionVolume(left: number, top: number, rotation: number) {
 
     const musicVolume: PIXI.Container = new PIXI.Container();
     musicVolume.addChild(new PIXI.Sprite(sheet.textures[`${currentMusicVolume}.png`]));
-    setParamsToPixiElem(musicVolume, 205, 60, -0.15, false, false);
+    setParamsToPixiElem(musicVolume, 205, 30, -0.15, false, false);
 
     const musicVolumeRight: PIXI.Sprite = PIXI.Sprite.from("../../images/arrow.png");
     setParamsToPixiElem(musicVolumeRight, 260, 35, -0.1, true, true, 30, 30);

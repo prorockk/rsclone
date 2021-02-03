@@ -23,7 +23,7 @@ class Gurdy extends Mobs {
     }
     loadUp() {
         const [gurdy, gurdyBody, gurdyHead] = this.mob;
-        gurdyBody.hp = 10;
+        gurdyBody.hp = 50;
         gurdyBody.angryMob = true;
         gurdyBody.freeze = false;
         gurdyBody.damage = 2;
@@ -69,14 +69,6 @@ class Gurdy extends Mobs {
                         this.boolDeath = true;
                         mainCounter.count -= 3;
                         mainCounter.user.kills++;
-                        const texture = PIXI.Texture.from("trap_door1.png");
-                        const bowl: any = PIXI.Sprite.from(texture);
-                        bowl.x = 233;
-                        bowl.y = 215;
-                        bowl.url = "trap_door1.png";
-                        bowl.angryMob = false;
-                        gameObjects[currentRoom]["trap_door1.png"] = [bowl];
-                        rooms[currentRoom].addChild(bowl);
                     };
                 };
             };
@@ -91,7 +83,7 @@ class Gurdy extends Mobs {
             gurdyBody.freeze = false;
         } else if (timeOut > 300) {
             if (timeOut < 550 && timeOut % 20 === 0) {
-                if (timeOut < 570) this.sound("gurdyShoot2");
+                if (timeOut <= 320) this.sound("gurdyShoot2");
                 gurdyOne.textures = this.sheets.angry;
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
@@ -105,7 +97,7 @@ class Gurdy extends Mobs {
                 gurdyOne.animationSpeed = 0.1;
                 gurdyOne.loop = false;
                 gurdyOne.play();
-                this.sound("gurdyShoot1");
+                if (timeOut === 650) this.sound("gurdyShoot1");
                 gurdyOne.onComplete = () => {
                     gurdyOne.textures = this.sheets.stand;
                     gurdyOne.animationSpeed = 0.05;
