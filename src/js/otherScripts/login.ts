@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import * as storage from "./storage";
 import sendResponse from "./network";
 import { mainCounter } from "../Rooms/startGame";
@@ -28,5 +29,6 @@ export async function sendChangeUser(): Promise<void> {
 }
 
 async function setUser(userName: string): Promise<any> {
-    return await sendResponse.create({ name: userName });
+    const send = sendResponse.create({ name: userName });
+    return send;
 }

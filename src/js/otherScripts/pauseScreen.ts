@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import * as PIXI from "pixi.js";
 import { app, getApp } from "../script";
 import { sendChangeUser } from "./login";
@@ -8,26 +9,9 @@ import { setParamsToPixiElem } from "./setParamsToPixiElem";
 let musicIsOn: boolean = true;
 let soundsIsOn: boolean = true;
 
-export const closePause = (e: KeyboardEvent) => {
-    if (e.keyCode === 27) renderPause(false);
-};
-
 const style: PIXI.TextStyle = new PIXI.TextStyle(createFontStyle(40, "DRKrapka", "900"));
+
 const styleOptions: PIXI.TextStyle = new PIXI.TextStyle(createFontStyle(32, "DRKrapka", "900"));
-
-const cont: PIXI.Container = getPauseScreen();
-
-export function renderPause(isShow: boolean): void {
-    if (isShow) {
-        soundGame("pageTurn");
-        app.stage.addChild(cont);
-        setTimeout(() => app.ticker.stop(), 100);
-    } else {
-        app.ticker.start();
-        app.stage.removeChild(cont);
-        soundGame("pageTurn");
-    }
-}
 
 function getPauseScreen(): PIXI.Container {
     const music = new PIXI.Text("Music", styleOptions);
@@ -85,6 +69,7 @@ function getPauseScreen(): PIXI.Container {
 
     resumeGame.on("click", () => {
         document.dispatchEvent(new KeyboardEvent("keydown", { code: "Escape" }));
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         renderPause(false);
         sendChangeUser();
     });
@@ -111,3 +96,20 @@ function getPauseScreen(): PIXI.Container {
 
     return pauseScreen;
 }
+const cont: PIXI.Container = getPauseScreen();
+
+export function renderPause(isShow: boolean): void {
+    if (isShow) {
+        soundGame("pageTurn");
+        app.stage.addChild(cont);
+        setTimeout(() => app.ticker.stop(), 100);
+    } else {
+        app.ticker.start();
+        app.stage.removeChild(cont);
+        soundGame("pageTurn");
+    }
+}
+
+export const closePause = (e: KeyboardEvent) => {
+    if (e.keyCode === 27) renderPause(false);
+};

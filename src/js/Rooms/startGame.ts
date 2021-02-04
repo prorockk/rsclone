@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import * as PIXI from "pixi.js";
 import createPlayer from "../Player/createPlayer";
 import { app } from "../script";

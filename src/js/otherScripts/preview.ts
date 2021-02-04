@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import * as PIXI from "pixi.js";
 import { app } from "../script";
 import { soundGame } from "./sound";
@@ -42,6 +43,18 @@ export default function renderPreview(): void {
 
     const previewArray: any[] = [backgroundPreview, logo, shadow, button, whoAmI];
 
+    const userName: string = user.login();
+    const input: HTMLInputElement = document.createElement("input");
+    input.value = userName;
+    input.setAttribute("placeholder", "Enter your name");
+    input.setAttribute("spellcheck", "false");
+
+    async function getCurrentUser() {
+        mainCounter.user = await findUser(input.value);
+        app.stage.removeChild(...previewArray);
+        renderMenu();
+    }
+
     const start = () => {
         if (input.value.length > 0 && input.value.length < 10 && input.value.match(/[A-Za-z0-9]/)) {
             app.stage.addChild(animatedIsaac);
@@ -58,8 +71,8 @@ export default function renderPreview(): void {
             }, 3000);
         }
     };
-
     button.on("click", start);
+
     button.on("mouseover", () => {
         button.scale.set(1.05);
         soundGame("select");
@@ -68,21 +81,9 @@ export default function renderPreview(): void {
         button.scale.set(1);
         soundGame("unselect");
     });
-
     document.onkeypress = (e) => {
         if (e.code === "Space") start();
     };
-
-    async function getCurrentUser() {
-        mainCounter.user = await findUser(input.value);
-        app.stage.removeChild(...previewArray);
-        renderMenu();
-    }
-    const userName: string = user.login();
-    const input: HTMLInputElement = document.createElement("input");
-    input.value = userName;
-    input.setAttribute("placeholder", "Enter your name");
-    input.setAttribute("spellcheck", "false");
 
     const inputCurrentBottom: string = `${(window.innerHeight - 600) / 2 + 120}px`;
     input.style.bottom = inputCurrentBottom;

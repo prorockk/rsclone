@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import * as PIXI from "pixi.js";
 import { soundGame } from "../otherScripts/sound";
 import renderEndScreen from "../otherScripts/endScreen";
@@ -22,10 +23,12 @@ function deathPlayer(): void {
         if (ticker.speed > 0.1) {
             ticker.speed -= 0.01;
             blurFilter1.blur += 0.1;
-        } else {
-            renderEndScreen(true);
-            setTimeout(() => ticker.stop(), 30);
         }
     });
+
+    setTimeout(() => {
+        renderEndScreen(true);
+        ticker.stop();
+    }, 30);
 }
 export default deathPlayer;
