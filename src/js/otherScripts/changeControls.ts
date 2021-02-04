@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import * as storage from "./storage";
 
 interface MoveControlsInterface {

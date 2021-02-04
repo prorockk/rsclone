@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/naming-convention
 interface styleInterface {
     fontSize: number;
     fontFamily: string;

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import createElement from "../CreateSprite/createGameElement";
 import sendResponse from "../otherScripts/network";
 

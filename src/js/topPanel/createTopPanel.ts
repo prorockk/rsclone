@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { topPanel } from "../Rooms/startGame";
 import createArrowContainer from "./arrows";
 import { createMap } from "./map";

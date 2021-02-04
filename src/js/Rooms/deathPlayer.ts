@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import * as PIXI from "pixi.js";
 import { soundGame } from "../otherScripts/sound";
 import renderEndScreen from "../otherScripts/endScreen";
@@ -28,7 +27,9 @@ function deathPlayer(): void {
 
     setTimeout(() => {
         renderEndScreen(true);
+    }, 300);
+    setTimeout(() => {
         ticker.stop();
-    }, 30);
+    }, 330);
 }
 export default deathPlayer;

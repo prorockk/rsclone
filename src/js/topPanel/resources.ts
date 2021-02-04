@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import * as PIXI from "pixi.js";
 
 interface Resources {

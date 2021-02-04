@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import * as storage from "./storage";
 import sendResponse from "./network";
 import { mainCounter } from "../Rooms/startGame";

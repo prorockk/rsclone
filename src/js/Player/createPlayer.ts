@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { app } from "../script";
 import CheckBounds from "../checkBounds/checkBounds";
 import { AnimateMobType } from "../types/Types";

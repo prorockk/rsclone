@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import * as PIXI from "pixi.js";
 
 export default function createArrowContainer(topPanel: PIXI.Graphics, setParamsToPixiElem: Function): void {
