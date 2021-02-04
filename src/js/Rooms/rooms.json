@@ -1,0 +1,2403 @@
+[
+    {
+        "createGameElement": [
+            {
+                "coords": [260, 250],
+                "url": "imgStain1.png",
+                "size": [30, 19],
+                "room": "inFirstRoom",
+                "picture": true
+            },
+            {
+                "coords": [220, 230],
+                "url": "imgStain.png",
+                "size": [22, 10],
+                "room": "inFirstRoom",
+                "picture": true
+            },
+            {
+                "coords": [150, 300],
+                "url": "imgShadow.png",
+                "size": [47, 37],
+                "room": "inFirstRoom",
+                "picture": true
+            },
+            {
+                "coords": [150, 130],
+                "url": "imgRock1.png",
+                "size": [20, 22],
+                "room": "inFirstRoom",
+                "picture": true
+            },
+            {
+                "coords": [350, 210],
+                "url": "imgRock1.png",
+                "size": [15, 17],
+                "room": "inFirstRoom",
+                "picture": true
+            },
+            {
+                "coords": [390, 310],
+                "url": "imgRock.png",
+                "size": [27, 27],
+                "room": "inFirstRoom",
+                "picture": true
+            },
+            {
+                "coords": [120, 300],
+                "url": "imgMix.png",
+                "size": [61, 73],
+                "room": "inFirstRoom",
+                "picture": true
+            },
+            {
+                "coords": [145, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [390, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [25, 235],
+                "url": "invisibleBlock.png",
+                "size": [60, 300],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [500, 235],
+                "url": "invisibleBlock.png",
+                "size": [40, 300],
+                "room": "inFirstRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inFirstRoom"
+            }
+        ]
+    },
+    {
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inFirstRoom",
+                "setBool": false,
+                "texture": {
+                    "doorClose": ["door_4.png", "door_5.png", "door_6.png", "door_7.png"],
+                    "doorOpen": ["door_3.png", "door_2.png", "door_1.png", "door_0.png"],
+                    "door": ["door_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 270,
+                        "y": 96
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [90, 150],
+                "url": "imgGrass2.png",
+                "size": [16, 29],
+                "room": "inSecondRoom",
+                "picture": true
+            },
+            {
+                "coords": [200, 200],
+                "url": "imgGrass.png",
+                "size": [47, 37],
+                "room": "inSecondRoom",
+                "picture": true
+            },
+            {
+                "coords": [110, 280],
+                "url": "imgMixGrass.png",
+                "size": [50, 77],
+                "room": "inSecondRoom",
+                "picture": true
+            },
+            {
+                "coords": [400, 200],
+                "url": "imgRock.png",
+                "size": [32, 32],
+                "room": "inSecondRoom",
+                "picture": true
+            },
+            {
+                "coords": [420, 335],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inSecondRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [120, 130],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inSecondRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [120, 160],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inSecondRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [120, 190],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inSecondRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [420, 275],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inSecondRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [420, 305],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inSecondRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [80, 184],
+                "url": "poops-4.png",
+                "size": [24, 23],
+                "room": "inSecondRoom",
+                "picture": true
+            },
+            {
+                "coords": [80, 140],
+                "url": "hp.png",
+                "size": [15, 12],
+                "room": "inSecondRoom",
+                "angryMob": false
+            },
+
+            {
+                "coords": [80, 183],
+                "url": "poops-1.png",
+                "size": [32, 32],
+                "room": "inSecondRoom",
+                "hp": ["poops-2.png", "poops-3.png"]
+            },
+            {
+                "coords": [460, 280],
+                "url": "poops-4.png",
+                "size": [24, 23],
+                "room": "inSecondRoom",
+                "picture": true
+            },
+            {
+                "coords": [460, 280],
+                "url": "poops-1.png",
+                "size": [32, 32],
+                "room": "inSecondRoom",
+                "hp": ["poops-2.png", "poops-3.png"]
+            },
+            {
+                "coords": [145, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [390, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [35, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [500, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [500, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [390, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSecondRoom"
+            },
+            {
+                "coords": [145, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSecondRoom"
+            }
+        ]
+    },
+    {
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inSecondRoom",
+                "setBool": false,
+                "texture": {
+                    "doorClose": ["door_4.png", "door_5.png", "door_6.png", "door_7.png"],
+                    "doorOpen": ["door_3.png", "door_2.png", "door_1.png", "door_0.png"],
+                    "door": ["door_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 270,
+                        "y": 96
+                    },
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 497,
+                        "y": 230,
+                        "rotation": "1.57"
+                    },
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 270,
+                        "y": 367,
+                        "rotation": "3.14"
+                    },
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 37,
+                        "y": 230,
+                        "rotation": "4.71"
+                    }
+                ]
+            },
+            {
+                "name": "spotty",
+                "room": "inSecondRoom",
+                "setBool": false,
+                "texture": {
+                    "upWalk": ["spotty-up2.png", "spotty-up3.png"],
+                    "up": ["spotty-up1.png", "spotty-up4.png"],
+                    "downWalk": ["spotty-down1.png", "spotty-down3.png", "spotty-down2.png"],
+                    "down": ["spotty-down5.png", "spotty-down6.png"],
+                    "rightWalk": ["spotty-right1.png", "spotty-right2.png", "spotty-right3.png"],
+                    "right": ["spotty-right4.png", "spotty-right5.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "downWalk",
+                        "anchor": 1,
+                        "animationSpeed": 0.1,
+                        "loop": true,
+                        "x": 250,
+                        "y": 180
+                    }
+                ]
+            },
+            {
+                "name": "potter",
+                "room": "inSecondRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly-1.png", "fly-2.png"],
+                    "shoot": [
+                        "shoot-1.png",
+                        "shoot-2.png",
+                        "shoot-3.png",
+                        "shoot-4.png",
+                        "shoot-5.png",
+                        "shoot-6.png",
+                        "shoot-7.png",
+                        "shoot-8.png",
+                        "shoot-9.png",
+                        "shoot-10.png",
+                        "shoot-11.png",
+                        "shoot-12.png",
+                        "shoot-13.png",
+                        "shoot-14.png"
+                    ],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 410,
+                        "y": 220
+                    }
+                ]
+            },
+            {
+                "name": "fly",
+                "room": "inSecondRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly2-1.png", "fly1-2.png"],
+                    "simpleFly": ["fly1-1.png", "fly1-2.png"],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "simpleFly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 80,
+                        "y": 210
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [420, 160],
+                "url": "imgMix.png",
+                "size": [71, 79],
+                "room": "inThirdRoom",
+                "picture": true
+            },
+            {
+                "coords": [130, 310],
+                "url": "imgGrass3.png",
+                "size": [12, 32],
+                "room": "inThirdRoom",
+                "picture": true
+            },
+            {
+                "coords": [140, 290],
+                "url": "imgRock1.png",
+                "size": [33, 33],
+                "room": "inThirdRoom",
+                "picture": true
+            },
+            {
+                "coords": [270, 330],
+                "url": "imgGrass2.png",
+                "size": [16, 29],
+                "room": "inThirdRoom",
+                "picture": true
+            },
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [35, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [500, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [500, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [145, 200],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [180, 230],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [375, 230],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [340, 200],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [270, 160],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [270, 300],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inThirdRoom"
+            },
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inThirdRoom"
+            }
+        ],
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inThirdRoom",
+                "setBool": false,
+                "texture": {
+                    "doorClose": ["door_4.png", "door_5.png", "door_6.png", "door_7.png"],
+                    "doorOpen": ["door_3.png", "door_2.png", "door_1.png", "door_0.png"],
+                    "door": ["door_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 497,
+                        "y": 230,
+                        "rotation": "1.57"
+                    },
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 37,
+                        "y": 230,
+                        "rotation": "4.71"
+                    }
+                ]
+            },
+            {
+                "name": "gaper",
+                "room": "inThirdRoom",
+                "setBool": false,
+                "texture": {
+                    "angry": ["gaper-angry-tell.png", "gaper-angry.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "angry",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": false,
+                        "x": 270,
+                        "y": 220
+                    }
+                ]
+            },
+            {
+                "name": "potter",
+                "room": "inThirdRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly-1.png", "fly-2.png"],
+                    "shoot": [
+                        "shoot-1.png",
+                        "shoot-2.png",
+                        "shoot-3.png",
+                        "shoot-4.png",
+                        "shoot-5.png",
+                        "shoot-6.png",
+                        "shoot-7.png",
+                        "shoot-8.png",
+                        "shoot-9.png",
+                        "shoot-10.png",
+                        "shoot-11.png",
+                        "shoot-12.png",
+                        "shoot-13.png",
+                        "shoot-14.png"
+                    ],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 190,
+                        "y": 160
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 370,
+                        "y": 300
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [110, 190],
+                "url": "imgRock.png",
+                "size": [22, 22],
+                "room": "inFourthRoom",
+                "picture": true
+            },
+            {
+                "coords": [290, 300],
+                "url": "imgRock1.png",
+                "size": [22, 24],
+                "room": "inFourthRoom",
+                "picture": true
+            },
+            {
+                "coords": [220, 180],
+                "url": "imgRock1.png",
+                "size": [12, 14],
+                "room": "inFourthRoom",
+                "picture": true
+            },
+            {
+                "coords": [210, 280],
+                "url": "imgRock1.png",
+                "size": [10, 12],
+                "room": "inFourthRoom",
+                "picture": true
+            },
+            {
+                "coords": [310, 120],
+                "url": "imgRock.png",
+                "size": [7, 7],
+                "room": "inFourthRoom",
+                "picture": true
+            },
+            {
+                "coords": [330, 220],
+                "url": "imgRock.png",
+                "size": [12, 12],
+                "room": "inFourthRoom",
+                "picture": true
+            },
+            {
+                "coords": [300, 185],
+                "url": "imgStain.png",
+                "size": [32, 20],
+                "room": "inFourthRoom",
+                "picture": true
+            },
+            {
+                "coords": [100, 255],
+                "url": "imgShadow.png",
+                "size": [47, 37],
+                "room": "inFourthRoom",
+                "picture": true
+            },
+            {
+                "coords": [140, 190],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [170, 190],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [200, 190],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [140, 270],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [170, 270],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inFourthRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [200, 270],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [440, 190],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [470, 190],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inFourthRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [440, 270],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inFourthRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [466, 270],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [35, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [512, 230],
+                "url": "invisibleBlock.png",
+                "size": [42, 300],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inFourthRoom"
+            },
+            {
+                "coords": [450, 230],
+                "url": "hp.png",
+                "size": [15, 12],
+                "room": "inFourthRoom",
+                "angryMob": false
+            }
+        ],
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inFourthRoom",
+                "setBool": false,
+                "texture": {
+                    "doorClose": ["door_4.png", "door_5.png", "door_6.png", "door_7.png"],
+                    "doorOpen": ["door_3.png", "door_2.png", "door_1.png", "door_0.png"],
+                    "door": ["door_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 37,
+                        "y": 230,
+                        "rotation": "4.71"
+                    }
+                ]
+            },
+            {
+                "name": "clotty",
+                "room": "inFourthRoom",
+                "setBool": false,
+                "texture": {
+                    "stand": ["clotty-1.png"],
+                    "shoot": [
+                        "clotty-2.png",
+                        "clotty-11.png",
+                        "clotty-8.png",
+                        "clotty-9.png",
+                        "clotty-11.png",
+                        "clotty-1.png"
+                    ],
+                    "jump": [
+                        "clotty-2.png",
+                        "clotty-4.png",
+                        "clotty-5.png",
+                        "clotty-6.png",
+                        "clotty-7.png",
+                        "clotty-3.png",
+                        "clotty-11.png"
+                    ],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "stand",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 310,
+                        "y": 245
+                    }
+                ]
+            },
+            {
+                "name": "host",
+                "room": "inFourthRoom",
+                "setBool": false,
+                "texture": {
+                    "block": ["host-2.png", "host-3.png", "host-1.png"],
+                    "shoot": ["host-2.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 450,
+                        "y": 160
+                    },
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 400,
+                        "y": 245
+                    },
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 450,
+                        "y": 330
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [95, 140],
+                "url": "imgShadow.png",
+                "size": [55, 22],
+                "room": "inFifthRoom",
+                "picture": true
+            },
+            {
+                "coords": [280, 280],
+                "url": "imgRock.png",
+                "size": [25, 25],
+                "room": "inFifthRoom",
+                "picture": true
+            },
+            {
+                "coords": [240, 270],
+                "url": "imgGrass3.png",
+                "size": [15, 15],
+                "room": "inFifthRoom",
+                "picture": true
+            },
+            {
+                "coords": [200, 140],
+                "url": "imgRock1.png",
+                "size": [17, 18],
+                "room": "inFifthRoom",
+                "picture": true
+            },
+            {
+                "coords": [120, 310],
+                "url": "imgStain1.png",
+                "size": [55, 22],
+                "room": "inFifthRoom",
+                "picture": true
+            },
+            {
+                "coords": [440, 300],
+                "url": "imgGrass.png",
+                "size": [43, 32],
+                "room": "inFifthRoom",
+                "picture": true
+            },
+            {
+                "coords": [280, 200],
+                "url": "imgGrass1.png",
+                "size": [15, 20],
+                "room": "inFifthRoom",
+                "picture": true
+            },
+            {
+                "coords": [180, 165],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [180, 305],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [145, 200],
+                "url": "rock4.png",
+                "size": [35, 40],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [145, 235],
+                "url": "rock4.png",
+                "size": [35, 40],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [180, 235],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [145, 270],
+                "url": "rock4.png",
+                "size": [35, 40],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [380, 165],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [380, 305],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [345, 200],
+                "url": "rock4.png",
+                "size": [35, 40],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [345, 235],
+                "url": "rock4.png",
+                "size": [35, 40],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [380, 235],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [345, 270],
+                "url": "rock4.png",
+                "size": [35, 40],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [35, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [500, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [500, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inFifthRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inFifthRoom"
+            }
+        ],
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inFifthRoom",
+                "setBool": false,
+                "texture": {
+                    "doorClose": ["door_4.png", "door_5.png", "door_6.png", "door_7.png"],
+                    "doorOpen": ["door_3.png", "door_2.png", "door_1.png", "door_0.png"],
+                    "door": ["door_0.png"],
+                    "goldClose": ["goldenDoor_4.png", "goldenDoor_5.png", "goldenDoor_6.png", "goldenDoor_7.png"],
+                    "goldOpen": ["goldenDoor_3.png", "goldenDoor_2.png", "goldenDoor_1.png", "goldenDoor_0.png"],
+                    "gold": ["goldenDoor_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 497,
+                        "y": 230,
+                        "rotation": "1.57"
+                    },
+                    {
+                        "sheetSpriteStr": "gold",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 35,
+                        "y": 230,
+                        "rotation": "4.71"
+                    }
+                ]
+            },
+            {
+                "name": "potter",
+                "room": "inFifthRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly-1.png", "fly-2.png"],
+                    "shoot": [
+                        "shoot-1.png",
+                        "shoot-2.png",
+                        "shoot-3.png",
+                        "shoot-4.png",
+                        "shoot-5.png",
+                        "shoot-6.png",
+                        "shoot-7.png",
+                        "shoot-8.png",
+                        "shoot-9.png",
+                        "shoot-10.png",
+                        "shoot-11.png",
+                        "shoot-12.png",
+                        "shoot-13.png",
+                        "shoot-14.png"
+                    ],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 80,
+                        "y": 230
+                    }
+                ]
+            },
+            {
+                "name": "fly",
+                "room": "inFifthRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly2-1.png", "fly1-2.png"],
+                    "simpleFly": ["fly1-1.png", "fly1-2.png"],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "simpleFly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 270,
+                        "y": 220
+                    }
+                ]
+            },
+            {
+                "name": "milligan",
+                "room": "inFifthRoom",
+                "setBool": false,
+                "texture": {
+                    "angry": ["miligan1.png", "miligan2.png", "miligan3.png"],
+                    "createFly": ["miligan-death1.png", "miligan-death2.png", "miligan-death3.png"],
+                    "upSpeed": ["miligan-be1.png", "miligan-be2.png"],
+                    "downWalk": ["to1.png", "to2.png"],
+                    "upWalk": ["out1.png", "out2.png"],
+                    "leftWalk": ["left1.png", "left2.png", "left3.png"],
+                    "rightWalk": ["right1.png", "right2.png", "right3.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "downWalk",
+                        "anchor": 1,
+                        "animationSpeed": 0.1,
+                        "loop": true,
+                        "x": 420,
+                        "y": 265
+                    },
+                    {
+                        "sheetSpriteStr": "angry",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": true,
+                        "x": 420,
+                        "y": 265
+                    },
+                    {
+                        "sheetSpriteStr": "downWalk",
+                        "anchor": 1,
+                        "animationSpeed": 0.1,
+                        "loop": true,
+                        "x": 220,
+                        "y": 180
+                    },
+                    {
+                        "sheetSpriteStr": "angry",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": true,
+                        "x": 220,
+                        "y": 180
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [130, 130],
+                "url": "imgStain.png",
+                "size": [30, 19],
+                "room": "inSixthRoom",
+                "picture": true
+            },
+            {
+                "coords": [170, 200],
+                "url": "imgRock1.png",
+                "size": [20, 21],
+                "room": "inSixthRoom",
+                "picture": true
+            },
+            {
+                "coords": [400, 170],
+                "url": "imgMixGrass.png",
+                "size": [50, 70],
+                "room": "inSixthRoom",
+                "picture": true
+            },
+            {
+                "coords": [400, 320],
+                "url": "imgGrass3.png",
+                "size": [12, 35],
+                "room": "inSixthRoom",
+                "picture": true
+            },
+            {
+                "coords": [150, 300],
+                "url": "imgGrass1.png",
+                "size": [15, 20],
+                "room": "inSixthRoom",
+                "picture": true
+            },
+            {
+                "coords": [270, 260],
+                "url": "imgGrass2.png",
+                "size": [16, 27],
+                "room": "inSixthRoom",
+                "picture": true
+            },
+            {
+                "coords": [190, 250],
+                "url": "imgRock.png",
+                "size": [37, 37],
+                "room": "inSixthRoom",
+                "picture": true
+            },
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [25, 235],
+                "url": "invisibleBlock.png",
+                "size": [60, 300],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [500, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [500, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [270, 230],
+                "url": "belt.png",
+                "size": [23, 21],
+                "room": "inSixthRoom",
+                "angryMob": false
+            },
+            {
+                "coords": [235, 230],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inSixthRoom"
+            },
+            {
+                "coords": [305, 230],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inSixthRoom"
+            }
+        ],
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inSixthRoom",
+                "setBool": false,
+                "texture": {
+                    "gold": ["goldenDoor_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "gold",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 500,
+                        "y": 230,
+                        "rotation": "1.57"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [270, 330],
+                "url": "imgShadow.png",
+                "size": [50, 27],
+                "room": "inSeventhRoom",
+                "picture": true
+            },
+            {
+                "coords": [140, 220],
+                "url": "imgGrass.png",
+                "size": [47, 37],
+                "room": "inSeventhRoom",
+                "picture": true
+            },
+            {
+                "coords": [410, 250],
+                "url": "imgStain1.png",
+                "size": [55, 22],
+                "room": "inSeventhRoom",
+                "picture": true
+            },
+            {
+                "coords": [65, 130],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inSeventhRoom"
+            },
+            {
+                "coords": [465, 130],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inSeventhRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [65, 335],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inSeventhRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [465, 335],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inSeventhRoom",
+                "rotation": "3.14"
+            },
+            {
+                "coords": [220, 200],
+                "url": "poops-4.png",
+                "size": [29, 29],
+                "room": "inSeventhRoom",
+                "picture": true
+            },
+            {
+                "coords": [220, 200],
+                "url": "poops-1.png",
+                "size": [32, 32],
+                "room": "inSeventhRoom",
+                "hp": ["poops-2.png", "poops-3.png"]
+            },
+            {
+                "coords": [150, 280],
+                "url": "poops-4.png",
+                "size": [29, 29],
+                "room": "inSeventhRoom",
+                "picture": true
+            },
+            {
+                "coords": [150, 280],
+                "url": "poops-1.png",
+                "size": [32, 32],
+                "room": "inSeventhRoom",
+                "hp": ["poops-2.png", "poops-3.png"]
+            },
+            {
+                "coords": [300, 300],
+                "url": "poops-4.png",
+                "size": [27, 27],
+                "room": "inSeventhRoom",
+                "picture": true
+            },
+            {
+                "coords": [300, 300],
+                "url": "poops-1.png",
+                "size": [32, 32],
+                "room": "inSeventhRoom",
+                "hp": ["poops-2.png", "poops-3.png"]
+            },
+            {
+                "coords": [350, 170],
+                "url": "poops-4.png",
+                "size": [27, 27],
+                "room": "inSeventhRoom",
+                "picture": true
+            },
+            {
+                "coords": [350, 170],
+                "url": "poops-1.png",
+                "size": [32, 32],
+                "room": "inSeventhRoom",
+                "hp": ["poops-2.png", "poops-3.png"]
+            },
+            {
+                "coords": [145, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSeventhRoom"
+            },
+            {
+                "coords": [390, 95],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSeventhRoom"
+            },
+            {
+                "coords": [25, 235],
+                "url": "invisibleBlock.png",
+                "size": [60, 300],
+                "room": "inSeventhRoom"
+            },
+            {
+                "coords": [500, 235],
+                "url": "invisibleBlock.png",
+                "size": [40, 300],
+                "room": "inSeventhRoom"
+            },
+            {
+                "coords": [390, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSeventhRoom"
+            },
+            {
+                "coords": [145, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inSeventhRoom"
+            }
+        ],
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inSeventhRoom",
+                "setBool": false,
+                "texture": {
+                    "doorClose": ["door_4.png", "door_5.png", "door_6.png", "door_7.png"],
+                    "doorOpen": ["door_3.png", "door_2.png", "door_1.png", "door_0.png"],
+                    "door": ["door_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 270,
+                        "y": 96
+                    },
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 270,
+                        "y": 367,
+                        "rotation": "3.14"
+                    }
+                ]
+            },
+            {
+                "name": "fly",
+                "room": "inSeventhRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly2-1.png", "fly1-2.png"],
+                    "simpleFly": ["fly1-1.png", "fly1-2.png"],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "simpleFly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 420,
+                        "y": 320
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 120,
+                        "y": 150
+                    },
+                    {
+                        "sheetSpriteStr": "simpleFly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 120,
+                        "y": 320
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 420,
+                        "y": 150
+                    },
+                    {
+                        "sheetSpriteStr": "simpleFly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 270,
+                        "y": 220
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [400, 300],
+                "url": "imgGrass2.png",
+                "size": [16, 29],
+                "room": "inEighthRoom",
+                "picture": true
+            },
+            {
+                "coords": [380, 290],
+                "url": "imgRock.png",
+                "size": [20, 20],
+                "room": "inEighthRoom",
+                "picture": true
+            },
+            {
+                "coords": [410, 160],
+                "url": "imgRock1.png",
+                "size": [16, 28],
+                "room": "inEighthRoom",
+                "picture": true
+            },
+            {
+                "coords": [90, 165],
+                "url": "imgMix.png",
+                "size": [61, 69],
+                "room": "inEighthRoom",
+                "picture": true
+            },
+            {
+                "coords": [130, 310],
+                "url": "imgGrass3.png",
+                "size": [12, 34],
+                "room": "inEighthRoom",
+                "picture": true
+            },
+            {
+                "coords": [182, 180],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [153, 180],
+                "url": "rock2.png",
+                "size": [35, 45],
+                "room": "inEighthRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [217, 180],
+                "url": "rock2.png",
+                "size": [35, 45],
+                "room": "inEighthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [225, 210],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [148, 210],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [390, 210],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [390, 180],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inEighthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [355, 180],
+                "url": "rock3.png",
+                "size": [45, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [320, 180],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [312, 205],
+                "url": "rock4.png",
+                "size": [30, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [312, 230],
+                "url": "rock3.png",
+                "size": [30, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [265, 260],
+                "url": "rock3.png",
+                "size": [45, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [230, 260],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inEighthRoom",
+                "rotation": "4.71"
+            },
+            {
+                "coords": [303, 260],
+                "url": "rock2.png",
+                "size": [35, 45],
+                "room": "inEighthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [228, 230],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [35, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [500, 235],
+                "url": "invisibleBlock.png",
+                "size": [40, 300],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [390, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inEighthRoom"
+            },
+            {
+                "coords": [145, 365],
+                "url": "invisibleBlock.png",
+                "size": [215, 35],
+                "room": "inEighthRoom"
+            }
+        ],
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inEighthRoom",
+                "setBool": false,
+                "texture": {
+                    "doorClose": ["door_4.png", "door_5.png", "door_6.png", "door_7.png"],
+                    "doorOpen": ["door_3.png", "door_2.png", "door_1.png", "door_0.png"],
+                    "door": ["door_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 270,
+                        "y": 367,
+                        "rotation": "3.14"
+                    },
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 37,
+                        "y": 230,
+                        "rotation": "4.71"
+                    }
+                ]
+            },
+            {
+                "name": "potter",
+                "room": "inEighthRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly-1.png", "fly-2.png"],
+                    "shoot": [
+                        "shoot-1.png",
+                        "shoot-2.png",
+                        "shoot-3.png",
+                        "shoot-4.png",
+                        "shoot-5.png",
+                        "shoot-6.png",
+                        "shoot-7.png",
+                        "shoot-8.png",
+                        "shoot-9.png",
+                        "shoot-10.png",
+                        "shoot-11.png",
+                        "shoot-12.png",
+                        "shoot-13.png",
+                        "shoot-14.png"
+                    ],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 180,
+                        "y": 120
+                    }
+                ]
+            },
+            {
+                "name": "host",
+                "room": "inEighthRoom",
+                "setBool": false,
+                "texture": {
+                    "block": ["host-2.png", "host-3.png", "host-1.png"],
+                    "shoot": ["host-2.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 450,
+                        "y": 340
+                    }
+                ]
+            },
+            {
+                "name": "gaper",
+                "room": "inEighthRoom",
+                "setBool": false,
+                "texture": {
+                    "angry": ["gaper-angry-tell.png", "gaper-angry.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "angry",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": false,
+                        "x": 180,
+                        "y": 235
+                    },
+                    {
+                        "sheetSpriteStr": "angry",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": false,
+                        "x": 270,
+                        "y": 220
+                    },
+                    {
+                        "sheetSpriteStr": "angry",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": false,
+                        "x": 360,
+                        "y": 235
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [70, 232],
+                "url": "imgLightBoss.png",
+                "size": [58, 30],
+                "room": "inNinthRoom",
+                "rotation": "4.71",
+                "picture": true
+            },
+            {
+                "coords": [160, 310],
+                "url": "imgMixGrass.png",
+                "size": [44, 69],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [160, 310],
+                "url": "imgMixGrass.png",
+                "size": [44, 69],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [110, 190],
+                "url": "imgRock.png",
+                "size": [22, 22],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [210, 130],
+                "url": "imgRock1.png",
+                "size": [22, 24],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [220, 180],
+                "url": "imgRock1.png",
+                "size": [12, 14],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [210, 280],
+                "url": "imgRock1.png",
+                "size": [10, 12],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [310, 120],
+                "url": "imgRock.png",
+                "size": [7, 7],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [330, 220],
+                "url": "imgRock.png",
+                "size": [12, 12],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [250, 230],
+                "url": "imgGrass.png",
+                "size": [27, 20],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [400, 130],
+                "url": "imgGrass.png",
+                "size": [17, 10],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [360, 160],
+                "url": "imgGrass1.png",
+                "size": [14, 19],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [420, 140],
+                "url": "imgShadow.png",
+                "size": [27, 17],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [430, 220],
+                "url": "imgRock.png",
+                "size": [22, 22],
+                "room": "inNinthRoom",
+                "picture": true
+            },
+            {
+                "coords": [70, 260],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inNinthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [70, 200],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inNinthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [470, 200],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inNinthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [470, 260],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inNinthRoom",
+                "rotation": "1.57"
+            },
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [35, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [35, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [500, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [500, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inNinthRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inNinthRoom"
+            }
+        ],
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inNinthRoom",
+                "setBool": false,
+                "texture": {
+                    "doorClose": ["door_4.png", "door_5.png", "door_6.png", "door_7.png"],
+                    "doorOpen": ["door_3.png", "door_2.png", "door_1.png", "door_0.png"],
+                    "door": ["door_0.png"],
+                    "bossClose": ["bossDoor_4.png", "bossDoor_5.png", "bossDoor_6.png", "bossDoor_7.png"],
+                    "bossOpen": ["bossDoor_3.png", "bossDoor_2.png", "bossDoor_1.png", "bossDoor_0.png"],
+                    "boss": ["bossDoor_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "door",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 497,
+                        "y": 230,
+                        "rotation": "1.57"
+                    },
+                    {
+                        "sheetSpriteStr": "boss",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 35,
+                        "y": 230,
+                        "rotation": "4.71"
+                    }
+                ]
+            },
+            {
+                "name": "clotty",
+                "room": "inNinthRoom",
+                "setBool": false,
+                "texture": {
+                    "stand": ["clotty-1.png"],
+                    "shoot": [
+                        "clotty-2.png",
+                        "clotty-11.png",
+                        "clotty-8.png",
+                        "clotty-9.png",
+                        "clotty-11.png",
+                        "clotty-1.png"
+                    ],
+                    "jump": [
+                        "clotty-2.png",
+                        "clotty-4.png",
+                        "clotty-5.png",
+                        "clotty-6.png",
+                        "clotty-7.png",
+                        "clotty-3.png",
+                        "clotty-11.png"
+                    ],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "stand",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 230,
+                        "y": 190
+                    },
+                    {
+                        "sheetSpriteStr": "stand",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 290,
+                        "y": 290
+                    }
+                ]
+            },
+            {
+                "name": "host",
+                "room": "inNinthRoom",
+                "setBool": false,
+                "texture": {
+                    "block": ["host-2.png", "host-3.png", "host-1.png"],
+                    "shoot": ["host-2.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 70,
+                        "y": 150
+                    },
+                    {
+                        "sheetSpriteStr": "block",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.2,
+                        "loop": false,
+                        "x": 70,
+                        "y": 340
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "createGameElement": [
+            {
+                "coords": [90, 150],
+                "url": "imgGrass2.png",
+                "size": [16, 29],
+                "room": "inTenthRoom",
+                "picture": true
+            },
+            {
+                "coords": [200, 200],
+                "url": "imgGrass.png",
+                "size": [47, 37],
+                "room": "inTenthRoom",
+                "picture": true
+            },
+            {
+                "coords": [110, 280],
+                "url": "imgMixGrass.png",
+                "size": [50, 77],
+                "room": "inTenthRoom",
+                "picture": true
+            },
+            {
+                "coords": [290, 300],
+                "url": "imgRock1.png",
+                "size": [22, 24],
+                "room": "inTenthRoom",
+                "picture": true
+            },
+            {
+                "coords": [220, 180],
+                "url": "imgRock1.png",
+                "size": [12, 14],
+                "room": "inTenthRoom",
+                "picture": true
+            },
+            {
+                "coords": [210, 280],
+                "url": "imgRock1.png",
+                "size": [10, 12],
+                "room": "inTenthRoom",
+                "picture": true
+            },
+            {
+                "coords": [400, 200],
+                "url": "imgRock.png",
+                "size": [32, 32],
+                "room": "inTenthRoom",
+                "picture": true
+            },
+            {
+                "coords": [65, 130],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [65, 160],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inTenthRoom",
+                "rotation": "3.14"
+            },
+            {
+                "coords": [98, 130],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inTenthRoom",
+                "rotation": "3.14"
+            },
+            {
+                "coords": [467, 335],
+                "url": "rock2.png",
+                "size": [35, 35],
+                "room": "inTenthRoom",
+                "rotation": "3.14"
+            },
+            {
+                "coords": [467, 304],
+                "url": "rock3.png",
+                "size": [35, 35],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [437, 335],
+                "url": "rock4.png",
+                "size": [35, 35],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [250, 95],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [25, 235],
+                "url": "invisibleBlock.png",
+                "size": [60, 300],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [500, 155],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [500, 320],
+                "url": "invisibleBlock.png",
+                "size": [42, 135],
+                "room": "inTenthRoom"
+            },
+            {
+                "coords": [250, 365],
+                "url": "invisibleBlock.png",
+                "size": [470, 35],
+                "room": "inTenthRoom"
+            }
+        ],
+        "createAnimateElement": [
+            {
+                "name": "door",
+                "room": "inTenthRoom",
+                "setBool": false,
+                "texture": {
+                    "bossClose": ["bossDoor_4.png", "bossDoor_5.png", "bossDoor_6.png", "bossDoor_7.png"],
+                    "bossOpen": ["bossDoor_3.png", "bossDoor_2.png", "bossDoor_1.png", "bossDoor_0.png"],
+                    "boss": ["bossDoor_0.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "boss",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.35,
+                        "loop": false,
+                        "x": 500,
+                        "y": 230,
+                        "rotation": "1.57"
+                    }
+                ]
+            },
+            {
+                "name": "gurdy",
+                "room": "inTenthRoom",
+                "setBool": false,
+                "texture": {
+                    "transparent": ["gurdy-transporent.png"],
+                    "move": ["gurdy-bg1.png", "gurdy-bg3.png"],
+                    "laugh": ["gurdy8.png", "gurdy9.png", "gurdy10.png"],
+                    "stand": ["gurdy1.png", "gurdy2.png"],
+                    "fire": ["gurdy5.png", "gurdy6.png"],
+                    "angry": ["gurdy3.png", "gurdy10.png", "gurdy4.png", "gurdy5.png", "gurdy6.png"],
+                    "death": [
+                        "deaths1.png",
+                        "deaths2.png",
+                        "deaths3.png",
+                        "deaths4.png",
+                        "deaths5.png",
+                        "deaths6.png",
+                        "deaths7.png",
+                        "deaths8.png",
+                        "deaths9.png",
+                        "deaths10.png"
+                    ]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "move",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.08,
+                        "loop": true,
+                        "x": 230,
+                        "y": 230
+                    },
+                    {
+                        "sheetSpriteStr": "transparent",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.1,
+                        "loop": true,
+                        "x": 262,
+                        "y": 255
+                    },
+                    {
+                        "sheetSpriteStr": "stand",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.05,
+                        "loop": true,
+                        "x": 233,
+                        "y": 215
+                    }
+                ]
+            },
+            {
+                "name": "fly",
+                "room": "inTenthRoom",
+                "setBool": false,
+                "texture": {
+                    "fly": ["fly2-1.png", "fly1-2.png"],
+                    "simpleFly": ["fly1-1.png", "fly1-2.png"],
+                    "death": ["fly-death1.png", "fly-death2.png", "fly-death3.png", "fly-death4.png", "fly-death5.png"]
+                },
+                "propertiesAr": [
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 80,
+                        "y": 210
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 80,
+                        "y": 230
+                    },
+                    {
+                        "sheetSpriteStr": "fly",
+                        "anchor": 0.5,
+                        "animationSpeed": 0.4,
+                        "loop": true,
+                        "x": 80,
+                        "y": 180
+                    }
+                ]
+            }
+        ]
+    }
+]

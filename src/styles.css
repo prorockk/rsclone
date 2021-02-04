@@ -1,0 +1,49 @@
+@font-face {
+    font-family: "DRKrapka";
+    src: url("../assets/fonts/Isaac-Regular.woff");
+}
+
+body {
+    cursor: url("https://media.discordapp.net/attachments/510852695515594802/806177955721248808/-removebg-preview.png"),
+        auto;
+    margin: 0;
+    padding: 0;
+    font-family: "DRKrapka";
+    font-size: 0px;
+    display: flex;
+    width: auto;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../images/e45a1c8ddd6a1ec1f69c317b6807fc7f30217098.png");
+    background-repeat: repeat-x;
+}
+
+input {
+    position: absolute;
+    width: 240px;
+    height: 30px;
+    background-color: rgb(231, 221, 220);
+    font-size: 18px;
+    text-align: center;
+    border: 4px ridge rgb(138, 105, 68);
+    border-radius: 5px;
+    outline: none;
+    transform: rotate(-2deg);
+}
+
+.invalid {
+    animation: false 1s infinite;
+}
+
+@keyframes false {
+    0% {
+        border-color: rgb(138, 105, 68);
+    }
+    50% {
+        border-color: red;
+    }
+    100% {
+        border-color: rgb(138, 105, 68);
+    }
+}
